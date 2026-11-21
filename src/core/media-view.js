@@ -49,24 +49,25 @@ export class MediaView {
     body.innerHTML = `
      <section class="printables-library" aria-labelledby="flashcards-title">
       <div class="printables-toolbar"><h2 id="flashcards-title">Picture flashcards</h2>
-       <label>Print layout <select data-media-layout>${LAYOUTS.map(([n, l]) => `<option value="${n}">${l}</option>`).join("")}</select></label></div>
-      <p class="printables-hint">Print on A4${m.cards === 8 ? " in landscape" : ""} at actual size (100%).${hint}</p>
+       ${packs.length ? `<label>Print layout <select data-media-layout>${LAYOUTS.map(([n, l]) => `<option value="${n}">${l}</option>`).join("")}</select></label>` : ""}</div>
+      ${packs.length ? `<p class="printables-hint">Print on A4${m.cards === 8 ? " in landscape" : ""} at actual size (100%).${hint}</p>` : ""}
       ${packs.length ? `<div class="printables-grid">${packs.map((p) => `<article class="printable-card${p.scopeId === "all" ? " printable-card--complete" : ""}"><img src="${esc(art.get(p.scopeId))}" alt="" width="88" height="72" loading="lazy"><div class="printable-details"><h3>${esc(p.title)}</h3><p>${p.wordCount} words · ${p.pageCount} ${p.pageCount === 1 ? "page" : "pages"} · ${size(p.bytes)}</p></div>${links(p.title, p.path)}</article>`).join("")}</div>` : soon("Picture flashcards")}
      </section>
      <section class="printables-library" aria-labelledby="tracing-title">
       <div class="printables-toolbar"><h2 id="tracing-title">Tracing sheets</h2>
-       <label>Print layout <select data-media-trace><option value="A4">A4 landscape · 1 picture</option><option value="A5">A4 · 2 A5 pictures</option></select></label></div>
-      <p class="printables-hint">Trace over the grey dashes. Print on A4${m.trace === "A5" ? "" : " in landscape"} at actual size (100%).${m.trace === "A5" ? " Cut the sheets in half along the centre line." : ""}</p>
+       ${traces.length ? `<label>Print layout <select data-media-trace><option value="A4">A4 landscape · 1 picture</option><option value="A5">A4 · 2 A5 pictures</option></select></label>` : ""}</div>
+      ${traces.length ? `<p class="printables-hint">Trace over the grey dashes. Print on A4${m.trace === "A5" ? "" : " in landscape"} at actual size (100%).${m.trace === "A5" ? " Cut the sheets in half along the centre line." : ""}</p>` : ""}
       ${traces.length ? `<div class="printables-grid">${traces.map((p) => `<article class="printable-card"><img src="${esc(p.cover)}" alt="" width="88" height="72" loading="lazy"><div class="printable-details"><h3>${esc(p.title)}</h3><p>${p.pageCount} pictures · ${p.pages} pages · ${size(p.bytes)}</p></div>${links(p.title, p.path)}</article>`).join("")}</div>` : soon("Tracing sheets")}
      </section>
      <section class="printables-library" aria-labelledby="mats-title">
       <div class="printables-toolbar"><h2 id="mats-title">Sound mats</h2>
-       <label>Print layout <select data-media-mat><option value="A4">A4 · 1 mat</option><option value="A5">A4 landscape · 2 A5 mats</option></select></label></div>
-      <p class="printables-hint">Print on A4${m.mat === "A5" ? " in landscape" : ""} at actual size (100%).${m.mat === "A5" ? " Cut the mats apart along the centre line." : ""}</p>
+       ${mats.length ? `<label>Print layout <select data-media-mat><option value="A4">A4 · 1 mat</option><option value="A5">A4 landscape · 2 A5 mats</option></select></label>` : ""}</div>
+      ${mats.length ? `<p class="printables-hint">Print on A4${m.mat === "A5" ? " in landscape" : ""} at actual size (100%).${m.mat === "A5" ? " Cut the mats apart along the centre line." : ""}</p>` : ""}
       ${mats.length ? `<div class="printables-grid">${mats.map((p) => `<article class="printable-card"><img src="${esc(p.cover)}" alt="" width="88" height="72" loading="lazy"><div class="printable-details"><h3>${esc(p.title)}</h3><p>${esc(p.detail)} · ${size(p.bytes)}</p></div>${links(p.title, p.path)}</article>`).join("")}</div>` : soon("Sound mats")}
      </section>`;
     const pick = (sel, key, parse) => {
       const el = body.querySelector(sel);
+      if (!el) return; // an empty shelf has no print layout to pick
       el.value = String(m[key]);
       el.onchange = () => {
         if (game.paused) return;
