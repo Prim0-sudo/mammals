@@ -1,0 +1,97 @@
+/* Media (ported from Plants): tabs, printables list and the presentation player, in Insects colours. */
+#app .media-card #content { display:grid; align-content:start; gap:16px; width:min(1100px,100%); margin:0 auto; }
+#app .media-root { display:grid; align-content:start; gap:16px; }
+#app .media-body { display:grid; align-content:start; gap:20px; }
+#app .media-sections { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; width:fit-content; max-width:100%; margin:0 auto; padding:4px; border:1px solid #c5d0ae; border-radius:16px; background:#f7f8ed; }
+#app .media-sections > button { min-height:44px; padding:6px 18px; border:1px solid transparent; border-radius:11px; background:transparent; font-weight:700; color:#1f4f39; }
+#app .media-sections > button:hover { background:#eef2e3; }
+#app .media-sections > button[aria-pressed="true"] { background:#e2edcf; border-color:#849d6c; }
+#app .printables-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px; margin-bottom:10px; color:#1f4f39; }
+#app .printables-toolbar h2 { margin:0; font-size:1.25rem; }
+#app .printables-toolbar label { display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:700; max-width:100%; }
+#app .media-card select { min-width:0; min-height:44px; padding:6px 10px; background:#fff; border:1px solid #91ab79; border-radius:8px; color:#1f4f39; font:inherit; font-weight:400; }
+#app .printables-hint { margin:0 0 10px; color:#52665a; font-size:1rem; line-height:1.4; }
+#app .printables-grid { overflow:hidden; border:1px solid #c5d0ae; border-radius:16px; background:#fffbed; }
+#app .printable-card { display:grid; grid-template-columns:88px minmax(0,1fr) auto; align-items:center; gap:14px; padding:8px 16px; }
+#app .printable-card + .printable-card { border-top:1px solid #dce3ce; }
+#app .printable-card--complete { background:#e8f0dc; }
+#app .printable-card > img { display:block; width:100%; height:72px; object-fit:contain; border-radius:8px; background:#fff; }
+#app .printable-card h3 { margin:0 0 3px; font-size:1.05rem; line-height:1.25; color:#1f4f39; }
+#app .printable-card p { margin:0; font-size:.85rem; line-height:1.4; color:#52665a; }
+#app .printable-actions { display:flex; flex-wrap:wrap; gap:8px; }
+#app .printable-actions > a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:6px 12px; border:1px solid #8ea679; border-radius:8px; color:#1f4f39; font-size:1rem; font-weight:700; text-decoration:none; }
+#app .printable-actions > a[download] { background:#f2f6e8; }
+#app .printable-actions > a:hover { background:#e2edcf; }
+#app .media-card :is(a,select,button):focus-visible { outline:2px solid #1f4f39; outline-offset:2px; }
+
+#app .media-presentation { display:grid; gap:12px; padding:clamp(12px,2vw,20px); background:#fffbed; border:1px solid #c5d0ae; border-radius:22px; }
+#app .presentation-header { display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:8px 16px; }
+#app .presentation-header h2 { margin:0; color:#1f4f39; font-size:clamp(1.2rem,2.4vw,1.5rem); line-height:1.2; }
+#app .presentation-header p { margin:2px 0 0; color:#52665a; line-height:1.4; }
+#app .presentation-header label { display:flex; align-items:center; gap:8px; font-weight:700; color:#1f4f39; }
+#app .presentation-header select { max-width:60vw; }
+#app .presentation-player { display:grid; gap:10px; }
+#app .presentation-stage { position:relative; width:min(100%, calc((100svh - 330px) * 16 / 9)); min-width:min(100%,320px); justify-self:center; aspect-ratio:16 / 9; overflow:hidden; border-radius:14px; border:1px solid #c5d0ae; background:#fbf7ec; outline-offset:3px; }
+#app .presentation-canvas { position:absolute; top:0; left:0; transform-origin:0 0; }
+#app .presentation-canvas > section { position:relative; box-sizing:border-box; width:100%; height:100%; overflow:hidden; }
+#app .presentation-canvas *, #app .presentation-canvas *::before, #app .presentation-canvas *::after { box-sizing:border-box; margin:0; }
+#app .presentation-canvas img { max-width:none; max-height:none; }
+#app .presentation-canvas [data-build-in] { visibility:hidden; opacity:0; transform:scale(.94); transition:opacity .25s ease, transform .25s ease; }
+#app .presentation-canvas [data-build-in].is-shown { visibility:visible; opacity:1; transform:none; }
+#app .presentation-controls { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px; }
+#app .presentation-controls button { min-height:48px; min-width:7.5em; padding:8px 14px; border:2px solid #247b41; border-radius:12px; background:#fff; color:#1f4f39; font-weight:700; }
+#app .presentation-controls button.is-main { background:#2b7a4b; color:#fffbed; border-color:#2b7a4b; }
+#app .presentation-controls button:disabled { opacity:.45; }
+#app .presentation-count { min-width:4.5em; text-align:center; font-weight:700; color:#1f4f39; }
+#app .presentation-notes { color:#3f4d40; line-height:1.6; }
+#app .presentation-notes summary { cursor:pointer; min-height:44px; display:flex; align-items:center; font-weight:700; }
+#app .presentation-notes p { white-space:pre-line; margin:0; }
+#app .presentation-player:fullscreen { display:flex; flex-direction:column; justify-content:center; gap:12px; padding:12px; background:#1f4f39; }
+#app .presentation-player:fullscreen .presentation-stage { flex:1; min-height:0; width:100%; aspect-ratio:auto; border:0; border-radius:0; background:#1f4f39; }
+#app .presentation-player:fullscreen .presentation-count { color:#fffbed; }
+/* Storybook videos and narrated lessons (as Plants). */
+#app .media-lessons-title, #app .media-empty h2 { margin:8px 0 0; color:#1f4f39; font-family:inherit; font-size:1.25rem; }
+#app .media-resources { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:12px; }
+#app .media-resource { display:flex; flex-direction:column; gap:8px; min-width:0; padding:clamp(12px,2vw,18px); border:1px solid #c5d0ae; border-radius:18px; background:#fffbed; }
+#app .media-resource h3 { margin:0; color:#1f4f39; font-size:clamp(1.1rem,2vw,1.3rem); line-height:1.25; }
+#app .media-resource p { margin:0; color:#52665a; line-height:1.45; }
+#app .media-resource video { display:block; width:100%; aspect-ratio:16 / 9; object-fit:contain; border-radius:12px; background:#1f4f39; }
+#app .media-resource-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; }
+#app .media-resource-actions > :is(button,a) { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:6px 14px; border:1px solid #8ea679; border-radius:8px; background:#fff; color:#1f4f39; font:inherit; font-size:1rem; font-weight:700; text-decoration:none; cursor:pointer; }
+#app .media-resource-actions > button[aria-pressed="true"] { background:#e2edcf; border-color:#648453; }
+#app .media-resource-actions > a:hover, #app .media-resource-actions > button:hover { background:#f2f6e8; }
+#app .media-resource .media-resource-credit { font-size:1rem; }
+@media (prefers-reduced-motion:reduce) { #app .presentation-canvas [data-build-in] { transition:none; transform:none; } }
+@media (max-width:560px) {
+  #app .media-sections { width:100%; flex-wrap:wrap; }
+  #app .media-sections > button { flex:1 1 0; padding-inline:8px; }
+  #app .printables-toolbar label { width:100%; white-space:nowrap; }
+  #app .printables-toolbar select { flex:1; }
+  #app .printable-card { grid-template-columns:68px minmax(0,1fr); gap:4px 10px; padding:8px 12px; }
+  #app .printable-card > img { grid-row:span 2; height:62px; }
+  #app .printable-actions { grid-column:2; }
+  #app .presentation-stage { width:100%; }
+  #app .presentation-controls button { min-width:0; flex:1 1 30%; }
+}
+/* Wide screens: the slide takes the height; title, controls and notes move to a side column. */
+@media (min-aspect-ratio:5/4) and (min-width:800px) {
+  #app .media-presentation { grid-template-columns:minmax(0,1fr) clamp(220px,24%,280px); grid-template-areas:"stage header" "stage controls" "stage notes"; grid-template-rows:auto auto 1fr; column-gap:16px; align-items:start; }
+  #app .media-presentation > .presentation-player { display:contents; }
+  #app .presentation-stage { grid-area:stage; align-self:center; width:min(100%, calc((100svh - 300px) * 16 / 9)); }
+  #app .presentation-header { grid-area:header; display:grid; gap:8px; }
+  #app .presentation-header label { display:grid; gap:4px; }
+  #app .presentation-header select { width:100%; max-width:none; }
+  #app .presentation-controls { grid-area:controls; display:grid; grid-template-columns:1fr 1fr; }
+  #app .presentation-controls button { min-width:0; }
+  #app .presentation-count { grid-column:1 / -1; grid-row:2; }
+  #app .presentation-controls [data-presentation-fullscreen] { grid-column:1 / -1; grid-row:3; }
+  #app .presentation-notes { grid-area:notes; max-height:100%; overflow:auto; }
+  #app .presentation-player:fullscreen { display:flex; }
+  #app .presentation-player:fullscreen .presentation-controls { display:flex; justify-content:center; }
+}
+
+/* Narrow windows: the slide takes the card's full width (the frame around it gave up ~40px). */
+@media (max-width: 700px) {
+  #app .media-presentation { padding:0; border:0; background:none; }
+  #app .presentation-stage { width:100%; }
+}

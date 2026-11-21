@@ -7,7 +7,7 @@ const root = resolve(
   "..",
   process.argv.includes("--dist") ? "dist" : ".",
 );
-const port = Number(process.env.PORT || 4186);
+const port = Number(process.env.PORT || process.argv[2] || 4186);
 const types = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -17,6 +17,13 @@ const types = {
   ".webp": "image/webp",
   ".json": "application/json",
   ".md": "text/plain; charset=utf-8",
+  ".pdf": "application/pdf",
+  ".mp4": "video/mp4",
+  ".mp3": "audio/mpeg",
+  ".vtt": "text/vtt; charset=utf-8",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".woff2": "font/woff2",
 };
 createServer(async (req, res) => {
   try {
@@ -48,5 +55,5 @@ createServer(async (req, res) => {
     res.writeHead(404).end("Not found");
   }
 }).listen(port, "127.0.0.1", () =>
-  console.log(`Mammal Discovery Club: http://127.0.0.1:${port}/ (${root})`),
+  console.log(`Little Bug Club: http://127.0.0.1:${port}/ (${root})`),
 );

@@ -1,2 +1,63 @@
-<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A mammal field guide for early-years classrooms."><title>Mammal Discovery Club</title><link rel="stylesheet" href="src/styles/main.css"><link rel="stylesheet" href="src/styles/mammals.css"><link rel="stylesheet" href="src/styles/rough-draft.css"><link rel="stylesheet" href="src/styles/homeward-trail.css"></head><body><a class="skip-link" href="#app">Skip to the game</a><div class="background" aria-hidden="true"></div><header class="topbar"><button id="home" class="brand" hidden><img id="brand-image" alt="" hidden><span id="brand-name"></span></button><div class="utilities"><button id="mute" aria-pressed="false">Sound on</button><button id="fullscreen" aria-pressed="false">Full screen</button></div></header><main id="app" tabindex="-1"></main><div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div><div id="effects" aria-hidden="true"></div><script type="module" src="src/main.js"></script></body></html>
-
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A teacher-led adventure into the world of mammals."
+    />
+    <title>Mammal Discovery Club</title>
+    <link rel="icon" href="assets/topics/mammals/generated/club-badge-rabbit.webp" />
+    <link rel="stylesheet" href="src/styles/main.css" />
+    <link rel="stylesheet" href="src/styles/skins.css" />
+    <link rel="stylesheet" href="src/styles/shell.css" />
+    <link rel="stylesheet" href="src/styles/phonics.css" />
+    <link rel="stylesheet" href="src/styles/media.css" />
+    <link rel="stylesheet" href="src/styles/topic-games.css" />
+    <link rel="stylesheet" href="src/styles/homeward-trail.css" />
+    <link rel="stylesheet" href="src/styles/draw-trace.css" />
+    <link rel="stylesheet" href="src/styles/look-c.css" />
+    <link rel="preload" as="image" href="assets/topics/mammals/generated/woodland-clearing-rocks.webp" />
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to the game</a>
+    <div class="background" aria-hidden="true"></div>
+    <button id="home" class="brand" type="button" hidden aria-label="Home">
+      <img id="brand-image" alt="" /><span id="brand-name"></span>
+    </button>
+    <div class="utility-controls" aria-label="Game controls">
+      <button class="icon-button" id="mute" type="button" data-icon="sound" aria-pressed="false" aria-label="Turn sound off" title="Turn sound off (M)"></button>
+      <button class="icon-button" id="fullscreen" type="button" aria-pressed="false" title="Full screen (F)" hidden>Full screen</button>
+      <button class="settings-button" id="settingsButton" type="button" data-icon="settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settingsPanel">Settings</button>
+    </div>
+    <dialog class="popout settings-panel" id="settingsPanel" aria-labelledby="settingsTitle">
+      <header class="popout__heading"><h2 id="settingsTitle">Settings</h2><button class="button popout__close" id="closeSettingsButton" type="button">Got it</button></header>
+      <div class="settings-grid">
+        <button class="settings-tile" data-icon="teacher" id="teacherButton" type="button" aria-haspopup="dialog" aria-controls="teacherPanel">Teacher</button>
+        <button class="settings-tile" data-icon="fullscreen" id="settingsFullscreenButton" type="button">Full screen</button>
+        <button class="settings-tile" data-icon="games" id="ludimiGamesButton" type="button" hidden>All games</button>
+        <button class="settings-tile" data-icon="restart" id="ludimiReloadButton" type="button" hidden>Reload game</button>
+      </div>
+    </dialog>
+    <dialog class="popout teacher-panel" id="teacherPanel" aria-labelledby="teacherTitle" aria-describedby="teacherHint">
+      <header class="popout__heading"><h2 id="teacherTitle">Teacher</h2><button class="popout__close" id="closeTeacherButton" type="button" aria-label="Cancel teacher changes">Cancel</button></header>
+      <p id="teacherHint">Choose words for activities. Applying changes returns to games.</p>
+      <div id="scopeControls" class="scope-controls" role="group" aria-label="Teaching selection"></div>
+      <section id="drawingControls" class="drawing-controls" aria-labelledby="drawingTitle"></section>
+      <div class="teacher-footer"><p id="scopeSummary" class="teacher-summary" role="status" aria-live="polite" aria-atomic="true"></p><button class="button" id="teacherDone" type="button">Got it</button></div>
+    </dialog>
+    <main id="app" tabindex="-1"></main>
+    <div
+      id="announcer"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div id="effects" aria-hidden="true"></div>
+    <script src="src/vendor/gsap.min.js"></script>
+    <script src="src/vendor/MotionPathPlugin.min.js"></script>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

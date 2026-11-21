@@ -1,0 +1,8 @@
+{
+ "status": "pending",
+ "note": "Mammals narration is not recorded yet (21 November 2026). The owner picks one Kokoro voice, then tools/voice/build.mjs records every line in src/topics/narration-lines.js. Until then words and sentences are silent; letter names and sounds use the shared British recordings.",
+ "voice": "af_heart",
+ "engine": "kokoro",
+ "lines": 0,
+ "clips": {}
+}

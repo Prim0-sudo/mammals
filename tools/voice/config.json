@@ -1,0 +1,11 @@
+{
+  "voice": "af_heart",
+  "model": "onnx-community/Kokoro-82M-v1.0-ONNX",
+  "dtype": "q8",
+  "speed": 1,
+  "mp3Bitrate": "64k",
+  "kokoroInstall": "E:/Projects/tools/kokoro-voice",
+  "modelCache": "E:/Projects/tools/kokoro-voice/model-cache",
+  "ffmpeg": "E:/Projects/Codex/our-town-game/tools/voice/node_modules/ffmpeg-static/ffmpeg.exe",
+  "masterDirectory": "../mammals-audio-masters"
+}

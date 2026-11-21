@@ -20,10 +20,6 @@ export const makeChoices = (item, pool) =>
   shuffle([item, ...shuffle(pool.filter((x) => x.id !== item.id)).slice(0, 2)]);
 export const stars = (score, total) =>
   total && score / total >= 0.85 ? 3 : total && score / total >= 0.55 ? 2 : 1;
-export const wheelTarget = (index, count, start = 0) =>
-  start +
-  1800 +
-  ((360 - ((start + ((index + 0.5) * 360) / count) % 360)) % 360);
 export const removeWheelItem = (items, id) => items.filter((x) => x.id !== id);
 export function supportedCounts(topic) {
   const n = eligible(topic, "flip").length;

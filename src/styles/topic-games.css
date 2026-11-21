@@ -1,0 +1,349 @@
+/* Insect Games (step 8): the level picker and shared play frame, then each game. */
+
+/* Inside a game: the title stays for screen readers, play gets the room */
+#app .ig-card #content { display: flex; flex-direction: column; }
+#app .ig-card.is-playing { padding: 12px 16px; }
+#app .ig-card.is-playing .card-heading { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); }
+#app .ig-root { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+
+/* Level picker */
+#app .ig-levels { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+#app .ig-intro { margin: 0; text-align: left; font-size: 18px; font-weight: 700; color: var(--muted-ink); }
+#app .ig-levels__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+#app .ig-levels__top .ig-intro { flex: 1 1 260px; }
+#app .ig-rules-open { flex: none; min-height: 44px; padding: 8px 18px; }
+/* The full rules popout: centred, over everything, scrolls inside on short screens. */
+.ig-rules-wrap { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 16px; background: rgba(23, 60, 51, .45); }
+.ig-rules { width: min(620px, 100%); max-height: calc(100dvh - 32px); display: flex; flex-direction: column; padding: 20px 22px; background: #fffdf2; border: 2px solid #86a26b; border-radius: 22px; box-shadow: 0 16px 60px rgba(21, 60, 49, .35); color: var(--ink); }
+.ig-rules h2 { margin: 0 0 6px; text-align: center; font-size: 28px; font-weight: 800; color: #153f30; }
+.ig-rules__body { min-height: 0; overflow: auto; text-align: left; }
+.ig-rules h3 { margin: 12px 0 4px; font-size: 18px; font-weight: 900; color: #2b7a4b; }
+.ig-rules ul { margin: 0; padding-left: 22px; }
+.ig-rules li { margin: 4px 0; font-size: 16px; line-height: 1.4; }
+.ig-rules .ig-results__actions { margin-top: 14px; }
+#app .ig-level-grid { flex: 1; min-height: 0; height: auto; }
+/* A long note makes the cards taller instead of pushing the picture and words out of the card (layout check, 20 November) */
+#app .ig-level-grid { grid-auto-rows: minmax(251px, max-content); }
+#app .ig-level { gap: 6px; padding: 16px 14px; justify-content: flex-start; overflow: visible; }
+.ig-level__art { position: relative; width: 120px; height: 104px; flex: none; }
+.ig-level__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+#app .ig-level .ig-level__note { font-size: 16px; font-weight: 600; line-height: 1.3; color: #4f6847; text-align: center; }
+#app .ig-level .ig-best { font-size: 16px; font-weight: 800; color: #6b5200; }
+.ig-best__none { color: #7d8b78; font-weight: 600; }
+.ig-stars { color: #c4932b; letter-spacing: 2px; }
+.ig-stars > span { color: #d8cba2; }
+
+/* Play frame: the stage takes the room, the dock with the main action stays at the bottom */
+#app .ig-play { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.ig-stage {
+  position: relative; flex: 1; min-height: 0; overflow: hidden; border: 4px solid #fff; border-radius: 24px;
+  box-shadow: 0 6px 0 rgba(20, 73, 43, .12), inset 0 0 0 1px rgba(31, 79, 57, .08); touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.ig-dock {
+  flex: none; display: grid; align-items: center; gap: 6px 16px; padding: 10px 14px;
+  background: #fffbed; border: 1px solid #c5d0ae; border-radius: 20px;
+}
+#app .ig-main[hidden] { display: none; }
+.ig-flyer { position: fixed; z-index: 60; object-fit: contain; pointer-events: none; filter: drop-shadow(0 6px 6px rgba(30, 40, 20, .3)); }
+
+/* Centred popouts over the stage: a creature card, results */
+/* The creature card sits between its two jars: Insects on the left, Not insects on the right. */
+.safari-card-wrap { grid-template-columns: auto minmax(0, 540px) auto; justify-content: center; align-items: center; gap: 14px; }
+.safari-card-jar { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 112px; padding: 8px 6px 10px; background: rgba(255, 253, 242, .94); border: 3px solid #fff; border-radius: 22px; box-shadow: 0 8px 24px rgba(21, 60, 49, .3); cursor: pointer; transition: transform .15s, box-shadow .15s, opacity .2s; }
+.safari-card-jar img { width: 86px; height: 86px; object-fit: contain; pointer-events: none; }
+.safari-card-jar span { font-size: 16px; font-weight: 900; color: #153f30; text-align: center; line-height: 1.15; }
+.safari-card-jar:disabled { cursor: default; }
+.safari-card-wrap:not(.is-sorting) .safari-card-jar { opacity: .55; }
+.safari-card-jar.is-over, .safari-card-jar:not(:disabled):hover { transform: scale(1.07); box-shadow: 0 0 0 5px #ffd85c, 0 8px 24px rgba(21, 60, 49, .3); }
+.safari-card-jar.is-wrong { opacity: .4; }
+.safari-card-jar.is-right { box-shadow: 0 0 0 5px #2b7a4b, 0 8px 24px rgba(21, 60, 49, .3); }
+
+.ig-results-wrap, .safari-card-wrap, .lab-reveal-wrap {
+  position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; padding: 12px; background: rgba(23, 60, 51, .38);
+}
+.ig-results, .safari-card, .lab-reveal {
+  width: min(540px, 100%); max-height: 100%; overflow: auto; padding: 20px 22px; text-align: center;
+  background: #fffdf2; border: 2px solid #86a26b; border-radius: 22px; box-shadow: 0 16px 60px rgba(21, 60, 49, .35); color: var(--ink);
+}
+.ig-results h2, .lab-reveal h2 { margin: 0 0 4px; font-size: 30px; font-weight: 800; color: #153f30; }
+.ig-results .ig-stars { display: block; font-size: 52px; letter-spacing: 6px; margin: 4px 0 8px; }
+.ig-results p { margin: 6px 0; font-size: 17px; line-height: 1.4; }
+.ig-results__best.is-new { display: inline-block; padding: 3px 12px; border-radius: 999px; background: #fff1a8; color: #6b5200; font-weight: 900; }
+.ig-results__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 14px; }
+
+/* ---------- Log Lift Safari ---------- */
+.safari-scene { background: 50% 62% / cover no-repeat #cfe2b0; }
+.safari-field { position: absolute; inset: 0; }
+.safari-front { z-index: 4; }
+.safari-spot::before { content: ""; position: absolute; z-index: 1; left: -12%; right: -12%; bottom: -14%; height: 48%; border-radius: 50%; background: radial-gradient(closest-side, rgba(34, 20, 6, .6), rgba(34, 20, 6, .28) 55%, transparent); pointer-events: none; }
+/* Painted hiding places (brief 4c) fill more of their canvas than the word pictures. */
+.safari-cover.safari-cover--painted img { left: -12%; top: -16%; width: 124%; height: 128%; }
+.safari-cover__open { opacity: 0; visibility: hidden; }
+.safari-spot.is-open .safari-cover--painted { z-index: 0; }
+.safari-soil.safari-soil--painted { left: -6%; right: -6%; bottom: -8%; height: 62%; border-radius: 0; opacity: 0; background: center / contain no-repeat; }
+.safari-cover .safari-net { position: absolute; z-index: 3; left: 38%; top: -58%; width: 86%; height: auto; max-width: none; transform-origin: 85% 90%; opacity: 0; visibility: hidden; pointer-events: none; filter: drop-shadow(0 5px 4px rgba(40, 28, 10, .3)); }
+.safari-ground {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 251, 237, .1) 0%, rgba(255, 251, 237, 0) 28%, rgba(104, 74, 40, .16) 55%, rgba(86, 60, 30, .34) 100%);
+}
+.safari-spot { position: absolute; width: var(--spot, 130px); height: calc(var(--spot, 130px) * .78); transform: translate(-50%, -50%); }
+/* The ground under a hiding place: a soft shadow while closed, dark damp soil once opened. */
+.safari-soil {
+  position: absolute; left: 2%; right: 2%; bottom: -2%; height: 46%; border-radius: 50%; opacity: .45; transition: opacity .3s;
+  background: radial-gradient(ellipse at 50% 42%, #5d3f24 0%, #4a321c 52%, rgba(74, 50, 28, .55) 66%, rgba(74, 50, 28, 0) 72%);
+}
+.safari-spot.is-open .safari-soil { opacity: 1; }
+.safari-cover { position: absolute; inset: 0; z-index: 2; padding: 0; background: none; border: 0; border-radius: 18px; cursor: pointer; touch-action: none; }
+/* Word pictures carry a wide clear margin, so they are drawn larger than the spot. */
+.safari-cover img { position: absolute; max-width: none; left: -24%; top: -22%; width: 148%; height: 150%; object-fit: contain; filter: drop-shadow(0 7px 5px rgba(40, 28, 10, .35)); pointer-events: none; }
+.safari-ring { position: absolute; left: 50%; top: -6%; width: 44%; max-width: 76px; aspect-ratio: 1; transform: translate(-50%, -50%); opacity: 0; transition: opacity .12s; pointer-events: none; }
+.safari-cover.is-holding .safari-ring { opacity: 1; }
+.safari-ring circle { fill: rgba(255, 251, 237, .92); stroke: #dfe9cf; stroke-width: 9; }
+.safari-ring circle.safari-ring__fill { fill: none; stroke: #2b7a4b; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.safari-critter { position: absolute; z-index: 1; left: 14%; right: 14%; bottom: 0; height: 82%; padding: 0; background: none; border: 0; border-radius: 50%; }
+.safari-critter img { max-width: none; width: 135%; height: 135%; margin: -17.5%; object-fit: contain; filter: drop-shadow(0 4px 3px rgba(20, 14, 6, .4)); }
+.safari-spot.is-open .safari-critter { z-index: 3; }
+.safari-critter.is-camouflaged img { opacity: .5; transform: scale(.72); filter: sepia(.7) saturate(.45) brightness(.72) contrast(.9); }
+.safari-spot.is-done .safari-cover img { filter: drop-shadow(0 7px 5px rgba(40, 28, 10, .35)) saturate(.85); }
+.safari-spot.is-done::after {
+  content: "✓"; position: absolute; z-index: 4; right: 4%; top: 0; width: 30px; height: 30px; display: grid; place-items: center;
+  border-radius: 50%; background: #2b7a4b; color: #fff; font-weight: 1000; border: 3px solid #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+.safari-spot.needs-putback .safari-cover { animation: safari-glow 1.2s ease-in-out infinite; }
+@keyframes safari-glow { 50% { box-shadow: 0 0 0 5px rgba(255, 216, 92, .85); } }
+.safari-sun {
+  position: absolute; z-index: 5; top: 10px; right: 12px; display: flex; align-items: center; gap: 8px; padding: 6px 12px;
+  background: rgba(255, 251, 237, .92); border-radius: 999px; box-shadow: 0 3px 8px rgba(30, 50, 30, .15);
+}
+.safari-sun__icon { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle, #ffe680 40%, #f6b80d 70%); box-shadow: 0 0 8px #ffd85c; }
+.safari-sun__bar { width: clamp(90px, 18vw, 160px); height: 12px; border-radius: 999px; background: #e7dfc5; overflow: hidden; }
+.safari-sun__bar i { display: block; height: 100%; background: linear-gradient(90deg, #f6b80d, #ffd85c); transform-origin: 0 50%; }
+.safari-sun.is-low .safari-sun__bar i { background: linear-gradient(90deg, #d9622b, #f3a63a); }
+.safari-scene.is-dusk::after { content: ""; position: absolute; inset: 0; z-index: 6; background: rgba(38, 40, 92, .42); pointer-events: none; }
+
+.safari-dock { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "mission jars main" "status jars main"; }
+.safari-mission { grid-area: mission; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.safari-mission strong { font-size: 19px; color: #153f30; }
+.safari-ticks { display: flex; gap: 10px; }
+.safari-tick-group { display: flex; gap: 4px; }
+.safari-ticks i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #2b7a4b; background: #fff; }
+.safari-ticks i.is-done { background: #2b7a4b; box-shadow: inset 0 0 0 3px #fff; }
+.safari-status { grid-area: status; margin: 0; min-height: 1.4em; font-size: 16px; font-weight: 700; color: var(--muted-ink); line-height: 1.35; }
+.safari-jars { grid-area: jars; display: flex; gap: 10px; }
+.safari-jar { position: relative; width: 78px; display: flex; flex-direction: column; align-items: center; }
+.safari-jar img { width: 60px; height: 60px; object-fit: contain; }
+.safari-jar b {
+  position: absolute; top: 0; right: 4px; min-width: 26px; height: 26px; display: grid; place-items: center; padding: 0 6px;
+  border-radius: 999px; background: #2b7a4b; color: #fff; font-size: 14px; border: 2px solid #fff;
+}
+.safari-jar[data-jar="other"] b { background: #8a5a2b; }
+.safari-jar span { font-size: 16px; font-weight: 900; color: #315744; text-align: center; line-height: 1.1; }
+.safari-dock .ig-main { grid-area: main; }
+
+.safari-card { text-align: left; }
+.safari-card__top { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: center; }
+.safari-card__art { display: grid; place-items: center; width: 170px; height: 170px; }
+.safari-card__art img { max-width: none; width: 116%; height: 116%; object-fit: contain; filter: drop-shadow(0 6px 6px rgba(40, 28, 10, .28)); user-select: none; -webkit-user-drag: none; }
+.safari-card-wrap.is-sorting .safari-card__art img { cursor: grab; touch-action: none; }
+.safari-card__art img.is-lifted { opacity: .25; }
+.safari-drag { position: fixed; z-index: 60; pointer-events: none; object-fit: contain; filter: drop-shadow(0 12px 10px rgba(40, 28, 10, .35)); transform: scale(1.08) rotate(-4deg); }
+.safari-card__copy h2 { margin: 0 0 4px; font-size: 30px; font-weight: 900; color: #153f30; }
+.safari-card__copy p { margin: 0 0 10px; font-size: 16px; line-height: 1.4; color: #315744; }
+.safari-hint { margin: 14px 0 0; padding: 8px 12px; border-radius: 12px; background: #fff7c6; font-weight: 800; color: #6b5200; text-align: center; }
+.safari-q { margin-top: 14px; text-align: center; }
+.safari-q__ask { margin: 0 0 8px; font-size: 19px; font-weight: 900; color: #153f30; }
+.safari-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.safari-choice {
+  min-width: 64px; min-height: 52px; padding: 6px 14px; border: 3px solid #b4c89a; border-radius: 14px; background: #f6f9e9;
+  font-size: 19px; font-weight: 900; color: var(--dark-accent); box-shadow: 0 4px 0 #90a776;
+}
+.safari-choice.is-right { background: #2b7a4b; border-color: #2b7a4b; color: #fff; }
+.safari-choice.is-wrong { opacity: .45; text-decoration: line-through; }
+.safari-sort-ask { margin: 14px 0 0; text-align: center; }
+.safari-card__note { min-height: 1.4em; margin: 12px 0 0; font-weight: 800; color: #8a3b17; text-align: center; line-height: 1.4; }
+
+/* ---------- Build-a-Bug Lab ---------- */
+.lab-bench {
+  display: grid; grid-template-columns: minmax(200px, 250px) minmax(0, 1fr) minmax(170px, 210px); grid-template-areas: "order build tray";
+  gap: 12px; padding: 14px; background-color: #eef5f6;
+  background-image: linear-gradient(rgba(84, 140, 156, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(84, 140, 156, .12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.lab-order {
+  grid-area: order; align-self: start; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 14px 16px;
+  background: #fffdf2; border: 2px dashed #9fb7a0; border-radius: 18px; text-align: center; box-shadow: 0 4px 0 rgba(31, 79, 57, .1);
+}
+.lab-order__tag { font-size: 16px; font-weight: 1000; text-transform: uppercase; letter-spacing: .05em; color: #4f6847; }
+.lab-order strong { font-size: 20px; line-height: 1.2; color: #153f30; }
+.lab-order__art { width: 110px; height: 96px; display: grid; place-items: center; overflow: hidden; }
+.lab-order__art img { max-width: none; width: 135%; height: 135%; object-fit: contain; }
+.lab-order ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 16px; font-weight: 800; color: #315744; }
+.lab-order li::before { content: "• "; color: #2b7a4b; }
+.lab-order__clue { margin: 4px 0 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: #315744; }
+.lab-build { grid-area: build; position: relative; min-width: 0; min-height: 0; }
+.lab-bench > .lab-build.is-running { z-index: 3; pointer-events: none; }
+.lab-build .lab-labels { transition: opacity .25s; }
+.lab-build.is-running .lab-labels { opacity: 0; }
+.lab-bug { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lab-part__short { display: none; }
+.lab-section { cursor: pointer; outline: none; }
+.lab-section ellipse { stroke: rgba(20, 16, 12, .35); stroke-width: 2; transition: stroke .15s, stroke-width .15s; }
+.lab-section.is-choosable ellipse { stroke: #2b7a4b; stroke-width: 3; stroke-dasharray: 7 6; }
+.lab-section.is-target ellipse { stroke: #ffd24a; stroke-width: 7; stroke-dasharray: none; animation: lab-glow 1s ease-in-out infinite; }
+.lab-section:focus-visible ellipse { stroke: #1f5fbf; stroke-width: 5; stroke-dasharray: none; }
+@keyframes lab-glow { 50% { stroke: #ffef9e; } }
+.lab-placed { cursor: pointer; outline: none; }
+.lab-placed:focus-visible { filter: drop-shadow(0 0 3px #1f5fbf); }
+.lab-labels { pointer-events: none; }
+.lab-build > svg.lab-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lab-label line { stroke: #6f8f88; stroke-width: 2; stroke-dasharray: 3 4; }
+.lab-label rect { fill: #fffdf2; stroke: #9fb7a0; stroke-width: 2; }
+.lab-label text { font: 800 17px/1 var(--font, system-ui), system-ui, sans-serif; fill: #315744; }
+.lab-tray { grid-area: tray; align-self: center; display: grid; gap: 8px; }
+.lab-part {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; align-items: center; gap: 8px; min-height: 58px; padding: 6px 10px;
+  border: 3px solid #b4c89a; border-radius: 14px; background: #fffdf2; color: #4a3220; text-align: left; box-shadow: 0 4px 0 #90a776; cursor: pointer;
+}
+.lab-part svg { width: 54px; height: 34px; }
+.lab-part .lab-part__art { width: 54px; height: 40px; object-fit: contain; }
+/* A layered bench (brief 4b): the painted planes replace the plain bench, the panels stay on top. */
+.lab-bench.is-layered { background: #eef1ea; }
+.lab-bench > .lab-order, .lab-bench > .lab-tray { position: relative; }
+.lab-part span { font-size: 16px; font-weight: 900; line-height: 1.15; color: #153f30; }
+.lab-part b { font-size: 16px; font-weight: 1000; color: #2b7a4b; }
+.lab-part[aria-pressed="true"] { border-color: #2b7a4b; background: #e3f3dc; box-shadow: 0 4px 0 #2b7a4b; transform: translateY(-2px); }
+.lab-part[disabled] { opacity: .4; box-shadow: none; cursor: default; }
+.lab-dock { grid-template-columns: minmax(0, 1fr) auto; }
+.lab-status { margin: 0; min-height: 1.4em; font-size: 16px; font-weight: 800; color: #315744; line-height: 1.35; }
+.lab-reveal__art { display: grid; place-items: center; width: 170px; height: 150px; margin: 0 auto 6px; overflow: hidden; }
+.lab-reveal__art img { max-width: none; width: 130%; height: 130%; object-fit: contain; }
+.lab-reveal p { margin: 6px 0; font-size: 17px; line-height: 1.45; }
+
+/* ---------- Pollinator Flight ---------- */
+.flight-stage { background: #bfe3f2; }
+.flight-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: ns-resize; touch-action: none; }
+.flight-hud { position: absolute; z-index: 5; top: 10px; left: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; pointer-events: none; }
+.flight-hud > span { padding: 5px 12px; border-radius: 999px; background: rgba(255, 251, 237, .92); box-shadow: 0 3px 8px rgba(30, 50, 30, .15); font-weight: 900; color: #153f30; font-size: 16px; }
+.flight-score b { font-size: 19px; }
+.flight-combo { background: #fff1a8 !important; color: #6b5200 !important; }
+.flight-lives { display: flex; gap: 5px; }
+.flight-lives i { width: 18px; height: 16px; background: #e2412f; clip-path: path("M9 16 L1.5 8.5 A4.4 4.4 0 0 1 9 3 A4.4 4.4 0 0 1 16.5 8.5 Z"); }
+.flight-lives i.is-lost { background: #d4cbb4; }
+.flight-sun { z-index: 5; }
+/* The pollination order queue, top centre: now (big, with pips), then the next two. */
+.flight-orders { position: absolute; z-index: 5; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; margin: 0; padding: 4px 8px; list-style: none; border-radius: 999px; background: rgba(255, 251, 237, .9); box-shadow: 0 3px 8px rgba(30, 50, 30, .15); pointer-events: none; }
+.flight-order { display: flex; align-items: center; gap: 3px; opacity: .62; font-weight: 1000; color: #153f30; font-size: 16px; }
+.flight-order + .flight-order::before { content: "›"; margin-right: 4px; color: #6f7d63; font-size: 18px; }
+.flight-order svg { width: 26px; height: 26px; }
+.flight-order.is-now { opacity: 1; font-size: 18px; padding: 2px 8px 2px 4px; border-radius: 999px; background: #fff1a8; }
+.flight-order.is-now svg { width: 38px; height: 38px; }
+.flight-order__pips { display: flex; gap: 3px; margin-left: 4px; }
+.flight-order__pips i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid #2b7a4b; }
+.flight-order__pips i.is-done { background: #2b7a4b; }
+.flight-toasts { position: absolute; inset: 0; z-index: 6; pointer-events: none; overflow: hidden; }
+.flight-toast {
+  position: absolute; transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  font-size: 16px; font-weight: 1000; background: #fffdf2; color: #153f30; box-shadow: 0 3px 8px rgba(30, 50, 30, .2);
+}
+.flight-toast--good { background: #2b7a4b; color: #fff; }
+.flight-toast--swap { background: #fff1a8; color: #6b5200; }
+.flight-toast--bad { background: #b8321f; color: #fff; }
+.flight-toast--wind { background: rgba(255, 255, 255, .92); color: #27408f; }
+.flight-toast--nectar { background: linear-gradient(180deg, #ffe48a, #ffbf2e); color: #5a3500; }
+.flight-stage.is-dusk::after { content: ""; position: absolute; inset: 0; z-index: 4; background: rgba(38, 40, 92, .42); pointer-events: none; transition: opacity .6s; }
+.flight-intro-wrap { position: absolute; inset: 0; z-index: 8; display: grid; place-items: center; padding: 12px; pointer-events: none; }
+.flight-intro {
+  width: min(500px, 100%); max-height: 100%; overflow: auto; padding: 18px 22px; text-align: center; pointer-events: auto;
+  background: rgba(255, 253, 242, .96); border: 2px solid #86a26b; border-radius: 22px; box-shadow: 0 16px 50px rgba(21, 60, 49, .3);
+}
+.flight-intro h2 { margin: 0 0 6px; font-size: 26px; font-weight: 900; color: #153f30; }
+.flight-intro p { margin: 6px 0; font-size: 16px; line-height: 1.45; color: #315744; }
+.flight-intro__how { font-weight: 700; }
+.flight-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin: 10px 0 4px; padding: 0; list-style: none; }
+.flight-legend li { display: flex; align-items: center; gap: 6px; font-weight: 900; color: #153f30; text-transform: capitalize; }
+.flight-legend svg { width: 38px; height: 38px; }
+.flight-dock { grid-template-columns: minmax(0, 1fr) auto; }
+.flight-dock.is-flying { grid-template-columns: minmax(0, 1fr); }
+.flight-carry { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.flight-carry__dot { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 3px dashed #c5d0ae; }
+.flight-status { margin: 0; min-height: 1.4em; font-size: 16px; font-weight: 800; color: #315744; line-height: 1.35; }
+
+/* Tablet portrait */
+@media (max-width: 900px) {
+  .lab-bench { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; grid-template-areas: "order" "build" "tray"; gap: 8px; padding: 10px; }
+  .lab-order { flex-direction: row; flex-wrap: wrap; justify-content: center; align-self: stretch; padding: 8px 12px; gap: 4px 12px; }
+  .lab-order__art { width: 64px; height: 56px; }
+  .lab-order ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 12px; font-size: 16px; }
+  .lab-order__clue { margin: 0; font-size: 16px; }
+  .lab-tray { display: flex; flex-wrap: wrap; justify-content: center; }
+  .lab-part { grid-template-columns: 44px auto auto; min-height: 50px; padding: 4px 8px; }
+  .lab-part svg { width: 44px; height: 28px; }
+  .safari-dock { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "mission jars" "status jars" "main main"; }
+  .safari-dock .ig-main { width: 100%; }
+  .flight-sun { top: 52px; right: auto; left: 12px; }
+}
+/* Phones */
+@media (max-width: 500px) {
+  #app .ig-card.is-playing { padding: 8px; border-radius: 22px; }
+  #app .ig-intro { font-size: 16px; }
+  #app .ig-level-grid { grid-auto-rows: minmax(0, 1fr); }
+  #app .ig-level { grid-template-columns: 90px 1fr !important; }
+  .ig-level__art { grid-row: 1 / span 3; width: 84px; height: 76px; }
+  #app .ig-level .ig-level__note { text-align: left; font-size: 16px; }
+  .ig-stage { border-radius: 18px; border-width: 3px; }
+  .ig-dock { padding: 8px 10px; border-radius: 16px; }
+  #app .ig-main { min-width: 0; }
+  .safari-mission strong { font-size: 16px; }
+  .safari-status { font-size: 16px; }
+  .safari-jar { width: 72px; }
+  .safari-jar img { width: 46px; height: 46px; }
+  .safari-jar span { font-size: 16px; }
+  .safari-card { padding: 14px; }
+  .safari-card__top { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+  .safari-card__art { width: 96px; height: 96px; }
+  .safari-card-wrap { grid-template-columns: 1fr 1fr; grid-template-areas: "card card" "insect other"; align-content: center; gap: 10px; padding: 8px; }
+  .safari-card-wrap .safari-card { grid-area: card; }
+  .safari-card-jar--insect { grid-area: insect; justify-self: start; }
+  .safari-card-jar--other { grid-area: other; justify-self: end; }
+  .safari-card-jar { flex-direction: row; width: auto; min-width: 140px; padding: 6px 12px; border-radius: 18px; }
+  .safari-card-jar img { width: 48px; height: 48px; }
+  .safari-card-jar span { font-size: 16px; }
+  .safari-card__copy h2 { font-size: 23px; }
+  .safari-card__copy p { font-size: 16px; }
+  .safari-choice { min-width: 52px; min-height: 48px; font-size: 17px; padding: 4px 10px; }
+  .lab-order strong { font-size: 16px; }
+  .lab-order__tag { display: none; }
+  .lab-tray { gap: 6px; }
+  .lab-part { grid-template-columns: 34px auto auto; gap: 4px; padding: 3px 8px; min-height: 46px; }
+  .lab-part svg { width: 34px; height: 22px; }
+  .lab-part span { font-size: 16px; }
+  .lab-part__full { display: none; }
+  .lab-part__short { display: inline; }
+  .lab-part b { font-size: 16px; }
+  .lab-dock { grid-template-columns: minmax(0, 1fr); }
+  .lab-dock .ig-main { width: 100%; }
+  .lab-status { font-size: 16px; text-align: center; }
+  .lab-reveal__art { width: 130px; height: 110px; }
+  .flight-hud { top: 8px; left: 8px; gap: 5px; }
+  .flight-hud > span { padding: 4px 9px; font-size: 16px; }
+  .flight-score b { font-size: 16px; }
+  .flight-sun { top: 44px; right: auto; left: 8px; }
+  .flight-orders { bottom: 8px; padding: 3px 6px; }
+  .flight-order.is-now { font-size: 16px; }
+  .flight-order.is-now svg { width: 30px; height: 30px; }
+  .flight-intro { padding: 14px; }
+  .flight-intro h2 { font-size: 21px; }
+  .flight-intro p { font-size: 16px; }
+  .flight-dock { grid-template-columns: minmax(0, 1fr); }
+  .flight-dock .ig-main { width: 100%; }
+  .flight-status { font-size: 16px; }
+  .flight-toast { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-section.is-target ellipse { animation: none; }
+  .safari-spot.needs-putback .safari-cover { animation: none; box-shadow: 0 0 0 5px rgba(255, 216, 92, .85); }
+}
+
+/* The How to play popout sits on <body>, outside #app, so it needs the shared button look itself. */
+.ig-rules .button { min-height: 48px; padding: 10px 22px; background: #247b41; color: #fff; border: 3px solid #16552e; border-radius: 17px; box-shadow: 0 5px 0 #124525; font: inherit; font-size: 16px; font-weight: 1000; cursor: pointer; }
+#app .ig-rules-open { min-height: 48px; }

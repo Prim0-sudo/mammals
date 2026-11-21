@@ -1,0 +1,251 @@
+/* Look C, matched to Plants (owner pick, 15 November 2026): white tiles with a framed picture,
+   a green name band and a press-down shadow; titles sit on the left. Loaded last so it wins. */
+
+/* Titles on the left, like Plants */
+.home-title, .folder-heading h1 { text-align: left; }
+.folder-heading { justify-content: flex-start; gap: 14px; }
+.folder-heading .back-button { position: static; }
+.card-heading { text-align: left; }
+.card-heading.has-listen { padding: 0 90px 0 0; }
+
+/* Shared Look C card */
+#app .category-card, #app .category-card:nth-child(n), #app .choice-card {
+  position: relative; overflow: hidden; padding: 12px 12px 0; gap: 4px; justify-content: flex-start;
+  background: #fff; border: 2px solid #b9cba5; border-radius: 18px; box-shadow: 0 5px 0 #b9cba5; color: #1e3a24;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+#app .category-card:hover, #app .choice-card:hover { border-color: #1e5631; box-shadow: 0 5px 0 #1e5631; }
+#app .category-card:active, #app .choice-card:active { transform: translateY(3px); box-shadow: 0 2px 0 #1e5631; }
+
+/* Framed picture */
+#app .category-card .category-icon, #app .choice-card__art {
+  position: relative; flex: 1 1 0; min-height: 0; width: 100%; box-sizing: border-box;
+  border: 3px solid #e6efd8; border-radius: 10px; background: #f4f8ee;
+}
+#app .category-card .category-icon img, #app .choice-card__art img { position: absolute; inset: 3px; width: calc(100% - 6px); height: calc(100% - 6px); object-fit: contain; }
+
+/* Green name band along the bottom, room for two lines so every picture is the same size */
+#app .category-card strong, #app .choice-card > strong {
+  flex: none; align-self: stretch; display: flex; align-items: center; justify-content: center; margin: 0 -12px;
+  padding: 10px 8px; background: #1e5631; color: #fff; text-align: center; line-height: 1.2;
+}
+#app .category-card strong { min-height: 2.6em; box-sizing: content-box; font-size: 16px; font-weight: 800; }
+
+/* Count: a small circle in the picture's corner, number only */
+#app .category-card .count-pill {
+  position: absolute; top: 6px; right: 6px; z-index: 1; display: grid; place-items: center; min-width: 30px; height: 30px;
+  padding: 0 6px; box-sizing: border-box; border: 2px solid #fff; border-radius: 999px; background: #1e5631; color: #fff;
+  font-size: 12.8px; font-weight: 800; line-height: 1; letter-spacing: 0; text-transform: none;
+}
+#app .category-card .count-unit { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#app .category-card .continue-badge { right: auto; left: 8px; z-index: 1; }
+
+/* Insect Games and Arts & Crafts: three tall cards filling the game card */
+#app .chooser-card .choice-cards { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 18px; }
+#app .choice-card { min-height: 0; display: flex; flex-direction: column; align-items: stretch; }
+#app .choice-card > strong { font-size: 28.8px; font-weight: 700; padding: 8px; }
+
+/* Activities folder: name only, the picture fills the tile */
+#app .folder-tile .tile-art { margin-top: 4px; }
+
+/* Media rows: separate white rows with a sage edge; Open is the green button */
+#app .printables-grid { display: grid; gap: 8px; overflow: visible; border: 0; border-radius: 0; background: none; padding-bottom: 6px; }
+#app .printable-card { background: #fff; border: 2px solid #b9cba5; border-radius: 16px; box-shadow: 0 4px 0 #b9cba5; }
+#app .printable-card + .printable-card { border-top: 2px solid #b9cba5; }
+#app .printable-card--complete { background: #f4f8ee; }
+#app .printable-card > img { border: 3px solid #e6efd8; border-radius: 8px; box-sizing: border-box; }
+#app .printable-actions > a { color: #1e5631; background: #fff; border: 2px solid #b9cba5; border-radius: 16px; box-shadow: 0 5px 0 #b9cba5; font-weight: 800; padding: 6px 14px; }
+#app .printable-actions > a[download] { background: #fff; }
+#app .printable-actions > a:hover { background: #fff; border-color: #1e5631; box-shadow: 0 5px 0 #1e5631; }
+#app .printable-actions > a:first-child { color: #fff; background: #2f7a45; border-color: #1e5631; box-shadow: 0 5px 0 #1e5631; }
+#app .media-sections { margin: 0; }
+
+/* Sort It setup (landscape screens): three across so five rules keep big pictures; the last row is centred */
+@media (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  #app .sort-rules { grid-template-columns: repeat(6, minmax(0, 1fr)); width: 100%; }
+  #app .sort-rules > .sort-card { grid-column: span 2; }
+  #app .sort-rules > .sort-card:last-child:nth-child(odd) { grid-column: span 2; width: auto; justify-self: stretch; }
+  #app .sort-rules > .sort-card:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; }
+  #app .sort-rules > .sort-card:nth-child(1):nth-last-child(4),
+  #app .sort-rules > .sort-card:nth-child(1):nth-last-child(4) ~ .sort-card { grid-column: span 3; }
+  #app .sort-card__play { padding-top: 40px; }
+}
+
+/* Detective setup sits under the title, like Plants */
+#app .detective-setup { justify-content: flex-start; gap: 18px; }
+
+/* Word-count and choice cards use the full card width, like Plants */
+.count-options { width: 100%; }
+
+/* Word-count and choice cards: bigger overlapping picture cards */
+.count-art { width: 170px; height: 150px; }
+.count-art__back, .count-art__front { width: 112px; height: 128px; }
+.count-art__img { width: 96px; height: 96px; }
+
+/* Phonics menu fills the card width */
+#app .phonics-card .phonics-menu { width: 100%; }
+#app .phonics-tile { border: 4px solid #fff; border-radius: 24px; box-shadow: 0 8px 0 #acd2af, 0 14px 24px rgba(27, 80, 46, .15); }
+#app .phonics-tile__art { height: clamp(110px, 25vh, 230px); }
+
+@media (max-width: 900px) {
+  #app .choice-card > strong { font-size: 22px; }
+  .count-art { width: 140px; height: 124px; }
+  .count-art__back, .count-art__front { width: 92px; height: 104px; }
+  .count-art__img { width: 78px; height: 78px; }
+}
+@media (max-width: 500px) {
+  .card-heading.has-listen { padding-right: 82px; }
+  #app .category-card, #app .category-card:nth-child(n) { padding: 6px 6px 0; gap: 4px; border-radius: 14px; }
+  #app .category-card strong { margin: 0 -6px; padding: 6px 4px; font-size: 16px; min-height: 2.4em; }
+  #app .category-card .count-pill { min-width: 28px; height: 28px; font-size: 16px; top: 3px; right: 3px; }
+  #app .chooser-card .choice-cards { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  #app .choice-card > strong { font-size: 20px; }
+  .count-art { width: 100px; height: 92px; }
+}
+
+/* Answer buttons: picture beside the word, like Plants; Sort It answers get the wider Plants column */
+@media (min-width: 901px) {
+  #app .answer { flex-direction: row; gap: 11px; }
+  #app .sort-play { grid-template-columns: minmax(0, 449px) minmax(0, 430px); }
+}
+/* Flip the Tiles: keep the board clear of the Listen button */
+@media (min-width: 501px) and (min-aspect-ratio: 1/1) { #app .game-panel[data-game="flip"] .title-hidden.has-listen ~ #content { padding: 0 84px; } }
+@media (min-width: 501px) and (max-aspect-ratio: 1/1) { #app .game-panel[data-game="flip"] .title-hidden.has-listen ~ #content { padding: 58px 0 0; } }
+/* Upright tablets: two across, the third centred under them (Plants does the same for its craft cards) */
+@media (min-width: 501px) and (max-aspect-ratio: 1/1) {
+  #app .chooser-card .choice-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #app .chooser-card .choice-cards > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 9px); }
+}
+
+/* The Last Leaf, laid out like Plants (17 November 2026): the picture clue is as big as the column allows,
+   the scene sits under it, and the word, tries and a seven-across keyboard fill the right. */
+#app .spelling-layout { height: 100%; max-width: none; margin: 0; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: stretch; gap: 24px; }
+#app .spelling-left { min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+#app .spelling-clue-card { flex: 1 1 0; min-height: 0; width: 100%; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; }
+#app .spelling-clue-card .spelling-clue {
+  width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; box-sizing: border-box;
+  background: #fff; border: 4px solid #fff; border-radius: 22px; box-shadow: 0 6px 0 #cbe6c9;
+}
+#app .spelling-left .spelling-play { flex: none; width: 100%; }
+#app .spelling-left .ll-scene, #app .spelling-left .l5-scene { max-width: min(100%, 520px); }
+#app .spelling-right { min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+#app .spelling-right .spelling-word { margin: 0; }
+#app .spelling-right .spelling-attempts { justify-content: center; flex-wrap: wrap; gap: 4px 14px; padding: 0; font-size: 16px; text-align: center; }
+/* Flex, not grid, so an unfinished last row of letters sits centred under the others */
+#app .spelling-right .keyboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 360px; width: 100%; margin: 0 auto; }
+#app .spelling-right .letter-key { flex: 0 0 calc((100% - 36px) / 7); width: auto; height: 46px; }
+/* Upright tablets and phones: one column, clue on top, then the scene, then the letters */
+@media (max-aspect-ratio: 1/1) {
+  #app .spelling-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; gap: 14px; }
+  #app .spelling-left .ll-scene, #app .spelling-left .l5-scene { max-width: 480px; }
+  #app .spelling-right .keyboard { max-width: 520px; }
+  #app .spelling-right .letter-key { flex-basis: calc((100% - 48px) / 9); }
+}
+
+/* Home, Activities and Phonics tiles take Look C too (20 November): one menu card style everywhere. */
+#app .home-tile, #app .phonics-tile, #app .phonics-tile:nth-child(n) {
+  overflow: hidden; justify-content: flex-start; gap: 4px; padding: 12px 12px 0;
+  background: #fff; border: 2px solid #b9cba5; border-radius: 18px; box-shadow: 0 5px 0 #b9cba5; color: #1e3a24;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+#app .home-tile--more { background: linear-gradient(160deg, #fbf3dc, #efe2bd); }
+#app .home-tile:hover, #app .phonics-tile:hover, #app .phonics-tile:focus-visible { transform: none; border-color: #1e5631; box-shadow: 0 5px 0 #1e5631; }
+#app .home-tile:active, #app .phonics-tile:active { transform: translateY(3px); box-shadow: 0 2px 0 #1e5631; }
+#app .home-tile .tile-art, #app .phonics-tile__art { box-sizing: border-box; border: 3px solid #e6efd8; border-radius: 10px; background: #f4f8ee; }
+#app .home-tile .tile-art img { inset: 3px; width: calc(100% - 6px); height: calc(100% - 6px); }
+#app .phonics-tile { grid-template-rows: minmax(0, 1fr) auto; }
+#app .phonics-tile__art { height: 100%; min-height: 150px; }
+#app .home-tile strong, #app .phonics-tile__label {
+  flex: none; align-self: stretch; justify-self: stretch; display: flex; align-items: center; justify-content: center; margin: 0 -12px;
+  min-height: 2.4em; box-sizing: content-box; padding: 8px; background: #1e5631; color: #fff; text-align: center;
+  font-size: 17px; font-weight: 800; line-height: 1.2;
+}
+@media (max-width: 640px) {
+  #app .home-tile, #app .phonics-tile, #app .phonics-tile:nth-child(n) { padding: 8px 8px 0; }
+  #app .home-tile strong, #app .phonics-tile__label { margin: 0 -8px; padding: 6px; font-size: 16px; }
+  #app .phonics-tile__art { min-height: 96px; }
+}
+
+/* Media, one shape for every control (checker flags, 21 Nov): video Download and captions buttons
+   match the printables rows, every Media button is 48 px, the tabs match the Arts tabs, and the
+   in-card headings use the app font instead of the Georgia default. */
+#app .printable-actions > a, #app .media-resource-actions > :is(button, a) { min-height: 48px; }
+#app .media-resource-actions > :is(button, a) { color: #1e5631; background: #fff; border: 2px solid #b9cba5; border-radius: 16px; box-shadow: 0 5px 0 #b9cba5; font-weight: 800; }
+#app .media-resource-actions > :is(button, a):hover { background: #fff; border-color: #1e5631; box-shadow: 0 5px 0 #1e5631; }
+#app .media-resource-actions > button[aria-pressed="true"] { background: #f4f8ee; border-color: #1e5631; }
+#app .media-sections > button { min-height: 48px; border-radius: 16px; font-weight: 800; }
+#app .media-card :is(h2, h3) { font-family: inherit; }
+
+/* 16 px floor (final check, 21 Nov): the measured screens still had labels, badges and notes under
+   16 px. Every one is 16 px now, at every size. The one exception is the word on a Flip tile, which
+   scales with the tile so it always fits (9-13.6 px). */
+#app .launch-explore > span, .launch-explore > span,
+#app .continue-badge, #app .tile-note, #app .phonics-tile .tile-note,
+#app .sort-card__or, #app .sort-card__label, #app .scope-note, #app .scope-chip,
+#app .detective-settings label, #app .learn-copy .say-together span, #app .say-together p,
+#app .printables-toolbar label, #app .printable-card p,
+#app .drawing-choices button, .safari-jar b { font-size: 16px; }
+#app .trace-picture strong { font-size: clamp(1rem, 1.7vw, 1.15rem); }
+#app .sort-card .count-pill { font-size: 16px; padding: 3px 10px; letter-spacing: 0; }
+#app .category-card .count-pill { font-size: 16px; min-width: 36px; height: 36px; }
+.start-over, #app .start-over { font-size: 16px; }
+#app .teacher-tools .toggle { font-size: 16px; white-space: normal; }
+/* Sort It on phones: at 16 px the side labels pushed the symbols out of the card, and the card's
+   title already names both sides, so phones show symbol, OR, symbol, then the title. */
+@media (max-width: 500px) {
+  #app .sort-card__label { display: none; }
+  #app .sort-card__or { margin-bottom: 0; }
+}
+
+/* Big picture: a magnifier on every word picture (Meet the Words, Sort It, Which One Is It?,
+   Picture Pick) opens it in a centred popout at up to its own pixel size (picture-zoom.js). */
+#app .has-zoom { position: relative; }
+#app .has-zoom > img { cursor: zoom-in; }
+#app .zoom-button {
+  position: absolute; z-index: 3; top: 10px; right: 10px; width: 54px; height: 54px; padding: 0;
+  display: grid; place-items: center; background: #fff; border: 2px solid #b9cba5; border-radius: 50%;
+  box-shadow: 0 4px 0 #b9cba5; cursor: zoom-in;
+}
+#app .zoom-button:hover { border-color: #1e5631; box-shadow: 0 4px 0 #1e5631; }
+#app .zoom-button:focus-visible { outline: 3px solid #1e5631; outline-offset: 2px; }
+#app .zoom-button svg { width: 32px; height: 32px; }
+@media (max-width: 500px) {
+  #app .zoom-button { top: 6px; right: 6px; width: 44px; height: 44px; }
+  #app .zoom-button svg { width: 26px; height: 26px; }
+}
+.zoom-popout {
+  width: fit-content; height: fit-content; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); padding: 10px; overflow: hidden;
+  display: none; flex-direction: column; align-items: center; gap: 10px;
+}
+.zoom-popout[open] { display: flex; }
+/* Owner pick P2 (21 Nov): the screen goes dark and the picture sits on white, so the bug stands out */
+.zoom-popout { background: transparent; border: 0; box-shadow: none; }
+.zoom-popout::backdrop { background: rgba(12, 30, 22, .88); }
+.zoom-popout.is-wide { flex-direction: row; align-items: flex-end; }
+.zoom-popout .zoom-stage { position: relative; flex: none; border-radius: 20px; background: #fff; }
+.zoom-popout .zoom-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+.zoom-popout .zoom-close { flex: none; min-height: 48px; padding: 10px 22px; background: #247b41; color: #fff; border: 3px solid #16552e; border-radius: 17px; box-shadow: 0 5px 0 #124525; font: inherit; font-size: 16px; font-weight: 1000; cursor: pointer; }
+.zoom-popout .has-pointer { container-type: size; }
+.zoom-popout .part-pointer {
+  --side: min(100cqw, 100cqh);
+  position: absolute; z-index: 2; pointer-events: none; width: calc(var(--side) * .2); aspect-ratio: 100 / 28;
+  left: calc(50cqw + (var(--x) - 50) * var(--side) / 100 - var(--side) * .2);
+  top: calc(50cqh + (var(--y) - 50) * var(--side) / 100);
+  translate: 0 -50%; transform-origin: 100% 50%; rotate: var(--a);
+  filter: drop-shadow(0 2px 2px rgba(20, 40, 25, .3));
+}
+.zoom-popout .part-pointer svg { display: block; width: 100%; height: 100%; }
+
+/* Mammals placeholders (21 November 2026): a word group, game or media shelf that is not made yet keeps
+   its place in the layout, quietly marked "coming soon". */
+#app .category-card--soon { cursor: default; box-shadow: none; opacity: .78; }
+#app .category-card--soon .category-icon img { filter: grayscale(.55); opacity: .8; }
+#app .category-card--soon strong { background: #5f7867; }
+#app .category-card--soon .count-pill { min-width: 0; height: auto; padding: 4px 8px; border-radius: 999px; background: #fffbed; color: #1e5631; border-color: #c5d0ae; font-size: 12.8px; }
+#app .media-soon { margin: 4px 0 14px; padding: 10px 14px; border: 1px dashed #b9c7a3; border-radius: 14px; background: #fffbed; color: #3d5546; font-weight: 700; }
+.ig-stage--soon { display: grid; place-items: center; padding: 20px; background: #f7f8ec; touch-action: auto; user-select: text; -webkit-user-select: text; }
+#app .ig-soon { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 460px; text-align: center; color: #263e39; }
+#app .ig-soon-art { width: min(220px, 40vw); height: auto; aspect-ratio: 1; object-fit: contain; background: #fff; border: 4px solid #fff; border-radius: 22px; box-shadow: 0 6px 0 #cbe6c9; }
+#app .ig-soon h2 { margin: 6px 0 0; font-size: 1.6rem; color: #1f4f39; }
+#app .ig-soon p { margin: 0; font-size: 1.05rem; line-height: 1.4; }
+#app .ig-soon .button { margin-top: 8px; }

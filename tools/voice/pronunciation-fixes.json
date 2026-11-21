@@ -1,0 +1,4 @@
+{
+  "note": "Exact text rules only: the line shown and the clip key stay the same, Kokoro reads spokenText instead. Add a rule when a listening check finds a wrong pronunciation.",
+  "rules": []
+}

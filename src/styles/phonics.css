@@ -1,0 +1,103 @@
+/* Phonics & Sight Words: shared foundation cards (from Plants, the series reference) and the Insects menu. */
+.foundation-intro { line-height:1.5; text-align:center; max-width:75ch; margin:12px auto; }
+.foundation-search { width:100%; margin:0 0 10px; padding:8px 12px; min-height:48px; font:inherit; border:2px solid #397c52; border-radius:12px; }
+.foundation-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:10px; }
+.foundation-card { padding:12px; background:#f3f9eb; border:2px solid #bdd7b1; border-radius:18px; }
+.foundation-card .foundation-glyph { font-size:2.5rem; text-align:center; margin:6px 0; }
+.foundation-card .foundation-ipa { text-align:center; margin:4px 0; }
+.foundation-card .actions,.foundation-variants { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:10px 0; }
+.foundation-card button { min-height:44px; padding:8px 12px; border:2px solid #247b41; border-radius:12px; background:white; color:#173b2a; font:inherit; font-weight:700; }
+.foundation-card button:disabled { opacity:.6; }
+.foundation-card button[aria-pressed="true"],.foundation-card.is-playing { background:#ddf0d2; }
+.foundation-status { min-height:1.5em; font-weight:700; }
+.foundation-credits { padding:0; line-height:1.5; }
+.foundation-credits summary { cursor:pointer; font-weight:700; }
+/* Alphabet letter cards with a picture (layout C2): letter left, picture and word right, buttons on a green strip. */
+.foundation-card.has-picture { display:flex; flex-direction:column; padding:0; overflow:hidden; border:3px solid #2f6b45; background:radial-gradient(circle at 50% 45%,#fffdf0,#e3f0d6); }
+.foundation-card.has-picture .foundation-face { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:6px; padding:12px 12px 4px; }
+.foundation-card.has-picture .foundation-glyph { font-size:3rem; margin:0; }
+.foundation-picture { display:flex; flex-direction:column; align-items:center; min-width:0; }
+.foundation-picture img { width:100%; max-width:110px; height:84px; object-fit:contain; }
+.foundation-word { margin:2px 0 0; font-size:1.15rem; font-weight:700; text-align:center; }
+.foundation-word b { color:#c0392b; }
+.foundation-card.has-picture .foundation-status { min-height:1.3em; margin:0 12px 4px; text-align:center; }
+.foundation-card.has-picture > .fine:not(.foundation-status), .foundation-card.has-picture > details { margin:0 12px 6px; }
+.foundation-card.has-picture .actions { order:9; margin:auto 0 0; padding:8px; gap:12px; background:#2f6b45; }
+.foundation-card.has-picture .actions button { border-color:#fff; }
+.foundation-card.has-picture.is-playing { background:radial-gradient(circle at 50% 45%,#fffdf0,#d3ebc4); }
+.foundation-card.has-picture.has-long-label .foundation-glyph { font-size:2rem; overflow-wrap:anywhere; }
+.foundation-card.has-picture .foundation-ipa, .foundation-card.has-picture .foundation-variants { margin:2px 12px 6px; }
+/* Insects menu: six picture tiles, three across on tablet and PC, two on phone; the last row is centred by count. */
+#app .phonics-card .phonics-menu { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:1fr; gap:14px; width:min(820px,100%); margin:0 auto; }
+#app .phonics-tile { position:relative; display:grid; grid-template-rows:auto auto; justify-items:center; gap:6px; padding:12px; color:var(--ink, #173b2a); font:inherit; text-align:center; background:linear-gradient(150deg,#fffdf0,#e9f5dc); border:4px solid #8fb26f; border-radius:22px; cursor:pointer; box-shadow:0 5px 0 #c9dcb2; }
+#app .phonics-tile:nth-child(2) { background:linear-gradient(150deg,#fff8c9,#eef9dc); }
+#app .phonics-tile:nth-child(3) { background:linear-gradient(150deg,#ffe9ef,#f3f7e2); }
+#app .phonics-tile:nth-child(4) { background:linear-gradient(150deg,#fff0de,#ffe3e6); }
+#app .phonics-tile:nth-child(5) { background:linear-gradient(150deg,#fff6cf,#e6f4fb); }
+#app .phonics-tile:nth-child(6) { background:linear-gradient(150deg,#e6f7e6,#d8f1e2); }
+#app .phonics-tile:hover, #app .phonics-tile:focus-visible { transform:translateY(-3px); }
+#app .phonics-tile__art { position:relative; width:100%; height:150px; }
+#app .phonics-tile__art img { width:100%; height:100%; object-fit:contain; }
+#app .phonics-tile__sound { position:absolute; left:4px; top:4px; padding:2px 12px; color:#1e5631; background:#fffdf2; border:3px solid #86a26b; border-radius:16px; font-size:1.6rem; font-weight:800; }
+#app .phonics-tile__label { font-size:1.15rem; font-weight:800; line-height:1.15; }
+#app .phonics-tile .tile-note { position:absolute; right:8px; top:8px; padding:2px 8px; font-size:12px; font-weight:800; text-transform:uppercase; color:#6b5200; background:#fff1a8; border-radius:999px; }
+#app .phonics-card .foundation-credits { width:min(820px,100%); margin:10px auto 0; }
+#app .phonics-card .foundation-mount { width:min(1100px,100%); margin:0 auto; }
+@media (max-width: 640px) {
+  #app .phonics-card .phonics-menu { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  #app .phonics-tile__art { height:96px; }
+  #app .phonics-tile__label { font-size:1rem; }
+}
+/* Short vowels and Sound & Blend: one word card. Tablet and PC: picture left, word and buttons right;
+   phone: stacked, with Previous / Next pinned at the bottom of the card. */
+#app .phonics-card .phonics-word-filters { display:flex; flex-wrap:wrap; gap:10px; width:min(900px,100%); margin:0 auto 10px; align-items:end; }
+#app .phonics-word-filters label { display:grid; gap:4px; flex:1 1 220px; min-width:0; font-weight:800; }
+#app .phonics-word-filters .foundation-search { margin:0; }
+#app .phonics-word-filters select { width:100%; min-width:0; min-height:48px; padding:8px 12px; font:inherit; color:var(--ink); background:#fff; border:2px solid #397c52; border-radius:12px; }
+#app .phonics-word-card { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); grid-template-areas:"pos pos" "pic body" "nav nav"; align-items:center; gap:10px 22px; width:min(900px,100%); margin:0 auto; padding:14px 18px; background:radial-gradient(circle at 30% 40%,#fffdf0,#eaf3dc); border:3px solid #86a26b; border-radius:22px; }
+#app .phonics-word-card > .empty-selection, #app .phonics-word-card > .learn-action { grid-column:1 / -1; justify-self:center; text-align:center; }
+#app .phonics-word-position { grid-area:pos; margin:0; text-align:center; font-weight:800; color:#4f6a45; }
+#app .phonics-word-picture { grid-area:pic; width:100%; height:clamp(180px,34vh,300px); object-fit:contain; }
+#app .phonics-word-body { grid-area:body; min-width:0; }
+#app .bug-word-reader .wheel-word { display:flex; flex-wrap:wrap; justify-content:center; gap:.04em; margin:4px 0 10px; font-size:clamp(2rem,5.5vw,3.4rem); font-weight:800; color:#1e5631; letter-spacing:.02em; }
+#app .wheel-letter { display:inline-block; padding:2px 2px; border-bottom:5px solid transparent; border-radius:6px; }
+#app .wheel-letter.is-active { background:#ffe9a3; border-bottom-color:#d9a21b; }
+#app .wheel-letter.is-silent { color:#7c8b78; border-bottom-style:dotted; border-bottom-color:#9aa995; }
+#app .wheel-word.is-blending .wheel-letter { background:#ddf0d2; }
+#app .bug-word-reader .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+#app .bug-word-reader button { min-height:46px; padding:8px 14px; font:inherit; font-weight:800; color:#173b2a; background:#fff; border:2px solid #9fb88a; border-radius:14px; box-shadow:0 3px 0 #b9cba5; cursor:pointer; }
+#app .bug-word-reader button.text-button { box-shadow:none; border-color:transparent; background:transparent; }
+#app .bug-word-reader button:disabled { opacity:.5; cursor:default; }
+#app .bug-word-reader .reading-spacing { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; margin:10px 0 0; font-size:.95rem; }
+#app .bug-word-reader .reading-spacing input { width:min(170px,100%); accent-color:#397c52; }
+#app .bug-word-reader .wheel-reading-status { min-height:1.5em; margin:8px 0 0; text-align:center; font-weight:700; }
+#app .bug-word-reader .fine { text-align:center; margin:6px 0 0; color:#6b5a3a; }
+#app .phonics-word-definition { margin:10px auto 0; max-width:48ch; text-align:center; line-height:1.45; }
+#app .phonics-word-note { margin:8px auto 0; text-align:center; }
+#app .phonics-word-nav { grid-area:nav; display:flex; justify-content:center; gap:12px; margin:4px 0 0; }
+#app .phonics-word-nav > button { flex:0 1 200px; min-height:52px; font:inherit; font-weight:800; border-radius:16px; cursor:pointer; }
+#app .phonics-word-nav > .secondary-button { color:var(--ink); background:#fff; border:2px solid #9fb88a; box-shadow:0 3px 0 #b9cba5; }
+#app .phonics-word-nav > .primary-button { color:#fff; background:var(--primary); border:2px solid var(--primary); box-shadow:0 3px 0 #163d2c; }
+#app .phonics-word-nav > button:disabled { opacity:.45; cursor:default; }
+@media (max-width: 640px) {
+  #app .phonics-card .phonics-word-filters { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  #app .phonics-word-card { grid-template-columns:1fr; grid-template-areas:"pos" "pic" "body" "nav"; padding:10px 12px; gap:6px; }
+  #app .phonics-word-picture { height:150px; }
+  #app .phonics-word-nav { position:sticky; bottom:0; margin:4px -12px -10px; padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:#eaf3dc; border-top:1px solid #c5d0ae; border-radius:0 0 19px 19px; }
+  #app .phonics-word-nav > button { flex:1 1 0; }
+}
+
+/* Listen & Read (17 November 2026): one sentence, lit word by word as it plays. */
+#app .phonics-reading-sentence { margin:4px auto 0; max-width:30ch; font-size:clamp(1.35rem,3vw,2rem); line-height:1.5; font-weight:800; text-align:center; color:#25402a; }
+#app .phonics-reading-sentence .reading-word { display:inline; padding:0 .06em; border-radius:.18em; transition:background-color .12s, box-shadow .12s; }
+#app .phonics-reading-sentence .reading-word.is-reading { background:#ffe58c; color:#173b2a; box-shadow:0 0 0 .1em #ffe58c; }
+#app .phonics-reading-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:12px; }
+#app .phonics-reading-actions > button { flex:0 1 180px; min-height:50px; padding:8px 16px; font:inherit; font-weight:800; border-radius:16px; cursor:pointer; }
+#app .phonics-reading-actions > .primary-button { color:#fff; background:var(--primary); border:2px solid var(--primary); box-shadow:0 3px 0 #163d2c; }
+#app .phonics-reading-actions > .secondary-button { color:var(--ink); background:#fff; border:2px solid #9fb88a; box-shadow:0 3px 0 #b9cba5; }
+#app .phonics-reading-actions > button:disabled { opacity:.45; cursor:default; }
+#app .phonics-word-body .reading-speed { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; margin:12px 0 0; font-weight:700; color:var(--ink); }
+#app .phonics-word-body .reading-speed input { width:min(200px,100%); accent-color:#397c52; }
+#app .phonics-word-body .reading-speed-value { min-width:7.5em; text-align:left; }
+#app .phonics-word-body .wheel-reading-status { min-height:1.4em; margin:6px 0 0; text-align:center; font-weight:700; }
+@media (prefers-reduced-motion: reduce) { #app .phonics-reading-sentence .reading-word { transition:none; } }

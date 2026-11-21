@@ -1,11 +1,29 @@
+// Spoken lines come only from the recorded af_heart bank (src/audio/heart-manifest.json, built by
+// tools/voice/build.mjs from src/topics/narration-lines.js). There is no browser-voice fallback:
+// a line with no clip stays silent and is logged once so the next build can add it.
+let manifestPromise;
+const loadManifest = () =>
+  (manifestPromise ??= fetch(new URL("../audio/heart-manifest.json", import.meta.url))
+    .then((r) => (r.ok ? r.json() : { clips: {} }))
+    .catch(() => { manifestPromise = null; return { clips: {} }; }));
+const missing = new Set();
+
 export class AudioManager {
   constructor(locale) {
     this.locale = locale;
     this.muted = false;
     this.nodes = new Set();
+    this.clip = null;
+    this.token = 0;
+    loadManifest();
+  }
+  // True when the line has a recording (the Plants section views ask before speaking).
+  async hasRecording(text) {
+    return !!(await loadManifest()).clips?.[text];
   }
   stop() {
-    globalThis.speechSynthesis?.cancel();
+    this.token++;
+    if (this.clip) { this.clip.onended = null; this.clip.pause(); this.clip = null; }
     for (const node of this.nodes) {
       try {
         node.stop();
@@ -18,21 +36,28 @@ export class AudioManager {
     if (this.muted) this.stop();
     return this.muted;
   }
-  speak(text) {
-    if (this.muted || !text || !globalThis.speechSynthesis) return;
-    const voices = speechSynthesis
-      .getVoices()
-      .filter((voice) => voice.localService);
-    const voice =
-      voices.find((v) => v.lang === this.locale) ||
-      voices.find((v) => v.lang.split("-")[0] === this.locale.split("-")[0]);
-    if (!voice) return;
+  // One recorded line, or a list played one after another (the word, then its meaning).
+  async speak(text) {
+    const queue = (Array.isArray(text) ? text : [text]).filter(Boolean);
+    if (this.muted || !queue.length) return;
     this.stop();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = voice;
-    utterance.lang = this.locale;
-    utterance.rate = 0.82;
-    speechSynthesis.speak(utterance);
+    const token = this.token;
+    const clips = (await loadManifest()).clips || {};
+    if (token !== this.token || this.muted) return;
+    const files = queue.filter((line) => {
+      if (clips[line]) return true;
+      if (!missing.has(line)) { missing.add(line); console.warn("[voice] no recording for:", line); }
+      return false;
+    }).map((line) => clips[line]);
+    const play = (i) => {
+      if (i >= files.length || token !== this.token) return;
+      const clip = new Audio(new URL("../../" + files[i], import.meta.url).href);
+      this.clip = clip;
+      const done = () => { if (this.clip !== clip) return; this.clip = null; play(i + 1); };
+      clip.onended = done;
+      clip.play().catch(done);
+    };
+    play(0);
   }
   tone(frequency = 640, duration = 0.12) {
     if (this.muted) return;

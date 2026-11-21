@@ -1,0 +1,199 @@
+/* Arts & Crafts (step 9, 16 November 2026): Draw & Trace, Colouring and Crafts, ported from Plants. */
+
+
+
+/* Picture picker: level and way-to-play switches, then the ten pictures of the level. */
+#app .arts-root:has(> .trace-picture-grid) { display:flex; flex-direction:column; gap:10px; }
+.trace-options { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 16px; flex:0 0 auto; }
+.trace-segment > .learn-action { min-height:46px; font-weight:800; }
+.trace-picture-grid { --trace-cols:5; --trace-rows:2; display:grid; grid-template-columns:repeat(var(--trace-cols),minmax(0,1fr)); grid-auto-rows:minmax(0,1fr); gap:10px; width:100%; flex:1 1 0; min-height:calc(var(--trace-rows) * 118px + (var(--trace-rows) - 1) * 10px); }
+.trace-picture-grid > .trace-picture { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; justify-items:center; gap:4px; min-width:0; min-height:0; padding:8px; border:2px solid #b9cba5; border-radius:18px; background:#fffbed; color:#244e3b; cursor:pointer; }
+.trace-picture:hover { border-color:#6f9655; background:#f6f6e0; }
+.trace-thumb { position:relative; width:100%; height:100%; min-height:0; border-radius:12px; background:#fffdf6; }
+#app .arts-root .trace-picture .trace-thumb img { position:absolute; inset:0; width:100%; height:100%; max-height:none; padding:4px; object-fit:contain; pointer-events:none; mix-blend-mode:multiply; }
+.trace-picture strong { font-size:clamp(.9rem,1.7vw,1.15rem); line-height:1.2; text-align:center; }
+@media (max-aspect-ratio:1/1) { .trace-picture-grid { --trace-cols:3; --trace-rows:4; } }
+/* Upright screens: three across on a six-track grid, so a short last row sits centred (content check, 19 November) */
+@media (max-aspect-ratio:1/1) and (min-width:561px) {
+  .trace-picture-grid:not(.craft-grid):not([data-level="mine"]) { grid-template-columns:repeat(6,minmax(0,1fr)); }
+  .trace-picture-grid:not(.craft-grid):not([data-level="mine"]) > .trace-picture { grid-column:span 2; }
+  .trace-picture-grid:not(.craft-grid):not([data-level="mine"]) > .trace-picture:nth-child(3n+1):last-child { grid-column:3 / span 2; }
+  .trace-picture-grid:not(.craft-grid):not([data-level="mine"]) > .trace-picture:nth-child(3n+1):nth-last-child(2) { grid-column:2 / span 2; }
+}
+@media (max-width:560px) { .trace-picture-grid { --trace-cols:2; --trace-rows:5; gap:8px; } .trace-options { gap:6px; } .trace-picture { padding:6px; border-radius:14px; } }
+@media (max-width:560px) { .trace-picture-grid:not(.craft-grid) { min-height:calc(var(--trace-rows) * 160px + (var(--trace-rows) - 1) * 8px); } }
+
+/* Play screen, layout "B. Bottom dock": step line, the 4:3 board as big as fits, one row of big buttons. */
+#app .arts-root:has(> .trace-play) { display:flex; flex-direction:column; overflow:hidden; }
+.trace-play { flex:1 1 0; min-height:0; width:100%; display:flex; flex-direction:column; gap:8px; }
+.trace-step { flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 10px; min-height:36px; margin:0; color:#244e3b; font-size:clamp(1.05rem,2.3vw,1.4rem); font-weight:800; line-height:1.25; text-align:center; }
+.trace-step:focus { outline:none; }
+.trace-ink { display:inline-flex; gap:5px; }
+.trace-ink:empty { display:none; }
+.trace-ink i { width:16px; height:16px; border-radius:50%; box-shadow:0 0 0 2px #fff, 0 0 0 3px #b9b497; }
+.trace-stage { flex:1 1 0; min-height:0; container-type:size; display:grid; place-items:center; }
+.trace-board { box-sizing:border-box; width:min(100cqw,100cqh * 4 / 3); aspect-ratio:4 / 3; border:3px solid #d9cfa6; border-radius:18px; overflow:hidden; background:#fffdf6; box-shadow:0 4px 0 #cbbf93; }
+.trace-board svg { display:block; width:100%; height:100%; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; }
+.trace-board svg.can-draw { cursor:crosshair; }
+.trace-guide path { pointer-events:none; }
+.trace-guide .g-later { stroke:#9aa08a; stroke-width:5; opacity:.14; }
+.trace-guide .g-done { stroke-width:5; opacity:.1; }
+.trace-guide .g-road { stroke:#f2d79f; stroke-width:32; opacity:.95; }
+.trace-guide .g-now { stroke-width:4; opacity:.4; stroke-dasharray:2 12; }
+.trace-lines path { stroke-width:6; pointer-events:none; }
+.trace-lines--demo { opacity:.75; }
+.trace-lines--demo path { stroke-width:5; }
+
+.trace-dock { flex:0 0 auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr); gap:10px; width:min(100%,780px); margin-inline:auto; padding-bottom:5px; }
+.trace-dock[hidden], .trace-finish[hidden] { display:none; }
+.trace-dock > button { min-height:60px; margin:0; padding:8px 10px; font-size:clamp(.95rem,2.1vw,1.2rem); line-height:1.15; }
+.trace-dock > .trace-next { font-size:clamp(1.1rem,2.6vw,1.45rem); }
+.trace-dock > button:disabled { opacity:.5; cursor:default; }
+.trace-next.is-ready { box-shadow:0 0 0 4px #ffe27a, 0 5px 0 #2f6b3a; }
+/* Finish buttons wrap; an unfinished last row sits centred. */
+.trace-finish { flex:0 0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; padding-bottom:5px; }
+.trace-finish > .learn-action { min-height:56px; margin:0; font-size:clamp(.95rem,2vw,1.15rem); }
+.trace-finish > .learn-action:disabled { opacity:.5; cursor:default; }
+.trace-finish > [hidden] { display:none; }
+.trace-stars { display:inline-flex; gap:4px; }
+.trace-stars svg { width:clamp(30px,5vw,40px); height:clamp(30px,5vw,40px); }
+.trace-stars path { fill:#ece6cd; stroke:#d5cca6; stroke-width:1.5; stroke-linejoin:round; }
+.trace-stars .is-on path { fill:#f7c531; stroke:#c98d0a; }
+@media (max-width:560px) {
+  .trace-play { gap:6px; }
+  .trace-dock { gap:6px; }
+  .trace-dock > button { min-height:56px; padding:6px; }
+  .trace-finish { gap:8px; }
+  .trace-finish > .learn-action { flex:1 1 40%; min-height:50px; padding:8px 10px; }
+}
+
+/* Pen look (the child's choice on the picture list): pencil, crayon, marker, watercolour, chalk or rainbow. */
+.trace-board svg[data-pen="crayon"] .trace-lines path { stroke-width:12; }
+.trace-board svg[data-pen="marker"] .trace-lines path { stroke-width:15; opacity:.9; }
+.trace-board svg[data-pen="watercolour"] .trace-lines path { stroke-width:22; opacity:.55; }
+.trace-board svg[data-pen="chalk"] .trace-lines path { stroke-width:14; }
+.trace-board svg[data-pen="rainbow"] .trace-lines path { stroke-width:13; stroke:url(#traceRainbow); }
+/* Path look (Teacher, Drawing): wide road (default), dotted, or faded line. */
+.trace-guide[data-style="dots"] .g-road, .trace-guide[data-style="ghost"] .g-road { display:none; }
+.trace-guide[data-style="dots"] .g-now { stroke-width:11; opacity:.6; stroke-dasharray:0 22; }
+.trace-guide[data-style="ghost"] .g-now { stroke-width:11; opacity:.3; stroke-dasharray:none; }
+
+/* My pictures: "Draw my own" first, then the saved drawings. Rows keep one height; the list scrolls when it grows. */
+.trace-picture-grid[data-level="mine"] { display:flex; flex-wrap:wrap; justify-content:center; flex:0 0 auto; min-height:0; }
+.trace-picture-grid[data-level="mine"] > .trace-picture { flex:0 0 auto; width:calc((100% - (var(--trace-cols) - 1) * 10px) / var(--trace-cols)); height:clamp(130px,27vh,230px); }
+@media (max-width:560px) { .trace-picture-grid[data-level="mine"] > .trace-picture { width:calc((100% - 8px) / 2); } }
+.trace-thumb svg { position:absolute; inset:0; width:100%; height:100%; padding:4px; pointer-events:none; }
+.trace-picture-grid > .trace-picture--own { border-style:dashed; border-color:#6f9655; background:#f3f7e2; }
+
+/* Draw my own: colours and an optional step name above the board, four buttons below. */
+.trace-head { flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 22px; }
+.trace-tools { flex:0 1 auto; min-width:0; max-width:100%; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 16px; }
+.trace-tools[hidden] { display:none; }
+.trace-step-name { width:min(100%,210px); min-height:44px; padding:6px 12px; border:2px solid #b9cba5; border-radius:12px; background:#fff; color:#244e3b; font:inherit; font-size:1rem; }
+.trace-play--own .trace-dock { grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr); }
+.trace-dock > .is-armed { border-color:#c4472f; background:#fdebe4; color:#8f2a17; }
+.trace-name-dialog { width:min(420px,calc(100vw - 28px)); }
+.trace-name-field { display:grid; gap:6px; margin-top:14px; font-weight:800; }
+.trace-name-field input { min-height:48px; padding:8px 12px; border:2px solid #b9cba5; border-radius:12px; background:#fff; color:#244e3b; font:inherit; font-size:1.05rem; }
+.trace-name-dialog footer { gap:10px; }
+.trace-name-dialog footer .scope-reset { width:auto; min-height:48px; }
+@media (max-width:560px) {
+  .trace-tools { gap:6px 10px; }
+  .trace-step-name { min-height:40px; }
+  .trace-play--own .trace-dock > button { font-size:.92rem; }
+}
+
+/* Teacher dialog, "Drawing" section. */
+.drawing-controls { margin-top:14px; padding-top:12px; border-top:2px solid #dfe6c8; }
+.drawing-controls h3 { margin:0; font-size:1.25rem; }
+.drawing-controls .drawing-hint { margin:2px 0 4px; }
+.drawing-row { display:grid; grid-template-columns:96px minmax(0,1fr); align-items:center; gap:6px 10px; margin-top:8px; font-weight:800; }
+.drawing-choices, .drawing-files { display:flex; flex-wrap:wrap; gap:6px; min-width:0; }
+.drawing-choices button { flex:1 1 0; min-height:44px; margin:0; padding:6px 10px; border:2px solid #b9cba5; border-radius:10px; background:#fff; color:#244e3b; font-size:.95rem; font-weight:800; white-space:nowrap; cursor:pointer; }
+.drawing-choices button[aria-pressed="true"] { border-color:#2f6b3a; background:#2f6b3a; color:#fff; }
+.drawing-files .scope-reset { flex:1 1 auto; width:auto; margin:0; }
+.drawing-files select { flex:1 1 150px; min-width:0; min-height:44px; font-size:1rem; }
+.drawing-status { min-height:1.5em; margin:8px 0 0; font-weight:700; line-height:1.4; }
+@media (max-width:500px) { .drawing-row { grid-template-columns:minmax(0,1fr); } .drawing-choices button { padding:6px; font-size:.9rem; } }
+.trace-play--own .trace-finish > .learn-action { padding-inline:12px; }
+/* The dialog is taller now and can scroll on short screens: Apply stays in view. */
+#teacherPanel > footer { position:sticky; bottom:-24px; margin-bottom:-24px; padding:10px 0 24px; background:#fffdf2; }
+@media (max-width:500px) { #teacherPanel > footer { bottom:-18px; margin-bottom:-18px; padding-bottom:18px; } }
+
+/* Arts & Crafts with three cards; Crafts: a craft grid, then one card per step with a bottom dock. */
+.trace-picture-grid.craft-grid { --trace-cols:3; --trace-rows:2; }
+@media (max-aspect-ratio:1/1) { .trace-picture-grid.craft-grid { --trace-cols:2; --trace-rows:3; } }
+#app .arts-root:has(> .craft-play) { display:flex; flex-direction:column; overflow:hidden; }
+.craft-play { flex:1 1 0; min-height:0; width:100%; display:flex; flex-direction:column; gap:10px; }
+.craft-card { flex:1 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); align-items:center; gap:18px; width:min(100%,900px); margin-inline:auto; padding:18px; border:3px solid #d9cfa6; border-radius:20px; background:#fffdf6; box-shadow:0 4px 0 #cbbf93; }
+.craft-card:focus { outline:none; }
+.craft-picture { width:100%; height:100%; max-height:100%; min-height:0; object-fit:contain; }
+.craft-words { color:#244e3b; }
+.craft-label { margin:0 0 10px; font-size:clamp(1.1rem,2.4vw,1.5rem); color:#4f7a3c; }
+.craft-text { margin:0; font-size:clamp(1.3rem,3vw,2rem); font-weight:800; line-height:1.3; }
+.craft-need { margin:0; padding-left:1.2em; font-size:clamp(1.15rem,2.5vw,1.6rem); font-weight:700; line-height:1.45; }
+.craft-grown-up { display:inline-block; margin:12px 0 0; padding:4px 12px; border-radius:999px; background:#ffe9b8; color:#7a4b0c; font-weight:800; }
+.craft-dots { flex:0 0 auto; display:flex; justify-content:center; gap:8px; }
+.craft-dots i { width:12px; height:12px; border-radius:50%; background:#e3dcc0; }
+.craft-dots i.done { background:#9cc08a; } .craft-dots i.on { background:#2f7d3e; transform:scale(1.25); }
+.craft-dock { flex:0 0 auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); gap:10px; width:min(100%,640px); margin-inline:auto; padding-bottom:5px; }
+.craft-dock > button { min-height:60px; margin:0; font-size:clamp(1rem,2.2vw,1.3rem); }
+.craft-dock > button:disabled { opacity:.5; cursor:default; }
+@media (max-aspect-ratio:1/1) { .craft-card { grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; text-align:center; } .craft-need { display:inline-block; text-align:left; } }
+
+/* Arts: colouring. Tools row (Fill/Brush and the colours), the 4:3 board, then the dock. */
+#app .arts-root:has(> .colour-play) { display:flex; flex-direction:column; overflow:hidden; }
+.colour-play { flex:1 1 0; min-height:0; width:100%; display:flex; flex-direction:column; gap:8px; }
+.colour-tools { flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 14px; }
+/* Colour button and its centred popout (owner, 13 November 2026): shared by Colouring and Draw my own. */
+.colour-pick { display:inline-flex; align-items:center; gap:10px; min-height:48px; margin:0; padding:6px 16px 6px 8px; border:2px solid #b9cba5; border-radius:999px; background:#fff; color:#244e3b; font:inherit; font-size:1rem; font-weight:800; cursor:pointer; }
+.colour-pick[hidden] { display:none; }
+.colour-pick__dot { width:32px; height:32px; flex:0 0 auto; border:3px solid #fff; border-radius:50%; background:var(--swatch); box-shadow:0 0 0 2px #b9b497; }
+.colour-pick__dot--rubber { background:#fff linear-gradient(135deg, transparent 44%, #e58aa0 44% 56%, transparent 56%); }
+.colour-pop { position:fixed; inset:0; margin:auto; width:min(420px,calc(100vw - 28px)); height:fit-content; max-height:calc(100dvh - 32px); overflow:auto; padding:18px 18px 22px; border:2px solid #86a26b; border-radius:22px; color:#244e3b; background:#fffdf2; box-shadow:0 16px 60px #153c3159; }
+.colour-pop::backdrop { background:#173c3359; }
+.colour-pop__title { margin:0 0 14px; font-size:1.25rem; text-align:center; }
+.colour-pop__grid { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+.colour-pop .colour-swatch { width:48px; height:48px; }
+.colour-swatch { width:40px; height:40px; min-height:0; margin:0; padding:0; border:3px solid #fff; border-radius:50%; background:var(--swatch); box-shadow:0 0 0 2px #b9b497; cursor:pointer; }
+.colour-swatch--rubber { background:#fff linear-gradient(135deg, transparent 44%, #e58aa0 44% 56%, transparent 56%); }
+.colour-swatch[aria-pressed="true"] { box-shadow:0 0 0 3px #244e3b, 0 0 0 6px #ffe27a; transform:scale(1.12); }
+.colour-board { position:relative; background:#fff; }
+.colour-board canvas { position:absolute; inset:0; width:100%; height:100%; touch-action:none; }
+.colour-board canvas[data-colour-lines] { cursor:pointer; }
+/* Arts & Sheets > Worksheets: text-only rows (no pictures). */
+#app .printable-card.arts-worksheet { grid-template-columns:minmax(0,1fr) auto; }
+@media (max-width:560px) { #app .printable-card.arts-worksheet { grid-template-columns:minmax(0,1fr); } #app .printable-card.arts-worksheet .printable-actions { grid-column:1; } }
+
+/* ---- Little Bug Club look (16 November 2026): the section fills the card, Insects buttons and tiles. ---- */
+#app .arts-card #content { display:flex; flex-direction:column; }
+#app .arts-root { flex:1; min-height:0; display:flex; flex-direction:column; gap:10px; }
+#app .arts-card:has(.trace-play, .colour-play, .craft-play) { padding:12px 16px; }
+#app .arts-card:has(.trace-play) .card-heading { position:absolute; width:1px; height:1px; margin:0; overflow:hidden; clip-path:inset(50%); }
+#app .arts-card:has(.colour-play, .craft-play) .card-heading { margin-bottom:8px; }
+#app .arts-root .learn-action, #app .arts-root .primary-button, .trace-name-dialog .primary-button {
+  min-height:48px; padding:8px 18px; border-radius:16px; font-weight:800; font-size:16px; line-height:1.15;
+}
+#app .arts-root .learn-action { background:#fff; color:var(--ink); border:2px solid #9fb88a; box-shadow:0 3px 0 #b9cba5; }
+#app .arts-root .learn-action[aria-pressed="true"] { background:#e2edcf; border-color:#5f8a4a; }
+#app .arts-root .media-sections > .learn-action { box-shadow:none; border:1px solid transparent; background:transparent; }
+#app .arts-root .media-sections > .learn-action[aria-pressed="true"] { background:#e2edcf; border-color:#849d6c; }
+#app .arts-root .primary-button, .trace-name-dialog .primary-button { background:var(--primary); color:#fffbea; border:0; box-shadow:0 3px 0 #123c2c; }
+#app .arts-root .trace-dock > button, #app .arts-root .craft-dock > button { min-height:60px; }
+.trace-name-dialog footer { display:flex; justify-content:flex-end; margin-top:16px; }
+#app .arts-root .trace-picture-grid > .trace-picture {
+  padding:10px 10px 0; border:1px solid #c5d0ae; border-radius:18px; background:#fffbed; box-shadow:0 3px 8px rgba(58,87,51,.08); color:var(--ink); overflow:hidden;
+}
+#app .arts-root .trace-picture-grid > .trace-picture:hover { border-color:#86a26b; }
+#app .arts-root .trace-picture > strong { align-self:stretch; justify-self:stretch; display:flex; align-items:center; justify-content:center; min-height:calc(2.4em + 16px); margin:0 -10px; padding:8px 6px; background:#e2edcf; font-size:16px; font-weight:800; }
+#app .arts-root .trace-thumb { background:#fff; }
+#app .arts-root .craft-grid .trace-thumb img { mix-blend-mode:normal; }
+/* Pictures and My pictures: a short list sits centred, never stretched across the card. */
+#app .arts-root .trace-picture-grid:has(> :only-child) { display:flex; justify-content:center; flex:0 0 auto; }
+#app .arts-root .trace-picture-grid:has(> :only-child) > .trace-picture { width:min(260px, 48%); height:clamp(170px, 32vh, 260px); }
+@media (max-width:500px) {
+  #app .arts-card:has(.trace-play, .colour-play, .craft-play) { padding:8px; }
+  #app .arts-root .learn-action, #app .arts-root .primary-button { padding:8px 10px; font-size:16px; }
+}
+/* Switch rows sit together in the middle (Insects' segment bar centres itself with auto margins). */
+#app .arts-root .trace-options > .media-sections, #app .arts-root .colour-tools > .media-sections { margin:0; }

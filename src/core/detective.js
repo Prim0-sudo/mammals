@@ -1,190 +1,254 @@
-import { RevealClock, REVEAL_SECONDS, REVEAL_DURATIONS, MOSAIC_COLUMNS, MOSAIC_ROWS, MOSAIC_TILES } from './detective-clock.js';
-import { shuffle } from './logic.js';
+// Detective (SCREEN-SPEC section 7): a word picture hides behind a 12 x 10 mosaic, a coarse
+// pixel grid or a black outline, and comes into view while the reveal runs. The reveal counts
+// active time only: it stops for Guess, popouts and hidden tabs. A star needs a first-try guess
+// before the picture is fully shown. Ported from the Plants detective model and view.
+import { shuffle } from "./logic.js";
+import { kindOf } from "../topics/kind-of.js";
+import { SHOWS, LOOK_ALIKES } from "../topics/look-alikes.js";
 
-const modes = [
-  {id:'silhouette', title:'Silhouette', icon:'◐'},
-  {id:'pixel', title:'Pixel Reveal', icon:'▦'},
-  {id:'mosaic', title:'Mosaic Reveal', icon:'▧'},
-];
-const button = (label, action, extra = '') => `<button class="button" data-action="${action}" ${extra}>${label}</button>`;
+export const REVEAL_KINDS = [["mosaic", "Mosaic"], ["pixel", "Pixel"], ["silhouette", "Silhouette"]];
+export const REVEAL_TIMES = [30, 45, 60];
+export const TILE_COUNT = 120;
+// Outlines only work for whole animals drawn on a clear background.
+const OUTLINE_GROUPS = new Set(["neighbours"]); // Mammals word pictures are full scenes, so none outline yet
+export const canSilhouette = (item) => OUTLINE_GROUPS.has(item.categoryId);
 
-export class Detective {
-  constructor(engine) {
-    this.engine = engine;
-    this.active = true;
-    this.timer = null;
-    this.duration = REVEAL_SECONDS;
-    this.visibility = () => {
-      if (document.hidden && this.clock && this.clock.started !== null) {
-        this.clock.pause();
-        this.update();
-      }
+export function createReveal(kind = "mosaic", duration = 45, order = shuffle(Array.from({ length: TILE_COUNT }, (_, i) => i))) {
+  if (!REVEAL_KINDS.some(([id]) => id === kind) || !REVEAL_TIMES.includes(duration)) throw Error("Invalid reveal settings");
+  return { kind, duration, order, elapsed: 0, running: false, guessing: false, assisted: false, complete: false, wrong: false };
+}
+export function advanceReveal(reveal, ms) {
+  if (!reveal.running || reveal.complete) return;
+  reveal.elapsed = Math.min(reveal.duration * 1000, reveal.elapsed + Math.max(0, ms));
+  if (reveal.elapsed === reveal.duration * 1000) {
+    reveal.running = false;
+    reveal.assisted = true;
+  }
+}
+export const revealedTiles = (reveal) => Math.min(TILE_COUNT, Math.floor((reveal.elapsed / (reveal.duration * 1000)) * TILE_COUNT));
+// Returns the stars earned: one for a first-try guess before the picture was fully shown.
+export function answerReveal(reveal, correct) {
+  if (reveal.complete) return 0;
+  if (!correct) {
+    reveal.wrong = true;
+    return 0;
+  }
+  reveal.complete = true;
+  reveal.running = false;
+  return reveal.assisted || reveal.wrong ? 0 : 1;
+}
+// A word and any word it is a kind of, at any depth (snail, pond snail, ramshorn), are never
+// offered together, so a "wrong" picture is never really right. Used by Detective and Which One Is It?.
+const wider = (id) => {
+  const chain = [];
+  for (let at = kindOf[id]; at && !chain.includes(at); at = kindOf[at]) chain.push(at);
+  return chain;
+};
+// Look-alike pairs, and concept pictures that show an animal (topics/look-alikes.js): a picture
+// counts as the word itself and every animal it shows.
+const lookAlike = (a, b) => LOOK_ALIKES.some(([x, y]) => (a === x && b === y) || (a === y && b === x));
+const ids = (id) => [id, ...(SHOWS[id] || [])];
+const close = (a, b) => a === b || wider(a).includes(b) || wider(b).includes(a) || lookAlike(a, b);
+export const related = (a, b) => ids(a.id).some((x) => ids(b.id).some((y) => close(x, y)));
+// Two fair wrong choices from the session; a small session (only spiders) borrows from `spare`.
+export const detectiveChoices = (item, pool, spare = []) => {
+  const fair = (list) => list.filter((x) => x.id !== item.id && !related(x, item));
+  const picked = shuffle(fair(pool)).slice(0, 2);
+  for (const x of shuffle(fair(spare))) if (picked.length < 2 && !picked.some((p) => p.id === x.id)) picked.push(x);
+  return shuffle([item, ...picked]);
+};
+
+const esc = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+
+export class DetectiveView {
+  constructor(game, item, choices, reveal) {
+    Object.assign(this, { game, item, choices, reveal, active: true, last: null, run: 0 });
+    this.root = game.app.querySelector("#content");
+    this.root.innerHTML = this.markup();
+    this.canvas = this.root.querySelector("canvas");
+    this.root.querySelector("[data-kind]").value = reveal.kind;
+    this.root.querySelector("[data-duration]").value = String(reveal.duration);
+    this.bind();
+    this.image = new Image();
+    this.image.onload = () => this.active && this.paint();
+    this.image.onerror = () => {
+      if (!this.active) return;
+      this.stop();
+      reveal.assisted = true;
+      game.feedback("This picture could not load. Skip it and try the next one.", () => game.next(), "wrong");
     };
-    document.addEventListener('visibilitychange', this.visibility);
-    this.setup();
-  }
-  stop() { clearTimeout(this.timer); this.timer = null; this.clock?.pause(); }
-  destroy() {
-    this.active = false;
-    this.stop();
-    document.removeEventListener('visibilitychange', this.visibility);
-  }
-  setup() {
-    this.stop();
-    this.roundId = (this.roundId || 0) + 1;
-    this.roundActive = false;
-    this.engine.shell('Detective', '',
-      `<div class="detective-options">${modes.map(m => `<button class="session-card" data-reveal="${m.id}"><span class="detective-option-icon" aria-hidden="true">${m.icon}</span><strong>${m.title}</strong></button>`).join('')}</div>`);
-    this.engine.app.querySelectorAll('[data-reveal]').forEach(el => el.onclick = () => this.begin(el.dataset.reveal));
-    this.engine.focus();
-  }
-  async begin(id) {
-    this.stop();
-    const roundId = ++this.roundId;
-    const mode = modes.find(m => m.id === id);
-    if (!mode) return;
-    this.mode = id;
-    this.roundActive = true;
-    this.revealed = false;
-    this.scene = null;
-    this.clock = new RevealClock(undefined, this.duration);
-    this.order = shuffle(Array.from({length:MOSAIC_TILES}, (_,i) => i));
-    this.engine.shell(mode.title, '',
-      `<div class="detective-stage" aria-busy="true"><canvas class="detective-canvas" width="1536" height="1024" role="img" aria-label="Mystery mammal picture"></canvas><span class="detective-loading">Loading picture…</span></div><div class="detective-status">${id === 'silhouette' ? '' : `<div class="detective-durations" role="group" aria-label="Reveal duration">${REVEAL_DURATIONS.map(seconds => `<button class="subtle" data-duration="${seconds}" aria-pressed="${seconds === this.duration}">${seconds}s</button>`).join('')}</div>`}<span id="detective-time" role="timer" ${id === 'silhouette' ? 'hidden' : ''}></span><progress id="detective-progress" max="${this.clock.duration}" value="0" aria-label="Picture reveal progress" ${id === 'silhouette' ? 'hidden' : ''}></progress></div><div class="detective-controls">${id === 'silhouette' ? '' : button('Start','detective-pause','disabled')}${button('Guess','detective-guess','disabled')}${button('Reveal','detective-reveal','disabled')}${button('Next','detective-next','disabled')}${button('Modes','detective-setup')}</div><div class="detective-answers" hidden><div class="answers">${shuffle(['Elephant','Rhinoceros','Hippopotamus']).map((name,i) => `<button class="answer" data-detective-answer="${name}" data-key="${i+1}">${name}</button>`).join('')}</div></div>`);
-    this.engine.bind('detective-setup', () => this.setup());
-    this.engine.app.querySelectorAll('[data-duration]').forEach(el => el.onclick = () => {
-      if (this.revealed || this.clock.started !== null || this.clock.seconds > 0) return;
-      this.duration = Number(el.dataset.duration);
-      this.clock.duration = this.duration;
-      this.engine.app.querySelector('#detective-progress').max = this.duration;
-      this.engine.app.querySelectorAll('[data-duration]').forEach(option => option.setAttribute('aria-pressed', String(Number(option.dataset.duration) === this.duration)));
-      this.update();
-    });
-    this.canvas = this.engine.app.querySelector('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.engine.focus();
-    try {
-      const load = (src) => new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = reject; image.src = src; });
-      const assets = this.engine.topic.detectiveDemo;
-      const [scene, cutout] = await Promise.all([load(assets.scene), id === 'silhouette' ? load(assets.cutout) : Promise.resolve(null)]);
-      if (!this.active || this.roundId !== roundId) return;
-      this.scene = scene;
-      this.cutout = cutout;
-      this.small = document.createElement('canvas');
-      this.engine.app.querySelector('.detective-loading').remove();
-      this.engine.app.querySelector('.detective-stage').setAttribute('aria-busy', 'false');
-      for (const action of ['detective-pause','detective-guess','detective-reveal']) {
-        const el = this.engine.app.querySelector(`[data-action="${action}"]`);
-        if (el) el.disabled = false;
-      }
-      this.engine.bind('detective-pause', () => {
-        if (this.clock.started === null) { this.clock.resume(); this.tick(); }
-        else { this.stop(); this.update(); }
-      });
-      this.engine.bind('detective-guess', () => {
-        this.stop();
-        this.update();
-        this.engine.app.querySelector('.detective-answers').hidden = false;
-        this.engine.focus('[data-detective-answer]:not(:disabled)');
-      });
-      this.engine.bind('detective-reveal', () => this.reveal(false));
-      this.engine.bind('detective-next', () => this.setup());
-      this.engine.app.querySelectorAll('[data-detective-answer]').forEach(el => el.onclick = () => {
-        if (this.revealed) return;
-        if (el.dataset.detectiveAnswer === assets.answer) this.reveal(true);
-        else {
-          el.disabled = true;
-          this.feedback('Try again.');
-          this.engine.focus('[data-detective-answer]:not(:disabled)');
-        }
-      });
-      this.update();
-    } catch {
-      if (!this.active || this.roundId !== roundId) return;
-      this.engine.app.querySelector('.detective-loading').textContent = 'Picture unavailable. Try again.';
-      this.engine.app.querySelector('.detective-stage').setAttribute('aria-busy','false');
-    }
-  }
-  tick() {
-    if (!this.active || !this.roundActive || this.revealed) return;
+    this.image.src = item.image;
+    this.resize = new ResizeObserver(() => this.active && this.paint());
+    this.resize.observe(this.root.querySelector(".detective-stage"));
     this.update();
-    if (this.clock.seconds >= this.clock.duration) { this.reveal(false); return; }
-    if (this.clock.started !== null) this.timer = setTimeout(() => this.tick(), 100);
+  }
+  markup() {
+    const { reveal, item } = this;
+    const kinds = REVEAL_KINDS.map(([id, label]) => `<option value="${id}" ${id === "silhouette" && !canSilhouette(item) ? "disabled" : ""}>${label}</option>`).join("");
+    const times = REVEAL_TIMES.map((t) => `<option value="${t}">${t} seconds</option>`).join("");
+    return `<div class="detective-settings detective-settings--play"><label>Reveal <select data-kind>${kinds}</select></label><label>Time <select data-duration>${times}</select></label></div><div class="detective-workspace"><div class="detective-stage" role="img" aria-label="Hidden picture"><canvas aria-hidden="true"></canvas><div class="detective-mosaic" aria-hidden="true">${Array.from({ length: TILE_COUNT }, (_, i) => `<i data-cover="${i}"></i>`).join("")}</div></div><div class="detective-controls"><p class="detective-time" aria-live="off"></p><div class="detective-actions"><button class="button button--secondary" data-start></button><button class="button button--secondary" data-guess>Guess</button><button class="button button--secondary" data-reveal>Reveal picture</button></div><div class="detective-answers" ${reveal.guessing ? "" : "hidden"}>${this.choices.map((c, i) => `<button class="answer detective-answer" data-detective-answer="${esc(c.id)}" data-key="${i + 1}">${esc(c.name)}</button>`).join("")}</div></div></div>`;
+  }
+  bind() {
+    const { game, reveal, root } = this;
+    root.querySelector("[data-kind]").onchange = (e) => {
+      reveal.kind = e.target.value;
+      if (reveal.kind === "silhouette") this.stop();
+      game.detectiveSettings.kind = reveal.kind;
+      this.update();
+    };
+    root.querySelector("[data-duration]").onchange = (e) => {
+      // Keep how much has been shown: the same share of the new time has passed.
+      const share = reveal.elapsed / (reveal.duration * 1000);
+      reveal.duration = Number(e.target.value);
+      reveal.elapsed = share * reveal.duration * 1000;
+      game.detectiveSettings.duration = reveal.duration;
+      this.update();
+    };
+    root.querySelector("[data-start]").onclick = () => {
+      if (reveal.running) this.stop();
+      else {
+        reveal.guessing = false;
+        reveal.running = true;
+        this.start();
+      }
+      this.update();
+    };
+    root.querySelector("[data-guess]").onclick = () => {
+      this.stop();
+      reveal.guessing = true;
+      this.update();
+      this.game.focus("[data-detective-answer]");
+    };
+    root.querySelector("[data-reveal]").onclick = () => {
+      this.stop();
+      reveal.assisted = true;
+      reveal.elapsed = reveal.duration * 1000;
+      reveal.guessing = true;
+      this.update();
+      game.feedback("Picture shown for practice. No star for this one.", null, "wrong");
+    };
+    root.querySelectorAll("[data-detective-answer]").forEach((el) => (el.onclick = () => this.answer(el)));
+  }
+  answer(el) {
+    const { game, reveal, item } = this;
+    if (reveal.complete || this.root.querySelector(".detective-answers").hidden) return;
+    const correct = el.dataset.detectiveAnswer === item.id;
+    const star = answerReveal(reveal, correct);
+    if (!correct) {
+      el.disabled = true;
+      el.classList.add("wrong");
+      game.state.wrong = true;
+      game.feedback("Not that one. Try again!", null, "wrong");
+      game.audio.tone(230);
+      return;
+    }
+    el.classList.add("correct");
+    game.state.answered = true;
+    game.state.score += star;
+    game.saveRound();
+    game.updateScore();
+    game.audio.tone();
+    if (star) game.confetti(25);
+    this.stop();
+    this.update();
+    const name = item.name[0].toLocaleUpperCase(game.topic.locale) + item.name.slice(1);
+    game.feedback(`Correct! ${name}: ${item.definition}${reveal.assisted ? " This one was practice." : ""}`, () => game.next(), "right");
+  }
+  full() {
+    const r = this.reveal;
+    return r.complete || r.elapsed >= r.duration * 1000;
   }
   update() {
-    if (!this.roundActive || !this.scene || this.revealed) return;
-    this.draw();
-    const paused = this.clock.started === null;
-    const button = this.engine.app.querySelector('[data-action="detective-pause"]');
-    if (button) button.textContent = paused ? (this.clock.seconds ? 'Resume' : 'Start') : 'Pause';
-    if (this.mode !== 'silhouette') {
-      const started = this.clock.started !== null || this.clock.seconds > 0;
-      this.engine.app.querySelector('.detective-durations').hidden = started;
-      this.engine.app.querySelector('#detective-time').hidden = !started;
-      this.engine.app.querySelector('#detective-time').textContent = `${Math.ceil(this.clock.duration-this.clock.seconds)}s`;
-      this.engine.app.querySelector('#detective-progress').value = this.clock.seconds;
-    }
+    const r = this.reveal, root = this.root, full = this.full();
+    const start = root.querySelector("[data-start]");
+    start.textContent = r.running ? "Stop reveal" : "Start reveal";
+    start.disabled = r.complete || full || r.kind === "silhouette";
+    // Only the actions that still do something stay in the bar, so the child is never offered three at once.
+    start.hidden = start.disabled;
+    const guess = root.querySelector("[data-guess]"), show = root.querySelector("[data-reveal]");
+    guess.disabled = r.complete;
+    guess.hidden = r.complete || r.guessing;
+    show.disabled = r.complete || full;
+    show.hidden = show.disabled;
+    root.querySelector("[data-kind]").disabled = r.complete;
+    root.querySelector("[data-duration]").disabled = r.complete || r.kind === "silhouette";
+    root.querySelector(".detective-answers").hidden = !r.guessing && !r.complete;
+    root.querySelector(".detective-time").textContent = r.complete
+      ? "Picture solved"
+      : r.kind === "silhouette" && !full
+        ? "Use the outline as your clue"
+        : `${Math.ceil((r.duration * 1000 - r.elapsed) / 1000)} seconds of reveal remaining`;
+    root.querySelector(".detective-stage").setAttribute("aria-label", full ? this.item.imageAlt || this.item.name : "Hidden picture");
+    this.paint();
   }
-  draw() {
-    const {ctx,canvas,scene} = this;
-    const {width:w,height:h} = canvas;
-    ctx.clearRect(0,0,w,h);
-    if (this.revealed) { ctx.drawImage(scene,0,0,w,h); return; }
-    if (this.mode === 'silhouette') {
-      ctx.drawImage(this.cutout,0,0,w,h);
-      ctx.globalCompositeOperation = 'source-in';
-      ctx.fillStyle = '#23483b'; ctx.fillRect(0,0,w,h);
-      ctx.globalCompositeOperation = 'source-over';
-      return;
-    }
-    if (this.mode === 'pixel') {
-      // True pixelation: sample at low resolution, then enlarge without smoothing.
-      const progress = this.clock.seconds / this.clock.duration;
-      const columns = Math.round(6 * Math.pow(w/6, progress));
-      this.small.width = columns; this.small.height = Math.max(1,Math.round(columns*h/w));
-      const smallCtx = this.small.getContext('2d');
-      smallCtx.drawImage(scene,0,0,this.small.width,this.small.height);
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(this.small,0,0,w,h);
-      ctx.imageSmoothingEnabled = true;
-      return;
-    }
-    ctx.fillStyle = '#e8e7d6'; ctx.fillRect(0,0,w,h);
-    const visible = new Set(this.order.slice(0,this.clock.blocks));
-    for (let i=0;i<MOSAIC_TILES;i++) {
-      const tileW=w/MOSAIC_COLUMNS, tileH=h/MOSAIC_ROWS;
-      const x=i%MOSAIC_COLUMNS*tileW, y=Math.floor(i/MOSAIC_COLUMNS)*tileH;
-      if (visible.has(i)) ctx.drawImage(scene,x,y,tileW,tileH,x,y,tileW,tileH);
-      else {
-        ctx.fillStyle = i%2 ? '#d4dfcc' : '#e8e7d6'; ctx.fillRect(x,y,tileW,tileH);
-        ctx.strokeStyle = '#81967a'; ctx.lineWidth=2; ctx.strokeRect(x,y,tileW,tileH);
+  paint() {
+    const r = this.reveal, full = this.full(), canvas = this.canvas, ctx = canvas.getContext("2d");
+    const box = canvas.getBoundingClientRect(), ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.max(1, Math.round(box.width * ratio)), height = Math.max(1, Math.round(box.height * ratio));
+    if (canvas.width !== width || canvas.height !== height) Object.assign(canvas, { width, height });
+    ctx.clearRect(0, 0, width, height);
+    const img = this.image;
+    if (img?.complete && img.naturalWidth) {
+      const inset = Math.min(width, height) * 0.04;
+      const scale = Math.min((width - inset * 2) / img.naturalWidth, (height - inset * 2) / img.naturalHeight);
+      const w = img.naturalWidth * scale, h = img.naturalHeight * scale, x = (width - w) / 2, y = (height - h) / 2;
+      if (r.kind === "pixel" && !full) {
+        const size = Math.max(3, Math.round(3 + (r.elapsed / (r.duration * 1000)) ** 2 * 100));
+        const small = document.createElement("canvas");
+        small.width = small.height = size;
+        small.getContext("2d").drawImage(img, 0, 0, size, size);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(small, x, y, w, h);
+      } else {
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(img, x, y, w, h);
       }
     }
+    canvas.style.filter = r.kind === "silhouette" && !full ? "brightness(0)" : "";
+    const grid = this.root.querySelector(".detective-mosaic");
+    grid.hidden = r.kind !== "mosaic" || full;
+    const shown = new Set(r.order.slice(0, revealedTiles(r)));
+    grid.querySelectorAll("[data-cover]").forEach((tile) => (tile.style.visibility = shown.has(+tile.dataset.cover) ? "hidden" : "visible"));
   }
-  feedback(text) {
-    this.engine.app.querySelector('#feedback').textContent = text;
+  advance() {
+    if (this.last == null) return;
+    const now = performance.now();
+    advanceReveal(this.reveal, now - this.last);
+    this.last = now;
   }
-  reveal(correct) {
-    if (this.revealed) return;
-    this.stop(); this.revealed = true;
-    this.draw();
-    this.canvas.setAttribute('aria-label',this.engine.topic.detectiveDemo.alt);
-    this.engine.app.querySelector('#detective-time').hidden = true;
-    const durations = this.engine.app.querySelector('.detective-durations');
-    if (durations) durations.hidden = true;
-    this.engine.app.querySelector('#detective-progress').value = this.clock.duration;
-    for (const action of ['detective-pause','detective-guess','detective-reveal']) {
-      const el = this.engine.app.querySelector(`[data-action="${action}"]`);
-      if (el) el.disabled=true;
-    }
-    this.engine.app.querySelectorAll('[data-detective-answer]').forEach(el=>el.disabled=true);
-    this.engine.app.querySelector('[data-action="detective-next"]').disabled=false;
-    if (correct) {
-      this.engine.state.score++;
-      this.engine.app.querySelector('.score b').textContent=this.engine.state.score;
-      this.engine.app.querySelector('.score').setAttribute('aria-label',`${this.engine.state.score} stars`);
-    }
-    this.feedback(correct ? 'Elephant! Well done.' : 'Elephant.');
-    this.engine.focus('[data-action="detective-next"]');
+  // Each run of the reveal has its own number, so a tick left over from a pause never doubles up.
+  start() {
+    if (this.game.paused || !this.reveal.running || this.reveal.kind === "silhouette") return;
+    this.last = performance.now();
+    this.tick(++this.run);
+  }
+  tick(run) {
+    this.game.later(() => {
+      if (!this.active || run !== this.run) return;
+      this.advance();
+      this.update();
+      if (this.reveal.running) this.tick(run);
+    }, 50);
+  }
+  stop() {
+    this.advance();
+    this.last = null;
+    this.run++;
+    this.reveal.running = false;
+  }
+  // Paused time (popouts, hidden tab) never counts as reveal time.
+  setPaused(paused) {
+    if (paused) {
+      this.advance();
+      this.last = null;
+      this.run++;
+    } else if (this.reveal.running) this.start();
+  }
+  destroy() {
+    this.active = false;
+    this.last = null;
+    this.run++;
+    this.resize?.disconnect();
+    if (this.image) this.image.onload = this.image.onerror = null;
   }
 }

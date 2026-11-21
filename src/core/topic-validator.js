@@ -1,5 +1,4 @@
 import { letters } from "./logic.js";
-import { landingAssets } from "./landing-assets.js";
 export const modeOrder = [
   "learn",
   "sort",
@@ -9,28 +8,25 @@ export const modeOrder = [
   "spelling",
   "flip",
   "wheel",
-  "story",
-  "video",
-  "phonics",
-  "create",
 ];
+// Home menu and Activities folder order (blueprint v6.1).
+export const homeTileOrder = ["learn", "activities", "knowledge", "media", "games", "phonics", "arts", "more"];
+export const activityOrder = ["sort", "detective", "identify", "spelling", "flip", "wheel"];
 export function assetPaths(t) {
   return [
     ...new Set([
       t.launch.logoImage,
       t.launch.backgroundImage,
       t.launch.buttonImage,
-      ...(t.launch.clubBadge ? [t.launch.clubBadge] : []),
-      ...(t.launch.sceneLayout?.actors || []).map(name=>landingAssets[name].file),
-      ...(t.launch.flyingBugs || []).flatMap(bug => [bug.sheet, bug.turnImage].filter(Boolean)),
+      ...(t.launch.flyingBugs || []).flatMap(bug => [bug.sheet, ...Object.values(bug.turnPoses || {})]),
       ...(t.launch.emblem
         ? [t.launch.emblem.baseImage, ...t.launch.emblem.wings.map((x) => x.image)]
         : []),
       ...(t.launch.scene?.assets || []),
-      ...(t.detectiveDemo ? [t.detectiveDemo.scene, t.detectiveDemo.cutout] : []),
       ...t.items.map((x) => x.image),
       ...t.categories.map((x) => x.image),
       ...t.modes.map((x) => x.image),
+      ...(t.menu?.tiles || []).map((x) => x.image),
       ...Object.values(t.modeSkins).flatMap((x) => x.assets),
     ]),
   ];
@@ -49,13 +45,16 @@ export function validateTopic(t) {
     unique(t[key], key);
   check(
     t.modes.map((x) => x.id).join() === modeOrder.join(),
-    "Incorrect menu-card order",
+    "Incorrect eight-card order",
   );
-  for (const id of ["story", "video", "phonics"]) {
-    const mode = t.modes.find((x) => x.id === id);
-    check(mode?.locked && mode.lockedReason, "Keep empty activity locked: " + id);
-  }
-  check(t.modes.find(x => x.id === "create")?.locked || t.curriculum.readingPractice.length > 0, "Read, Draw & Talk needs reading cards");
+  check(
+    t.menu?.tiles?.map((x) => x.id).join() === homeTileOrder.join(),
+    "Home tiles must follow the v6.1 order",
+  );
+  check(
+    t.menu?.activities?.join() === activityOrder.join(),
+    "Activities folder must follow the v6.1 order",
+  );
   check(t.items.length >= 3, "At least three words required");
   check(
     new Set(t.items.map((x) => x.name.toLowerCase())).size === t.items.length,
@@ -85,7 +84,7 @@ export function validateTopic(t) {
   }
   for (const c of t.categories)
     check(
-      t.items.some((x) => x.categoryId === c.id) && c.image && c.imageAlt,
+      (t.showEmptyGroups || t.items.some((x) => x.categoryId === c.id)) && c.image && c.imageAlt,
       "Empty category " + c.id,
     );
   check(t.knowledgeQuestions.length >= 7, "At least seven questions");
@@ -100,14 +99,8 @@ export function validateTopic(t) {
     );
     check(!q.visualItemId || ids.has(q.visualItemId), "Unknown visual " + q.id);
   }
-  const detective = t.modes.find((x) => x.id === "detective");
-  // Detective needs both the full scene and a transparent silhouette source.
   check(
-    !detective.locked && t.detectiveDemo?.scene && t.detectiveDemo?.cutout && t.detectiveDemo?.answer,
-    "Detective test artwork is incomplete",
-  );
-  check(
-    ["homeward-trail"].includes(t.modeSkins.spelling.id),
+    ["homeward-trail", "simple-progress"].includes(t.modeSkins.spelling.id),
       "Unsupported spelling adapter",
     );
     if (t.modeSkins.spelling.attempts !== undefined)

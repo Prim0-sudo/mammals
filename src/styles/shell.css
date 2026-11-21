@@ -1,0 +1,669 @@
+/* v6.1 shell: fixed Home and Settings controls, Home menu, Activities folder, game frame and popouts.
+   Sizes follow docs/blueprint-v6.1/SCREEN-SPEC.md at 1024 × 768; colours are Little Bug Club's own. */
+:root {
+  --ink: #263e31;
+  --muted-ink: #52665a;
+  --dark-accent: #1f4f39;
+  --button-green: #2b7a4b;
+  --cream: #fffbed;
+  --sun: #ffd85c;
+  --honey: #d3ae48;
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+}
+body { overflow: hidden; height: 100svh; display: flow-root; }
+/* The live announcer sits after a full-height screen; pin it so it never adds a scroll line. */
+#announcer { top: 0; left: 0; }
+:where(button, a, summary, select, input):focus-visible { outline: 5px solid #1d4ed8; outline-offset: 4px; }
+a { text-decoration: none; color: inherit; }
+
+/* Fixed controls */
+.brand {
+  position: fixed; top: 12px; left: 14px; z-index: 20;
+  display: flex; align-items: center; gap: 10px; height: 62px; min-width: 144px;
+  padding: 6px 18px 6px 8px; background: #f6f9eb; border: 2px solid #fffdf0; border-radius: 18px;
+  box-shadow: 0 6px 0 rgba(16, 65, 35, .18); color: var(--dark-accent); font-size: 20.4px; font-weight: 900;
+}
+.brand img { width: 46px; height: 46px; }
+.utility-controls { position: fixed; top: 12px; right: 14px; z-index: 20; display: flex; gap: 10px; align-items: center; }
+.utility-controls > button, .utility-controls > .ludimi-game-menu > summary {
+  height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #f0f5df; border: 3px solid #fffdf0; border-radius: 16px; box-shadow: 0 3px 0 rgba(66, 99, 76, .33);
+  color: var(--dark-accent); font-size: 16px; font-weight: 800;
+}
+.icon-button { width: 54px; padding: 0; }
+.settings-button { width: 125px; padding: 0 12px; }
+.ui-icon { display: inline-flex; width: 30px; height: 30px; flex: none; }
+.ui-icon svg { width: 100%; height: 100%; }
+
+/* Screens fill the window below the fixed controls; only real lists scroll, inside their card. */
+#app { height: 100svh; overflow: hidden; }
+
+/* Launch (spec section 3): title, tagline pill, round Explore button over the garden */
+#app.launch-screen { height: 100svh; margin-top: 0; padding: 72px 20px 24px; place-items: center; }
+#app .launch-composition { display: flex; flex-direction: column; align-items: center; gap: 23px; }
+#app .launch-title {
+  margin: 0; max-width: none; font-family: inherit; font-size: 92px; font-weight: 700; line-height: 1; color: #153f30;
+  text-shadow: 0 0 2px #fffbed, 0 2px 0 #fffbedcc, 0 0 18px rgba(255, 251, 237, .65);
+}
+.launch-tagline {
+  padding: 6px 16px; border-radius: 999px; background: rgba(244, 250, 237, .92);
+  font-size: 27.2px; font-weight: 700; color: #153f30;
+}
+#app .launch-explore {
+  width: 246px; height: 246px; min-height: 0; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  background: #f6f9eb; border: 6px solid #f4f8dc; border-radius: 50%; color: #214d37; text-shadow: none;
+  box-shadow: 0 0 0 4px #2b7a4b, 0 8px 0 4px #174d32, 0 14px 30px rgba(19, 59, 53, .25);
+}
+#app .launch-explore:focus-visible { outline: 4px solid #fffbee; outline-offset: 6px; border-radius: 50%; filter: none; }
+#app .launch-explore .launch-emblem { width: 118px; height: 104px; aspect-ratio: auto; margin: 0 0 4px; border: 0; background: none; box-shadow: none; }
+#app .launch-explore .launch-emblem-image { width: 118px; height: 104px; object-fit: contain; margin: 0 0 4px; }
+#app .launch-explore .launch-bee { inset: 0; }
+#app .launch-explore strong { font-size: 30.7px; font-weight: 1000; line-height: 1.1; }
+#app .launch-explore > span { font-size: 13.6px; font-weight: 900; }
+#app.menu-screen, #app.game-screen, #app.results-screen {
+  max-width: none; margin: 0; display: flex; flex-direction: column; gap: 12px; padding: 94px 41px 24px;
+}
+#app.game-screen { padding-top: 76px; padding-bottom: 12px; gap: 10px; }
+
+/* Home */
+.home-title, .folder-heading h1 {
+  margin: 0; text-align: center; font-family: inherit; font-size: 45px; font-weight: 700; color: #153f30;
+  text-shadow: 0 2px 0 #fffbedcc;
+}
+.featured-game {
+  width: 100%; min-height: 132px; flex: none; display: flex; align-items: center; gap: 20px; padding: 12px 26px; text-align: left;
+  background: #1d4a35; border: 2px solid var(--honey); border-radius: 18px; box-shadow: 0 4px 0 #826a2c; color: #fff7d2;
+}
+.featured-art { width: 150px; height: 104px; flex: none; display: grid; place-items: center; }
+.featured-art img { width: 100%; height: 100%; }
+.featured-copy { display: flex; flex-direction: column; gap: 4px; }
+.featured-copy strong { font-family: Georgia, "Times New Roman", serif; font-size: 30.7px; font-weight: 700; }
+.featured-copy span { font-size: 16px; }
+.home-grid, .folder-grid { flex: 1; min-height: 0; display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); }
+.home-tile {
+  position: relative; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; padding: 8px 16px 10px;
+  background: #fffbed; border: 1px solid #c5d0ae; border-radius: 18px; box-shadow: 0 3px 8px rgba(58, 87, 51, .08);
+  color: var(--ink); text-align: center;
+}
+.home-tile strong { font-size: 18px; font-weight: 800; line-height: 1.2; }
+.tile-art { position: relative; flex: 1; min-height: 0; width: 100%; }
+.tile-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.home-tile--more { background: linear-gradient(160deg, #fbf3dc, #efe2bd); }
+.continue-badge {
+  position: absolute; top: 8px; right: 8px; font-size: 13px; font-weight: 800; color: #355c45;
+  background: #fffbed; border: 1px solid #b9c7a6; padding: 2px 8px; border-radius: 999px;
+}
+
+/* Activities folder: six tiles, the last row of two centred */
+.folder-heading { position: relative; display: flex; align-items: center; justify-content: center; min-height: 54px; }
+.folder-heading .back-button { position: absolute; left: 0; }
+.folder-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.folder-tile { grid-column: span 2; position: relative; }
+.folder-tile:nth-child(5) { grid-column: 3 / span 2; }
+.tile-note { font-size: 13.6px; color: var(--muted-ink); line-height: 1.3; }
+
+/* Game frame */
+.game-toolbar { height: 54px; flex: none; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; }
+.back-button {
+  height: 44px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px 0 6px;
+  background: rgba(22, 76, 49, .92); border: 3px solid #fff; border-radius: 16px; box-shadow: 0 5px 0 rgba(11, 51, 31, .22);
+  color: #fff; font-size: 16px; font-weight: 900;
+}
+.back-button .ui-icon { width: 28px; height: 28px; background: #f1f5e7; border-radius: 50%; }
+.toolbar-progress { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.round-pill {
+  flex: none; padding: 7px 10px; border-radius: 999px; background: rgba(244, 250, 237, .94);
+  font-size: 16px; font-weight: 1000; text-transform: uppercase; letter-spacing: .02em; color: var(--dark-accent);
+}
+.game-toolbar .progress { flex: 1; height: 20px; border: 4px solid #fff; background: rgba(255, 255, 255, .55); border-radius: 999px; overflow: hidden; }
+.game-toolbar .progress > span { display: block; height: 100%; background: var(--button-green); border-radius: 999px; }
+.game-toolbar .score {
+  width: 99px; height: 52px; justify-content: center; background: #fff; border-radius: 16px;
+  box-shadow: 0 5px 0 rgba(11, 51, 31, .22); font-size: 17.9px; font-weight: 900; color: var(--dark-accent);
+}
+.game-card {
+  flex: 1; min-height: 0; width: 100%; max-width: none; margin: 0; display: flex; flex-direction: column; overflow: auto;
+  padding: 19px 31px; background: rgba(250, 253, 247, .95); border: 5px solid rgba(255, 255, 255, .92); border-radius: 34px;
+  box-shadow: 0 14px 0 rgba(20, 73, 43, .16), 0 22px 44px rgba(20, 55, 35, .22);
+}
+.card-heading { text-align: center; margin-bottom: 12px; }
+.card-heading h1 { font-family: inherit; font-size: 35.8px; font-weight: 700; line-height: 40px; color: #153f30; letter-spacing: 0; }
+.game-card #content { flex: 1; min-height: 0; }
+.hub-empty { flex: 1; display: grid; place-items: center; }
+.hub-empty p {
+  max-width: 560px; padding: 18px 24px; text-align: center; font-size: 19.2px; font-weight: 700; line-height: 1.45;
+  background: #fffbed; border: 1px solid #c5d0ae; border-radius: 16px; color: var(--muted-ink);
+}
+
+/* Card heading: title centred, Listen on the right */
+.card-heading { position: relative; }
+.card-heading.has-listen { padding: 0 90px; min-height: 44px; }
+.card-heading.title-hidden { margin: 0; min-height: 0; padding: 0; }
+.listen-button {
+  position: absolute; top: 0; right: 0; width: 74px; height: 44px; padding: 7px 14px;
+  background: #286db6; color: #fff; border-radius: 14px; font-size: 16px; font-weight: 900; box-shadow: 0 4px 0 #1b4f86;
+}
+.card-heading.title-hidden .listen-button { top: 0; right: 0; z-index: 2; }
+
+/* Toolbar extras */
+.game-toolbar:has(.start-over) { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+.start-over {
+  height: 52px; padding: 0 16px; background: #fff8ec; color: #6b3b14; border: 3px solid #fff; border-radius: 16px;
+  box-shadow: 0 5px 0 rgba(11, 51, 31, .22); font-size: 16px; font-weight: 900;
+}
+.start-over.armed { background: #b5532a; color: #fff; }
+
+/* Shared buttons (spec section 6) */
+#app .button {
+  min-height: 48px; padding: 10px 22px; background: #247b41; color: #fff; border: 3px solid #16552e; border-radius: 17px;
+  box-shadow: 0 5px 0 #124525; font-size: 16px; font-weight: 1000;
+}
+#app .button--secondary { background: #fff7c6; color: var(--dark-accent); border-color: #e8c851; box-shadow: 0 5px 0 #d3b33f; }
+#app .button--outline { background: #fff; color: var(--dark-accent); border-color: #247b41; box-shadow: 0 5px 0 rgba(23, 79, 46, .18); }
+#app .button:disabled { opacity: .45; cursor: default; }
+.toggle {
+  height: 44px; padding: 0 14px; background: #eef8ed; color: #315744; border: 2px solid #a8d8ad; border-radius: 13px;
+  font-size: 16px; font-weight: 900;
+}
+.toggle[aria-pressed="true"] { background: #315744; color: #fff; border-color: #315744; }
+
+/* Group picker: All Words first, picture cards with a count pill */
+/* Cards keep their spec height and shrink together only when ten or more groups need the room. */
+#app .picker-layout { height: 100%; display: flex; flex-direction: column; }
+#app .category-grid {
+  flex: 0 1 auto; min-height: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(0, 251px);
+  justify-content: center; gap: clamp(8px, 1.4vmin, 16px); margin: 4px 0 0; padding-bottom: 8px;
+}
+#app .picker-extra { flex: none; }
+#app .category-card {
+  min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 8px;
+  padding: 12px 8px 14px; border: 4px solid #fff; border-radius: 24px; color: var(--ink);
+  background: linear-gradient(160deg, #fff8dc, #f1e7bd); box-shadow: 0 8px 0 #acd2af, 0 14px 24px rgba(27, 80, 46, .15);
+}
+#app .category-card:nth-child(6n + 2) { background: linear-gradient(160deg, #eef8e4, #d8ecc6); }
+#app .category-card:nth-child(6n + 3) { background: linear-gradient(160deg, #fdeee6, #f6d8c8); }
+#app .category-card:nth-child(6n + 4) { background: linear-gradient(160deg, #e7f3f6, #cfe5ec); }
+#app .category-card:nth-child(6n + 5) { background: linear-gradient(160deg, #f4ecf8, #e3d4ec); }
+#app .category-card:nth-child(6n) { background: linear-gradient(160deg, #fff3d9, #f6dfb0); }
+#app .category-card .category-icon { position: relative; width: 110px; flex: 1; min-height: 0; }
+.category-icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+#app .category-card strong { font-size: 18.4px; font-weight: 700; line-height: 1.15; text-align: center; }
+#app .category-card .count-pill {
+  padding: 3px 9px; border-radius: 999px; background: var(--button-green); color: #fff;
+  font-size: 11.5px; font-weight: 1000; text-transform: uppercase; letter-spacing: .03em;
+}
+.picker-extra { display: flex; justify-content: center; margin-top: 22px; }
+
+/* Word-count and choice cards: three on the first row, the rest centred */
+.count-options {
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: minmax(0, 251px); align-content: center;
+  gap: 20px; width: min(100%, 871px); height: 100%; margin: 0 auto;
+}
+.count-card:first-child:nth-last-child(2) { grid-column: 2 / span 2; }
+.count-card:first-child:last-child, .count-card:nth-child(4):last-child { grid-column: 3 / span 2; }
+.count-card:nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; }
+.count-card {
+  grid-column: span 2; min-height: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  padding: 22px 16px 20px; background: #f6f9e9; border: 2px solid #b4c89a; border-radius: 20px; box-shadow: 0 5px 0 #90a776; color: var(--ink);
+}
+.count-card strong { font-size: 20px; font-weight: 900; color: var(--dark-accent); }
+.count-card > span:last-child { font-size: 16px; font-weight: 600; color: #4f6847; }
+.count-art { position: relative; width: 132px; height: 118px; margin-bottom: 10px; }
+.count-art__back, .count-art__front { position: absolute; width: 92px; height: 104px; border-radius: 12px; }
+.count-art__back { left: 6px; top: 8px; transform: rotate(-8deg); background: #34764f; border: 3px solid #f3e9b8; }
+.count-art__front { right: 6px; top: 4px; transform: rotate(5deg); background: #fffbed; border: 3px solid #e6c45a; display: grid; place-items: center; }
+.count-art__img { width: 78px; height: 78px; object-fit: contain; }
+
+/* Mode content fills the rest of the game card (spec section 6) */
+#app .game-card > div:not([class]) { flex: 1; min-height: 0; }
+
+/* Meet the Words word card */
+#app .learn-layout { margin: 0; max-width: none; display: grid; grid-template-columns: minmax(360px, 449px) minmax(0, 391px); justify-content: center; align-items: center; gap: 32px; height: 100%; }
+.word-picture {
+  height: min(508px, 100%); aspect-ratio: 449 / 508; max-width: 100%; display: grid; place-items: center; padding: 0;
+  background: linear-gradient(145deg, #fffdeb, #eaf8e9); border: 5px solid #fff; border-radius: 34px;
+  box-shadow: 0 9px 0 #cbe6c9, 0 15px 30px rgba(27, 80, 46, .14);
+}
+#app .word-picture .feature-art { width: 100%; height: 100%; max-height: none; object-fit: contain; background: none; border: 0; box-shadow: none; padding: 0; }
+#app .learn-copy { display: flex; flex-direction: column; gap: 12px; }
+#app .learn-copy .vocab-word { font-family: inherit; font-size: 51.2px; font-weight: 1000; line-height: 1.05; text-transform: uppercase; color: var(--dark-accent); }
+/* "A kind of bee" under the word on the word card and in Picture Pick */
+#app .kind-of-tag { margin: 4px 0 0; font-size: 20px; font-weight: 800; line-height: 1.2; text-transform: none; color: #3f6f45; }
+#app .learn-copy .definition {
+  margin: 0; padding: 10px 14px; font-size: 20px; font-weight: 750; line-height: 1.35; color: #315744;
+  background: #eef9e9; border: 3px solid #c2e7bc; border-radius: 18px;
+}
+#app .learn-copy .say-together { margin: 0; }
+.word-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 190px)); gap: 10px; }
+#app .word-actions .button { min-height: 48px; padding: 8px 12px; }
+/* Big screens: the word card grows into the space instead of sitting small in the middle */
+@media (min-width: 1400px) and (min-height: 860px) {
+  #app .learn-layout { grid-template-columns: minmax(360px, 660px) minmax(0, 560px); gap: 56px; }
+  #app .learn-layout .word-picture { height: min(740px, 100%); }
+  #app .learn-copy { gap: 16px; }
+  #app .learn-copy .vocab-word { font-size: 68px; }
+  #app .learn-copy .kind-of-tag { font-size: 25px; }
+  #app .learn-copy .definition { padding: 14px 18px; font-size: 25px; border-radius: 22px; }
+  #app .learn-copy .say-together { padding: 12px 16px; }
+  #app .learn-copy .say-together span { font-size: 12px; }
+  #app .learn-copy .say-together p { font-size: 19px; }
+  #app .word-actions { grid-template-columns: repeat(2, minmax(0, 260px)); gap: 14px; }
+  #app .word-actions .button, #app .detective-actions .button, #app .feedback .button { min-height: 60px; font-size: 20px; border-radius: 20px; }
+}
+
+/* Bodies Up Close: an arrow points at the part the word names (partPointers in the topic). The
+   box is a size container, so the arrow can find the square picture drawn "contain" inside it. */
+#app .has-pointer { position: relative; container-type: size; }
+#app .part-pointer {
+  --side: min(100cqw, 100cqh);
+  position: absolute; z-index: 2; pointer-events: none; width: calc(var(--side) * .2); aspect-ratio: 100 / 28;
+  left: calc(50cqw + (var(--x) - 50) * var(--side) / 100 - var(--side) * .2);
+  top: calc(50cqh + (var(--y) - 50) * var(--side) / 100);
+  translate: 0 -50%; transform-origin: 100% 50%; rotate: var(--a);
+  filter: drop-shadow(0 2px 2px rgba(20, 40, 25, .3));
+}
+#app .part-pointer svg { display: block; width: 100%; height: 100%; animation: part-nudge 1.4s ease-in-out infinite; }
+@keyframes part-nudge { 50% { transform: translateX(-12%); } }
+@media (prefers-reduced-motion: reduce) { #app .part-pointer svg { animation: none; } }
+#app .concealed .part-pointer { visibility: hidden; }
+
+/* Which One Is It? */
+#app .teacher-tools { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+#app .game-panel[data-game="identify"] > div:not([class]) { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+#app .game-panel[data-game="identify"] .feedback { margin-top: 10px; }
+#app .teacher-tools .toggle { border-style: solid; }
+#app .identify-target {
+  flex: 0 1 269px; width: auto; height: auto; aspect-ratio: 1; min-height: 110px; margin: 0 auto 16px; padding: 0; display: grid; place-items: center;
+  background: linear-gradient(160deg, #fffef2, #e8f8e7); border: 4px solid #fff; border-radius: 28px; box-shadow: 0 7px 0 #cbe6c9;
+}
+#app .identify-target img { width: 100%; height: 100%; max-height: none; object-fit: contain; }
+#app .game-panel[data-game="identify"] .answers { display: grid; grid-template-columns: repeat(3, minmax(0, 281px)); justify-content: center; gap: 14px; }
+#app .game-panel[data-game="identify"] .answer { height: 134px; min-height: 0; }
+
+/* Sort It: picture-pair rule cards (2 x 2) and the play screen (picture left, answers right) */
+#app .game-panel[data-game="sort"] > div:not([class]) { display: flex; flex-direction: column; }
+#app .sort-rules { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 16px; width: min(100%, 900px); margin: 4px auto 12px; }
+#app .sort-rules > .sort-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc((100% - 16px) / 2); }
+#app .sort-card { position: relative; min-width: 0; min-height: 0; display: flex; }
+#app .sort-card__play {
+  flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  padding: 36px 14px 14px; color: var(--ink); text-align: center; background: linear-gradient(150deg, #fffef2, #e8f7e8);
+  border: 4px solid #fff; border-radius: 24px; box-shadow: 0 8px 0 #acd2af, 0 14px 24px rgba(27, 80, 46, .15);
+}
+#app .sort-card:nth-child(2) .sort-card__play { background: linear-gradient(150deg, #fff8c9, #eef9dc); }
+#app .sort-card:nth-child(3) .sort-card__play { background: linear-gradient(150deg, #e6f7e6, #d8f1e2); }
+#app .sort-card:nth-child(4) .sort-card__play { background: linear-gradient(150deg, #fff0de, #ffe3e6); }
+#app .sort-card__play:disabled { opacity: .6; }
+.sort-card__pair { flex: 1 1 0; min-height: 0; display: flex; align-items: stretch; justify-content: center; gap: 6px; width: 100%; }
+.sort-card__side { flex: 1 1 0; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.sort-card__picture { position: relative; flex: 1 1 0; min-height: 0; width: 100%; }
+.sort-card__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.sort-card__label { font-size: 16px; font-weight: 800; line-height: 1.15; color: #476a58; }
+.sort-card__or { align-self: center; margin-bottom: 1.2em; font-size: 14.4px; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; color: var(--button-green); }
+#app .sort-card__play strong { font-size: 22px; font-weight: 900; line-height: 1.1; color: var(--dark-accent); }
+#app .sort-card .count-pill { padding: 3px 9px; border-radius: 999px; background: var(--button-green); color: #fff; font-size: 11.5px; font-weight: 1000; text-transform: uppercase; letter-spacing: .03em; }
+#app .sort-card__info {
+  position: absolute; top: 8px; right: 8px; z-index: 1; width: 44px; height: 44px; display: grid; place-items: center; padding: 0;
+  font: italic 900 18.4px/1 Georgia, serif; color: var(--button-green); background: #fffdf2; border: 2px solid #b9d3b1; border-radius: 50%;
+}
+.sort-info .sort-info__note { margin: 0 0 18px; font-size: 17.6px; line-height: 1.5; }
+#app .sort-play { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 449px) minmax(0, 300px); justify-content: center; align-items: center; gap: 41px; }
+#app .sort-play .sort-picture { height: min(452px, 100%); aspect-ratio: 1; }
+#app .sort-play .answers { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+#app .sort-play .answer { min-height: 0; height: 134px; }
+#app .game-panel[data-game="sort"] .feedback { margin-top: 10px; }
+
+/* Detective: setup selects, then the stage (12 x 10 mosaic) with the controls column */
+#app .detective-setup { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+.detective-settings { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.detective-settings label { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; color: var(--dark-accent); }
+.detective-settings select { height: 44px; padding: 7px; font: inherit; font-weight: 700; color: var(--ink); background: #fff; border: 2px solid #247b41; border-radius: 10px; }
+#app .detective-settings--play { justify-content: flex-end; margin: -6px 0 10px; }
+#app .game-panel[data-game="detective"] > div:not([class]) { display: flex; flex-direction: column; }
+#app .detective-workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 660px) 190px; justify-content: center; align-items: center; gap: 20px; }
+.detective-stage { position: relative; width: 100%; max-height: 100%; aspect-ratio: 660 / 452; overflow: hidden; background: #e6f2df; border: 3px solid #397c52; border-radius: 18px; }
+.detective-stage canvas { display: block; width: 100%; height: 100%; }
+.detective-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(10, 1fr); }
+.detective-mosaic i { background: #397c52; border: 1px solid #78a96b; }
+.detective-controls { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.detective-time { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--dark-accent); }
+.detective-actions, .detective-answers { display: grid; gap: 10px; }
+/* A solved picture hides its last button; the row keeps its height so the answers stay put. */
+.detective-actions { min-height: 48px; }
+#app .detective-actions .button { min-height: 48px; padding: 8px 10px; }
+#app .detective-answer { min-height: 53px; padding: 6px 10px; font-size: 20.8px; }
+#app .game-panel[data-game="detective"] .feedback { margin-top: 10px; }
+/* Picture Pick: style switch, reel or bug jar, then the reading card */
+#app .game-panel[data-game="wheel"] #content { display: flex; flex-direction: column; }
+#app .pick-play { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.pick-switch { display: flex; gap: 4px; padding: 4px; width: 264px; background: #e2f2e3; border-radius: 999px; flex: none; }
+#app .pick-switch button { flex: 1; height: 44px; padding: 0 6px; border: 0; border-radius: 999px; background: transparent; color: var(--dark-accent); font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+#app .pick-switch button[aria-pressed="true"] { background: var(--button-green); color: #fff; }
+#app .pick-switch button:disabled { cursor: default; }
+.pick-label { margin: 0; min-height: 1.2em; font-size: 24.9px; font-weight: 1000; line-height: 1.2; text-transform: uppercase; letter-spacing: .03em; color: var(--dark-accent); text-align: center; }
+.reel-stage { flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+.reel-window {
+  --reel-card: 240px; --reel-gap: 14px;
+  position: relative; width: 100%; height: 280px; flex: none; overflow: hidden;
+  background: linear-gradient(180deg, #e8f6e9, #fffef3); border: 5px solid #fff; border-radius: 26px;
+  box-shadow: 0 8px 0 #b9dfbc, 0 16px 30px rgba(27, 80, 46, .16);
+}
+.reel-strip {
+  position: absolute; left: 50%; top: 50%; display: flex; gap: var(--reel-gap); margin-top: calc(var(--reel-card) / -2);
+  transform: translateX(calc(-1 * (var(--reel-pos) * (var(--reel-card) + var(--reel-gap)) + var(--reel-card) / 2)));
+}
+.reel-card { flex: none; display: grid; place-items: center; width: var(--reel-card); height: var(--reel-card); box-sizing: border-box; padding: 17px; background: #fff; border-radius: 18px; box-shadow: 0 4px 0 #cfe6d1; }
+.reel-art { width: 100%; height: 100%; object-fit: contain; }
+.reel-frame {
+  position: absolute; left: 50%; top: 50%; width: calc(var(--reel-card) + 12px); height: calc(var(--reel-card) + 12px);
+  transform: translate(-50%, -50%); border: 5px solid #d9483b; border-radius: 22px; pointer-events: none;
+}
+.reel-frame::before, .reel-frame::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); border-left: 13px solid transparent; border-right: 13px solid transparent; }
+.reel-frame::before { top: -6px; border-top: 16px solid #d9483b; }
+.reel-frame::after { bottom: -6px; border-bottom: 16px solid #d9483b; }
+#app .pick-go { flex: none; }
+/* One look for every start and main action button (Detective, Picture Pick, the Insect Games docks). */
+#app .start-button, #app .ig-main { min-width: 220px; min-height: 54px; font-size: 17.6px; }
+.jar-stage { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.jar-scene { position: relative; display: grid; place-items: center; flex: none; }
+#app .bug-jar { position: relative; width: 259px; height: 345px; padding: 0; border: 0; background: none; cursor: pointer; transform-origin: 50% 90%; }
+#app .bug-jar:disabled { cursor: default; }
+.bug-jar__lid { position: absolute; left: 34px; right: 34px; top: 0; height: 52px; border-radius: 14px; background: repeating-linear-gradient(90deg, #d6a43a 0 12px, #e8bd52 12px 24px); border: 4px solid #fff; box-shadow: 0 4px 0 #a77b22; z-index: 1; }
+.bug-jar__glass {
+  position: absolute; left: 10px; right: 10px; top: 46px; bottom: 0; display: grid; place-items: center;
+  background: linear-gradient(110deg, rgba(255, 255, 255, .75) 0 14%, rgba(214, 240, 226, .8) 14% 100%); border: 5px solid #fff; border-radius: 44px 44px 56px 56px;
+  box-shadow: inset 0 0 0 3px #a9d9bd, 0 10px 0 #b9dfbc, 0 20px 36px rgba(27, 80, 46, .18);
+}
+.bug-jar__label { display: grid; place-items: center; width: 112px; height: 112px; border-radius: 50%; background: #fff7c6; border: 4px solid #e8c851; font-size: 64px; font-weight: 1000; color: var(--dark-accent); }
+.jar-prize { position: absolute; inset: 20px 0 30px; display: grid; place-items: center; opacity: 0; pointer-events: none; }
+.prize-art { width: 230px; height: 230px; object-fit: contain; padding: 10px; box-sizing: border-box; background: #fff; border: 5px solid #fff; border-radius: 28px; box-shadow: 0 8px 0 #b9dfbc, 0 16px 30px rgba(27, 80, 46, .2); }
+.jar-chips { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; max-width: 100%; min-height: 52px; }
+.jar-chip { display: grid; place-items: center; width: 45px; height: 45px; box-sizing: border-box; padding: 4px; background: #fff; border-radius: 12px; box-shadow: 0 2px 0 #cfe6d1; transition: width .08s, height .08s; }
+.jar-chip.is-hot, .jar-chip.is-picked { width: 52px; height: 52px; box-shadow: 0 0 0 3px var(--sun), 0 2px 0 #cfe6d1; }
+.chip-art { width: 100%; height: 100%; object-fit: contain; }
+#app .pick-card {
+  margin: auto; width: min(680px, 100%); max-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 28px; text-align: center;
+  background: linear-gradient(145deg, #fffef3, #e5f8e6); border: 5px solid #fff; border-radius: 34px; box-shadow: 0 10px 0 #b9dfbc, 0 20px 38px rgba(27, 80, 46, .16);
+}
+.pick-card__picture { width: 261px; height: 230px; flex: 0 1 auto; min-height: 0; }
+.pick-card__picture .feature-art { width: 100%; height: 100%; object-fit: contain; }
+.pick-word { font-size: 51.2px; font-weight: 700; line-height: 1.05; text-transform: uppercase; color: var(--dark-accent); overflow-wrap: anywhere; }
+#app .pick-card .kind-of-tag { margin: 0; }
+#app .pick-card .definition { margin: 4px 0; padding: 10px 14px; font-size: 20px; font-weight: 750; line-height: 1.35; color: #315744; background: #eef9e9; border: 3px solid #c2e7bc; border-radius: 18px; }
+.pick-actions { display: flex; gap: 12px; margin-top: 6px; }
+#app .pick-actions .button { min-width: 170px; }
+
+/* Answer buttons and feedback strip */
+#app .answer {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px;
+  background: #fff; border: 4px solid #c8e5cb; border-radius: 22px; box-shadow: 0 7px 0 #b2d4b7;
+  font-size: 20.8px; font-weight: 1000; color: var(--ink);
+}
+#app .answer .answer-art { width: 82px; height: 82px; object-fit: contain; }
+#app .game-panel[data-game="identify"] .answer .answer-art { width: 100px; height: 76px; transform: scale(1.3); }
+/* Knowledge & Safety question: picture left (400 × 472), three answers stacked right (440 × 125). */
+#app .game-panel[data-game="knowledge"] #content { display: flex; align-items: center; justify-content: center; gap: 32px; }
+#app .game-panel[data-game="knowledge"] .sort-clue { flex: 0 1 400px; height: min(472px, 100%); margin: 0; }
+#app .game-panel[data-game="knowledge"] .clue-art { width: 100%; height: 100%; object-fit: contain; }
+#app .game-panel[data-game="knowledge"] .answers { display: flex; flex-direction: column; gap: 14px; flex: 0 1 440px; max-width: 440px; margin: 0; }
+#app .game-panel[data-game="knowledge"] .answer { min-height: 125px; padding: 12px 20px; }
+#app .answer.wrong { background: #fff0cf; border-color: #e7b27c; color: #77493a; }
+#app .answer.correct { background: #d8f5d7; border-color: #55b96a; color: #154e2b; }
+#app .feedback { font-size: 19.2px; font-weight: 900; padding: 9px 14px; border-radius: 16px; text-align: center; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 14px; min-height: 66px; flex: none; }
+/* The explanation keeps its place while empty, so answers never jump when it appears. */
+#app .feedback:empty { visibility: hidden; }
+/* Empty or filled, the feedback row keeps one top margin, so an answer never moves the card (21 November). */
+#app .feedback { margin-top: 10px; }
+#app .feedback--wrong { background: #fff0c7; color: #744024; }
+#app .feedback--right { background: #d9f6d8; color: var(--dark-accent); }
+
+/* Flip the Tiles: board centred both ways; the engine sets columns and tile size */
+#app .game-panel[data-game="flip"] > div:not([class]) { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#app .flip-board { width: auto; max-width: none; margin: 0; gap: 7px; justify-content: center; }
+#app .flip-board .tile { height: auto; border-radius: 14px; }
+#app .flip-board .tile-back {
+  font-family: inherit; font-size: calc(var(--tile, 132px) * .23); font-weight: 1000; color: #fff;
+  background: linear-gradient(145deg, #4f9b62, #235b43); border: 3px solid #fff; border-radius: 14px; box-shadow: 0 4px 0 rgba(42, 90, 53, .28);
+}
+#app .flip-board .tile-front { background: #fffbe1; border: 3px solid #e6d9a0; border-radius: 14px; padding: 6px 4px; gap: 3px; }
+#app .flip-board .tile-art { max-height: calc(var(--tile, 132px) * .51); }
+#app .flip-board .tile-front span { font-size: clamp(9px, calc(var(--tile, 132px) * .103), 13.6px); font-weight: 700; text-transform: uppercase; line-height: 1.1; text-align: center; }
+.flip-turns { margin: 10px 0 0; text-align: center; font-size: 16px; font-weight: 700; color: var(--dark-accent); }
+
+/* Results */
+#app.results-screen { justify-content: center; align-items: center; }
+#app .results-panel {
+  width: min(620px, 100%); padding: 48px; text-align: center; background: rgba(255, 255, 255, .94); border: 5px solid #fff; border-radius: 34px;
+  box-shadow: 0 14px 0 rgba(20, 73, 43, .16), 0 22px 44px rgba(20, 55, 35, .22);
+}
+.result-picture { width: 90px; height: 90px; object-fit: contain; }
+#app .results-panel .eyebrow { display: block; font-size: 16px; font-weight: 1000; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-ink); }
+#app .results-panel h1 { margin: 6px 0; font-family: inherit; font-size: 51.2px; font-weight: 700; color: #153f30; }
+#app .result-stars { font-size: 72px; line-height: 1; margin: 8px 0; color: var(--honey); }
+#app .result-stars span { color: #e3dcc0; }
+#app .result-score { margin: 6px 0; font-family: inherit; font-size: 20.8px; font-weight: 800; line-height: 1.3; color: var(--button-green); }
+#app .results-panel p { font-size: 17.6px; font-weight: 800; margin: 6px 0 18px; }
+
+/* Popouts: centred dialogs, never bottom sheets */
+.popout {
+  width: min(520px, calc(100vw - 28px)); max-height: calc(100svh - 28px); overflow: auto; padding: 24px;
+  background: #fffdf2; border: 2px solid #86a26b; border-radius: 22px; box-shadow: 0 16px 60px rgba(21, 60, 49, .35); color: var(--ink);
+}
+.popout::backdrop { background: rgba(23, 60, 51, .35); }
+.teacher-panel { width: min(560px, calc(100vw - 28px)); }
+.popout__heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.popout__heading h2 { font-family: inherit; font-size: 25.6px; font-weight: 700; }
+.popout__close { min-width: 72px; padding: 0 14px; height: 44px; background: #fff; border: 2px solid #72995b; border-radius: 10px; font-size: 16px; font-weight: 800; }
+.popout__close.button { width: auto; min-width: 96px; padding: 0 20px; background: var(--primary); color: #fffbea; border: 0; border-radius: 16px; box-shadow: 0 3px 0 #123c2c; }
+.settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.settings-tile {
+  min-height: 123px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px 12px;
+  background: #f4f8e8; border: 2px solid #c9d8b2; border-radius: 18px; font-size: 18.4px; font-weight: 800; color: var(--dark-accent);
+}
+.settings-tile .ui-icon { width: 40px; height: 40px; }
+.teacher-panel p { line-height: 1.45; }
+.scope-controls { display: grid; gap: 10px; margin: 14px 0; }
+.scope-field { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.scope-field span { width: 96px; }
+.scope-field select { flex: 1; height: 44px; padding: 7px; font: inherit; font-weight: 700; background: #fff; border: 2px solid var(--button-green); border-radius: 10px; }
+.scope-note { color: var(--muted-ink); font-size: 14.4px; }
+.teacher-footer { position: sticky; bottom: -24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 0; background: #fffdf2; }
+.teacher-summary { font-size: 16px; font-weight: 700; }
+#teacherDone {
+  min-width: 80px; height: 48px; padding: 10px 22px; background: var(--button-green); color: #fff; border: 3px solid #16552e;
+  border-radius: 17px; box-shadow: 0 5px 0 #124525; font-size: 16px; font-weight: 1000;
+}
+
+/* Tablet portrait */
+@media (max-width: 900px) {
+  .home-title, .folder-heading h1 { font-size: 33.7px; }
+  .home-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .home-grid .home-tile { grid-column: span 2; }
+  .home-grid .home-tile:nth-child(7) { grid-column: 2 / span 2; }
+  /* "Phonics & Sight Words" wraps here, so every label keeps two lines and the pictures match (content check, 19 November) */
+  .home-tile strong { min-height: 2.4em; display: flex; align-items: center; justify-content: center; }
+  .folder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .folder-tile, .folder-tile:nth-child(5) { grid-column: auto; }
+  .card-heading h1 { font-size: 26.8px; line-height: 1.2; }
+  #app .launch-title { font-size: 69px; }
+  #app .launch-explore { width: 210px; height: 210px; }
+  #app .category-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  #app .category-grid { grid-auto-rows: minmax(0, 250px); }
+  #app .learn-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: 16px; }
+  .word-picture { height: 100%; aspect-ratio: 1; padding: 0; }
+  #app .learn-copy { width: 100%; max-width: 640px; align-items: center; text-align: center; }
+  #app .learn-copy .vocab-word { font-size: 38.4px; }
+  #app .kind-of-tag { font-size: 16px; margin-top: 2px; }
+  #app .learn-copy .say-together { display: none; }
+  .word-actions { grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; }
+  /* Upright: a slightly smaller middle picture buys taller answer tiles, so their pictures fill them */
+  #app .identify-target { flex-basis: 460px; }
+  #app .game-panel[data-game="identify"] .answers { grid-template-columns: repeat(3, minmax(0, 209px)); }
+  #app .game-panel[data-game="identify"] .answer { height: 190px; padding: 8px; }
+  #app .game-panel[data-game="identify"] .answer .answer-art { flex: 1 1 0; min-height: 0; width: 100%; height: auto; transform: scale(1.12); }
+  #app .sort-play { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: 18px; }
+  /* Square picture as wide as the column allows, so it never sits small inside a tall empty box */
+  #app .sort-play .sort-picture { width: min(100%, 560px); height: auto; max-height: 100%; aspect-ratio: 1; }
+  #app .sort-play .answers { flex-direction: row; width: min(100%, 560px); }
+  #app .sort-play .answer { flex: 1; height: 128px; }
+  #app .detective-workspace { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: 14px; }
+  .detective-stage { width: auto; height: 100%; max-width: 100%; }
+  .detective-controls { width: 100%; gap: 10px; }
+  .detective-time { text-align: center; }
+  .detective-actions, .detective-answers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .reel-window { --reel-card: 220px; height: 260px; }
+  #app .game-panel[data-game="knowledge"] #content { gap: 20px; }
+  #app .game-panel[data-game="knowledge"] .sort-clue { flex-basis: 260px; height: min(340px, 100%); }
+  #app .game-panel[data-game="knowledge"] .answers { flex: 1 1 320px; }
+  #app .game-panel[data-game="knowledge"] .answer { min-height: 110px; }
+}
+/* Phones */
+@media (max-width: 500px) {
+  .brand { height: 44px; min-width: 0; padding: 3px 6px; border-radius: 14px; }
+  .brand img { width: 34px; height: 34px; }
+  .brand span { display: none; }
+  .utility-controls { gap: 6px; }
+  .utility-controls > button, .utility-controls > .ludimi-game-menu > summary { height: 44px; border-width: 2px; }
+  .icon-button { width: 44px; }
+  .settings-button { width: auto; }
+  .ui-icon { width: 24px; height: 24px; }
+  #app.menu-screen, #app.game-screen, #app.results-screen { padding: 68px 10px 12px; gap: 8px; }
+  .home-title, .folder-heading h1 { font-size: 32px; }
+  .featured-game { min-height: 92px; padding: 8px 12px; gap: 10px; }
+  .featured-art { width: 90px; height: 70px; }
+  .featured-copy strong { font-size: 22px; }
+  .featured-copy span { font-size: 16px; line-height: 1.25; }
+  .home-grid, .folder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .home-grid .home-tile, .home-grid .home-tile:nth-child(7) { grid-column: auto; }
+  .home-tile { padding: 6px; border-radius: 16px; }
+  .home-tile strong { font-size: 16px; }
+  .tile-note { display: none; }
+  .folder-heading h1 { font-size: 26px; }
+  .game-toolbar { height: auto; grid-template-columns: auto auto; row-gap: 8px; }
+  .toolbar-progress { grid-column: 1 / -1; grid-row: 2; }
+  .game-toolbar .score { justify-self: end; }
+  .card-heading h1 { font-size: 23.2px; }
+  #app .game-panel[data-game="knowledge"] #content { flex-direction: column; gap: 12px; }
+  #app .game-panel[data-game="knowledge"] .sort-clue { flex: 0 1 170px; width: 100%; height: auto; min-height: 56px; }
+  #app .game-panel[data-game="knowledge"] .answers { flex: 0 0 auto; width: 100%; max-width: none; gap: 10px; }
+  #app .game-panel[data-game="knowledge"] .answer { min-height: 76px; font-size: 18px; }
+  #app .launch-title { font-size: 58.5px; text-align: center; }
+  .launch-tagline { font-size: 20px; }
+  #app .launch-explore { width: 220px; height: 220px; }
+  .game-card { padding: 12px 14px; border-radius: 24px; }
+  .settings-grid { gap: 10px; }
+  .settings-tile { min-height: 100px; }
+  .card-heading.has-listen { padding: 0 0 0 0; padding-right: 82px; text-align: left; }
+  .listen-button { width: 70px; }
+  .start-over { height: 44px; padding: 0 10px; font-size: 14px; }
+  .game-toolbar:has(.start-over) { grid-template-columns: auto 1fr auto; }
+  .game-toolbar:has(.start-over) .start-over { justify-self: end; }
+  #app .category-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: minmax(0, 141px); gap: 10px; }
+  #app .category-card { padding: 6px 4px 8px; border-width: 2px; border-radius: 18px; gap: 4px; }
+  #app .category-card .category-icon { width: 64px; }
+  #app .category-card strong { font-size: 13.6px; }
+  #app .category-card .count-pill { font-size: 10px; padding: 2px 5px; white-space: nowrap; letter-spacing: 0; }
+  .count-options { grid-template-columns: minmax(0, 1fr); grid-auto-rows: minmax(0, 114px); gap: 10px; }
+  .count-options > .count-card:nth-child(n) { grid-column: 1 / -1; }
+  .count-options .count-card { height: auto; display: grid; grid-template-columns: 110px 1fr; grid-template-rows: auto auto; column-gap: 12px; text-align: left; justify-items: start; align-content: center; padding: 8px 14px; }
+  .count-card .count-art { grid-row: 1 / span 2; width: 100px; height: 92px; margin: 0; transform: scale(.8); }
+  .word-picture { width: 230px; height: 230px; }
+  #app .learn-layout { grid-template-rows: auto auto; align-content: center; gap: 14px; }
+  #app .learn-copy .vocab-word { font-size: 28.8px; }
+  #app .learn-copy .definition { font-size: 16px; }
+  .word-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #app .identify-target { flex-basis: 160px; min-height: 90px; padding: 0; margin-bottom: 10px; }
+  #app .teacher-tools { flex-wrap: nowrap; gap: 6px; margin-bottom: 8px; }
+  #app .teacher-tools .toggle { font-size: 12.8px; padding: 6px 9px; min-height: 0; white-space: nowrap; }
+  #app .game-panel[data-game="identify"] .answers { grid-template-columns: minmax(0, 1fr); }
+  #app .game-panel[data-game="identify"] .answer { height: 82px; flex-direction: row; padding: 6px 12px; border-radius: 17px; }
+  /* Phone rows: the upright rule above makes the picture 100% wide; in a row that blew it up past the screen */
+  /* and the rows are sized so picture, three answers and the reserved feedback all fit without overlapping */
+  #app .game-panel[data-game="identify"] .answers { width: 100%; gap: 8px; }
+  #app .game-panel[data-game="identify"] .answer { height: 68px; }
+  #app .game-panel[data-game="identify"] .answer .answer-art { flex: 0 0 58px; width: 58px; height: 58px; transform: none; }
+  #app .game-panel[data-game="identify"] .identify-target { flex: 1 1 160px; min-height: 96px; max-height: 220px; width: auto; margin-bottom: 8px; }
+  #app .game-panel[data-game="identify"] .teacher-tools { margin-bottom: 6px; }
+  #app .sort-rules { gap: 10px; margin-bottom: 8px; }
+  #app .sort-card__play { padding: 30px 6px 10px; gap: 6px; border-width: 3px; border-radius: 18px; }
+  .sort-card__label { font-size: 13.6px; }
+  .sort-card__or { font-size: 11.5px; }
+  #app .sort-card__play strong { font-size: 16px; }
+  #app .sort-card .count-pill { font-size: 10px; padding: 2px 6px; }
+  #app .sort-card__info { top: 4px; right: 4px; width: 36px; height: 36px; font-size: 16px; }
+  #app .sort-play .answer { height: 104px; padding: 8px; font-size: 17.6px; }
+  #app .sort-play .answer .answer-art { width: 60px; height: 60px; }
+  #app .detective-settings--play { justify-content: center; margin: 0 0 8px; gap: 8px; }
+  .detective-settings label { font-size: 14.4px; gap: 4px; }
+  #app .detective-actions .button { min-height: 48px; padding: 6px 4px; font-size: 16px; }
+  #app .detective-answer { min-height: 48px; padding: 4px; font-size: 16px; }
+  #app .pick-play { gap: 12px; }
+  .reel-window { --reel-card: 140px; --reel-gap: 10px; height: 190px; border-radius: 20px; }
+  .reel-card { padding: 10px; border-radius: 14px; }
+  .pick-label { font-size: 20px; }
+  #app .bug-jar { width: 190px; height: 253px; }
+  .bug-jar__lid { left: 24px; right: 24px; height: 40px; }
+  .bug-jar__glass { top: 34px; border-radius: 32px 32px 42px 42px; }
+  .bug-jar__label { width: 84px; height: 84px; font-size: 46px; }
+  .prize-art { width: 170px; height: 170px; }
+  .jar-chips { gap: 5px; }
+  .jar-chip { width: 36px; height: 36px; padding: 3px; border-radius: 10px; }
+  .jar-chip.is-hot, .jar-chip.is-picked { width: 42px; height: 42px; }
+  #app .pick-card { padding: 18px 14px; border-radius: 26px; }
+  .pick-card__picture { width: 200px; height: 176px; }
+  .pick-word { font-size: 36px; }
+  #app .pick-card .definition { font-size: 16px; }
+  #app .pick-actions .button { min-width: 0; flex: 1; }
+  .pick-actions { width: 100%; }
+  #app .results-panel { padding: 28px 18px; }
+  #app .results-panel h1 { font-size: 32px; }
+  #app .result-stars { font-size: 52px; }
+}
+
+/* Picker cards span two tracks (centred last row, see centreLastRow); Knowledge cards carry a Continue badge */
+#app .category-grid > .category-card { grid-column-end: span 2; position: relative; }
+
+/* Teacher scope: Clear filters, the selection chip on setup screens and the empty selection. */
+.scope-reset { justify-self: start; min-height: 40px; padding: 6px 14px; font: inherit; font-weight: 700; color: var(--dark-accent); background: #fff7c6; border: 2px solid #e8c851; border-radius: 999px; cursor: pointer; }
+.scope-reset[hidden] { display: none; }
+#app .scope-chip { justify-self: center; margin: -4px auto 10px; padding: 4px 12px; width: fit-content; max-width: 100%; font-size: 14px; font-weight: 800; color: var(--dark-accent); background: #fff7c6; border: 2px solid #e8c851; border-radius: 999px; text-align: center; }
+#app .scope-empty { display: grid; justify-items: center; gap: 12px; padding: 18px 8px; text-align: center; }
+#app .scope-empty__label { font-weight: 800; font-size: 18px; }
+#app .scope-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+/* Codex art, 18 November 2026: Knowledge scenes, the bug jar and the results stars */
+#app .game-panel[data-game="knowledge"] .sort-clue--scene { flex: 0 1 560px; height: auto; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 24px; border: 4px solid #fff; box-shadow: 0 7px 0 #cbe6c9; background: #fffef2; }
+#app .sort-clue--scene .scene-art { display: block; width: 100%; height: 100%; object-fit: cover; }
+#app .bug-jar { width: 259px; height: 303px; }
+#app .bug-jar .bug-jar__glass { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border: 0; border-radius: 0; background: none; box-shadow: none; }
+#app .bug-jar .bug-jar__lid { position: absolute; left: 13.98%; top: .74%; right: auto; width: 69.8%; height: auto; border: 0; border-radius: 0; background: none; box-shadow: none; z-index: 1; }
+#app .result-stars { display: flex; justify-content: center; gap: 6px; font-size: 0; }
+#app .result-stars img { width: 84px; height: 84px; object-fit: contain; }
+@media (max-width: 900px) {
+  #app .game-panel[data-game="knowledge"] .sort-clue--scene { flex-basis: auto; width: min(100%, 560px); }
+}
+@media (max-width: 500px) {
+  #app .bug-jar { width: 190px; height: 222px; }
+  #app .result-stars img { width: 60px; height: 60px; }
+  #app .game-panel[data-game="knowledge"] .sort-clue--scene { flex: 0 1 auto; width: 100%; min-height: 0; }
+}
+/* Upright screens: a Knowledge scene sits full width above the answers instead of squeezed beside them */
+@media (max-aspect-ratio: 1/1) {
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) { flex-direction: column; gap: 18px; }
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .sort-clue--scene { flex: 0 1 auto; width: min(100%, 620px); max-height: 52%; }
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .answers { width: min(100%, 620px); max-width: none; flex: 0 0 auto; }
+}
+
+/* Content check, 19 November 2026: Hide middle picture must win over the display:grid above */
+#app .identify-target.concealed { display: none; }
+
+/* Sort It symbols (tick, cross, 6, 8, house, plate, body, arrow) in place of animal pictures. */
+#app .sort-icon { display:flex; align-items:center; justify-content:center; }
+#app .sort-icon svg { width:100%; height:100%; display:block; }
+
+/* Folder titles (Activities) match the card titles of every other section (20 November). */
+.folder-heading h1 { font-size: 35.8px; }
+@media (max-width: 900px) { .folder-heading h1 { font-size: 26.8px; } }
+@media (max-width: 500px) { .folder-heading h1 { font-size: 23.2px; } }
+/* A round label with nothing to add is not drawn. */
+.round-pill:empty { display: none; }

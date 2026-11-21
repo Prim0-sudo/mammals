@@ -1,0 +1,168 @@
+.spelling-layout {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+.spelling-clue {
+  width: 125px;
+  height: 145px;
+  flex-shrink: 0;
+}
+.spelling-play {
+  flex: 1;
+  min-width: 0;
+}
+.frog-pond {
+  position: relative;
+  isolation: isolate;
+  height: 215px;
+  overflow: hidden;
+  border: 2px solid #a6c6b4;
+  border-radius: 23px;
+  background: linear-gradient(#e1eccf, #9bced0 30%, #69b4be);
+  box-shadow: inset 0 8px 24px #fff7;
+}
+.frog-pad,
+.frog-sprite,
+.frog-ripple,
+.frog-splash {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+.frog-pad {
+  z-index: 2;
+  width: 10%;
+  max-width: 78px;
+  transform: translate(-50%, -50%) rotate(var(--tilt));
+}
+.frog-sprite {
+  z-index: 3;
+  width: 12%;
+  max-width: 85px;
+  transform: translate(-50%, -78%);
+  filter: drop-shadow(0 4px 2px #28667344);
+}
+.frog-ripple,
+.frog-splash {
+  width: 16%;
+  left: 93%;
+  top: 79%;
+  opacity: 0;
+  transform: translate(-50%, -65%);
+}
+.frog-ripple {
+  z-index: 1;
+}
+.frog-splash {
+  z-index: 4;
+}
+.frog-ripple.visible,
+.frog-splash.visible {
+  opacity: 1;
+  animation: splash 0.8s ease-out forwards;
+}
+.frog-victory {
+  position: fixed;
+  z-index: 101;
+  object-fit: contain;
+  pointer-events: none;
+}
+.spelling-attempts {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 4px;
+  font-size: 16px;
+  line-height: 1.3;
+}
+.spelling-attempts span {
+  overflow-wrap: anywhere;
+}
+.simple-progress {
+  border: 2px solid #95b27d;
+  height: 65px;
+  border-radius: 16px;
+  background: #e3efd8;
+  overflow: hidden;
+}
+.simple-progress span {
+  display: block;
+  height: 100%;
+  background: #e5b36e;
+}
+@keyframes splash {
+  0% {
+    opacity: 0;
+    scale: 0.7;
+  }
+  30% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.2;
+  }
+}
+@media (min-width: 900px) and (max-height: 740px) {
+  .frog-pond {
+    height: 175px;
+  }
+  .spelling-clue {
+    height: 115px;
+  }
+}
+@media (min-width: 900px) and (max-height: 630px) {
+  .frog-pond {
+    height: 137px;
+  }
+  .spelling-clue {
+    width: 95px;
+    height: 95px;
+  }
+  .game-panel[data-game="spelling"] .game-heading p {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .game-panel[data-game="spelling"] .letter-key {
+    height: 35px;
+    width: 39px;
+  }
+  .game-panel[data-game="spelling"] .letter-slot {
+    height: 31px;
+    width: 30px;
+    font-size: 18px;
+  }
+  .game-panel[data-game="spelling"] .spelling-word {
+    margin: 7px auto;
+  }
+}
+@media (max-width: 700px) {
+  .spelling-layout {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .spelling-clue {
+    height: 65px;
+    width: 75px;
+  }
+  .spelling-play {
+    width: 100%;
+  }
+  .frog-pond {
+    height: 180px;
+  }
+  .spelling-attempts {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frog-ripple.visible,
+  .frog-splash.visible {
+    animation: none;
+    opacity: 1;
+  }
+}
