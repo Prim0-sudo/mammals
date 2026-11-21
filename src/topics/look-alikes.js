@@ -18,15 +18,41 @@ export const SHOWS = {
   dig: ["wombat"], swim: ["sea-otter"], dive: ["seal"], float: ["sea-otter"], fly: ["bat"],
   sniff: ["dog"], breathe: ["whale"], groom: ["cat"], hide: ["mouse"], sleep: ["fox"],
   ocean: ["whale"],
+  // vocabulary plan, 22 November 2026 (read off the briefs; check again on the final art)
+  wool: ["sheep"], spines: ["hedgehog"], stripes: ["zebra"], spots: ["cheetah"], snout: ["pig"], bill: ["platypus"],
+  "webbed-feet": ["otter"], hump: ["camel"], fin: ["dolphin"],
+  mother: ["orangutan"], baby: ["elephant"], born: ["horse", "foal"], litter: ["pig", "piglet"], piglet: ["pig"],
+  fawn: ["deer"], pup: ["seal"],
+  graze: ["sheep"], gnaw: ["beaver"], "plant-eater": ["rabbit"], "meat-eater": ["seal"], predator: ["fox"], prey: ["rabbit"],
+  warren: ["rabbit"], sett: ["badger"], holt: ["otter"], drey: ["red-squirrel"], lodge: ["beaver"], roost: ["bat"],
+  hutch: ["rabbit"], kennel: ["dog"], stable: ["horse"],
+  wade: ["moose"], gallop: ["horse"], scamper: ["mouse"], pounce: ["fox"], swing: ["gibbon"], hang: ["bat"], paddle: ["dog"],
+  glide: ["sugar-glider"],
+  listen: ["deer"], camouflage: ["arctic-fox"], "curl-up": ["hedgehog"], lookout: ["meerkat"], herd: ["zebra"], pack: ["wolf"],
+  roar: ["lion"], howl: ["wolf"], nocturnal: ["badger"], hibernate: ["hedgehog"],
+  "stay-back": ["deer"], gentle: ["guinea-pig"],
 };
 
 // Pairs that look alike though neither is a kind of the other.
 export const LOOK_ALIKES = [
   ["seal", "sea-lion"], ["dolphin", "porpoise"], ["manatee", "dugong"], ["mouse", "rat"], ["hamster", "guinea-pig"],
   ["monkey", "chimpanzee"], ["chimpanzee", "gorilla"], ["horse", "donkey"], ["cheetah", "leopard"], ["deer", "moose"],
-  ["bear", "polar-bear"], ["whale", "dolphin"], ["platypus", "echidna"], ["hedgehog", "echidna"],
+  ["bear", "polar-bear"], ["platypus", "echidna"], ["hedgehog", "echidna"],
   ["lake", "pond"], ["river", "lake"], ["ocean", "ocean-floor"], ["grass", "grassland"], ["leaf", "branch"],
   ["horn", "antlers"], ["horn", "tusk"], ["tusk", "tooth"], ["paw", "claw"], ["fur", "skin"],
   ["hop", "jump"], ["walk", "run"], ["swim", "dive"], ["dive", "float"], ["drink", "water"], ["milk", "feed"],
   ["kid", "lamb"], ["calf", "foal"], ["cub", "kitten"], ["burrow", "den"], ["snow", "sea-ice"],
+  // vocabulary plan, 22 November 2026 (whale/dolphin is now a kind link)
+  ["leopard", "jaguar"], ["leopard", "snow-leopard"], ["rabbit", "hare"], ["mouse", "vole"], ["mouse", "shrew"], ["vole", "shrew"],
+  ["mole", "shrew"], ["stoat", "ferret"], ["stoat", "pine-marten"], ["otter", "beaver"], ["monkey", "gibbon"], ["kangaroo", "wallaby"],
+  ["reindeer", "moose"], ["donkey", "pony"], ["camel", "llama"], ["dolphin", "shark"], ["whale", "shark"], ["wolf", "dingo"],
+  ["owl", "eagle"], ["newt", "lizard"], ["newt", "salamander"], ["salamander", "lizard"], ["tortoise", "turtle"], ["snake", "worm"], ["frog", "toad"],
+  ["webbed-feet", "flipper"], ["fin", "flipper"],
+  ["mother", "baby"], ["litter", "piglet"], ["born", "foal"], ["pup", "puppy"],
+  ["hay", "grass"], ["graze", "grass"], ["graze", "chew"], ["predator", "prey"],
+  ["warren", "burrow"], ["stable", "barn"], ["kennel", "hutch"], ["roost", "cave"], ["roost", "hang"],
+  ["swing", "hang"], ["hang", "climb"], ["glide", "fly"], ["wade", "paddle"],
+  ["curl-up", "sleep"], ["hibernate", "sleep"], ["hibernate", "curl-up"], ["herd", "pack"], ["camouflage", "hide"], ["listen", "ear"],
+  ["hedge", "garden"], ["beach", "ocean"], ["winter", "snow"], ["autumn", "leaf"], ["spring", "summer"], ["farm", "barn"],
+  ["notebook", "field-guide"], ["quiet", "stay-back"], ["grown-up", "stay-back"], ["footprint", "snow"],
 ];

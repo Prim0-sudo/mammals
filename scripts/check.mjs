@@ -11,11 +11,12 @@ const json = async (path) => JSON.parse(await readFile(new URL("../" + path, imp
 const sha = (data) => createHash("sha256").update(data).digest("hex");
 validateTopic(topic);
 
-// Every word sits in exactly one group of word-order.js, and every placed word is in the topic.
+// Every word sits in exactly one group of word-order.js. Placed words of the approved vocabulary
+// plan that have no row and picture yet are waiting, and are counted below.
 const placed = Object.values(wordOrder).flat();
 if (new Set(placed).size !== placed.length) throw Error("A word is listed in two groups in word-order.js");
-if (placed.length !== topic.items.length || topic.items.some((x) => !placed.includes(x.id)))
-  throw Error("word-order.js and the topic's words disagree");
+if (topic.items.some((x) => !placed.includes(x.id))) throw Error("A topic word is missing from word-order.js");
+const waiting = placed.filter((id) => !topic.items.some((x) => x.id === id));
 
 // Word pictures: each WebP the app shows comes from the supplied, checksummed RGBA PNG (docs/supplied-artwork.json).
 const supplied = new Map((await json("docs/supplied-artwork.json")).entries.map((e) => [e.id, e]));
@@ -68,7 +69,7 @@ for (const v of [...storyVideos, ...lessonVideos])
 
 const groups = topic.categories.map((c) => topic.items.filter((x) => x.categoryId === c.id).length);
 console.log(
-  `Validated ${topic.items.length} words across ${topic.categories.length} groups (${groups.join("/")}), ` +
+  `Validated ${topic.items.length} words (${waiting.length} planned words waiting for pictures) across ${topic.categories.length} groups (${groups.join("/")}), ` +
     `${topic.knowledgeQuestions.length} questions, ${topic.curriculum.readingPractice.length} reading lines, ` +
     `${Object.keys(twinRecord).length} WebP twins, ${Object.keys(topic.modeSkins.spelling.frames).length} Homeward Trail frames; ` +
     `${(bytes / 1048576).toFixed(1)} MiB of pictures.`,

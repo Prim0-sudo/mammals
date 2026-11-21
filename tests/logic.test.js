@@ -33,21 +33,21 @@ test("The 123 pictured words sit in the ten groups, in teaching order; empty gro
   assert.ok(topic.items.every((x) => !Object.hasOwn(x, "tier")));
   assert.ok(topic.showEmptyGroups, "Groups with no words yet must still show");
   assert.deepEqual(topic.categories.map((c) => [c.id, topic.items.filter((x) => x.categoryId === c.id).length]), [
-    ["mammals", 50], ["body", 23], ["life-cycle", 10], ["food", 8], ["homes", 4],
-    ["movement", 12], ["survival", 5], ["habitats", 11], ["neighbours", 0], ["watching", 0],
+    ["mammals", 50], ["body", 23], ["life-cycle", 10], ["food", 8], ["homes", 3],
+    ["movement", 12], ["survival", 5], ["habitats", 12], ["neighbours", 0], ["watching", 0],
   ]);
   assert.ok(topic.categories.every((c) => c.image.startsWith("assets/topics/mammals/")), "Each group has a Mammals picture");
   const strict = structuredClone(topic);
   delete strict.showEmptyGroups;
   assert.throws(() => validateTopic(strict), "Without showEmptyGroups an empty group is refused");
 });
-test("The teaching-order file places all 123 pictured words once, and the topic follows it", () => {
+test("The teaching-order file places all 268 planned words once, and the topic follows it", () => {
   assert.equal(groupRows.length, 10);
   const placed = Object.values(wordOrder).flat();
-  assert.equal(placed.length, 123);
-  assert.equal(new Set(placed).size, 123, "A word is placed twice");
+  assert.equal(placed.length, 268);
+  assert.equal(new Set(placed).size, 268, "A word is placed twice");
   assert.deepEqual(Object.keys(wordOrder), categoryOrder);
-  assert.deepEqual(groupRows.map(([id]) => wordOrder[id].length), [50, 23, 10, 8, 4, 12, 5, 11, 0, 0]);
+  assert.deepEqual(groupRows.map(([id]) => wordOrder[id].length), [82, 32, 18, 19, 15, 20, 15, 23, 32, 12]);
   for (const item of topic.items) assert.ok(groupOf[item.id], item.id + " is not in the teaching order");
   const rank = (id) => categoryOrder.indexOf(groupOf[id]) * 1000 + wordOrder[groupOf[id]].indexOf(id);
   const ranks = topic.items.map((x) => rank(x.id));
@@ -157,8 +157,8 @@ test("Sort It: five authored sorts, placed words, no word in two groups, every s
     assert.deepEqual(all.filter((id, i) => all.indexOf(id) !== i), [], rule.id + " asks a word with two answers");
     for (const group of rule.groups) {
       for (const id of group.members) assert.ok(placed.has(id), id + " is not in the teaching order");
-      // Not a mammal waits for its words (the Neighbours group); the sort shows "needs both groups" until then.
-      if (!group.members.length) { assert.equal(group.imageId, null, group.id + " has a picture but no words"); continue; }
+      // A group whose words are still waiting for their pictures stays out of play until they land.
+      if (!group.members.some((id) => ids.has(id))) continue;
       assert.ok(ids.has(group.imageId), group.id + " picture is not a word in the game");
       assert.ok(group.members.includes(group.imageId), group.id + " picture is not one of its own words");
       assert.ok(sortingPool({ groups: [group] }, topic.items).length > 0, group.id + " has no words yet");

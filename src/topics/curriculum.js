@@ -15,31 +15,37 @@ export const levels = [
 
 export const lessons = [
   { id: "mammals", label: "1. What is a mammal?", description: "Meet mammals and look closely at their bodies.", groups: ["mammals", "body"], extra: "milk" },
-  { id: "young", label: "2. Mothers and young", description: "See how baby mammals are born, fed and grow, and what they eat.", groups: ["life-cycle", "food"], extra: "cat dog cow sheep goat horse lion kangaroo pouch" },
-  { id: "homes", label: "3. Homes and habitats", description: "Visit burrows, dens and caves, and the places mammals live.", groups: ["homes", "habitats"], extra: "rabbit fox wombat bear polar-bear camel walrus" },
-  { id: "moving", label: "4. Moving and staying safe", description: "Discover how mammals move, sense the world and hide.", groups: ["movement", "survival"], extra: "paw hoof flipper tail whiskers nose ear" },
-  { id: "neighbours", label: "5. Mammal or not?", description: "Compare mammals with birds, fish, reptiles and other animals.", groups: ["neighbours"], extra: "fur milk lungs backbone whale dolphin bat platypus" },
-  { id: "watching", label: "6. Be an animal watcher", description: "Watch animals carefully and kindly, and stay safe near them.", groups: ["watching"], extra: "cat dog rabbit seal sea-lion deer fox hedgehog squirrel" },
+  { id: "young", label: "2. Mothers and young", description: "See how baby mammals are born, fed and grow, and what they eat.", groups: ["life-cycle", "food"], extra: "cat dog cow sheep goat pig horse deer lion seal kangaroo platypus echidna pouch" },
+  { id: "homes", label: "3. Homes and habitats", description: "Visit burrows, dens and caves, and the places mammals live.", groups: ["homes", "habitats"], extra: "rabbit fox wombat bear polar-bear camel walrus badger otter beaver squirrel bat" },
+  { id: "moving", label: "4. Moving and staying safe", description: "Discover how mammals move, sense the world and hide.", groups: ["movement", "survival"], extra: "paw hoof flipper tail whiskers nose ear hedgehog meerkat wolf" },
+  { id: "neighbours", label: "5. Mammal or not?", description: "Compare mammals with birds, fish, reptiles and other animals.", groups: ["neighbours"], extra: "fur milk lungs backbone whale dolphin bat platypus egg fin blowhole" },
+  { id: "watching", label: "6. Be an animal watcher", description: "Watch animals carefully and kindly, and stay safe near them.", groups: ["watching"], extra: "cat dog rabbit guinea-pig seal sea-lion deer fox badger hedgehog squirrel bat owl" },
 ];
 
 export const collections = [
   { id: "pets", label: "Pets", description: "Mammals many people keep at home.",
-    words: "cat dog rabbit hamster guinea-pig mouse rat kitten puppy fur whiskers paw tail feed drink sleep groom" },
+    words: "cat dog rabbit hamster guinea-pig mouse rat kitten puppy fur whiskers paw tail feed drink sleep groom ferret hutch kennel goldfish gentle wash-hands" },
   { id: "farm", label: "On the farm", description: "Mammals that live on farms, and their young.",
-    words: "horse donkey cow sheep goat pig calf lamb kid foal milk grass hoof horn chew" },
+    words: "horse donkey cow sheep goat pig calf lamb kid foal milk grass hoof horn chew pony llama piglet hay wool snout graze stable barn farm chicken duck" },
   { id: "sea", label: "Sea mammals", description: "Mammals that live in the sea but breathe air.",
-    words: "whale dolphin porpoise seal sea-lion walrus sea-otter manatee dugong flipper blowhole tusk swim dive float breathe ocean ocean-floor sea-ice seagrass" },
+    words: "whale dolphin porpoise seal sea-lion walrus sea-otter manatee dugong flipper blowhole tusk swim dive float breathe ocean ocean-floor sea-ice seagrass blue-whale orca narwhal pup fin krill beach" },
   { id: "wild-world", label: "Wild mammals of the world", description: "Big wild mammals from grasslands, forests and deserts.",
-    words: "lion tiger cheetah leopard elephant giraffe zebra rhinoceros hippopotamus camel monkey chimpanzee gorilla sloth bear polar-bear wolf moose kangaroo koala wombat platypus echidna grassland desert forest snow trunk mane" },
+    words: "lion tiger cheetah leopard elephant giraffe zebra rhinoceros hippopotamus camel monkey chimpanzee gorilla sloth bear polar-bear wolf moose kangaroo koala wombat platypus echidna grassland desert forest snow trunk mane snow-leopard jaguar arctic-fox reindeer giant-panda meerkat orangutan wallaby rainforest mountain bamboo roar herd" },
   { id: "staying-safe", label: "Staying safe", description: "Watching mammals kindly and keeping safe near them.",
-    words: "seal dog cat fox bear wolf claw tooth tusk horn hide sniff" },
+    words: "seal dog cat fox bear wolf claw tooth tusk horn hide sniff grown-up quiet stay-back gentle wash-hands binoculars droppings spines hedgehog bee jellyfish crab" },
 ];
 
 const level1 = split(`cat dog rabbit mouse horse cow sheep goat pig fox bear lion tiger elephant giraffe zebra monkey
   whale dolphin seal fur eye ear nose mouth tooth tail paw milk kitten puppy lamb calf cub grass leaf fruit water
-  drink walk run hop jump climb swim dig sleep hide land snow river pond`);
+  drink walk run hop jump climb swim dig sleep hide land snow river pond
+  pony giant-panda human wool stripes spots mother baby egg piglet hay berries nuts nest hutch kennel stable barn
+  swing hang listen curl-up roar howl garden farm mountain beach spring summer autumn winter
+  bird robin owl duck chicken penguin snake tortoise frog fish goldfish shark ant bee butterfly ladybird spider snail worm crab
+  grown-up quiet stay-back gentle notebook footprint wash-hands`);
 const level3 = split(`backbone lungs blowhole flipper antlers echidna platypus dugong manatee porpoise walrus
-  hippopotamus rhinoceros chimpanzee seagrass ocean-floor sea-ice grassland breathe groom stretch`);
+  hippopotamus rhinoceros chimpanzee seagrass ocean-floor sea-ice grassland breathe groom stretch
+  vole stoat pine-marten fennec-fox dingo lynx gibbon sugar-glider narwhal webbed-feet litter krill graze gnaw predator prey
+  warren sett holt roost drey lodge wade glide camouflage nocturnal hibernate habitat newt salamander wildlife-hide trail-camera`);
 
 const groupOf = Object.fromEntries(Object.entries(wordOrder).flatMap(([group, ids]) => ids.map((id) => [id, group])));
 const lessonMembers = Object.fromEntries(
