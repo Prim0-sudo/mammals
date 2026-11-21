@@ -9,7 +9,7 @@
 | Item | Insects | Mammals now | Gap and fix |
 |---|---|---|---|
 | Words | 285 in 10 groups (84/31/15/13/15/23/13/27/52/12) | 123 in 10 groups (50/23/10/8/4/12/5/11/0/0) | **About 120–170 words are missing.** Other Animals (neighbours) and Animal Watching have none, and Homes and Survival are thin. Fix: the vocabulary plan (docs/VOCABULARY-PLAN.md), then art for each new word. |
-| Group cards | 10 painted group cards | Each group reuses one of its word pictures; empty groups show the badge | Paint 10 group cards in the chosen style. |
+| Group cards | 10 painted group cards | **Done (21 November 2026):** 10 painted group cards in the menu-tile style, approved by the owner. | — |
 | Families | 13 (5 or more words each, except the catch-all) | 8: Cats 5, Dogs & foxes 3, Rodents & rabbits 6, Hoofed 13, Monkeys & apes 3, Pouched 3, Sea mammals 9, Other 8 | **Three families have fewer than 5 words.** Fix: the vocabulary plan fills them to 5 or more and adds families for Other Animals (birds, reptiles, amphibians, fish, minibeasts). |
 | "A kind of …" links | 72, plus 39 labels | 2 (polar bear → bear, moose → deer), plus 21 labels | Add links as the words arrive (for example, a lion is a kind of cat, a dolphin is a kind of whale). |
 | Look-alike pairs | 47 pairs; SHOWS map 114 | 35 pairs; SHOWS 58 | Grow the list with the new words. |
@@ -26,7 +26,7 @@
 | Landing | 16 painted layers, an emblem and fliers on measured spots | One flat woodland picture, with the rabbit badge as the emblem | Three landing concepts for the owner, then a layered scene. Animals that peek or run would stand in for the fliers. |
 | Home | Featured banner, then 8 tiles | Same; the banner leads to the Mammal Games placeholder | Point the banner at the first real Mammal Game once it is built. |
 | Activities | 6 games | 6 games, all playable | — |
-| Detective | Mosaic, Pixel and Silhouette | Mosaic and Pixel. **Silhouette is marked "coming soon"**; it used to crash with no cut-outs, and that is fixed. | Make whole-animal cut-outs, or keep Silhouette for the Other Animals words. |
+| Detective | Mosaic, Pixel and Silhouette | **Done:** Mosaic, Pixel and Silhouette. Silhouette outlines the 50 whole-animal cut-outs in Meet the Mammals. | — |
 | Picture Pick | Picture Reel, plus a topic container (Bug Jar) and a style switch | Picture Reel only | Design a Mammals container, for example a "burrow" or a "field bag", in the art run. |
 | Spelling | The Last Leaf (9 tries) | Homeward Trail (9 tries), kept from the first Mammals app and fitted to the Insects layout | — (8/8 headless checks pass, hop and escape included) |
 | Knowledge & Safety | Group picker; scene pictures | Group picker; no scene pictures | See the teaching scenes above. |
@@ -42,7 +42,7 @@
 
 | Set | Insects | Mammals now | Gap and fix |
 |---|---|---|---|
-| Word pictures | 285, one style (macro photo), trimmed to fill the box | 123 in watercolour, with **untrimmed red and yellow fringes** on some edges | The owner picks a style from side-by-side options (task 4) before any big art run. Then repaint or clean up all words in that one style. |
+| Word pictures | 285, one style (macro photo), trimmed to fill the box | **Done (21 November 2026):** all 123 redone by Codex as studio-photo cut-outs (owner: scientific themes go realistic; style A picked), trimmed to fill the box, alt text rewritten. Tongue, nose, backbone and water are being remade (redo-fixes-1.md). | Briefs and deliveries in docs/word-art-redo. New words from the vocabulary plan follow the same brief. |
 | Menu tiles | 17 | 13 | Add the missing tiles in the chosen style. |
 | Teaching scenes | 15 | 0 | After the style is picked. |
 | Topic game art | 97 pieces | 0 | Made with each game. |
