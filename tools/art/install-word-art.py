@@ -5,7 +5,7 @@
 # docs/supplied-artwork.json, which npm run check verifies. Then run: python -I tools/art/png-to-webp.py
 # Delivered names may be <id>.png or <id>-<style>.png (the style pilot); pass --style studio for the latter.
 # usage: python -I tools/art/install-word-art.py <delivery folder> [--style studio] [id ...]
-import hashlib, json, os, sys
+import hashlib, json, os, re, sys
 from PIL import Image
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -25,6 +25,17 @@ def fit(src):
     return out
 
 
+def placed_words():
+    # {id: group} from src/topics/word-order.js, so new words get the right category.
+    src = open(os.path.join(ROOT, 'src', 'topics', 'word-order.js'), encoding='utf8').read()
+    body = src[src.index('export const wordOrder = {'):src.index('// Which group a word belongs to')]
+    out = {}
+    for m in re.finditer(r'^\s*"?([a-z-]+)"?: \[(.*?)\]', body, re.S | re.M):
+        for wid in re.findall(r'"([a-z-]+)"', m.group(2)):
+            out[wid] = m.group(1)
+    return out
+
+
 def main():
     args = sys.argv[1:]
     folder = os.path.abspath(args.pop(0))
@@ -36,6 +47,7 @@ def main():
     only = set(args)
     manifest = json.load(open(MANIFEST, encoding='utf8'))
     by_id = {e['id']: e for e in manifest['entries']}
+    placed = placed_words()
     label = os.path.relpath(folder, os.path.join(ROOT, 'docs/word-art-redo')).replace('\\', '/')
     done = []
     for f in sorted(os.listdir(folder)):
@@ -47,9 +59,15 @@ def main():
                 continue
             stem = stem[:-len(style) - 1]
         wid = stem.removesuffix('-v2')
-        if (only and wid not in only) or wid not in by_id:
-            if wid not in by_id:
-                print('skipped (no such word):', f)
+        if only and wid not in only:
+            continue
+        if wid not in by_id and wid in placed:
+            # A new word of the approved vocabulary plan (22 November 2026): give it a record.
+            by_id[wid] = {'id': wid, 'path': f'assets/topics/mammals/vocabulary/{wid}.png', 'category': placed[wid],
+                          'alphaRange': [0, 255]}
+            manifest['entries'].append(by_id[wid])
+        if wid not in by_id:
+            print('skipped (no such word):', f)
             continue
         e = by_id[wid]
         dest = os.path.join(ROOT, e['path'])
