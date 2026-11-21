@@ -1,0 +1,5 @@
+ImageGen matched the reference palette and painted treatment by eye. The seasonal card uses a circular composition with cooler winter colours, as requested.
+
+The watching card's notebook has small botanical illustrations on the pages, which the generation prompt asked to leave blank. There is no writing.
+
+The built-in tool returned 1254 x 1254 images. The artwork was fitted proportionally within an 870 x 870 area on each 1024 x 1024 RGBA canvas. Near-transparent alpha specks below 5/255 were cleared, and the soft painted edges retain partial alpha.

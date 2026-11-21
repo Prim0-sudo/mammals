@@ -9,7 +9,7 @@
 // yet shows as a "coming soon" card (topic.showEmptyGroups) until its words arrive.
 // Group ids stay stable (saved progress and the group cards use them).
 export const groupRows = [
-  // id, label, description, picture word used until the group's own card arrives
+  // id, label, description, a picture word for the group (the card itself is the painted groups/<id>.webp)
   ["mammals", "Meet the Mammals", "Explore mammals, from mice to whales.", "lion"],
   ["body", "Bodies Up Close", "Look closely at mammal body parts.", "whiskers"],
   ["life-cycle", "Mothers & Young", "See how baby mammals are born, fed and grow.", "joey"],

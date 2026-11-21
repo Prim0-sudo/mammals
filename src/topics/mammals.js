@@ -15,6 +15,8 @@ const OBJECTIVE_BY_GROUP = {
 const base = "assets/topics/mammals/";
 const word = (id) => `${base}vocabulary/${id}.webp`;
 const menuArt = (id) => `${base}menu/${id}.webp`;
+// Painted group cards in the menu-tile style (owner, 21 November 2026); word pictures go realistic.
+const groupArt = (id) => `${base}groups/${id}.webp`;
 const badge = `${base}generated/club-badge-rabbit.webp`;
 
 // Every word with its picture, placed in its group and in teaching order (word-order.js).
@@ -126,11 +128,11 @@ export const topic = {
   },
   // All ten groups show in teaching order; a group with no words yet is a "Coming soon" card.
   showEmptyGroups: true,
-  categories: groupRows.map(([id, label, description, visual]) => ({
+  categories: groupRows.map(([id, label, description]) => ({
     id,
     label,
     description,
-    image: visual && has(visual) ? word(visual) : badge,
+    image: groupArt(id),
     imageAlt: label,
   })),
   categoryIntroductions: { countAsWords: false, includeInModes: [] },
