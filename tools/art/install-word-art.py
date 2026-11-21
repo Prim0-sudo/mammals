@@ -1,16 +1,17 @@
-# Install a Codex word-art delivery (Meet the Words art redo, docs/word-art-redo/README.md).
-# Each delivered <id>.png is trimmed to its subject, centred on a 1024 x 1024 transparent square with a
-# 21 px margin on the long side (so the picture fills its box), saved over the current word picture of that
-# id (same file name, so saved progress keeps working), and its checksum, size and note are updated in
-# whichever artwork manifest lists it. Then run: python -I tools/art/png-to-webp.py
-# usage: python -I tools/art/install-word-art.py <delivery folder> [id ...]
-import csv, hashlib, json, os, sys
+# Install a Codex word-art delivery (Mammals studio-photo redo, docs/word-art-redo/codex-redo-brief.md).
+# Each delivered picture is trimmed to its subject, centred on a 1024 x 1024 transparent square with a
+# 21 px margin on the long side (so the picture fills its box), and saved over the current word picture of
+# that id (same file name, so saved progress keeps working). Its checksum, size and note are updated in
+# docs/supplied-artwork.json, which npm run check verifies. Then run: python -I tools/art/png-to-webp.py
+# Delivered names may be <id>.png or <id>-<style>.png (the style pilot); pass --style studio for the latter.
+# usage: python -I tools/art/install-word-art.py <delivery folder> [--style studio] [id ...]
+import hashlib, json, os, sys
 from PIL import Image
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SIZE, MARGIN = 1024, 21
-MANIFESTS = ['docs/asset-pack-131/artwork-manifest.json', 'docs/asset-pack-81/artwork-manifest.json']
-NOTE = 'Macro-photo style (Codex word-art redo, {}); anatomy checked against the wave brief.'
+MANIFEST = os.path.join(ROOT, 'docs', 'supplied-artwork.json')
+NOTE = 'Studio-photo style (Codex word-art redo, {}); checked against docs/word-art-redo/codex-redo-brief.md.'
 
 
 def fit(src):
@@ -25,40 +26,42 @@ def fit(src):
 
 
 def main():
-    folder = os.path.abspath(sys.argv[1])
-    only = set(sys.argv[2:])
-    paths = {r['id']: r['current file'] for r in csv.DictReader(open(os.path.join(ROOT, 'docs/word-art-redo/asset-list.csv'), encoding='utf-8'))}
-    manifests = {m: json.load(open(os.path.join(ROOT, m), encoding='utf8')) for m in MANIFESTS}
+    args = sys.argv[1:]
+    folder = os.path.abspath(args.pop(0))
+    style = None
+    if '--style' in args:
+        i = args.index('--style')
+        style = args[i + 1]
+        del args[i:i + 2]
+    only = set(args)
+    manifest = json.load(open(MANIFEST, encoding='utf8'))
+    by_id = {e['id']: e for e in manifest['entries']}
     label = os.path.relpath(folder, os.path.join(ROOT, 'docs/word-art-redo')).replace('\\', '/')
     done = []
     for f in sorted(os.listdir(folder)):
-        wid = f[:-4].removesuffix('-v2')  # briefs name redo files <id>-v2.png
-        if not f.endswith('.png') or wid == 'contact-sheet' or (only and wid not in only):
+        if not f.endswith('.png') or f.startswith('contact-sheet'):
             continue
-        rel = paths[wid]
-        dest = os.path.join(ROOT, rel)
+        stem = f[:-4]
+        if style:
+            if not stem.endswith('-' + style):
+                continue
+            stem = stem[:-len(style) - 1]
+        wid = stem.removesuffix('-v2')
+        if (only and wid not in only) or wid not in by_id:
+            if wid not in by_id:
+                print('skipped (no such word):', f)
+            continue
+        e = by_id[wid]
+        dest = os.path.join(ROOT, e['path'])
         fit(os.path.join(folder, f)).save(dest, optimize=True)
         data = open(dest, 'rb').read()
-        hit = 0
-        for m, entries in manifests.items():
-            for e in entries:
-                if e.get('path') == rel:
-                    e['sha256'] = hashlib.sha256(data).hexdigest()
-                    e['dimensions'] = [SIZE, SIZE]
-                    e['bytes'] = len(data)
-                    if 'qaNotes' in e:
-                        e['qaNotes'] = NOTE.format(label)
-                    hit += 1
-        done.append((wid, rel, hit))
-    for m, entries in manifests.items():
-        raw = open(os.path.join(ROOT, m), encoding='utf8').read()
-        indent = 1 if raw.startswith('[\n {') else 2
-        with open(os.path.join(ROOT, m), 'w', encoding='utf8', newline='\n') as fh:
-            json.dump(entries, fh, indent=indent, ensure_ascii=False)
-            fh.write('\n')
-    for wid, rel, hit in done:
-        print(f'{wid:28} {rel}  manifest entries: {hit}')
-    print(len(done), 'installed')
+        e.update(sha256=hashlib.sha256(data).hexdigest(), bytes=len(data), dimensions=[SIZE, SIZE], mode='RGBA',
+                 iccProfile=False, qaNotes=NOTE.format(label))
+        done.append(wid)
+    with open(MANIFEST, 'w', encoding='utf8', newline='\n') as fh:
+        json.dump(manifest, fh, indent=2, ensure_ascii=False)
+        fh.write('\n')
+    print(len(done), 'installed:', ' '.join(done))
 
 
 if __name__ == '__main__':

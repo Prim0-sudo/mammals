@@ -3,7 +3,7 @@
 // The old subject groups below only group the rows; each word's teaching group comes from word-order.js.
 // All wording is drafted, including wording for source-provided concepts (teacher review pending).
 const groups = {
- mammals: `lion|A large wild cat; adult males often have a mane.|A male lion standing, with its mane and four paws visible.|The lion has a mane.
+ mammals: `lion|A large wild cat; adult males often have a mane.|A male lion standing, with its full mane and four paws visible.|The lion has a mane.
 elephant|A very large mammal with a long trunk.|An elephant using its trunk, with large ears and four legs visible.|The elephant lifts its trunk.
 giraffe|A tall mammal with a very long neck.|A giraffe reaching toward leaves, with its whole long neck visible.|The giraffe eats leaves.
 monkey|A mammal with grasping hands; most kinds have tails.|A long-tailed monkey holding a branch with its hands.|The monkey holds a branch.
@@ -22,12 +22,12 @@ rat|A rodent usually larger than a mouse, with a long tail.|A rat beside a same-
 hamster|A small rodent with cheek pouches for carrying food.|A hamster with gently rounded cheek pouches and a short tail.|The hamster carries food.
 guinea pig|A small rodent with a rounded body and no visible tail.|A guinea pig standing with its short ears and rounded body visible.|The guinea pig eats hay.
 squirrel|A rodent that often has a bushy tail.|A tree squirrel on a branch with a bushy tail.|The squirrel climbs a tree.
-hedgehog|A small mammal with stiff spines on its back.|A hedgehog showing spines on its back and fur on its face.|The hedgehog has spines.
+hedgehog|A small mammal with stiff spines on its back.|A hedgehog walking, with spines on its back and fur on its face.|The hedgehog has spines.
 fox|A wild mammal in the dog family, often with a bushy tail.|A red fox with pointed ears and a bushy tail.|The fox has a bushy tail.
 wolf|A large wild member of the dog family.|A grey wolf standing, with long legs and thick fur.|The wolf walks through the snow.
 deer|A hoofed mammal; males of many kinds grow antlers.|A male red deer with branched antlers.|The deer has antlers.
 moose|A very large deer; adult males have broad antlers.|An adult male moose with broad, flat antlers and a long face.|The moose stands by the lake.
-zebra|An African mammal in the horse family with striped fur.|A zebra with black and white stripes and hooves.|The zebra has stripes.
+zebra|An African mammal in the horse family with striped fur.|A zebra standing side-on, with black and white stripes down to its hooves.|The zebra has stripes.
 rhinoceros|A large mammal with one or two horns on its nose.|A white rhinoceros with two nose horns, broad mouth and thick skin.|The rhinoceros has thick skin.
 hippopotamus|A large mammal that spends much of the day in water.|A hippopotamus at the river surface with nostrils above water.|The hippopotamus comes up for air.
 camel|A mammal with one or two humps that store fat.|A one-humped camel in a dry landscape.|The camel has a hump.
@@ -36,14 +36,14 @@ cheetah|A spotted wild cat that can run very fast.|A cheetah with spots, a slend
 leopard|A wild cat with dark ring-like markings on its coat.|A leopard showing rosette markings, sturdy body and long tail.|The leopard rests on a branch.
 gorilla|A large ape with no tail.|An adult gorilla with broad chest, long arms and no tail.|The gorilla has strong arms.
 chimpanzee|An ape with grasping hands and no tail.|A chimpanzee showing long arms, hands and no tail.|The chimpanzee holds a fruit.
-kangaroo|A mammal with strong back legs; females carry young in a pouch.|A female kangaroo with a visible pouch and long balancing tail.|The kangaroo can hop.
+kangaroo|A mammal with strong back legs; females carry young in a pouch.|A kangaroo standing upright on its big back feet, its long tail on the ground.|The kangaroo can hop.
 koala|An Australian mammal that eats mostly eucalyptus leaves.|A koala holding a eucalyptus branch, with rounded furry ears.|The koala rests in a tree.
 wombat|An Australian mammal that digs burrows with strong claws.|A stocky wombat beside a burrow entrance.|The wombat digs a burrow.
 platypus|A mammal with a broad bill and webbed feet that lays eggs.|A platypus showing its broad bill, fur and webbed front feet.|The platypus swims in a stream.
 echidna|A mammal with spines and a long snout that lays eggs.|An echidna with strong claws, spines and a long narrow snout.|The echidna looks for ants.
-bat|A mammal with skin-covered wings that can fly.|A fruit bat with wings spread to show skin stretched over long fingers.|The bat can fly.
+bat|A mammal with skin-covered wings that can fly.|A fruit bat flying, seen from below, with skin wings spread over long fingers.|The bat can fly.
 sloth|A slow-moving mammal that spends much of its time in trees.|A sloth hanging safely from a branch by its curved claws.|The sloth hangs from a branch.
-whale|A large sea mammal that breathes air through a blowhole.|A humpback whale surfacing, with horizontal tail flukes and blowholes inset.|The whale comes up for air.
+whale|A large sea mammal that breathes air through a blowhole.|A humpback whale swimming, with its long flippers and tail flukes.|The whale comes up for air.
 dolphin|A sea mammal with a streamlined body and a blowhole.|A bottlenose dolphin at the surface, showing its single blowhole.|The dolphin breathes air.
 porpoise|A small sea mammal with a rounded head and a short snout.|A harbour porpoise with rounded head and triangular dorsal fin.|The porpoise swims in the sea.
 seal|A sea mammal with flippers; true seals have no outer ear flaps.|A harbour seal resting on a rock, showing small ear openings.|The seal rests on a rock.
@@ -56,7 +56,7 @@ polar bear|A bear with thick fur that hunts on Arctic sea ice.|A polar bear on s
  bodies: `fur|The thick coat of hair on many mammals.|A close view of rabbit fur, with the rabbit shown in a small context view.|The rabbit has soft fur.
 whiskers|Long stiff hairs near the face that help an animal sense nearby things.|A cat face close-up with whiskers clearly indicated.|The cat has long whiskers.
 skin|The outer covering of an animal's body.|A close view of elephant skin, with a small whole-elephant context.|The elephant has wrinkled skin.
-paw|The foot of an animal such as a cat or bear.|A cat paw close-up showing pads and toes.|The cat lifts one paw.
+paw|The foot of an animal such as a cat or bear.|A dog's paw seen from below, showing four toe pads and a big middle pad.|The cat lifts one paw.
 hoof|A hard covering on the foot of a horse and some other mammals.|A horse hoof in close view with lower leg included.|The horse has a hard hoof.
 claw|A hard curved point on an animal's toe.|A bear paw close-up with one claw clearly indicated.|The bear has a sharp claw.
 tail|A body part that sticks out from the back end of many animals.|A squirrel with its bushy tail clearly indicated.|The squirrel has a long tail.
@@ -86,7 +86,7 @@ forest|A large area with many trees.|A forest with many trees and a clear path.|
 grassland|An open area where mostly grasses grow.|An open grassy plain with few trees and distant zebras.|The zebra walks across the grassland.
 desert|A place that gets very little rain.|A dry desert landscape with sparse plants.|The camel walks in the desert.
 cave|A hollow space in rock that an animal can enter.|A rocky cave entrance with the inside visible.|The bat rests in a cave.
-burrow|A hole or tunnel dug by an animal as a shelter.|A cutaway wombat burrow showing the entrance and tunnel.|The wombat rests in its burrow.
+burrow|A hole or tunnel dug by an animal as a shelter.|A rabbit at the round entrance of its burrow in a grassy mound of earth.|The wombat rests in its burrow.
 den|A sheltered resting place used by some wild mammals.|A fox resting in a sheltered hollow under tree roots.|The fox rests in its den.
 branch|A woody part that grows out from a tree trunk.|A tree with one side branch clearly indicated.|The monkey sits on a branch.
 leaf|A usually flat plant part that catches light.|A single fresh leaf with its outline and stalk visible.|The giraffe eats a leaf.
