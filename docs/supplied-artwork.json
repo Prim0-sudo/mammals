@@ -1206,8 +1206,8 @@
       "id": "nose",
       "path": "assets/topics/mammals/vocabulary/nose.png",
       "category": "bodies",
-      "sha256": "0e104e914db17a1585bedd35253d288b74b09c0ef7e6c0882b9fa81e14d3af69",
-      "bytes": 985946,
+      "sha256": "34c034bd94f4f349d60709424345b723df12ffc5002b859525526913507df5bf",
+      "bytes": 1342274,
       "dimensions": [
         1024,
         1024
@@ -1217,7 +1217,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "mouth",
@@ -1259,8 +1260,8 @@
       "id": "tongue",
       "path": "assets/topics/mammals/vocabulary/tongue.png",
       "category": "bodies",
-      "sha256": "8dbdc5fbdc6237365d3d0a8fe05aedb6ddfaa24ef2b9d1f68a4fccb850852ed6",
-      "bytes": 882144,
+      "sha256": "583cc4c94a320a6c0cfdb7488b02098cac4a0170386ac9eef0b6f4ef19571a05",
+      "bytes": 730380,
       "dimensions": [
         1024,
         1024
@@ -1270,7 +1271,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "trunk",
@@ -1442,8 +1444,8 @@
       "id": "backbone",
       "path": "assets/topics/mammals/vocabulary/backbone.png",
       "category": "bodies",
-      "sha256": "727f42638ba3d45629cc879527e9ef195054f266ca7eec41211b3b6a40c1938b",
-      "bytes": 408295,
+      "sha256": "7c5ad4aeeeca71e2ac91c81ef8372a8e526d67b94f8d4be46827aa64496a1268",
+      "bytes": 464959,
       "dimensions": [
         1024,
         1024
@@ -1453,7 +1455,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "gills",
@@ -1800,8 +1803,8 @@
       "id": "water",
       "path": "assets/topics/mammals/vocabulary/water.png",
       "category": "places",
-      "sha256": "b127ff373c44e933d12dcbc690754bd150d74a25148b197c1f6c5a7a77c93f79",
-      "bytes": 1376117,
+      "sha256": "db36fa13e1744ee6bf44fd850d6f058d43f8235442b91dee88b2185b3b4487f3",
+      "bytes": 749674,
       "dimensions": [
         1024,
         1024

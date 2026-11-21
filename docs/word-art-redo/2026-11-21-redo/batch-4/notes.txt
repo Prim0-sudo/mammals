@@ -10,3 +10,8 @@ A reference-use instruction preceded the verbatim brief prompts after early rend
 
 The jump uses a shallow upward trajectory so the block is small and still sits ahead of the cat.
 
+## Fixes
+
+- water.png. Replaced the stone-ringed pool with a single suspended crown splash. A second render used the burrow and paw pilots for lighting and cutout style and emphasised water as the only subject.
+
+Checked the replacement cutouts on a dark background after sizing them to 1024 x 1024 and clearing faint stray alpha.

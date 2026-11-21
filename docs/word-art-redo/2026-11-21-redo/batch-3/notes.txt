@@ -5,3 +5,11 @@ Completed 20 new studio-photo cutouts with the built-in image generator, using t
 The new cutouts were sized and centred on 1024 x 1024 RGBA canvases. Stray near-transparent pixels were cleared during sizing. The puppy image received one follow-up edit to close the adult dog's mouth.
 
 Some views, especially horn and antlers, turn slightly towards the camera. The previously delivered nose cutout shows the dog's open mouth and was kept as supplied.
+
+## Fixes
+
+- backbone.png. Regenerated the dog skeleton with a lower, forward-sloping neck, distinct legs and a sharper spine. A second render emphasised the neck angle.
+- nose.png. Replaced the open-mouthed dog with a front-facing golden dog with its mouth closed and its wet nose in focus.
+- tongue.png. Regenerated the giraffe reaching around the leafy twig and checked the soft neck fade and clear background on a dark panel.
+
+Checked the replacement cutouts on a dark background after sizing them to 1024 x 1024 and clearing faint stray alpha.

@@ -62,10 +62,10 @@ claw|A hard curved point on an animal's toe.|A bear's front paw with long curved
 tail|A body part that sticks out from the back end of many animals.|A red squirrel with its big bushy tail curled up behind it.|The squirrel has a long tail.
 ear|A body part used for hearing.|A rabbit's head with one long upright ear.|The rabbit turns an ear.
 eye|A body part used for seeing.|A horse's head in side view, with one large dark eye.|The horse has a brown eye.
-nose|A body part used for smelling and breathing.|A dog face close-up with its nose clearly indicated.|The dog sniffs with its nose.
+nose|A body part used for smelling and breathing.|A golden dog's face from the front, its wet black nose in the middle.|The dog sniffs with its nose.
 mouth|The opening through which an animal takes in food.|A goat's head with its mouth closed round a blade of grass.|The goat opens its mouth.
 tooth|A hard part in the mouth used to bite or chew.|A horse nibbling grass, its lips parted to show its flat front teeth.|The horse uses a tooth to chew.
-tongue|A soft part inside the mouth that helps with tasting and eating.|A cat lapping water with its tongue visible.|The cat laps with its tongue.
+tongue|A soft part inside the mouth that helps with tasting and eating.|A giraffe's head and neck, its long dark tongue curling round a leafy twig.|The cat laps with its tongue.
 trunk|An elephant's long nose and upper lip joined together.|An elephant reaching its long trunk out to a leafy twig.|The elephant uses its trunk.
 tusk|A long tooth that sticks out of an animal's mouth.|A walrus's head with two long ivory tusks and whiskers.|The walrus has a long tusk.
 horn|A hard growth on the head of some animals.|A goat's head with two curved horns.|The goat has a curved horn.
@@ -75,7 +75,7 @@ pouch|A fold of skin in which some mammals carry their young.|A kangaroo standin
 flipper|A broad, flat limb used for moving in water.|A seal lying on its belly, one front flipper spread to show its claws.|The seal moves a flipper.
 blowhole|A breathing opening on top of a whale's or dolphin's head.|A dolphin's head from above, with the blowhole on top of its head.|The dolphin breathes through its blowhole.
 lungs|Body organs that take oxygen from air.|A model of a pair of lungs with the windpipe branching into them.|Mammals breathe air into their lungs.
-backbone|The row of bones along the back that helps support the body.|A simple non-graphic dog skeleton outline with backbone highlighted.|The dog has a backbone.`,
+backbone|The row of bones along the back that helps support the body.|A museum skeleton of a dog in side view, its backbone running from skull to tail.|The dog has a backbone.`,
  places: `land|The solid ground, rather than water.|A patch of grassy land with a tree, rocks and a little water at the edge.|The lion walks on land.
 ocean|A very large area of salty water.|A patch of deep blue ocean waves with a whale's tail.|The whale lives in the ocean.
 ocean floor|The ground at the bottom of the ocean.|A sandy ocean floor with seagrass, rocks and a starfish under clear water.|The walrus finds food on the ocean floor.
@@ -94,7 +94,7 @@ grass|Plants with narrow green leaves, often covering the ground.|A clump of gre
 fruit|A plant part that holds seeds, such as an apple.|A red apple beside a cut half showing its seeds.|The monkey eats fruit.
 seed|A plant part from which a new plant can grow.|A small pile of striped sunflower seeds.|The mouse finds a seed.
 milk|A liquid made by mammal mothers to feed their young.|A calf drinking milk from its mother cow.|The calf drinks its mother's milk.
-water|The liquid animals need to drink.|A shallow pool of clear water ringed by stones and moss.|The deer drinks water.
+water|The liquid animals need to drink.|A splash of clear fresh water with droplets flying out.|The deer drinks water.
 snow|Soft white ice crystals that fall in cold weather.|A patch of white snow with a trail of paw prints.|The wolf walks through snow.
 sea ice|Frozen seawater floating on the ocean.|A flat piece of white sea ice floating in dark blue sea.|The polar bear rests on sea ice.
 seagrass|Flowering plants that grow underwater in shallow seas.|Ribbon-like seagrass rooted in sandy seabed, with bubbles rising.|The dugong eats seagrass.`,
