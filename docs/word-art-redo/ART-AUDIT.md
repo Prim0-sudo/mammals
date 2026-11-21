@@ -27,9 +27,7 @@ Each of these sets changes by itself when the word pictures are replaced:
 - Phonics picture cards.
 - Later, flashcards, slides and worksheets.
 
-**Group cards: owner's choice.** Insects uses 10 painted group cards.
-- **My pick:** paint 10 group cards in the menu-tile style. The thumbnails then match Home and stay painted, as the owner allows.
-- **The alternative:** keep using one realistic word picture per group, which costs nothing.
+**Group cards: painted (owner, 21 November 2026: "Yes, paint them").** There are 10 cards in the menu-tile style, as in Insects. They are briefed in `codex-group-cards-brief.md` and delivered to `2026-11-21-group-cards/`.
 
 ## Art still missing (new, in whichever style fits)
 
