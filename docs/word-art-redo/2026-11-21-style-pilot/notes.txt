@@ -1,0 +1,20 @@
+Mammal Discovery Club — realistic word-picture style pilot
+21 November 2026
+
+24 pictures across eight subjects and three styles. The contact sheet uses
+the brief’s subject order and shows studio, wildlife and field guide left
+to right. The cutouts were visually checked at 120 px and against light
+and dark backgrounds.
+
+The insect macro references were reviewed visually for studio lighting,
+texture and cutout framing. The painted mammal samples were checked for
+subject context. The new brief guided the whale, kangaroo and burrow compositions.
+
+The studio and field-guide zebra are the closest pair at small sizes. The
+stripe pattern dominates both, so their difference is mainly in the even
+lighting and reduced coat detail of the field-guide plate.
+
+The generator returned 1254 × 1254 RGBA source images. For delivery, the
+cutouts were centered and resampled onto 1024 × 1024 RGBA canvases with
+the longest subject dimension at approximately 85%. Export suppressed
+faint stray alpha outside the edge, retaining antialiasing on the silhouettes.
