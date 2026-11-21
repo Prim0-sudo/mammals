@@ -42,7 +42,7 @@
 
 | Set | Insects | Mammals now | Gap and fix |
 |---|---|---|---|
-| Word pictures | 285, one style (macro photo), trimmed to fill the box | **Done (21 November 2026):** all 123 redone by Codex as studio-photo cut-outs (owner: scientific themes go realistic; style A picked), trimmed to fill the box, alt text rewritten. Tongue, nose, backbone and water are being remade (redo-fixes-1.md). | Briefs and deliveries in docs/word-art-redo. New words from the vocabulary plan follow the same brief. |
+| Word pictures | 285, one style (macro photo), trimmed to fill the box | **Done (21 November 2026):** all 123 redone by Codex as studio-photo cut-outs (owner: scientific themes go realistic; style A picked), trimmed to fill the box, alt text rewritten. Tongue, nose, backbone and water were remade once (redo-fixes-1.md). | Briefs and deliveries in docs/word-art-redo. New words from the vocabulary plan follow the same brief. |
 | Menu tiles | 17 | 13 | Add the missing tiles in the chosen style. |
 | Teaching scenes | 15 | 0 | After the style is picked. |
 | Topic game art | 97 pieces | 0 | Made with each game. |

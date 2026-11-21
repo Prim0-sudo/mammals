@@ -1,7 +1,7 @@
 # Mammals art audit: keep or redo (21 November 2026)
 
 Owner direction, 21 November 2026:
-- Word pictures become realistic. Codex made three styles side by side and style A, studio photo, was picked. **Done:** all 123 redone and installed in four batches (`2026-11-21-redo/`), with four remakes in `redo-fixes-1.md`.
+- Word pictures become realistic. Codex made three styles side by side and style A, studio photo, was picked. **Done:** all 123 redone and installed in four batches (`2026-11-21-redo/`), with four remakes (`redo-fixes-1.md`), all installed.
 - Everything else (landing, tiles, thumbnails, games) may stay in the painted style if it looks good.
 
 Below is every art piece from the landing page to the last thumbnail. Contact sheet: `docs/art-options/art-audit-2026-11-21.png`.
