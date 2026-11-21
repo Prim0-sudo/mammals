@@ -1,6 +1,8 @@
 # Mammals vocabulary expansion plan
 
-**Draft for the owner, 21 November 2026 — not in the game until approved and pictured.**
+**Approved by the owner, 22 November 2026 ("Yes, add them").** Words go into the game batch by batch as their studio-photo pictures are made and checked (`docs/word-art-redo/codex-new-words-brief.md`).
+
+Open questions in section 11 were settled with the plan's own choices: all 145 words; ladybird (British); human stays, in Other mammals; a dolphin is a kind of whale; wildlife hide stays; litter stays; the three safety questions are reworded to mention a grown-up.
 
 This plan takes Mammal Discovery Club (ages about 4–7, British English, teacher-led) from 123 words in 10 groups to 268 words, with two of the groups currently empty. It follows the Insects word plan (approved 16 November 2026) and the Insects benchmark (blueprint v7.0). It also lists the families, "A kind of" links, look-alikes, sorts, about 134 Knowledge & Safety questions, levels, lessons and collections that go with the new words. A word only goes in once its picture exists, because every word must have a checked picture.
 
