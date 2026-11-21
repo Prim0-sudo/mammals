@@ -157,7 +157,35 @@ snail|A soft animal that carries a shell on its back.|A garden snail with a spir
 worm|A long, soft animal with no legs that lives in soil.|A pink earthworm stretched out on a patch of soil.|The worm wriggles in the soil.
 crab|A sea animal with a hard shell and ten legs; the front two are big claws.|A green shore crab seen from above, its two claws raised.|The crab walks sideways.
 octopus|A soft sea animal with eight arms and no bones.|An orange octopus seen from above, its eight curling arms spread on the sand.|The octopus has eight arms.
-jellyfish|A soft, see-through sea animal that can sting.|A see-through moon jellyfish with a round bell and trailing frilly arms.|The jellyfish floats in the sea.`
+jellyfish|A soft, see-through sea animal that can sting.|A see-through moon jellyfish with a round bell and trailing frilly arms.|The jellyfish floats in the sea.`,
+ watching: `grown-up|An adult who looks after us, like a parent or a teacher.|A grown-up and a child walking side by side along a path, holding hands.|Stay with a grown-up.
+quiet|Making little or no sound.|A girl kneeling in the grass with her finger to her lips to keep quiet.|Be quiet so the deer stays.
+stay back|Keep a long way from an animal so it feels safe.|A grown-up and a child standing back at the edge of a field, watching a deer far away.|Stay back from the seal.
+gentle|Kind and soft, with careful hands.|A girl gently stroking a guinea pig that sits on a grown-up's lap.|Be gentle with the guinea pig.
+binoculars|Two joined tubes you look through to make far-away things look close.|A pair of black binoculars with a neck strap.|I look through the binoculars.
+wildlife hide|A small hut with narrow windows where people sit quietly to watch animals.|A small wooden wildlife hide with a long viewing slot, beside a pond.|We sit in the wildlife hide.
+notebook|A little book for writing and drawing what we see.|An open spiral notebook with a pencil drawing of a paw print.|I draw in my notebook.
+field guide|A book that helps you name the animals you see.|An open field guide with photos of a fox, a badger, a hedgehog and a rabbit.|The field guide shows a badger.
+footprint|A mark a foot or paw leaves in mud or snow; also called a track.|A large paw print pressed into soft brown mud.|We found a footprint in the mud.
+droppings|An animal's poo.|A small pile of round brown animal droppings on the grass.|Do not touch droppings.
+trail camera|A camera fixed to a tree that takes pictures when an animal walks past.|A camouflage-coloured trail camera strapped to a tree trunk.|The trail camera saw a fox.
+wash hands|Clean our hands with soap and water.|Two soapy hands being washed under a running tap.|Wash your hands after the farm.`,
+ homes: `warren|Lots of rabbit burrows joined together under the ground.|A cut-away view of a rabbit warren, with two rabbits resting in tunnels under the grass.|Rabbits live in a warren.
+sett|A badger's home of tunnels and rooms under the ground.|A badger looking out of its sett, a large hole in an earth bank under tree roots.|The badger sleeps in its sett.
+holt|An otter's den in a riverbank.|An otter resting in its holt, a hollow among tree roots beside the water.|The otter rests in its holt.
+nest|A cosy home made of grass, leaves or twigs.|A round woven grass nest hanging from tall reed stems.|The mouse made a nest of grass.
+drey|A squirrel's nest of twigs and leaves, high in a tree.|A red squirrel peeking out of its drey, a ball of twigs and leaves in the fork of a tree.|The squirrel sleeps in its drey.
+tree hollow|A hole in an old tree where animals can shelter.|A section of tree trunk with a deep round hollow in it.|The bat rests in a tree hollow.
+lodge|A beaver's home of sticks and mud in the water.|A beaver swimming beside its lodge, a dome of sticks and mud in the water.|The beaver swims to its lodge.
+hutch|A wooden house for a pet rabbit or guinea pig.|A wooden rabbit hutch on legs, with a rabbit behind the wire mesh.|The rabbit is in its hutch.
+kennel|A small house for a dog.|A golden dog lying in the doorway of its wooden kennel.|The dog naps in its kennel.
+stable|A building where horses live.|A brown horse looking out over the half door of its wooden stable.|The horse is in the stable.
+barn|A big farm building for animals, hay and tools.|A red barn with its big doors open and hay bales stacked inside.|The hay is in the barn.`,
+ survival: `listen|Use your ears to hear carefully.|A roe deer standing still, its big ears turned up to listen.|The deer stops to listen.
+camouflage|Colours or patterns that help an animal blend in with where it lives.|A white arctic fox curled up on the snow, its white fur matching the snow.|Camouflage helps the fox hide.
+curl up|Roll the body into a tight ball.|A hedgehog curled up into a tight spiky ball on the grass.|The hedgehog curls up.
+lookout|An animal that keeps watch for danger while the others feed.|A meerkat standing tall on its back legs on a sandy mound, keeping a lookout.|The meerkat is on lookout.
+herd|A big group of animals, such as zebras or cows, that live together.|A herd of zebras standing close together on dry grass.|The zebras live in a herd.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

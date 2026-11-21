@@ -2882,6 +2882,510 @@
       "mode": "RGBA",
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "barn",
+      "path": "assets/topics/mammals/vocabulary/barn.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3a857fe06e57924ef87a4bd5edc15b8403e5602707e092e1d8f58d34625267df",
+      "bytes": 1535853,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "binoculars",
+      "path": "assets/topics/mammals/vocabulary/binoculars.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "826ecfc3fa583423c12e894f7b79cd4c4ea37953b5230fe96ecf99a806a8aa7f",
+      "bytes": 1203433,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "camouflage",
+      "path": "assets/topics/mammals/vocabulary/camouflage.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d98a1d1450111cc33f5a690c185ac48106fe82e23cd4f38b4044003e1ff65bf5",
+      "bytes": 1088158,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "curl-up",
+      "path": "assets/topics/mammals/vocabulary/curl-up.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "17ea37d9dce4586eb375bfaeb280388226a2fd51ee555bf41280163fe2cf3199",
+      "bytes": 1682289,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "drey",
+      "path": "assets/topics/mammals/vocabulary/drey.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "228a7ceb7f930a71031271cec3814082bab46a303c21bc8b45ae8163cc5986f5",
+      "bytes": 1420382,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "droppings",
+      "path": "assets/topics/mammals/vocabulary/droppings.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "7778d1ab46087a68d99758c4f7e01ab70c8e6e5cffae4bcfd9955fb7c3ea3414",
+      "bytes": 1000948,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "field-guide",
+      "path": "assets/topics/mammals/vocabulary/field-guide.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "99df93cd87c69b53bedc14b733b8522864a9c4fa0d4527334cd64a90b8183251",
+      "bytes": 1357762,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "footprint",
+      "path": "assets/topics/mammals/vocabulary/footprint.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "688e539511c5d47fc75218dca157da2562e910f2449a4ef6f7faefa6507872a7",
+      "bytes": 1831535,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "gentle",
+      "path": "assets/topics/mammals/vocabulary/gentle.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6ec70c632cdf88c2029a7da44c9d74fb0da1529d41f54a67315cc78920d561e6",
+      "bytes": 1460771,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "grown-up",
+      "path": "assets/topics/mammals/vocabulary/grown-up.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "2be1719341542803e24ede218ed4fdd0c985ea6d173176e6a2f2eb1035433d94",
+      "bytes": 1035774,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "herd",
+      "path": "assets/topics/mammals/vocabulary/herd.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9671a77769ae45e82ffb1ea3ad2c6fa1679421e885879ee699f9f7f319fce207",
+      "bytes": 1657896,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "holt",
+      "path": "assets/topics/mammals/vocabulary/holt.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b34f6b646269e23f5378b9062c05810dadac6315912d84c06925570a8713bba3",
+      "bytes": 1819583,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hutch",
+      "path": "assets/topics/mammals/vocabulary/hutch.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "86cfa57fec2d70ecdb2055ce3aecf6271499e63b55dd86d7ca26332db5119a36",
+      "bytes": 1476550,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "kennel",
+      "path": "assets/topics/mammals/vocabulary/kennel.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "806fb63ea6a23be0146788a45afc43ff9d2692f38627fd94ef4e795db4ed5525",
+      "bytes": 1382437,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "listen",
+      "path": "assets/topics/mammals/vocabulary/listen.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "c13bfcd5720bbf0a9dac608234a29ea28973798ece2b7f267ed3d9317e9acefc",
+      "bytes": 738249,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "lodge",
+      "path": "assets/topics/mammals/vocabulary/lodge.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "2bdfdbe45eb24556da5232b652a0c3c4da4c6e52e2c2d8fcb99504d8febf1f87",
+      "bytes": 1613049,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "lookout",
+      "path": "assets/topics/mammals/vocabulary/lookout.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6459cfe6da6df37e17496b2d6fff38ad6d60df514a18c349793e3adfbfcaeec0",
+      "bytes": 626002,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "nest",
+      "path": "assets/topics/mammals/vocabulary/nest.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "22d6fcf411d5f68963da551cfa229efabd5c05ad4ccfdb73920281908862f6a0",
+      "bytes": 907547,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "notebook",
+      "path": "assets/topics/mammals/vocabulary/notebook.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b7ff63eaf943ffd25b1ace06a89142dc35b1c7264d2590e34eb9ab7dcb44045d",
+      "bytes": 1098564,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "quiet",
+      "path": "assets/topics/mammals/vocabulary/quiet.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d0ce83ccc13b2bf73e90ffa89ed6cdfb238704243ee122710255138b19b25d6f",
+      "bytes": 1522946,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "sett",
+      "path": "assets/topics/mammals/vocabulary/sett.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "50b662d71cb6186ff34bd7b66a71257a49d9c0f341d6e22e1cb88b6004fcaa73",
+      "bytes": 1898242,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "stable",
+      "path": "assets/topics/mammals/vocabulary/stable.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d84e537ce920c61dea27678aa7d9eb026eaaff111f40c734fc00d65119100ee2",
+      "bytes": 1542550,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "stay-back",
+      "path": "assets/topics/mammals/vocabulary/stay-back.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "fdb87ca642b7a2ac2bdda5528dc9db8e6ca92b584ac0484b576d7e19b6c164b2",
+      "bytes": 1526706,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "trail-camera",
+      "path": "assets/topics/mammals/vocabulary/trail-camera.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "510467f22816fa8bff2bc19e65d5ff2f9cf58951e5d63de621641daa5e050e95",
+      "bytes": 1179441,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "tree-hollow",
+      "path": "assets/topics/mammals/vocabulary/tree-hollow.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9823cfa8385631f3bae706be43e257350954ff581f0c86dbbb3de1063814b0a1",
+      "bytes": 1779478,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "warren",
+      "path": "assets/topics/mammals/vocabulary/warren.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "25ba0871ac4c4095868d0e483253a56a4e968a022d9e86085c22324fdc9e0d60",
+      "bytes": 1691624,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "wash-hands",
+      "path": "assets/topics/mammals/vocabulary/wash-hands.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "458a8c07fac11dc7fc38ca4e481ddea04e9c7f1b7e8db0aa23ed678bea048e23",
+      "bytes": 973228,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "wildlife-hide",
+      "path": "assets/topics/mammals/vocabulary/wildlife-hide.png",
+      "category": "watching",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "223b381157d33a529c3257aead3761db918a9b78c4c1b5472a38943edf35d1c6",
+      "bytes": 1426717,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {
