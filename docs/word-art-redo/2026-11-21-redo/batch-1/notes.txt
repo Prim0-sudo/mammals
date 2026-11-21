@@ -1,0 +1,16 @@
+Mammal Discovery Club - studio word pictures, batch 1
+
+20 subjects in the order specified by redo-batch-1.md. Each initial
+generation used its supplied prompt verbatim with lion-studio.png,
+hedgehog-studio.png and zebra-studio.png as visual references.
+
+The first squirrel held an extra nut. A follow-up image edit removed it
+and placed the front paws on the branch. The full edit prompt is recorded
+in prompts.md.
+
+The generator supplied 1254 x 1254 RGBA cutouts. For delivery, each was
+centred on a 1024 x 1024 RGBA canvas and scaled to about 85% along its
+longest dimension. Export cleared the faintest stray alpha and kept
+antialiasing along the silhouette. The cutouts were reviewed at 120 px
+with light and dark preview tiles.
+

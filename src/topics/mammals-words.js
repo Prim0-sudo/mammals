@@ -8,25 +8,25 @@ elephant|A very large mammal with a long trunk.|An elephant using its trunk, wit
 giraffe|A tall mammal with a very long neck.|A giraffe reaching toward leaves, with its whole long neck visible.|The giraffe eats leaves.
 monkey|A mammal with grasping hands; most kinds have tails.|A long-tailed monkey holding a branch with its hands.|The monkey holds a branch.
 bear|A large mammal with thick fur and strong paws.|A brown bear standing on all four paws.|The bear has thick fur.
-rabbit|A small mammal with long ears and strong back legs.|A rabbit with long ears and its back feet visible.|The rabbit can hop.
-cat|A small mammal often kept as a pet.|A domestic cat showing its whiskers and paws.|The cat has fur.
-dog|A mammal that people often keep as a companion.|A domestic dog with a visible nose, ears and four legs.|A big dog ran.
-horse|A large mammal with hooves, often ridden by people.|A horse standing side-on with its mane and hooves visible.|The horse can run.
-donkey|A hoofed mammal with long ears, related to a horse.|A grey donkey with long ears and a short upright mane.|The donkey has long ears.
-cow|An adult female of the farm animal called cattle.|An adult cow standing with its udder visible without emphasis.|The cow eats grass.
-sheep|A farm mammal with a coat of wool.|An adult sheep with a thick woolly coat.|The sheep has wool.
-goat|A hoofed mammal that can climb well.|A goat standing on a low rock, with split hooves visible.|The goat stands on a rock.
-pig|A mammal with a rounded snout used for sniffing and digging.|A domestic pig rooting in soil with its snout.|The pig sniffs the soil.
-mouse|A small mammal with a pointed nose and a long thin tail.|A mouse beside a seed, with its thin tail visible.|The mouse finds a seed.
-rat|A rodent usually larger than a mouse, with a long tail.|A rat beside a same-scale mouse outline for size comparison; focus on the rat.|The rat has a long tail.
-hamster|A small rodent with cheek pouches for carrying food.|A hamster with gently rounded cheek pouches and a short tail.|The hamster carries food.
-guinea pig|A small rodent with a rounded body and no visible tail.|A guinea pig standing with its short ears and rounded body visible.|The guinea pig eats hay.
-squirrel|A rodent that often has a bushy tail.|A tree squirrel on a branch with a bushy tail.|The squirrel climbs a tree.
+rabbit|A small mammal with long ears and strong back legs.|A rabbit sitting side-on, with long upright ears, big back feet and a white tail.|The rabbit can hop.
+cat|A small mammal often kept as a pet.|A tabby cat sitting with its tail curled round its paws and its whiskers showing.|The cat has fur.
+dog|A mammal that people often keep as a companion.|A golden-brown dog standing side-on, with its nose, ears, four legs and tail showing.|A big dog ran.
+horse|A large mammal with hooves, often ridden by people.|A brown horse standing side-on, with a black mane, tail and four hooves.|The horse can run.
+donkey|A hoofed mammal with long ears, related to a horse.|A grey donkey standing side-on, with long ears and a short upright mane.|The donkey has long ears.
+cow|An adult female of the farm animal called cattle.|A black and white cow standing side-on.|The cow eats grass.
+sheep|A farm mammal with a coat of wool.|A sheep with a thick woolly coat, standing side-on.|The sheep has wool.
+goat|A hoofed mammal that can climb well.|A brown and white goat with short horns, standing on a low rock.|The goat stands on a rock.
+pig|A mammal with a rounded snout used for sniffing and digging.|A pink pig sniffing the soil with its rounded snout.|The pig sniffs the soil.
+mouse|A small mammal with a pointed nose and a long thin tail.|A mouse beside a seed, with big ears, a pointed nose and a long thin tail.|The mouse finds a seed.
+rat|A rodent usually larger than a mouse, with a long tail.|A brown rat standing side-on, with its long scaly tail showing.|The rat has a long tail.
+hamster|A small rodent with cheek pouches for carrying food.|A golden hamster sitting up, with rounded cheek pouches and a tiny tail.|The hamster carries food.
+guinea pig|A small rodent with a rounded body and no visible tail.|A brown and white guinea pig standing, with a rounded body, short ears and no tail.|The guinea pig eats hay.
+squirrel|A rodent that often has a bushy tail.|A red squirrel sitting on a branch, with its big bushy tail curved up behind it.|The squirrel climbs a tree.
 hedgehog|A small mammal with stiff spines on its back.|A hedgehog walking, with spines on its back and fur on its face.|The hedgehog has spines.
-fox|A wild mammal in the dog family, often with a bushy tail.|A red fox with pointed ears and a bushy tail.|The fox has a bushy tail.
-wolf|A large wild member of the dog family.|A grey wolf standing, with long legs and thick fur.|The wolf walks through the snow.
-deer|A hoofed mammal; males of many kinds grow antlers.|A male red deer with branched antlers.|The deer has antlers.
-moose|A very large deer; adult males have broad antlers.|An adult male moose with broad, flat antlers and a long face.|The moose stands by the lake.
+fox|A wild mammal in the dog family, often with a bushy tail.|A red fox standing side-on, with pointed ears and a bushy white-tipped tail.|The fox has a bushy tail.
+wolf|A large wild member of the dog family.|A grey wolf standing side-on, with long legs and thick fur.|The wolf walks through the snow.
+deer|A hoofed mammal; males of many kinds grow antlers.|A male red deer standing side-on, with large branched antlers.|The deer has antlers.
+moose|A very large deer; adult males have broad antlers.|A male moose standing side-on, with broad flat antlers and a long face.|The moose stands by the lake.
 zebra|An African mammal in the horse family with striped fur.|A zebra standing side-on, with black and white stripes down to its hooves.|The zebra has stripes.
 rhinoceros|A large mammal with one or two horns on its nose.|A white rhinoceros with two nose horns, broad mouth and thick skin.|The rhinoceros has thick skin.
 hippopotamus|A large mammal that spends much of the day in water.|A hippopotamus at the river surface with nostrils above water.|The hippopotamus comes up for air.
@@ -52,7 +52,7 @@ walrus|A large sea mammal with whiskers; adults have long tusks.|An adult walrus
 manatee|A large plant-eating mammal that lives in warm water.|A manatee with paddle-shaped tail and rounded snout eating plants.|The manatee eats water plants.
 dugong|A sea mammal that eats seagrass and has a fluked tail.|A dugong with downturned snout and forked, whale-like tail.|The dugong eats seagrass.
 sea otter|A sea mammal with thick fur that can float on its back.|A sea otter floating on its back with forepaws visible.|The sea otter floats on its back.
-polar bear|A bear with thick fur that hunts on Arctic sea ice.|A polar bear on sea ice, showing broad furry paws.|The polar bear walks on sea ice.`,
+polar bear|A bear with thick fur that hunts on Arctic sea ice.|A polar bear walking on sea ice, with cream-white fur and broad furry paws.|The polar bear walks on sea ice.`,
  bodies: `fur|The thick coat of hair on many mammals.|A close view of rabbit fur, with the rabbit shown in a small context view.|The rabbit has soft fur.
 whiskers|Long stiff hairs near the face that help an animal sense nearby things.|A cat face close-up with whiskers clearly indicated.|The cat has long whiskers.
 skin|The outer covering of an animal's body.|A close view of elephant skin, with a small whole-elephant context.|The elephant has wrinkled skin.

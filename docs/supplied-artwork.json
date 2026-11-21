@@ -77,8 +77,8 @@
       "id": "bear",
       "path": "assets/topics/mammals/vocabulary/bear.png",
       "category": "mammals",
-      "sha256": "870164ed24f12010b3c9acc93201494d6450b8b8952abc032f2cd343f5428c64",
-      "bytes": 966902,
+      "sha256": "9a276ac69a6553e0fe2a39e491799546b40eb0a869e6aa37929a423aac17bdf2",
+      "bytes": 1205124,
       "dimensions": [
         1024,
         1024
@@ -88,14 +88,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "rabbit",
       "path": "assets/topics/mammals/vocabulary/rabbit.png",
       "category": "mammals",
-      "sha256": "893adcda739b7353db0a6df662d7f7d688674d42172fdd9b70f77654005e3e8a",
-      "bytes": 772735,
+      "sha256": "c429b8ea06cf6dd5fceea033e9a8bb7191c56113befb0b9500532155321234aa",
+      "bytes": 1247282,
       "dimensions": [
         1024,
         1024
@@ -105,14 +106,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "cat",
       "path": "assets/topics/mammals/vocabulary/cat.png",
       "category": "mammals",
-      "sha256": "8cc2095c9f4e634fbdf70061f9791b99ff9b70eb69cc4495ad20f49459a06dda",
-      "bytes": 877923,
+      "sha256": "d37e64e896b253f58b1b0ffe64596cc553d9e48a8ff74b6ea69dcdb314fdd124",
+      "bytes": 1113706,
       "dimensions": [
         1024,
         1024
@@ -122,14 +124,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "dog",
       "path": "assets/topics/mammals/vocabulary/dog.png",
       "category": "mammals",
-      "sha256": "1d91cdc603246b78722267c738e28aee80c4d111e4fe86acacae60b769cadb15",
-      "bytes": 765309,
+      "sha256": "b287add9e2f1bc805b36287d6636d66ce607b86d561b9c5023ba11b680d56279",
+      "bytes": 808464,
       "dimensions": [
         1024,
         1024
@@ -139,14 +142,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "horse",
       "path": "assets/topics/mammals/vocabulary/horse.png",
       "category": "mammals",
-      "sha256": "bc172421630421c9f740996b3049ce79c996cc2eebdb458cc20e69cc09ff15a4",
-      "bytes": 616937,
+      "sha256": "da0686015f3c4a7b12b9af24999fff63e90670eb52e25e370488ecaace002673",
+      "bytes": 836424,
       "dimensions": [
         1024,
         1024
@@ -156,14 +160,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "donkey",
       "path": "assets/topics/mammals/vocabulary/donkey.png",
       "category": "mammals",
-      "sha256": "a8375fb97af7d79cc571794e894f3ffe1594c6cfcf44d6dea81ccc9acc72b371",
-      "bytes": 667806,
+      "sha256": "af7251a60e6c8f092cc5605ecc7fc27775a6875c40caabbef16d3af23846abfd",
+      "bytes": 1061695,
       "dimensions": [
         1024,
         1024
@@ -173,14 +178,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "cow",
       "path": "assets/topics/mammals/vocabulary/cow.png",
       "category": "mammals",
-      "sha256": "47a3941b103358e0c6f7d641ed75a9336557fcf6f00b0cfe93d883d186c45e27",
-      "bytes": 721868,
+      "sha256": "155c5913e97fd664c4738dd72b59e318e5be9a1223d2eff8091cf55c63825733",
+      "bytes": 764151,
       "dimensions": [
         1024,
         1024
@@ -190,14 +196,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "sheep",
       "path": "assets/topics/mammals/vocabulary/sheep.png",
       "category": "mammals",
-      "sha256": "ebf89e7f15e616b0e48364ec386baa855494318b0fd678f25bffd6fd146eda66",
-      "bytes": 816439,
+      "sha256": "8e45c5ea079c3bd1ac838f9f3b52b6560024942ade3bb4705cf8555bcbff12ef",
+      "bytes": 1161658,
       "dimensions": [
         1024,
         1024
@@ -207,14 +214,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "goat",
       "path": "assets/topics/mammals/vocabulary/goat.png",
       "category": "mammals",
-      "sha256": "d5ebabea39d9493ba024a04006024ea1c752c3aafd0768553ae066f792796f6d",
-      "bytes": 757967,
+      "sha256": "3ea8c0d64f746f5f45fde525c6748d1927df15fcae5b4990c4ab7ce246ac01ac",
+      "bytes": 950379,
       "dimensions": [
         1024,
         1024
@@ -224,14 +232,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "pig",
       "path": "assets/topics/mammals/vocabulary/pig.png",
       "category": "mammals",
-      "sha256": "81341bd4ecaae351782adba9ae10a7ab733579e058f7a710dab575f4e10df161",
-      "bytes": 852904,
+      "sha256": "4385b7ed48905a8a1b416e59347728b13c6d6c20fb91de854a78a162395dcfea",
+      "bytes": 966632,
       "dimensions": [
         1024,
         1024
@@ -241,14 +250,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "mouse",
       "path": "assets/topics/mammals/vocabulary/mouse.png",
       "category": "mammals",
-      "sha256": "1278764d43ed57d3691efe3568ad668d3c033aa15a450f0224c4a4225bbea68c",
-      "bytes": 586155,
+      "sha256": "aa7cd3963d9587c1e6db9b88965dc0dda2828bf4196798c4941274021f3f9fb0",
+      "bytes": 864824,
       "dimensions": [
         1024,
         1024
@@ -258,14 +268,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "rat",
       "path": "assets/topics/mammals/vocabulary/rat.png",
       "category": "mammals",
-      "sha256": "370549043cf0cda872e1428785a6791084627845a2f016ee953d9aa922ebc11c",
-      "bytes": 463932,
+      "sha256": "a86b234cb1c7c93a280c454f8097c87460289a9daa24d60b5ee9d195039347a7",
+      "bytes": 787177,
       "dimensions": [
         1024,
         1024
@@ -275,14 +286,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "hamster",
       "path": "assets/topics/mammals/vocabulary/hamster.png",
       "category": "mammals",
-      "sha256": "09b29045897b2f526dbcf3a916ba815699df37c41b88dc36bbc5bec0cee8a345",
-      "bytes": 795796,
+      "sha256": "b2112f455201ed6af9defd71fa437fa5b99976f1ea97f9521edf526f46947b59",
+      "bytes": 1252452,
       "dimensions": [
         1024,
         1024
@@ -292,14 +304,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "guinea-pig",
       "path": "assets/topics/mammals/vocabulary/guinea-pig.png",
       "category": "mammals",
-      "sha256": "7867c4e3ccb5d072ad65f775bdcfd064824ae82c650306500bbdbd26b29c5a47",
-      "bytes": 876696,
+      "sha256": "7ef3d63d0b897eaf190983da06334dff7c81b14f41e2febd19207f47d90caed3",
+      "bytes": 996137,
       "dimensions": [
         1024,
         1024
@@ -309,14 +322,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "squirrel",
       "path": "assets/topics/mammals/vocabulary/squirrel.png",
       "category": "mammals",
-      "sha256": "5bf0231e703ed19db0ef6787309e3f1eddd2f1c1ccc88fbdf0cfe9064feeed1f",
-      "bytes": 1076927,
+      "sha256": "f2e8c8cfdab6f936038a01ac9aae651f05607260731347e757ed79cc206dc618",
+      "bytes": 1599787,
       "dimensions": [
         1024,
         1024
@@ -326,7 +340,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "hedgehog",
@@ -350,8 +365,8 @@
       "id": "fox",
       "path": "assets/topics/mammals/vocabulary/fox.png",
       "category": "mammals",
-      "sha256": "08c3a41317838528e6a88ec53606dea24a5033667d0338b33d31f490f395d7cd",
-      "bytes": 726277,
+      "sha256": "aa2b38f6c2407502b348291f54a969861425b85ce42ffda0d01c102f28a6d870",
+      "bytes": 948424,
       "dimensions": [
         1024,
         1024
@@ -361,14 +376,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "wolf",
       "path": "assets/topics/mammals/vocabulary/wolf.png",
       "category": "mammals",
-      "sha256": "f3809cfb612ba948a2c274a97dbb0bd2ff0b4685c95ce31d45a0eb202d9c1415",
-      "bytes": 796610,
+      "sha256": "e44dc5103ddc37164751ef3e42a279480a8d42107852b401695013923565085c",
+      "bytes": 1102889,
       "dimensions": [
         1024,
         1024
@@ -378,14 +394,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "deer",
       "path": "assets/topics/mammals/vocabulary/deer.png",
       "category": "mammals",
-      "sha256": "ee34d49d2cff8cf2ab0c74cfbd754e559c751b00d0f390032d80916733c06f71",
-      "bytes": 394734,
+      "sha256": "eadbe4c9bc161feba75ab12e81cf614ce8c0ef002d407964b6a148d5a3fb5ae8",
+      "bytes": 824895,
       "dimensions": [
         1024,
         1024
@@ -395,14 +412,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "moose",
       "path": "assets/topics/mammals/vocabulary/moose.png",
       "category": "mammals",
-      "sha256": "551880dcb0a26946c11c3ddf712a93cc0f8a36f2fbcbef87cdcf099c8848f888",
-      "bytes": 485625,
+      "sha256": "cf7adb00c28f12fff1b5dfe583ff9bc1879df42a168d60a7801829fd68f3f0ea",
+      "bytes": 942977,
       "dimensions": [
         1024,
         1024
@@ -412,7 +430,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "zebra",
@@ -847,8 +866,8 @@
       "id": "polar-bear",
       "path": "assets/topics/mammals/vocabulary/polar-bear.png",
       "category": "mammals",
-      "sha256": "15a4d831c2d4d04de24a14cc92bc00dbdd033e02788977bc4531fa82441961c7",
-      "bytes": 849052,
+      "sha256": "5055df595754eb1731849efb2643f294fd596eedc090d7da4d5e92af02fa6d78",
+      "bytes": 969903,
       "dimensions": [
         1024,
         1024
@@ -858,7 +877,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "goldfish",
