@@ -1,0 +1,26 @@
+Mammal Discovery Club | Batch 5 | Other Animals
+
+All 32 pictures were generated one at a time with the built-in image
+generation tool. Each call used the supplied prompt verbatim plus a
+reference-use instruction, with two style references attached.
+Burrow-studio.png guided the terrain and ice cutouts.
+
+The final pictures are centred 1024 × 1024 RGBA PNGs with the subject
+filling about 85% of the square along its longest dimension. Export
+cleared the faintest stray alpha while preserving antialiased edges.
+Each picture was inspected against dark charcoal at 480 px and at the
+120 px game size. The contact sheet shows the delivered files in brief
+order at 120 px against the same dark background.
+
+Follow-up changes
+
+- The first newt and seahorse renders showed grey backdrops on dark
+  charcoal. The replacements have clear backgrounds and open gaps.
+- The salmon was regenerated with closed jaws and fewer dark spots.
+- The revised honeybee and ant each show six separate feet.
+- The octopus uses an elevated view that shows all eight arm tips.
+- Some side views use a slight three-quarter turn to show far feet,
+  wings or flippers.
+
+Prompts.md records the initial prompts, both style references per
+subject and every follow-up prompt.

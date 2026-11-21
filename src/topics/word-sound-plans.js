@@ -61,6 +61,20 @@ export const AUTHORED_SOUND_PLANS = {
   grassland: 'g:g r:r a:ar ss:s l:l a:schwa n:n d:d', desert: 'd:d e:short-e s:z er:schwa t:t', snow: 's:s n:n ow:oh',
   river: 'r:r i:short-i v:v er:schwa', lake: 'l:l a_e:ay k:k', pond: 'p:p o:short-o n:n d:d',
   ocean: 'o:oh c:sh ea:schwa n:n', floor: 'f:f l:l oor:or', ice: 'i_e:eye c:s',
+  // Other Animals (vocabulary plan, 22 November 2026; shared parts keep the Insects plans)
+  bird: 'b:b ir:er d:d', robin: 'r:r o:short-o b:b i:short-i n:n', owl: 'ow:ow l:l', eagle: 'ea:ee g:g le:schwa+l',
+  duck: 'd:d u:short-u ck:k', chicken: 'ch:ch i:short-i ck:k e:schwa n:n',
+  penguin: 'p:p e:short-e n:ng g:g u:w i:short-i n:n', snake: 's:s n:n a_e:ay k:k',
+  lizard: 'l:l i:short-i z:z ar:schwa d:d', tortoise: 't:t or:or t:t oi:schwa s:s e:-',
+  turtle: 't:t ur:er t:t le:schwa+l', crocodile: 'c:k r:r o:short-o c:k o:schwa d:d i_e:eye l:l',
+  frog: 'f:f r:r o:short-o g:g', toad: 't:t oa:oh d:d', tadpole: 't:t a:short-a d:d p:p o_e:oh l:l',
+  newt: 'n:n ew:y+oo t:t', salamander: 's:s a:short-a l:l a:schwa m:m a:short-a n:n d:d er:schwa',
+  fish: 'f:f i:short-i sh:sh', goldfish: 'g:g o:oh l:l d:d f:f i:short-i sh:sh',
+  salmon: 's:s a:short-a l:- m:m o:schwa n:n', shark: 'sh:sh ar:ar k:k', seahorse: 's:s ea:ee h:h or:or s:s e:-',
+  ant: 'a:short-a n:n t:t', bee: 'b:b ee:ee', butterfly: 'b:b u:short-u tt:t er:schwa f:f l:l y:eye',
+  ladybird: 'l:l a:ay d:d y:ee b:b ir:er d:d', spider: 's:s p:p i:eye d:d er:schwa', snail: 's:s n:n ai:ay l:l',
+  worm: 'w:w or:er m:m', crab: 'c:k r:r a:short-a b:b', octopus: 'o:short-o c:k t:t o:schwa p:p u:schwa s:s',
+  jellyfish: 'j:j e:short-e ll:l y:ee f:f i:short-i sh:sh',
 };
 
 export const PRONUNCIATION_NOTES = {
@@ -78,6 +92,10 @@ export const PRONUNCIATION_NOTES = {
   leopard: 'The eo says the e in bed.',
   porpoise: 'The oi says uh: POR-puss.',
   squirrel: 'The qu says kw.',
+  penguin: 'The u says w, as in language.',
+  tortoise: 'The oi says uh: TOR-tuss.',
+  salmon: 'The l is silent: SAM-un.',
+  newt: 'The ew says yoo, as in new.',
 };
 
 // IPA for each sound id (same table as Plants and Insects; the British recordings use these ids).

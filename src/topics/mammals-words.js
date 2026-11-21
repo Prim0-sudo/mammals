@@ -125,7 +125,39 @@ lamb|A young sheep.|A white lamb standing beside its woolly mother sheep.|The la
 kid|A young goat.|A young goat standing beside its mother goat.|The kid can jump.
 foal|A young horse or another young member of the horse family.|A long-legged foal standing beside its mother horse.|The foal stands by the horse.
 cub|A young bear, lion or some other wild mammals.|A lion cub sitting in front of a lioness.|The cub rests by its mother.
-joey|A young kangaroo or another young marsupial.|A kangaroo joey peeking out of its mother's pouch.|The joey is in the pouch.`
+joey|A young kangaroo or another young marsupial.|A kangaroo joey peeking out of its mother's pouch.|The joey is in the pouch.`,
+ neighbours: `bird|An animal with feathers, wings and a beak; baby birds hatch from eggs.|A house sparrow perched side-on on a short twig, its wings folded.|A bird has feathers.
+robin|A small brown bird with an orange-red chest.|A robin with its orange-red chest, perched on a small mossy stump.|The robin sings in the garden.
+owl|A bird with big eyes and soft feathers that hunts mostly at night.|A barn owl with its pale heart-shaped face, perched on a branch.|The owl has big eyes.
+eagle|A big bird with a hooked beak and strong claws called talons.|A golden eagle standing on a rock, its hooked yellow beak and strong talons showing.|The eagle flies high.
+duck|A water bird with webbed feet and a flat beak.|A male mallard duck with a green head, standing on a patch of grass.|The duck swims on the pond.
+chicken|A farm bird; hens lay eggs.|A brown hen standing side-on, with her red comb and yellow feet.|The hen lays an egg.
+penguin|A black and white bird that cannot fly but swims very well.|A king penguin standing upright on a patch of snow, its orange neck patch showing.|The penguin swims fast.
+snake|A long reptile with scaly skin and no legs.|A grass snake coiled up, its head raised and its scaly body curled round.|The snake slides on the sand.
+lizard|A reptile with scaly skin and a long tail; most have four legs.|A brown lizard resting on a mossy rock, its long thin tail curving behind it.|The lizard sits in the sun.
+tortoise|A slow reptile with a hard shell that lives on land.|A tortoise with a high patterned shell, walking on a patch of grass.|The tortoise eats a leaf.
+turtle|A reptile with a shell that lives mostly in water.|A sea turtle swimming, its flat shell and paddle-shaped flippers spread out.|The turtle swims in the sea.
+crocodile|A big reptile with strong jaws that lives in rivers and swamps.|A crocodile lying flat on a muddy bank, its long jaws closed.|The crocodile has lots of teeth.
+frog|An amphibian with smooth, damp skin and long back legs for jumping.|A frog with smooth damp skin, sitting with its long back legs folded.|The frog jumps into the pond.
+toad|An amphibian like a frog, with dry, bumpy skin; it walks more than it hops.|A toad with dry bumpy brown skin, sitting low on short legs.|The toad walks to the pond.
+tadpole|A young frog or toad that lives in water and has a tail.|A tadpole with a round body, a long flat tail and two tiny back legs.|The tadpole grows legs.
+newt|A small amphibian with a long tail that lives in ponds and damp places.|A newt with an orange spotted belly line, resting on green moss.|The newt swims in the pond.
+salamander|An amphibian with a long tail and damp skin that looks a bit like a lizard.|A black and yellow fire salamander walking over moss.|The salamander has yellow spots.
+fish|An animal with fins and gills that lives in water.|A silver fish swimming side-on, its fins and tail spread.|The fish swims in the river.
+goldfish|A small orange fish often kept as a pet.|An orange goldfish with long flowing fins and tail.|The goldfish swims in its tank.
+salmon|A big silver fish that swims up rivers to lay its eggs.|A silver salmon with small dark spots, swimming side-on.|The salmon leaps up the river.
+shark|A big fish with gill slits and rows of sharp teeth.|A grey shark swimming side-on, its pointed fin on its back.|The shark swims in the sea.
+seahorse|A small fish with a head like a horse that swims upright.|An orange seahorse standing upright, its curly tail wrapped round a stem of seaweed.|The seahorse holds on with its tail.
+ant|A tiny insect that lives in a big group.|A red ant side-on, its six thin legs and two feelers showing.|The ant carries a crumb.
+bee|A hairy flying insect that visits flowers; honeybees make honey.|A honeybee with a striped furry body, see-through wings and six legs.|The bee visits a flower.
+butterfly|An insect with large, colourful wings.|A red admiral butterfly with its black, orange and white wings open wide.|The butterfly lands on a flower.
+ladybird|A small, round beetle, often red with black spots.|A red ladybird with black spots, seen from above, its six legs showing.|The ladybird has seven spots.
+spider|A small animal with eight legs that spins silk.|A garden spider seen from above, its eight long striped legs spread out.|The spider spins a web.
+snail|A soft animal that carries a shell on its back.|A garden snail with a spiral brown shell, gliding over a green leaf.|The snail is slow.
+worm|A long, soft animal with no legs that lives in soil.|A pink earthworm stretched out on a patch of soil.|The worm wriggles in the soil.
+crab|A sea animal with a hard shell and ten legs; the front two are big claws.|A green shore crab seen from above, its two claws raised.|The crab walks sideways.
+octopus|A soft sea animal with eight arms and no bones.|An orange octopus seen from above, its eight curling arms spread on the sand.|The octopus has eight arms.
+jellyfish|A soft, see-through sea animal that can sting.|A see-through moon jellyfish with a round bell and trailing frilly arms.|The jellyfish floats in the sea.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

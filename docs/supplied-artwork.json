@@ -908,8 +908,8 @@
       "id": "goldfish",
       "path": "assets/topics/mammals/vocabulary/goldfish.png",
       "category": "fish",
-      "sha256": "b58692d49f9fa8b111dd3273cc202960249d138a4551235a85419fdfea2f4523",
-      "bytes": 678423,
+      "sha256": "fa609f152c05ed09ec0374d543ad492bb6ea82233b294a79e520df621768b4b0",
+      "bytes": 851685,
       "dimensions": [
         1024,
         1024
@@ -919,14 +919,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "salmon",
       "path": "assets/topics/mammals/vocabulary/salmon.png",
       "category": "fish",
-      "sha256": "46d183d5b811976db375e4910796b11b5d8b888faebb7c5f6dc36e9325ab54d5",
-      "bytes": 325958,
+      "sha256": "2ff2fee8e087fbdf700ad633c0b9f6632892679844ac4f30d68ce48a92f0a887",
+      "bytes": 516136,
       "dimensions": [
         1024,
         1024
@@ -936,7 +937,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "tuna",
@@ -959,8 +961,8 @@
       "id": "shark",
       "path": "assets/topics/mammals/vocabulary/shark.png",
       "category": "fish",
-      "sha256": "c9b42d9cf1dfd275aeabe643b8faf930a07c717f9036c70620c5c19ba29e2aee",
-      "bytes": 283942,
+      "sha256": "e992a42387ab4f78a62a355796fc604a7150d0c0a540a88b98ce0ff3a376d00f",
+      "bytes": 337222,
       "dimensions": [
         1024,
         1024
@@ -970,7 +972,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "ray",
@@ -993,8 +996,8 @@
       "id": "seahorse",
       "path": "assets/topics/mammals/vocabulary/seahorse.png",
       "category": "fish",
-      "sha256": "919c4d0eec3e987d59e6233cf8bc95ce00cb0e25dce96ccf4cb309b53d019857",
-      "bytes": 525282,
+      "sha256": "9737e250d7731d98776d679eb9ade42c14487fc2f66da9ca36b545242d1bb584",
+      "bytes": 715969,
       "dimensions": [
         1024,
         1024
@@ -1004,7 +1007,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "clownfish",
@@ -2374,6 +2378,510 @@
       ],
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "ant",
+      "path": "assets/topics/mammals/vocabulary/ant.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "23877d2267815c23022cdd3b0ecf65df3986fc0cf5501248e62045566d280a14",
+      "bytes": 575365,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "bee",
+      "path": "assets/topics/mammals/vocabulary/bee.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5c6522973ecc7c9a1da56b757a8768db070f04b7808e3db42b574c618ff7e11c",
+      "bytes": 993279,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "bird",
+      "path": "assets/topics/mammals/vocabulary/bird.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9680e709699fa47ec3d986bb7ad6844eb6310bb692e92787cbdd0cbf8d13f8c8",
+      "bytes": 990274,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "butterfly",
+      "path": "assets/topics/mammals/vocabulary/butterfly.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "cca574e13ca73a0b7b573e9ae32645ee026dbaacc288cbfd4017fdfd8d147c3e",
+      "bytes": 1137517,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "chicken",
+      "path": "assets/topics/mammals/vocabulary/chicken.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9e8b84f8fe20cccfa5026044e1a7f2bad5c57cbdafb6391808035a6c634c2f90",
+      "bytes": 1023392,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "crab",
+      "path": "assets/topics/mammals/vocabulary/crab.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "2314caa83c9f9ada1e94a99505b40027ca9e575d97703e9b8b1fa7a581cad59b",
+      "bytes": 1001951,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "crocodile",
+      "path": "assets/topics/mammals/vocabulary/crocodile.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "78da42d63f73b643fdfe17bdb79e59b557e9cca872cde7d978e180d208332423",
+      "bytes": 836629,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "duck",
+      "path": "assets/topics/mammals/vocabulary/duck.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "735544d1365d38dbbbb72775f08d1335ab1aba6147f45a5a2ef1fc841c6a0504",
+      "bytes": 1363643,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "eagle",
+      "path": "assets/topics/mammals/vocabulary/eagle.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "284a2ef6a6d6038216f4cc5cb4107947004908216e189f146ff837fbd7c00fcd",
+      "bytes": 1127797,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "fish",
+      "path": "assets/topics/mammals/vocabulary/fish.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "15c8f50f1a8288225acbba883838bf2173741882755fc9ffa0c8ab8975e9455a",
+      "bytes": 650878,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "frog",
+      "path": "assets/topics/mammals/vocabulary/frog.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "e0512f74fe413bb1c4803a4c652235adb51af965656f06d56ae2009ac635b1eb",
+      "bytes": 1008484,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "jellyfish",
+      "path": "assets/topics/mammals/vocabulary/jellyfish.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d2244ebe16f2a167bde77dc22d9d0c3d3324add38f28c774e22f81a330754ed0",
+      "bytes": 1107695,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "ladybird",
+      "path": "assets/topics/mammals/vocabulary/ladybird.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b702acb928a9440f1e726c360ecb80e9483f33336db202236205b1e7b83cc10e",
+      "bytes": 1108857,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "lizard",
+      "path": "assets/topics/mammals/vocabulary/lizard.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "7ed5ed037b28edb0701711f26081741d51d6dbf510655c37edc0c2bac9787d69",
+      "bytes": 1135720,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "newt",
+      "path": "assets/topics/mammals/vocabulary/newt.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8b3f65c21452008c56ca5db7475242a9709dbb20b69a2feb07ffff8d86c3fff0",
+      "bytes": 925337,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "octopus",
+      "path": "assets/topics/mammals/vocabulary/octopus.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6d14eb893283f8f28aa51641e8b7c85af1eccfe8aa7ecf141c27e55aeec3975f",
+      "bytes": 1704447,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "owl",
+      "path": "assets/topics/mammals/vocabulary/owl.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "41c02a9a922c544abaae64e4bfafd3cf0b0fa4e690bb10026773d11503b5bdd1",
+      "bytes": 898237,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "penguin",
+      "path": "assets/topics/mammals/vocabulary/penguin.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "feb1dd33605c6cb0debd560eee5765bfc8dd42be69d9d44919ee75fcc71d018e",
+      "bytes": 746270,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "robin",
+      "path": "assets/topics/mammals/vocabulary/robin.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "2392cbdbea21aa4471933456b0eba0311bd6a05323dc397c7c3b40b2edded950",
+      "bytes": 1012005,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "salamander",
+      "path": "assets/topics/mammals/vocabulary/salamander.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d431a1945874b56e559aab2fba0baf35de32d4d74483aa2b1c30b7474e75c798",
+      "bytes": 974378,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "snail",
+      "path": "assets/topics/mammals/vocabulary/snail.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "af680324028a46c94de0a28278164d4959e31e233a3c82f2bb60f54e87c5d7ee",
+      "bytes": 965839,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "snake",
+      "path": "assets/topics/mammals/vocabulary/snake.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8e19fdabf717d6f646cf269cad5adb918e90a1b16de1cc0d1c6ad00722991f2f",
+      "bytes": 1094876,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "spider",
+      "path": "assets/topics/mammals/vocabulary/spider.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "4d683ad0dd17e15f42d9fcfd16dac69b80d347c857c307b12358295e807762ed",
+      "bytes": 859313,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "tadpole",
+      "path": "assets/topics/mammals/vocabulary/tadpole.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "059dccbb43906c9516017c89bc37599c0c211b2377816bd1d5487a4503765f29",
+      "bytes": 491661,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "toad",
+      "path": "assets/topics/mammals/vocabulary/toad.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "209d214495ecb534037d075b991e27e2a9a86d9de2a6fa5c2344a0ede4290efb",
+      "bytes": 1163761,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "tortoise",
+      "path": "assets/topics/mammals/vocabulary/tortoise.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "4e672301241a4a91600b53803c133715db08fb3b3f7666fbf209aec308d9b992",
+      "bytes": 1182390,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "turtle",
+      "path": "assets/topics/mammals/vocabulary/turtle.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b38fbd6c0a65412c117fc4b51425e96c38a53211870da63b7a57ebcee3314b46",
+      "bytes": 637057,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "worm",
+      "path": "assets/topics/mammals/vocabulary/worm.png",
+      "category": "neighbours",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "7947f846d42f45d23f64358cf69416bd7b263cec31d2d9b98e44a165f4595cbd",
+      "bytes": 1254684,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-5); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {
