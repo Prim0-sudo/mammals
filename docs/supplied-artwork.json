@@ -1476,8 +1476,8 @@
       "id": "land",
       "path": "assets/topics/mammals/vocabulary/land.png",
       "category": "places",
-      "sha256": "6eb37d67a81f1e92dcf4f8a9e5079eb735b1c6ab1e767b77f1db273e2c944c96",
-      "bytes": 1035371,
+      "sha256": "25f1b9d6cc671feee19be63bdc4182eba54f996e42d3a233c84f1a48de3951d5",
+      "bytes": 1482193,
       "dimensions": [
         1024,
         1024
@@ -1487,14 +1487,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "ocean",
       "path": "assets/topics/mammals/vocabulary/ocean.png",
       "category": "places",
-      "sha256": "2eab396c434f43387379ca1a82e318ea9b033f23be1e02bb9ca6ce581783f662",
-      "bytes": 989367,
+      "sha256": "d522d8e3ae92626dc2a86d75e8fd73b4bdbd9746e77f89d334bd0b2dded9ae35",
+      "bytes": 899673,
       "dimensions": [
         1024,
         1024
@@ -1504,14 +1505,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "ocean-floor",
       "path": "assets/topics/mammals/vocabulary/ocean-floor.png",
       "category": "places",
-      "sha256": "b24ac64df010e4ff4cefa709feceeead57851af3be5eca76c8f2e2e033108fe1",
-      "bytes": 1082102,
+      "sha256": "d5c9d329900b532c6aab71f122c8c61e860c7f5c7d13f7c76c14ec29d24ff46f",
+      "bytes": 1325055,
       "dimensions": [
         1024,
         1024
@@ -1521,14 +1523,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "river",
       "path": "assets/topics/mammals/vocabulary/river.png",
       "category": "places",
-      "sha256": "39c1ae8bd48fc4e5ee8b5f0a6ae0d0cc43f30472399a2a8eb534573442cef471",
-      "bytes": 1264432,
+      "sha256": "8eae7f3c2acd5cd11a8a4109799577cd6b872f3c0e6ff43f5b86acb4b36243c8",
+      "bytes": 1525916,
       "dimensions": [
         1024,
         1024
@@ -1538,14 +1541,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "lake",
       "path": "assets/topics/mammals/vocabulary/lake.png",
       "category": "places",
-      "sha256": "b3ee02415d7e9b5db8a28aab0ca751a189d0c21b162f46fe693b647aed010596",
-      "bytes": 802360,
+      "sha256": "fc235b970d6d0681dee0aabf49ae82a244b8688e139d2a5ed70ba4dc7f681e28",
+      "bytes": 1120224,
       "dimensions": [
         1024,
         1024
@@ -1555,14 +1559,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "pond",
       "path": "assets/topics/mammals/vocabulary/pond.png",
       "category": "places",
-      "sha256": "036d791b7389760ebc64ecffbbe1b895af1bd016f59548663fb274c0cfd361a0",
-      "bytes": 1115461,
+      "sha256": "fbacd5f5db5291265e87444680a81d498e8c64267a1fd07a03db45289ce7ebb7",
+      "bytes": 1409559,
       "dimensions": [
         1024,
         1024
@@ -1572,14 +1577,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "forest",
       "path": "assets/topics/mammals/vocabulary/forest.png",
       "category": "places",
-      "sha256": "c97881b81c479e4a43d0670acbfaf443b143fe2778bdcc9ce81036cba85f134e",
-      "bytes": 1368853,
+      "sha256": "3096c168be346cd2d2b991d7a0d7c82f3bcfd2d34b7728285d60c563430f6200",
+      "bytes": 1952414,
       "dimensions": [
         1024,
         1024
@@ -1589,14 +1595,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "grassland",
       "path": "assets/topics/mammals/vocabulary/grassland.png",
       "category": "places",
-      "sha256": "95a432f452e37760f68349b5c388d156390aed8beed2cee66007200088adcbe5",
-      "bytes": 1159525,
+      "sha256": "5ba277bfc4601cef9b6d3b0abda0308e8f11cd411c54563f479e93d33b9ca400",
+      "bytes": 1133197,
       "dimensions": [
         1024,
         1024
@@ -1606,14 +1613,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "desert",
       "path": "assets/topics/mammals/vocabulary/desert.png",
       "category": "places",
-      "sha256": "82a95b48e97be3af04d650c72bda94eb27fed18d0a2013f568fd72bacf41cfbe",
-      "bytes": 971170,
+      "sha256": "d7dd1d7e199dd2eb41fe2710234c0b87eb185470cd61c88abc98bd11f99db641",
+      "bytes": 1155738,
       "dimensions": [
         1024,
         1024
@@ -1623,14 +1631,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "cave",
       "path": "assets/topics/mammals/vocabulary/cave.png",
       "category": "places",
-      "sha256": "1cb037f8d4ebca98ca9920550528b2cbca86da8d7c82de8928d724c034bdd894",
-      "bytes": 1031468,
+      "sha256": "f9d93c8efc3746255b65d77a0d70f6cddbdb4a01505d85b912aa0d21ba3aef27",
+      "bytes": 1566206,
       "dimensions": [
         1024,
         1024
@@ -1640,7 +1649,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "burrow",
@@ -1664,8 +1674,8 @@
       "id": "den",
       "path": "assets/topics/mammals/vocabulary/den.png",
       "category": "places",
-      "sha256": "9fb17327c44720996898712136d6b03bee4b6e3eebbb316868c0f5fd358436dc",
-      "bytes": 1090861,
+      "sha256": "cb74a2bb5233a7764f85802ef3c0084091054fa40f3c31714f22cfae96ebdf4a",
+      "bytes": 1700003,
       "dimensions": [
         1024,
         1024
@@ -1675,14 +1685,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "branch",
       "path": "assets/topics/mammals/vocabulary/branch.png",
       "category": "places",
-      "sha256": "de18a3328881116396d34c85fdbb1f7f40f6975faf10c49570def12ee7d80425",
-      "bytes": 892996,
+      "sha256": "eaaa0c034a783ccbb1d7ab3f120ac8d0eb00c13e68040417825c79e23ce62ead",
+      "bytes": 533390,
       "dimensions": [
         1024,
         1024
@@ -1692,14 +1703,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "leaf",
       "path": "assets/topics/mammals/vocabulary/leaf.png",
       "category": "places",
-      "sha256": "952a7a5d5b6919f76ec370c9fa6068f313763b5bf6c8f029be6deb422a5928fa",
-      "bytes": 700221,
+      "sha256": "de98dcd1ec949a5dd2d7631eb50e505602fba2855eda8c2c9bd15b49c1fa4f26",
+      "bytes": 1073874,
       "dimensions": [
         1024,
         1024
@@ -1709,14 +1721,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "grass",
       "path": "assets/topics/mammals/vocabulary/grass.png",
       "category": "places",
-      "sha256": "089502ac56a56fc1ae4564168171e07dd3f6d097b651e723160c62c7cbc1eabc",
-      "bytes": 803974,
+      "sha256": "69f46c2fbe2dc0c22fed713de2868cc22a2c283d4dce5ec73e75e5812efc718a",
+      "bytes": 828886,
       "dimensions": [
         1024,
         1024
@@ -1726,14 +1739,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "fruit",
       "path": "assets/topics/mammals/vocabulary/fruit.png",
       "category": "places",
-      "sha256": "e8761646b125ea7d742989f1cc79b924863d37b15293940bdec2e2ef7f368b77",
-      "bytes": 688001,
+      "sha256": "e7e50dfe337d39ed2f008428668d75c46b65e33f59545df28749602b8e54d26e",
+      "bytes": 1088480,
       "dimensions": [
         1024,
         1024
@@ -1743,14 +1757,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "seed",
       "path": "assets/topics/mammals/vocabulary/seed.png",
       "category": "places",
-      "sha256": "929e0485183fd2c2a89584c9a9b049a7aa59478d144dd3cd19488d8338cf5bf4",
-      "bytes": 712717,
+      "sha256": "e855b3820311f30765a7466cc624eea2ec0bd0a193484240bd4f75db0ede6645",
+      "bytes": 953311,
       "dimensions": [
         1024,
         1024
@@ -1760,7 +1775,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "milk",
@@ -1784,8 +1800,8 @@
       "id": "water",
       "path": "assets/topics/mammals/vocabulary/water.png",
       "category": "places",
-      "sha256": "1f097dae3aa699b1a97d4a9e83ad4574679c68cd87592a797fd3ef4867767a82",
-      "bytes": 1043318,
+      "sha256": "b127ff373c44e933d12dcbc690754bd150d74a25148b197c1f6c5a7a77c93f79",
+      "bytes": 1376117,
       "dimensions": [
         1024,
         1024
@@ -1795,14 +1811,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "snow",
       "path": "assets/topics/mammals/vocabulary/snow.png",
       "category": "places",
-      "sha256": "2a4bb402d00d4628135c36f5ff0848ad2ab910f7774a635a688556fc37607334",
-      "bytes": 758170,
+      "sha256": "34ac79526e6bf8b0ccaecaa199d7a4e8e1a231b4d62c5d56ef744503f0c12f43",
+      "bytes": 1187101,
       "dimensions": [
         1024,
         1024
@@ -1812,14 +1829,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "sea-ice",
       "path": "assets/topics/mammals/vocabulary/sea-ice.png",
       "category": "places",
-      "sha256": "dbb114234f45a85af49e32443fe5e88f12d786577e69187b4791e3a3d37fd11d",
-      "bytes": 565372,
+      "sha256": "253fdecf837983f7ebf37608c99a550cb7d9d2ce26966169a34173ac2ea04ae9",
+      "bytes": 603729,
       "dimensions": [
         1024,
         1024
@@ -1829,14 +1847,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "seagrass",
       "path": "assets/topics/mammals/vocabulary/seagrass.png",
       "category": "places",
-      "sha256": "787f755788d46cb3b3fc5ad64c2ae7c6bb4a90664c098bd5fce69e4aa2bf886c",
-      "bytes": 972835,
+      "sha256": "0844fee3e5eafbde8fef5e3e4dce759287417617aebf19f116ed178b0e3ceb98",
+      "bytes": 1252316,
       "dimensions": [
         1024,
         1024
@@ -1846,14 +1865,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "walk",
       "path": "assets/topics/mammals/vocabulary/walk.png",
       "category": "actions",
-      "sha256": "0021baa60fa3b72c8d2216db275ef3dc0372978b252b542b9367960c619e8fc4",
-      "bytes": 412705,
+      "sha256": "380c994190124cc33141ce0fc5a750e3ba682331ebf35f00bc273f716daed85b",
+      "bytes": 1068393,
       "dimensions": [
         1024,
         1024
@@ -1863,14 +1883,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "run",
       "path": "assets/topics/mammals/vocabulary/run.png",
       "category": "actions",
-      "sha256": "818ae5057d79da624a58db61228b5ed27b81fe085c14f1ebaafeda5e8b3463d1",
-      "bytes": 445370,
+      "sha256": "4f1b6e8bf1ece4a7c3b653dc7366ca6ae029d99974cb64fb21bff6bc03c35b3c",
+      "bytes": 725785,
       "dimensions": [
         1024,
         1024
@@ -1880,14 +1901,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "hop",
       "path": "assets/topics/mammals/vocabulary/hop.png",
       "category": "actions",
-      "sha256": "0203f8103915d14a2e4f56876707f4c08f1b40f0e57bfd0ce26a22532df8d833",
-      "bytes": 414409,
+      "sha256": "72609788da957e8dbb596e5ad44f7db24bf4d68552a4b1acf3661e0242a2b894",
+      "bytes": 849682,
       "dimensions": [
         1024,
         1024
@@ -1897,14 +1919,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "jump",
       "path": "assets/topics/mammals/vocabulary/jump.png",
       "category": "actions",
-      "sha256": "049d5925e1094ecb51a9477d639211e25d9366e6607d16b11011b136a87878aa",
-      "bytes": 481963,
+      "sha256": "4327b0445dd7ab415bbd44338508b76e65055886cd9630d3f40e2cf59ef06979",
+      "bytes": 536760,
       "dimensions": [
         1024,
         1024
@@ -1914,14 +1937,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "climb",
       "path": "assets/topics/mammals/vocabulary/climb.png",
       "category": "actions",
-      "sha256": "b15d75a206ab066a91257bdf0227a6666bc3d3b9e5cbbf278ed77ae84236b70a",
-      "bytes": 1048054,
+      "sha256": "bc54f9ebad488687b333b3fd704da8a63ee667a80c3cb76bfed483d687959132",
+      "bytes": 1279633,
       "dimensions": [
         1024,
         1024
@@ -1931,14 +1955,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "swim",
       "path": "assets/topics/mammals/vocabulary/swim.png",
       "category": "actions",
-      "sha256": "063222e2dbc5752d2a608f2e052bccdd5827c6dadfde867589c91c5d2364d225",
-      "bytes": 735562,
+      "sha256": "0c293516f3f3987bd082ba5b39b85ffc76aad96c78ad49b2610fef27a794fac8",
+      "bytes": 683729,
       "dimensions": [
         1024,
         1024
@@ -1948,14 +1973,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "dive",
       "path": "assets/topics/mammals/vocabulary/dive.png",
       "category": "actions",
-      "sha256": "df969d44940a9e002dab1e52bff6a603ffaedadc217f51b0aece10150465d7f9",
-      "bytes": 804693,
+      "sha256": "59760d23c83af33086493b318d43fecf8b550c88ecb847282df1371dcca4014c",
+      "bytes": 788888,
       "dimensions": [
         1024,
         1024
@@ -1965,14 +1991,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "float",
       "path": "assets/topics/mammals/vocabulary/float.png",
       "category": "actions",
-      "sha256": "909c41c63f956f119b1bf2db3d9176666e40dff911fd0664d4865d3dff2c6632",
-      "bytes": 748913,
+      "sha256": "58b037a3fc7fe2c34790ea5b99b7be96df085413d246780738e20038da74519e",
+      "bytes": 1097377,
       "dimensions": [
         1024,
         1024
@@ -1982,14 +2009,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "fly",
       "path": "assets/topics/mammals/vocabulary/fly.png",
       "category": "actions",
-      "sha256": "8039588ae50072292712c6ac36553e8243eb12da0057c5e79643b0d5b6d89ed6",
-      "bytes": 490148,
+      "sha256": "668c37e1d2a57e73eed128184545ed2ab701d0fdc6075f6c68e296819a62184e",
+      "bytes": 1036507,
       "dimensions": [
         1024,
         1024
@@ -1999,14 +2027,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "dig",
       "path": "assets/topics/mammals/vocabulary/dig.png",
       "category": "actions",
-      "sha256": "8b5fbbc9112bf1ceeacab1ac1cf0281a278111951add8fc154f67d630d8ed131",
-      "bytes": 928194,
+      "sha256": "091a82732ac9a8dca941d19df15cf916ce92463f522737f61d91cec3d65cf76c",
+      "bytes": 1578212,
       "dimensions": [
         1024,
         1024
@@ -2016,14 +2045,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "sniff",
       "path": "assets/topics/mammals/vocabulary/sniff.png",
       "category": "actions",
-      "sha256": "d394fad64209d305785849e1b528cca56ac874976fdc413a30a60ba26d3bb26f",
-      "bytes": 667472,
+      "sha256": "97fcdff83d128e7262b41db69e7e91b9b7b809a44497bfd7751e33fccc877c94",
+      "bytes": 1108955,
       "dimensions": [
         1024,
         1024
@@ -2033,14 +2063,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "chew",
       "path": "assets/topics/mammals/vocabulary/chew.png",
       "category": "actions",
-      "sha256": "21deb59ab92d0de544d35fb8a17c83c735dcb1c7be94de92fa4d0407afc12c19",
-      "bytes": 969598,
+      "sha256": "23a2d67bc64197b7fd254db73edd6c85b0619401b0f1af6f24cc71b69cd48b83",
+      "bytes": 1198790,
       "dimensions": [
         1024,
         1024
@@ -2050,14 +2081,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "drink",
       "path": "assets/topics/mammals/vocabulary/drink.png",
       "category": "actions",
-      "sha256": "0657d3e4504b52fbdb2541fde108e87451ebc9873d12e0eecda5840180d86b29",
-      "bytes": 817041,
+      "sha256": "0d4a23b9ad1a5400d51ba12acb6e06668f2fdb91fc328849cd6ddb72cd8fc666",
+      "bytes": 1095594,
       "dimensions": [
         1024,
         1024
@@ -2067,7 +2099,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "feed",
@@ -2091,8 +2124,8 @@
       "id": "breathe",
       "path": "assets/topics/mammals/vocabulary/breathe.png",
       "category": "actions",
-      "sha256": "619b90be446dc556b052d2e68bcf128468565b02698b124404fc60f8ee93dbe0",
-      "bytes": 647043,
+      "sha256": "721d62b6f85070b97290a3cf65e49bf5e6efbe4a9e0e4e8cc685c5dbd756c605",
+      "bytes": 923682,
       "dimensions": [
         1024,
         1024
@@ -2102,14 +2135,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "sleep",
       "path": "assets/topics/mammals/vocabulary/sleep.png",
       "category": "actions",
-      "sha256": "ef02ebd7950ccec2126dcd3a606c1b32bdcb8c0ccf24a364ed024070ffb214df",
-      "bytes": 802024,
+      "sha256": "553550ddd5d7c0b307e6ca905e9119d3cb52b990dfa1e96ebb9e7057b8e0c94c",
+      "bytes": 1730303,
       "dimensions": [
         1024,
         1024
@@ -2119,14 +2153,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "stretch",
       "path": "assets/topics/mammals/vocabulary/stretch.png",
       "category": "actions",
-      "sha256": "08d55ec45a9868ee14f92bc7f1de649442f616d4b768daddd1c199e6ea456862",
-      "bytes": 641354,
+      "sha256": "cb1c501899eb0e3bcf78a3c51f992335c1fa46cb7d5f5904ca7995077052d562",
+      "bytes": 848061,
       "dimensions": [
         1024,
         1024
@@ -2136,14 +2171,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "groom",
       "path": "assets/topics/mammals/vocabulary/groom.png",
       "category": "actions",
-      "sha256": "7085246657f71d8b905bf17a4a6712aaaa3e70504b3b466a9737ae6ad635132d",
-      "bytes": 773428,
+      "sha256": "987e6e46c0b33e0d47af986d73beaaa62f35eeba96c4410f56ee40a0c84e25bf",
+      "bytes": 1635955,
       "dimensions": [
         1024,
         1024
@@ -2153,14 +2189,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "carry",
       "path": "assets/topics/mammals/vocabulary/carry.png",
       "category": "actions",
-      "sha256": "04a851476a563dd260c3d89dc105c7988ac9ca4b855d5e776b210d9a8cde89cc",
-      "bytes": 566022,
+      "sha256": "c5a262ae4826e73ed5558df12288192b7065abd4f1f95822996a0657f13c8006",
+      "bytes": 1004816,
       "dimensions": [
         1024,
         1024
@@ -2170,14 +2207,15 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "hide",
       "path": "assets/topics/mammals/vocabulary/hide.png",
       "category": "actions",
-      "sha256": "2eb80586d696c08d96841dbb318c87b44581868b66b7f9f74007deee93f6c49c",
-      "bytes": 738660,
+      "sha256": "7d7bce6da46b0ab4a1a0b0330f139341550b54c11fe072a4743d963263fcaf49",
+      "bytes": 1512678,
       "dimensions": [
         1024,
         1024
@@ -2187,7 +2225,8 @@
         0,
         255
       ],
-      "iccProfile": true
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-4); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "kitten",

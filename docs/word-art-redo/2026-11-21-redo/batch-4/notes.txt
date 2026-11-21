@@ -1,0 +1,12 @@
+Mammal Discovery Club | Batch 4
+
+Generated 39 of 39 studio-photo cutouts with the built-in image generator.
+The contact sheet shows the delivered pictures at 120 px in brief order.
+
+The cutouts were centred and resampled onto 1024 x 1024 RGBA canvases.
+Resampling cleared stray near-transparent pixels while retaining the main silhouette edges.
+
+A reference-use instruction preceded the verbatim brief prompts after early renders copied a reference animal. See prompts.md for the exact wording and the follow-up edits.
+
+The jump uses a shallow upward trajectory so the block is small and still sits ahead of the cat.
+

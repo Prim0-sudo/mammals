@@ -76,48 +76,48 @@ flipper|A broad, flat limb used for moving in water.|A seal lying on its belly, 
 blowhole|A breathing opening on top of a whale's or dolphin's head.|A dolphin's head from above, with the blowhole on top of its head.|The dolphin breathes through its blowhole.
 lungs|Body organs that take oxygen from air.|A model of a pair of lungs with the windpipe branching into them.|Mammals breathe air into their lungs.
 backbone|The row of bones along the back that helps support the body.|A simple non-graphic dog skeleton outline with backbone highlighted.|The dog has a backbone.`,
- places: `land|The solid ground, rather than water.|A simple coastline with the solid land highlighted.|The lion walks on land.
-ocean|A very large area of salty water.|A wide ocean view with a whale far in the water for scale.|The whale lives in the ocean.
-ocean floor|The ground at the bottom of the ocean.|A cutaway sea view with the bottom clearly highlighted.|The walrus finds food on the ocean floor.
-river|A long flowing stream of water.|A flowing river with clear banks and a visible bend.|The dolphin swims in the river.
-lake|A large area of water surrounded by land.|A lake with land visible all around its edges.|The moose stands by the lake.
-pond|A small area of still water surrounded by land.|A small pond in a grassy area.|The horse drinks by the pond.
-forest|A large area with many trees.|A forest with many trees and a clear path.|The deer lives in the forest.
-grassland|An open area where mostly grasses grow.|An open grassy plain with few trees and distant zebras.|The zebra walks across the grassland.
-desert|A place that gets very little rain.|A dry desert landscape with sparse plants.|The camel walks in the desert.
-cave|A hollow space in rock that an animal can enter.|A rocky cave entrance with the inside visible.|The bat rests in a cave.
+ places: `land|The solid ground, rather than water.|A patch of grassy land with a tree, rocks and a little water at the edge.|The lion walks on land.
+ocean|A very large area of salty water.|A patch of deep blue ocean waves with a whale's tail.|The whale lives in the ocean.
+ocean floor|The ground at the bottom of the ocean.|A sandy ocean floor with seagrass, rocks and a starfish under clear water.|The walrus finds food on the ocean floor.
+river|A long flowing stream of water.|A small river flowing between grassy banks.|The dolphin swims in the river.
+lake|A large area of water surrounded by land.|A lake of still blue water ringed by trees.|The moose stands by the lake.
+pond|A small area of still water surrounded by land.|A small pond with reeds and lily pads.|The horse drinks by the pond.
+forest|A large area with many trees.|A patch of forest with tall trees, ferns and a path.|The deer lives in the forest.
+grassland|An open area where mostly grasses grow.|A patch of golden grassland with one flat-topped tree.|The zebra walks across the grassland.
+desert|A place that gets very little rain.|A patch of desert with sand dunes, cracked dry ground and a cactus.|The camel walks in the desert.
+cave|A hollow space in rock that an animal can enter.|A rocky cave with a dark opening and ferns at its mouth.|The bat rests in a cave.
 burrow|A hole or tunnel dug by an animal as a shelter.|A rabbit at the round entrance of its burrow in a grassy mound of earth.|The wombat rests in its burrow.
-den|A sheltered resting place used by some wild mammals.|A fox resting in a sheltered hollow under tree roots.|The fox rests in its den.
-branch|A woody part that grows out from a tree trunk.|A tree with one side branch clearly indicated.|The monkey sits on a branch.
-leaf|A usually flat plant part that catches light.|A single fresh leaf with its outline and stalk visible.|The giraffe eats a leaf.
-grass|Plants with narrow green leaves, often covering the ground.|A close view of growing grass blades.|The cow eats grass.
-fruit|A plant part that holds seeds, such as an apple.|A whole apple and a cut apple showing seeds.|The monkey eats fruit.
-seed|A plant part from which a new plant can grow.|Several sunflower seeds with one enlarged seed.|The mouse finds a seed.
+den|A sheltered resting place used by some wild mammals.|A red fox curled up asleep in its den under tree roots.|The fox rests in its den.
+branch|A woody part that grows out from a tree trunk.|A short tree branch with a few green leaves.|The monkey sits on a branch.
+leaf|A usually flat plant part that catches light.|A green oak leaf with its stalk.|The giraffe eats a leaf.
+grass|Plants with narrow green leaves, often covering the ground.|A clump of green grass with its roots in a little soil.|The cow eats grass.
+fruit|A plant part that holds seeds, such as an apple.|A red apple beside a cut half showing its seeds.|The monkey eats fruit.
+seed|A plant part from which a new plant can grow.|A small pile of striped sunflower seeds.|The mouse finds a seed.
 milk|A liquid made by mammal mothers to feed their young.|A calf drinking milk from its mother cow.|The calf drinks its mother's milk.
-water|The liquid animals need to drink.|Clear water in a shallow pool with a deer drinking.|The deer drinks water.
-snow|Soft white ice crystals that fall in cold weather.|Snow on the ground with visible animal tracks.|The wolf walks through snow.
-sea ice|Frozen seawater floating on the ocean.|A floating sea-ice sheet with water visible around its edge.|The polar bear rests on sea ice.
-seagrass|Flowering plants that grow underwater in shallow seas.|Seagrass rooted in a sandy seabed, with a dugong nearby for context.|The dugong eats seagrass.`,
- actions: `walk|To move by taking steps.|A bear walking, with sequential foot positions in two panels.|The bear can walk.
-run|To move quickly using the legs.|A horse running, with two clear movement poses.|The horse can run.
-hop|To move with small jumps, often using the back legs.|A rabbit hopping with two poses and a short movement arrow.|The rabbit can hop.
-jump|To push off and leave the ground.|A cat jumping up onto a low ledge, with start and landing shown.|The cat can jump.
-climb|To move upward using feet or hands.|A squirrel climbing a tree trunk.|The squirrel can climb.
-swim|To move through water.|A dolphin swimming below the surface.|The dolphin can swim.
-dive|To go down below the surface of water.|A seal moving from the surface down into water.|The seal can dive.
-float|To stay at the surface of water.|A sea otter lying on its back at the surface.|The sea otter can float.
-fly|To move through the air using wings.|A bat flying with its skin-covered wings spread.|The bat can fly.
-dig|To move soil aside to make a hole.|A wombat moving soil with its front claws.|The wombat can dig.
-sniff|To draw air into the nose to smell something.|A dog with its nose close to the ground, sniffing a trail.|The dog can sniff.
-chew|To break food into smaller pieces with the teeth.|A horse chewing grass, shown in a clear face close-up.|The horse can chew.
-drink|To take liquid into the mouth.|A cat lapping water from a bowl.|The cat can drink.
+water|The liquid animals need to drink.|A shallow pool of clear water ringed by stones and moss.|The deer drinks water.
+snow|Soft white ice crystals that fall in cold weather.|A patch of white snow with a trail of paw prints.|The wolf walks through snow.
+sea ice|Frozen seawater floating on the ocean.|A flat piece of white sea ice floating in dark blue sea.|The polar bear rests on sea ice.
+seagrass|Flowering plants that grow underwater in shallow seas.|Ribbon-like seagrass rooted in sandy seabed, with bubbles rising.|The dugong eats seagrass.`,
+ actions: `walk|To move by taking steps.|A brown bear walking on all four paws.|The bear can walk.
+run|To move quickly using the legs.|A brown horse running at full gallop.|The horse can run.
+hop|To move with small jumps, often using the back legs.|A hare in mid-hop, pushing off with its long back legs.|The rabbit can hop.
+jump|To push off and leave the ground.|A tabby cat leaping through the air onto a small wooden block.|The cat can jump.
+climb|To move upward using feet or hands.|A red squirrel climbing up a tree trunk.|The squirrel can climb.
+swim|To move through water.|A river otter swimming with its head above the water.|The dolphin can swim.
+dive|To go down below the surface of water.|A spotted seal diving head-first down through the water.|The seal can dive.
+float|To stay at the surface of water.|A sea otter floating on its back in the water.|The sea otter can float.
+fly|To move through the air using wings.|A small brown bat flying with its skin wings spread.|The bat can fly.
+dig|To move soil aside to make a hole.|A wombat digging in loose earth with its front paws.|The wombat can dig.
+sniff|To draw air into the nose to smell something.|A beagle sniffing the grass with its nose down.|The dog can sniff.
+chew|To break food into smaller pieces with the teeth.|A horse's head chewing a mouthful of hay.|The horse can chew.
+drink|To take liquid into the mouth.|A tabby cat lapping water from a bowl.|The cat can drink.
 feed|To give food to a baby or another animal.|A mother pig lying on her side feeding a row of piglets with her milk.|The mother can feed her calf.
-breathe|To take air into the body and let it out.|A whale at the surface with a simple air-flow inset, no underwater breathing.|The whale comes up to breathe.
-sleep|To rest with the body and mind less active.|A curled-up cat asleep, relaxed eyes closed.|The cat can sleep.
-stretch|To reach out and lengthen the body or a limb.|A cat extending its front legs in a stretch.|The cat can stretch.
-groom|To clean or care for fur or skin.|A cat licking its own fur, with the action clearly visible.|The cat can groom its fur.
-carry|To hold and move something from one place to another.|A monkey walking while holding a fruit.|The monkey can carry fruit.
-hide|To move or stay where it is hard to be seen.|A mouse partly hidden behind a log, still identifiable.|The mouse can hide.`,
+breathe|To take air into the body and let it out.|A whale at the surface blowing a spout of air and spray from its blowhole.|The whale comes up to breathe.
+sleep|To rest with the body and mind less active.|A red fox curled up asleep, its tail wrapped round it.|The cat can sleep.
+stretch|To reach out and lengthen the body or a limb.|A golden dog stretching, front legs forward and back end up.|The cat can stretch.
+groom|To clean or care for fur or skin.|A tabby cat licking its paw to clean itself.|The cat can groom its fur.
+carry|To hold and move something from one place to another.|A monkey walking on all fours, carrying a banana in one hand.|The monkey can carry fruit.
+hide|To move or stay where it is hard to be seen.|A mouse peeking out from behind a mossy log.|The mouse can hide.`,
  young: `kitten|A young cat.|A small tabby kitten sitting in front of its mother cat.|The kitten has soft fur.
 puppy|A young dog.|A golden puppy sitting in front of its mother dog.|The puppy drinks milk.
 calf|A young cow; the young of some other large mammals are also called calves.|A young calf standing beside its mother cow.|The calf stands by its mother.
