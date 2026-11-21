@@ -13,8 +13,8 @@ test("Picture choices never offer a word's own kind (bear with polar bear, cat w
       for (const x of choices) if (x !== item) assert.ok(!related(x, item), `${item.id} offered with ${x.id}`);
     }
   assert.ok(related({ id: "polar-bear" }, { id: "bear" }), "A kind and its wider word are kept apart");
-  assert.ok(related({ id: "kitten" }, { id: "cat" }), "A concept picture counts as the animal it shows");
-  assert.ok(related({ id: "paw" }, { id: "whiskers" }), "Two pictures of the same animal are kept apart");
+  assert.ok(related({ id: "kitten" }, { id: "cat" }) && related({ id: "tongue" }, { id: "giraffe" }), "A concept picture counts as the animal it shows");
+  assert.ok(related({ id: "paw" }, { id: "nose" }), "Two pictures of the same animal are kept apart");
   assert.ok(related({ id: "seal" }, { id: "sea-lion" }) && !related({ id: "lion" }, { id: "zebra" }), "Look-alikes are kept apart, other animals are not");
   const sea = words.filter((x) => ["whale", "dolphin", "porpoise"].includes(x.id));
   const whale = words.find((x) => x.id === "whale");

@@ -3,21 +3,21 @@
 //
 // SHOWS: a concept word whose picture is plainly one of the animal words (paw is a cat's paw).
 // For choosing answers the picture counts as that animal, so it is kept apart from the animal,
-// its kinds and other pictures of the same animal. Read off each word's imageAlt (21 November
-// 2026); check again whenever a picture is redrawn.
+// its kinds and other pictures of the same animal. Read off the studio-photo pictures (21
+// November 2026); check again whenever a picture is redrawn.
 export const SHOWS = {
-  fur: ["rabbit"], whiskers: ["cat"], skin: ["elephant"], paw: ["cat"], hoof: ["horse"], claw: ["bear"], tail: ["squirrel"],
-  ear: ["rabbit"], eye: ["horse"], nose: ["dog"], mouth: ["goat"], tooth: ["horse"], tongue: ["cat"], trunk: ["elephant"],
+  fur: ["rabbit"], whiskers: ["cat"], skin: ["elephant"], paw: ["dog"], hoof: ["horse"], claw: ["bear"], tail: ["squirrel"],
+  ear: ["rabbit"], eye: ["horse"], nose: ["dog"], mouth: ["goat"], tooth: ["horse"], tongue: ["giraffe"], trunk: ["elephant"],
   tusk: ["walrus"], horn: ["goat"], antlers: ["deer"], mane: ["lion"], pouch: ["kangaroo", "joey"], flipper: ["seal"],
   blowhole: ["dolphin"], backbone: ["dog"],
-  milk: ["cow", "calf"], feed: ["cow", "calf"], kitten: ["cat"], puppy: ["dog"], calf: ["cow"], lamb: ["sheep"], kid: ["goat"],
+  milk: ["cow", "calf"], feed: ["pig"], kitten: ["cat"], puppy: ["dog"], calf: ["cow"], lamb: ["sheep"], kid: ["goat"],
   foal: ["horse"], cub: ["lion"], joey: ["kangaroo"],
-  seagrass: ["dugong"], water: ["deer"], chew: ["horse"], drink: ["cat"],
-  burrow: ["wombat"], den: ["fox"],
-  walk: ["bear"], run: ["horse"], hop: ["rabbit"], jump: ["cat"], climb: ["squirrel"], stretch: ["cat"], carry: ["monkey"],
-  dig: ["wombat"], swim: ["dolphin"], dive: ["seal"], float: ["sea-otter"], fly: ["bat"],
-  sniff: ["dog"], breathe: ["whale"], groom: ["cat"], hide: ["mouse"], sleep: ["cat"],
-  ocean: ["whale"], grassland: ["zebra"], snow: ["wolf"],
+  chew: ["horse"], drink: ["cat"],
+  burrow: ["rabbit"], den: ["fox"],
+  walk: ["bear"], run: ["horse"], hop: ["rabbit"], jump: ["cat"], climb: ["squirrel"], stretch: ["dog"], carry: ["monkey"],
+  dig: ["wombat"], swim: ["sea-otter"], dive: ["seal"], float: ["sea-otter"], fly: ["bat"],
+  sniff: ["dog"], breathe: ["whale"], groom: ["cat"], hide: ["mouse"], sleep: ["fox"],
+  ocean: ["whale"],
 };
 
 // Pairs that look alike though neither is a kind of the other.

@@ -9,8 +9,9 @@ import { SHOWS, LOOK_ALIKES } from "../topics/look-alikes.js";
 export const REVEAL_KINDS = [["mosaic", "Mosaic"], ["pixel", "Pixel"], ["silhouette", "Silhouette"]];
 export const REVEAL_TIMES = [30, 45, 60];
 export const TILE_COUNT = 120;
-// Outlines only work for whole animals drawn on a clear background.
-const OUTLINE_GROUPS = new Set(["neighbours"]); // Mammals word pictures are full scenes, so none outline yet
+// Outlines only work for whole animals cut out on a clear background: the studio-photo
+// mammals (21 November 2026). Body parts, actions and habitats stay mosaic or pixel.
+const OUTLINE_GROUPS = new Set(["mammals"]);
 export const canSilhouette = (item) => OUTLINE_GROUPS.has(item.categoryId);
 
 export function createReveal(kind = "mosaic", duration = 45, order = shuffle(Array.from({ length: TILE_COUNT }, (_, i) => i))) {

@@ -1,5 +1,6 @@
 import { topic } from "../src/topics/mammals.js";
 import { GameEngine } from "../src/core/game-engine.js";
+import { canSilhouette } from "../src/core/detective.js";
 import { applyTheme } from "../src/core/theme.js";
 import { assetPaths } from "../src/core/topic-validator.js";
 import { getSkin } from "../src/core/skins/index.js";
@@ -178,7 +179,8 @@ await test("Detective: reveal styles, guess, practice reveal and one star per fi
   assert(game.view.reveal.kind === "pixel" && q(".detective-mosaic").hidden, "Reveal style did not change in play");
   game.start("detective");
   const outline = q('[data-setup-kind] option[value="silhouette"]');
-  assert(outline.disabled && outline.textContent.includes("coming soon"), "Silhouette must wait for whole-animal cut-outs");
+  assert(!outline.disabled, "Silhouette is open for the whole-animal cut-outs");
+  assert(game.pool("detective").filter(canSilhouette).every((x) => x.categoryId === "mammals"), "Only whole animals outline");
   game.detectiveSettings = { kind: "mosaic", duration: 45 };
   game.menu();
 });
