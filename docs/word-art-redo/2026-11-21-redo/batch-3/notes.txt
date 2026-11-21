@@ -1,0 +1,7 @@
+Mammal Discovery Club | Batch 3
+
+Completed 20 new studio-photo cutouts with the built-in image generator, using the supplied prompts and three studio pilot references. The contact sheet shows all 32 pictures in brief order, including the 12 delivered before this pass.
+
+The new cutouts were sized and centred on 1024 x 1024 RGBA canvases. Stray near-transparent pixels were cleared during sizing. The puppy image received one follow-up edit to close the adult dog's mouth.
+
+Some views, especially horn and antlers, turn slightly towards the camera. The previously delivered nose cutout shows the dog's open mouth and was kept as supplied.

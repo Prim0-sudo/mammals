@@ -53,28 +53,28 @@ manatee|A large plant-eating mammal that lives in warm water.|A manatee with a r
 dugong|A sea mammal that eats seagrass and has a fluked tail.|A dugong with a downturned snout and a forked tail like a whale's.|The dugong eats seagrass.
 sea otter|A sea mammal with thick fur that can float on its back.|A sea otter floating on its back with its front paws on its chest.|The sea otter floats on its back.
 polar bear|A bear with thick fur that hunts on Arctic sea ice.|A polar bear walking on sea ice, with cream-white fur and broad furry paws.|The polar bear walks on sea ice.`,
- bodies: `fur|The thick coat of hair on many mammals.|A close view of rabbit fur, with the rabbit shown in a small context view.|The rabbit has soft fur.
-whiskers|Long stiff hairs near the face that help an animal sense nearby things.|A cat face close-up with whiskers clearly indicated.|The cat has long whiskers.
-skin|The outer covering of an animal's body.|A close view of elephant skin, with a small whole-elephant context.|The elephant has wrinkled skin.
+ bodies: `fur|The thick coat of hair on many mammals.|A close view of thick soft grey-brown rabbit fur.|The rabbit has soft fur.
+whiskers|Long stiff hairs near the face that help an animal sense nearby things.|A cat's face with long white whiskers fanning out from its muzzle.|The cat has long whiskers.
+skin|The outer covering of an animal's body.|A close view of wrinkled grey elephant skin.|The elephant has wrinkled skin.
 paw|The foot of an animal such as a cat or bear.|A dog's paw seen from below, showing four toe pads and a big middle pad.|The cat lifts one paw.
-hoof|A hard covering on the foot of a horse and some other mammals.|A horse hoof in close view with lower leg included.|The horse has a hard hoof.
-claw|A hard curved point on an animal's toe.|A bear paw close-up with one claw clearly indicated.|The bear has a sharp claw.
-tail|A body part that sticks out from the back end of many animals.|A squirrel with its bushy tail clearly indicated.|The squirrel has a long tail.
-ear|A body part used for hearing.|A rabbit head with one ear clearly indicated.|The rabbit turns an ear.
-eye|A body part used for seeing.|A horse face with one eye clearly indicated.|The horse has a brown eye.
+hoof|A hard covering on the foot of a horse and some other mammals.|A horse's lower leg and hoof.|The horse has a hard hoof.
+claw|A hard curved point on an animal's toe.|A bear's front paw with long curved claws.|The bear has a sharp claw.
+tail|A body part that sticks out from the back end of many animals.|A red squirrel with its big bushy tail curled up behind it.|The squirrel has a long tail.
+ear|A body part used for hearing.|A rabbit's head with one long upright ear.|The rabbit turns an ear.
+eye|A body part used for seeing.|A horse's head in side view, with one large dark eye.|The horse has a brown eye.
 nose|A body part used for smelling and breathing.|A dog face close-up with its nose clearly indicated.|The dog sniffs with its nose.
-mouth|The opening through which an animal takes in food.|A goat head with the mouth clearly indicated, not frightening.|The goat opens its mouth.
-tooth|A hard part in the mouth used to bite or chew.|A simple non-graphic horse mouth diagram showing one tooth.|The horse uses a tooth to chew.
+mouth|The opening through which an animal takes in food.|A goat's head with its mouth closed round a blade of grass.|The goat opens its mouth.
+tooth|A hard part in the mouth used to bite or chew.|A horse nibbling grass, its lips parted to show its flat front teeth.|The horse uses a tooth to chew.
 tongue|A soft part inside the mouth that helps with tasting and eating.|A cat lapping water with its tongue visible.|The cat laps with its tongue.
-trunk|An elephant's long nose and upper lip joined together.|An elephant face with trunk clearly indicated, reaching toward leaves.|The elephant uses its trunk.
-tusk|A long tooth that sticks out of an animal's mouth.|A walrus head with one tusk clearly indicated.|The walrus has a long tusk.
-horn|A hard growth on the head of some animals.|A goat head with one unbranched horn clearly indicated.|The goat has a curved horn.
-antlers|Branched bony growths on the heads of deer, usually males.|A male red deer head showing branched antlers.|The deer grows antlers.
-mane|Long hair around the neck or along the top of the neck.|A male lion with its mane clearly indicated.|The lion has a thick mane.
-pouch|A fold of skin in which some mammals carry their young.|A kangaroo mother with a joey in her pouch.|The joey rests in a pouch.
-flipper|A broad, flat limb used for moving in water.|A seal with one front flipper clearly indicated.|The seal moves a flipper.
-blowhole|A breathing opening on top of a whale's or dolphin's head.|A dolphin at the surface with its blowhole clearly indicated.|The dolphin breathes through its blowhole.
-lungs|Body organs that take oxygen from air.|A simple child-friendly mammal body diagram highlighting paired lungs.|Mammals breathe air into their lungs.
+trunk|An elephant's long nose and upper lip joined together.|An elephant reaching its long trunk out to a leafy twig.|The elephant uses its trunk.
+tusk|A long tooth that sticks out of an animal's mouth.|A walrus's head with two long ivory tusks and whiskers.|The walrus has a long tusk.
+horn|A hard growth on the head of some animals.|A goat's head with two curved horns.|The goat has a curved horn.
+antlers|Branched bony growths on the heads of deer, usually males.|A male red deer's head with large branched antlers.|The deer grows antlers.
+mane|Long hair around the neck or along the top of the neck.|A male lion's head and shoulders with a full golden-brown mane.|The lion has a thick mane.
+pouch|A fold of skin in which some mammals carry their young.|A kangaroo standing upright, with a joey's head peeking out of her pouch.|The joey rests in a pouch.
+flipper|A broad, flat limb used for moving in water.|A seal lying on its belly, one front flipper spread to show its claws.|The seal moves a flipper.
+blowhole|A breathing opening on top of a whale's or dolphin's head.|A dolphin's head from above, with the blowhole on top of its head.|The dolphin breathes through its blowhole.
+lungs|Body organs that take oxygen from air.|A model of a pair of lungs with the windpipe branching into them.|Mammals breathe air into their lungs.
 backbone|The row of bones along the back that helps support the body.|A simple non-graphic dog skeleton outline with backbone highlighted.|The dog has a backbone.`,
  places: `land|The solid ground, rather than water.|A simple coastline with the solid land highlighted.|The lion walks on land.
 ocean|A very large area of salty water.|A wide ocean view with a whale far in the water for scale.|The whale lives in the ocean.
@@ -93,7 +93,7 @@ leaf|A usually flat plant part that catches light.|A single fresh leaf with its 
 grass|Plants with narrow green leaves, often covering the ground.|A close view of growing grass blades.|The cow eats grass.
 fruit|A plant part that holds seeds, such as an apple.|A whole apple and a cut apple showing seeds.|The monkey eats fruit.
 seed|A plant part from which a new plant can grow.|Several sunflower seeds with one enlarged seed.|The mouse finds a seed.
-milk|A liquid made by mammal mothers to feed their young.|A calf nursing from its mother in a gentle, clear side view.|The calf drinks its mother's milk.
+milk|A liquid made by mammal mothers to feed their young.|A calf drinking milk from its mother cow.|The calf drinks its mother's milk.
 water|The liquid animals need to drink.|Clear water in a shallow pool with a deer drinking.|The deer drinks water.
 snow|Soft white ice crystals that fall in cold weather.|Snow on the ground with visible animal tracks.|The wolf walks through snow.
 sea ice|Frozen seawater floating on the ocean.|A floating sea-ice sheet with water visible around its edge.|The polar bear rests on sea ice.
@@ -111,21 +111,21 @@ dig|To move soil aside to make a hole.|A wombat moving soil with its front claws
 sniff|To draw air into the nose to smell something.|A dog with its nose close to the ground, sniffing a trail.|The dog can sniff.
 chew|To break food into smaller pieces with the teeth.|A horse chewing grass, shown in a clear face close-up.|The horse can chew.
 drink|To take liquid into the mouth.|A cat lapping water from a bowl.|The cat can drink.
-feed|To give food to a baby or another animal.|A mother cow feeding her calf with milk, no human feeding wildlife.|The mother can feed her calf.
+feed|To give food to a baby or another animal.|A mother pig lying on her side feeding a row of piglets with her milk.|The mother can feed her calf.
 breathe|To take air into the body and let it out.|A whale at the surface with a simple air-flow inset, no underwater breathing.|The whale comes up to breathe.
 sleep|To rest with the body and mind less active.|A curled-up cat asleep, relaxed eyes closed.|The cat can sleep.
 stretch|To reach out and lengthen the body or a limb.|A cat extending its front legs in a stretch.|The cat can stretch.
 groom|To clean or care for fur or skin.|A cat licking its own fur, with the action clearly visible.|The cat can groom its fur.
 carry|To hold and move something from one place to another.|A monkey walking while holding a fruit.|The monkey can carry fruit.
 hide|To move or stay where it is hard to be seen.|A mouse partly hidden behind a log, still identifiable.|The mouse can hide.`,
- young: `kitten|A young cat.|A kitten next to its adult mother for size context.|The kitten has soft fur.
-puppy|A young dog.|A puppy next to its adult mother for size context.|The puppy drinks milk.
-calf|A young cow; the young of some other large mammals are also called calves.|A young calf beside an adult cow.|The calf stands by its mother.
-lamb|A young sheep.|A lamb beside an adult sheep.|The lamb has wool.
-kid|A young goat.|A young goat beside an adult goat, clearly not a human child.|The kid can jump.
-foal|A young horse or another young member of the horse family.|A foal with long legs standing beside a mare.|The foal stands by the horse.
-cub|A young bear, lion or some other wild mammals.|A lion cub beside an adult lioness.|The cub rests by its mother.
-joey|A young kangaroo or another young marsupial.|A kangaroo joey peeking out from its mother's pouch.|The joey is in the pouch.`
+ young: `kitten|A young cat.|A small tabby kitten sitting in front of its mother cat.|The kitten has soft fur.
+puppy|A young dog.|A golden puppy sitting in front of its mother dog.|The puppy drinks milk.
+calf|A young cow; the young of some other large mammals are also called calves.|A young calf standing beside its mother cow.|The calf stands by its mother.
+lamb|A young sheep.|A white lamb standing beside its woolly mother sheep.|The lamb has wool.
+kid|A young goat.|A young goat standing beside its mother goat.|The kid can jump.
+foal|A young horse or another young member of the horse family.|A long-legged foal standing beside its mother horse.|The foal stands by the horse.
+cub|A young bear, lion or some other wild mammals.|A lion cub sitting in front of a lioness.|The cub rests by its mother.
+joey|A young kangaroo or another young marsupial.|A kangaroo joey peeking out of its mother's pouch.|The joey is in the pouch.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {
