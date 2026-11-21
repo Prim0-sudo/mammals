@@ -1,0 +1,7 @@
+Mammal Discovery Club | Batch 2
+
+All 24 subjects were generated with the supplied prompts and two studio pilot references per initial generation. Sloth received two anatomy edits and the final image shows three claws on each of its four gripping feet.
+
+The generator returned 1254 x 1254 RGBA images. Delivery preparation removed stray low-opacity alpha outside the cutout edges and resampled the cutouts onto 1024 x 1024 RGBA canvases. The centred silhouette occupies about 85% of the square along its longest dimension. The sea otter retains the small fading water ripple permitted by its prompt.
+
+Reviewed the silhouettes and the look-alike pairs at thumbnail size. Some side views show a slight turn that makes the facial features or far limbs easier to read.

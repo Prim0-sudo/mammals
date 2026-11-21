@@ -4,9 +4,9 @@
 // All wording is drafted, including wording for source-provided concepts (teacher review pending).
 const groups = {
  mammals: `lion|A large wild cat; adult males often have a mane.|A male lion standing, with its full mane and four paws visible.|The lion has a mane.
-elephant|A very large mammal with a long trunk.|An elephant using its trunk, with large ears and four legs visible.|The elephant lifts its trunk.
-giraffe|A tall mammal with a very long neck.|A giraffe reaching toward leaves, with its whole long neck visible.|The giraffe eats leaves.
-monkey|A mammal with grasping hands; most kinds have tails.|A long-tailed monkey holding a branch with its hands.|The monkey holds a branch.
+elephant|A very large mammal with a long trunk.|An African elephant with large ears, holding a leafy twig in its curled trunk.|The elephant lifts its trunk.
+giraffe|A tall mammal with a very long neck.|A giraffe reaching its long neck up to leaves on a twig.|The giraffe eats leaves.
+monkey|A mammal with grasping hands; most kinds have tails.|A monkey sitting on a branch, holding it with its hands, its long tail hanging down.|The monkey holds a branch.
 bear|A large mammal with thick fur and strong paws.|A brown bear standing on all four paws.|The bear has thick fur.
 rabbit|A small mammal with long ears and strong back legs.|A rabbit sitting side-on, with long upright ears, big back feet and a white tail.|The rabbit can hop.
 cat|A small mammal often kept as a pet.|A tabby cat sitting with its tail curled round its paws and its whiskers showing.|The cat has fur.
@@ -28,30 +28,30 @@ wolf|A large wild member of the dog family.|A grey wolf standing side-on, with l
 deer|A hoofed mammal; males of many kinds grow antlers.|A male red deer standing side-on, with large branched antlers.|The deer has antlers.
 moose|A very large deer; adult males have broad antlers.|A male moose standing side-on, with broad flat antlers and a long face.|The moose stands by the lake.
 zebra|An African mammal in the horse family with striped fur.|A zebra standing side-on, with black and white stripes down to its hooves.|The zebra has stripes.
-rhinoceros|A large mammal with one or two horns on its nose.|A white rhinoceros with two nose horns, broad mouth and thick skin.|The rhinoceros has thick skin.
-hippopotamus|A large mammal that spends much of the day in water.|A hippopotamus at the river surface with nostrils above water.|The hippopotamus comes up for air.
-camel|A mammal with one or two humps that store fat.|A one-humped camel in a dry landscape.|The camel has a hump.
-tiger|A large wild cat with stripes.|A tiger showing orange fur and dark stripes.|The tiger has stripes.
-cheetah|A spotted wild cat that can run very fast.|A cheetah with spots, a slender body and dark tear marks.|The cheetah can run fast.
-leopard|A wild cat with dark ring-like markings on its coat.|A leopard showing rosette markings, sturdy body and long tail.|The leopard rests on a branch.
-gorilla|A large ape with no tail.|An adult gorilla with broad chest, long arms and no tail.|The gorilla has strong arms.
-chimpanzee|An ape with grasping hands and no tail.|A chimpanzee showing long arms, hands and no tail.|The chimpanzee holds a fruit.
+rhinoceros|A large mammal with one or two horns on its nose.|A white rhinoceros with two horns on its nose and thick grey skin.|The rhinoceros has thick skin.
+hippopotamus|A large mammal that spends much of the day in water.|A hippopotamus standing, with a barrel-shaped body and short legs.|The hippopotamus comes up for air.
+camel|A mammal with one or two humps that store fat.|A one-humped camel standing, with long legs and a long curved neck.|The camel has a hump.
+tiger|A large wild cat with stripes.|A tiger walking, with orange fur, black stripes and a white chest.|The tiger has stripes.
+cheetah|A spotted wild cat that can run very fast.|A cheetah standing, with a slender body, solid black spots and dark tear marks.|The cheetah can run fast.
+leopard|A wild cat with dark ring-like markings on its coat.|A leopard standing, with ring-shaped rosette markings and a long tail.|The leopard rests on a branch.
+gorilla|A large ape with no tail.|A silverback gorilla sitting, with a broad chest, long arms and no tail.|The gorilla has strong arms.
+chimpanzee|An ape with grasping hands and no tail.|A chimpanzee sitting, with long arms, hands on its knees and no tail.|The chimpanzee holds a fruit.
 kangaroo|A mammal with strong back legs; females carry young in a pouch.|A kangaroo standing upright on its big back feet, its long tail on the ground.|The kangaroo can hop.
-koala|An Australian mammal that eats mostly eucalyptus leaves.|A koala holding a eucalyptus branch, with rounded furry ears.|The koala rests in a tree.
-wombat|An Australian mammal that digs burrows with strong claws.|A stocky wombat beside a burrow entrance.|The wombat digs a burrow.
-platypus|A mammal with a broad bill and webbed feet that lays eggs.|A platypus showing its broad bill, fur and webbed front feet.|The platypus swims in a stream.
-echidna|A mammal with spines and a long snout that lays eggs.|An echidna with strong claws, spines and a long narrow snout.|The echidna looks for ants.
+koala|An Australian mammal that eats mostly eucalyptus leaves.|A koala holding a eucalyptus branch, with round fluffy ears and a big dark nose.|The koala rests in a tree.
+wombat|An Australian mammal that digs burrows with strong claws.|A stocky wombat standing on a patch of dug earth.|The wombat digs a burrow.
+platypus|A mammal with a broad bill and webbed feet that lays eggs.|A platypus with a broad flat bill, brown fur, a flat tail and webbed feet.|The platypus swims in a stream.
+echidna|A mammal with spines and a long snout that lays eggs.|An echidna with spines, a long thin snout and strong clawed feet.|The echidna looks for ants.
 bat|A mammal with skin-covered wings that can fly.|A fruit bat flying, seen from below, with skin wings spread over long fingers.|The bat can fly.
-sloth|A slow-moving mammal that spends much of its time in trees.|A sloth hanging safely from a branch by its curved claws.|The sloth hangs from a branch.
+sloth|A slow-moving mammal that spends much of its time in trees.|A sloth hanging below a branch by its long curved claws.|The sloth hangs from a branch.
 whale|A large sea mammal that breathes air through a blowhole.|A humpback whale swimming, with its long flippers and tail flukes.|The whale comes up for air.
-dolphin|A sea mammal with a streamlined body and a blowhole.|A bottlenose dolphin at the surface, showing its single blowhole.|The dolphin breathes air.
-porpoise|A small sea mammal with a rounded head and a short snout.|A harbour porpoise with rounded head and triangular dorsal fin.|The porpoise swims in the sea.
-seal|A sea mammal with flippers; true seals have no outer ear flaps.|A harbour seal resting on a rock, showing small ear openings.|The seal rests on a rock.
-sea lion|A sea mammal with flippers and small outer ear flaps.|A sea lion propped up on its large front flippers, ear flaps visible.|The sea lion has flippers.
-walrus|A large sea mammal with whiskers; adults have long tusks.|An adult walrus showing paired tusks, whiskers and flippers.|The walrus has two tusks.
-manatee|A large plant-eating mammal that lives in warm water.|A manatee with paddle-shaped tail and rounded snout eating plants.|The manatee eats water plants.
-dugong|A sea mammal that eats seagrass and has a fluked tail.|A dugong with downturned snout and forked, whale-like tail.|The dugong eats seagrass.
-sea otter|A sea mammal with thick fur that can float on its back.|A sea otter floating on its back with forepaws visible.|The sea otter floats on its back.
+dolphin|A sea mammal with a streamlined body and a blowhole.|A bottlenose dolphin swimming, with a curved fin and a beak-like snout.|The dolphin breathes air.
+porpoise|A small sea mammal with a rounded head and a short snout.|A harbour porpoise, with a rounded head, no beak and a small triangular fin.|The porpoise swims in the sea.
+seal|A sea mammal with flippers; true seals have no outer ear flaps.|A spotted harbour seal lying on a rock, with small flippers and no ear flaps.|The seal rests on a rock.
+sea lion|A sea mammal with flippers and small outer ear flaps.|A sea lion propped up on its big front flippers, with small ear flaps.|The sea lion has flippers.
+walrus|A large sea mammal with whiskers; adults have long tusks.|A walrus with two long tusks, thick whiskers and flippers.|The walrus has two tusks.
+manatee|A large plant-eating mammal that lives in warm water.|A manatee with a round paddle-shaped tail, nibbling a water plant.|The manatee eats water plants.
+dugong|A sea mammal that eats seagrass and has a fluked tail.|A dugong with a downturned snout and a forked tail like a whale's.|The dugong eats seagrass.
+sea otter|A sea mammal with thick fur that can float on its back.|A sea otter floating on its back with its front paws on its chest.|The sea otter floats on its back.
 polar bear|A bear with thick fur that hunts on Arctic sea ice.|A polar bear walking on sea ice, with cream-white fur and broad furry paws.|The polar bear walks on sea ice.`,
  bodies: `fur|The thick coat of hair on many mammals.|A close view of rabbit fur, with the rabbit shown in a small context view.|The rabbit has soft fur.
 whiskers|Long stiff hairs near the face that help an animal sense nearby things.|A cat face close-up with whiskers clearly indicated.|The cat has long whiskers.
