@@ -10,6 +10,10 @@ const report=document.getElementById('report'),gallery=document.getElementById('
 applyTheme(topic);try{localStorage.removeItem('ludimi.mammals-homeward-test.progress.v1');}catch{}
 const game=new GameEngine(topic,{progressId:'mammals-homeward-test'});game.init();game.audio.muted=true;
 await getSkin('homeward-trail').prepare(topic.modeSkins.spelling);
+// The hop poses last only 90–110 ms of scene time. A slow frame (a capture, a busy machine) used to
+// jump straight past one, so a pose check timed out now and then. Each frame now advances the scene
+// clock by at most 16 ms: a stall slows the hop down instead of skipping a pose.
+{const realFrame=window.requestAnimationFrame.bind(window);let clock=0,lastReal=null;window.requestAnimationFrame=callback=>realFrame(time=>{clock+=lastReal===null?16:Math.max(0,Math.min(time-lastReal,16));lastReal=time;callback(clock);});}
 const assert=(value,text)=>{if(!value)throw Error(text);};
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(fn){const end=performance.now()+10000;while(!fn()){if(performance.now()>end)throw Error('Timed out');await wait(8);}}
