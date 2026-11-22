@@ -1,0 +1,16 @@
+Fawn remake | Mammal Discovery Club
+
+The selected render used the brief's exact prompt and two style-only references.
+An initial prompt-loading error produced an unrelated dog render, which was
+discarded. Two later deer variants were also discarded.
+
+The selected 1254 x 1254 render was centred and sized to 85% of the final
+1024 x 1024 RGBA PNG. Near-zero alpha noise was cleared and the nearly
+opaque deer interiors were normalised to full opacity. Fine fur and
+grass edges retain antialiasing.
+
+The complete doe stands behind the spotted fawn and looks down at it. All
+four of her legs are visible, with grass partly covering the hooves.
+
+Checked the final PNG on dark navy (#151b2b) at 1024 px and 120 px. The doe
+reads as solid, with no visible matte, halo, grey box or ghostly fade.

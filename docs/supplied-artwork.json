@@ -4187,15 +4187,15 @@
         0,
         255
       ],
-      "sha256": "a8cb4b53554173b8fd69cc106ef54e40c545702e217b3a8d7afb044c4900e4c6",
-      "bytes": 1562061,
+      "sha256": "aa8d3a3f3132c1fbfd9cff98c8b497163404002c641c452eddd1417ea91a142a",
+      "bytes": 1361478,
       "dimensions": [
         1024,
         1024
       ],
       "mode": "RGBA",
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/fixes-1); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "fin",
