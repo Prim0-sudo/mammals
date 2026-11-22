@@ -185,7 +185,13 @@ barn|A big farm building for animals, hay and tools.|A red barn with its big doo
 camouflage|Colours or patterns that help an animal blend in with where it lives.|A white arctic fox curled up on the snow, its white fur matching the snow.|Camouflage helps the fox hide.
 curl up|Roll the body into a tight ball.|A hedgehog curled up into a tight spiky ball on the grass.|The hedgehog curls up.
 lookout|An animal that keeps watch for danger while the others feed.|A meerkat standing tall on its back legs on a sandy mound, keeping a lookout.|The meerkat is on lookout.
-herd|A big group of animals, such as zebras or cows, that live together.|A herd of zebras standing close together on dry grass.|The zebras live in a herd.`
+herd|A big group of animals, such as zebras or cows, that live together.|A herd of zebras standing close together on dry grass.|The zebras live in a herd.`,
+ survival2: `pack|A group of wolves or wild dogs that live and hunt together.|A pack of four grey wolves walking in a line across a snowy patch.|The wolves run as a pack.
+roar|A loud, deep sound, like a lion's.|A lion standing with its mouth wide open in a big roar.|The lion gives a big roar.
+howl|A long, loud cry, like a wolf's.|A grey wolf sitting with its muzzle pointed up to the sky as it howls.|The wolf howls at night.
+nocturnal|Awake at night and asleep in the day.|A badger walking on the grass at night, with a full moon above.|Badgers are nocturnal.
+hibernate|Sleep very deeply all through the winter.|A hedgehog curled up asleep in a nest of frosty leaves.|The hedgehog hibernates in winter.`,
+ homes2: `roost|A place where bats rest and sleep.|Five bats hanging upside down under a wooden roof, their roost.|The bats sleep in the roost.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

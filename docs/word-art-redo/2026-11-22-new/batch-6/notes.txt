@@ -1,44 +1,24 @@
 Mammal Discovery Club | Batch 6 | Animal Watching, Homes & Shelters, Senses & Survival
 
-Status
+All 34 pictures are present as 1024 x 1024 RGBA PNGs.
+The finish pass kept the existing pack and roar, added howl, nocturnal and
+hibernate, and replaced roost. The other artwork files were preserved.
 
-29 of 34 pictures rendered. Twenty passed the current checks. Nine are
-included as candidates for revision and are marked “Review” on the contact
-sheet. Five prompts returned no image after the built-in image generator
-reached its daily limit. The tool reported a reset at 21:46 Bangkok time on
-22 November 2026 (14:46 UTC).
+All 34 were checked on charcoal (#1a1d22). No visible matte, halo or grey
+box was found, and the white sliver on the right roof edge is gone. The
+contact sheet shows the full batch in brief order at 120 px on charcoal.
+New exports were centred at approximately 85% fill along the longest side.
 
-All 29 exports are centred 1024 × 1024 RGBA PNGs. The subject fills about
-85% of its square on the longest side. The export cleared very faint stray
-alpha and preserved the antialiased edges. Each export was inspected
-against charcoal (#1a1d22) at 400 px. The contact sheet also shows them at
-120 px on charcoal in brief order.
+Earlier content review notes for preserved pictures
 
-Transparency
+- gentle.png. The lower edge of the people is too straight for a close-up cutout.
+- notebook.png. The pencil rests on the page. The brief places it beside the notebook.
+- wash-hands.png. The forearms end in a hard crop. The close-up needs a soft fade.
+- field-guide.png. Small paw-print graphics appear alongside the photos and blurred name lines.
+- nest.png. Several grass stems end abruptly along the same cut line.
+- lodge.png. The large visible opening makes the submerged entrance unclear.
+- hutch.png. A feeding dish is visible behind the mesh.
+- barn.png. The roof has an extra rooster-shaped weather vane.
 
-The first grown-up render had a broad pale matte. Its replacement passed
-the charcoal check. The white sliver on roost is the remaining visible
-matte defect and needs correction before acceptance.
-
-Candidates for revision
-
-- gentle.png — The lower edge of the people is too straight for a close-up cutout.
-- notebook.png — The pencil rests on the page. The brief places it beside the notebook.
-- wash-hands.png — The forearms end in a hard crop. The close-up needs a soft fade.
-- field-guide.png — Small paw-print graphics appear in addition to the requested photos and blurred name lines.
-- nest.png — Several grass stems end abruptly along the same cut line.
-- roost.png — A thin white matte sliver is visible on the right roof edge against charcoal.
-- lodge.png — The large visible lodge opening makes the submerged entrance unclear.
-- hutch.png — A feeding dish is visible behind the mesh.
-- barn.png — The roof has an extra rooster-shaped weather vane.
-
-Missing renders
-
-- pack.png
-- roar.png
-- howl.png
-- nocturnal.png
-- hibernate.png
-
-See prompts.md for the exact submitted prompts, the attached reference
-filenames and the proposed follow-up instructions.
+See prompts.md for the submitted prompts, attached style references and
+roost follow-up.

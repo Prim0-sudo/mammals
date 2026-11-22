@@ -3386,6 +3386,114 @@
       "mode": "RGBA",
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hibernate",
+      "path": "assets/topics/mammals/vocabulary/hibernate.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b690ec33c8001a956641655f59219a6a370776e87256bf6cbf1dbdc51f4189ae",
+      "bytes": 1969790,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "howl",
+      "path": "assets/topics/mammals/vocabulary/howl.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5ac784c8c6ab3080b65a3547d16ceed4e2f66cbfc22d38d3b867dbc800b2f6e7",
+      "bytes": 1044518,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "nocturnal",
+      "path": "assets/topics/mammals/vocabulary/nocturnal.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "a4bcbebab1e8f55b1960aca1be91fa15011d9ac2bf3c3357faa52b26cb6d4ec5",
+      "bytes": 1227570,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "pack",
+      "path": "assets/topics/mammals/vocabulary/pack.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5902323fbc07d1fc07e688e305c71d5a8bc2aa2519071c4c44f4b36708c97f68",
+      "bytes": 1340653,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "roar",
+      "path": "assets/topics/mammals/vocabulary/roar.png",
+      "category": "survival",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "93cb32dd55e06118c90df612d124d7f6c70aed3f211be6a1da67f04563ba6b26",
+      "bytes": 1208319,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "roost",
+      "path": "assets/topics/mammals/vocabulary/roost.png",
+      "category": "homes",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "f3c24e502a928ee519c1ba793dfbb7a75b269a0b1ac6287ead2291d1e5b947a6",
+      "bytes": 1117976,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {

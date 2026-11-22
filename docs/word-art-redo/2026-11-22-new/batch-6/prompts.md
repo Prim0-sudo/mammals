@@ -543,3 +543,226 @@ A hedgehog asleep, curled up in a snug nest of dry brown leaves at the foot of a
 
 The two attached images are for style only. Match their photographic realism, lighting, natural colour and transparent cutout finish. Depict only the subject and elements specified above. Never copy the reference animal, objects, or composition. Use the burrow studio image as the model for the isolated natural scene and its irregular silhouette. Keep the exterior and all open gaps wholly transparent.
 ```
+
+
+## Finish pass: pack.png
+
+Built-in image tool returned HTTP 429 before the 21:46:02 Bangkok reset. No render was returned.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A pack of four grey wolves walking in a line through a patch of snow, one behind the other. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: pack.png
+
+Generated with the built-in image tool and installed after the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A pack of four grey wolves walking in a line through a patch of snow, one behind the other. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: roar.png
+
+Generated with the built-in image tool and installed after the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/kangaroo-studio.png` and `2026-11-21-redo/batch-1/rabbit.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A male lion roaring, head raised, mouth open wide showing its teeth, mane flowing. Powerful but not frightening; no blood, no prey, no sound lines.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: howl.png
+
+First finish render had a wider-open jaw than the brief calls for. Submitted a follow-up for the mouth position.
+
+Attached style references: `2026-11-21-style-pilot/kangaroo-studio.png` and `2026-11-21-redo/batch-1/rabbit.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A grey wolf sitting with its head tipped back and muzzle pointed up, howling, mouth slightly open.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: howl.png
+
+Follow-up generated with the built-in image tool and installed after the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/kangaroo-studio.png` and `2026-11-21-redo/batch-1/rabbit.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A grey wolf sitting with its head tipped back and muzzle pointed up, howling, mouth slightly open.
+
+The two attached images are for style only.
+
+Keep the wolf's jaws only slightly parted in a narrow howling pose, with almost no teeth visible.
+```
+
+
+## Finish pass: nocturnal.png
+
+Generated with the built-in image tool and installed after the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A badger walking side-on on a small patch of grass at night, lit by soft cool moonlight, a pale full moon small above it. No square background; the night tint fades out at the edges. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: hibernate.png
+
+Generated with the built-in image tool and installed after the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A hedgehog asleep, curled up in a snug nest of dry brown leaves at the foot of a hedge, a little frost on the leaves around it. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: roost.png
+
+Remade with the built-in image tool. Installed after checking the full roof perimeter on charcoal.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+Several small brown bats hanging upside down in a row under the wooden beams of a roof space, wings folded, seen from slightly below. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: howl.png
+
+Generated with the built-in image tool with transparency enabled. The export passed the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/kangaroo-studio.png` and `2026-11-21-redo/batch-1/wolf.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A grey wolf sitting with its head tipped back and muzzle pointed up, howling, mouth slightly open.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: nocturnal.png
+
+Generated with the built-in image tool with transparency enabled. The export passed the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/burrow-studio.png` and `2026-11-21-redo/batch-4/grass.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A badger walking side-on on a small patch of grass at night, lit by soft cool moonlight, a pale full moon small above it. No square background; the night tint fades out at the edges. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: hibernate.png
+
+Generated with the built-in image tool with transparency enabled. The export passed the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/hedgehog-studio.png` and `2026-11-21-redo/batch-4/sleep.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+A hedgehog asleep, curled up in a snug nest of dry brown leaves at the foot of a hedge, a little frost on the leaves around it. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only.
+```
+
+
+## Finish pass: roost.png, first remake
+
+The render passed the charcoal edge check but added ivy and moss. The follow-up below was used for delivery.
+
+Attached style references: `2026-11-21-style-pilot/bat-studio.png` and `2026-11-21-redo/batch-4/cave.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+Several small brown bats hanging upside down in a row under the wooden beams of a roof space, wings folded, seen from slightly below. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only. Keep the entire roof edge clean against dark charcoal, especially the right edge. Keep the outside of the roof and all open gaps fully transparent, with no white sliver, matte, or halo.
+```
+
+
+## Finish pass: roost.png, follow-up used for delivery
+
+Generated with the built-in image tool with transparency enabled. The export passed the charcoal check.
+
+Attached style references: `2026-11-21-style-pilot/kangaroo-studio.png` and `2026-11-21-redo/batch-1/wolf.png`.
+
+```text
+Scientific educational word picture for Mammal Discovery Club, ages 4–7. One isolated subject in a 1024 × 1024 square with real transparent alpha. Center the complete intended subject, roughly 85% of the square along its longest dimension, with clear margin and a silhouette legible at 120 px. True species anatomy, faithful natural colors, realistic fur and skin texture, no ink outlines, anthropomorphism, text, watermark, background or ground shadow.
+
+Lifelike studio photograph cutout of the real animal, natural fur sheen and microtexture, soft directional studio light, neutral colour balance, subtle optical depth of field on whiskers and fur tips.
+
+Several small brown bats hanging upside down in a row under the wooden beams of a roof space, wings folded, seen from slightly below. Scene word: a small natural scene cut out cleanly like a diorama piece, with soft, irregular edges that fade into transparency: no square or round frame, no sky, no horizon.
+
+The two attached images are for style only. Keep the entire roof edge clean against dark charcoal, especially the right edge. Keep the outside of the roof and all open gaps fully transparent, with no white sliver, matte, or halo. Show small brown attic-roosting bats under bare wooden rafters. Keep the roof free of ivy and moss.
+```
