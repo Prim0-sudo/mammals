@@ -4070,6 +4070,510 @@
       "mode": "RGBA",
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "baby",
+      "path": "assets/topics/mammals/vocabulary/baby.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8b4b2baad6a5530aab0ef0afac16baa297aa7d214d83278716444d1af5dce903",
+      "bytes": 1775531,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "bamboo",
+      "path": "assets/topics/mammals/vocabulary/bamboo.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "29aabc12972b3b5b4809a66639065b345cd8093d4997cf9496c8e5fe7b5c244d",
+      "bytes": 846280,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "berries",
+      "path": "assets/topics/mammals/vocabulary/berries.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "c387b5829e6124295426ec2cb106591adcf6da988928160aa29caf432a9d4224",
+      "bytes": 1390059,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "bill",
+      "path": "assets/topics/mammals/vocabulary/bill.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "279edc09cb8fb05a73413238f749f8fd51b470417770f22ae644bd912f23c93a",
+      "bytes": 1267027,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "born",
+      "path": "assets/topics/mammals/vocabulary/born.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "872d77b04a2d9e54caeb0f61fcd1988bfa5ce5411e82c30fa0f182adcdbdcd9a",
+      "bytes": 1405295,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "egg",
+      "path": "assets/topics/mammals/vocabulary/egg.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3d424d443f22a9effaa6547efa34da0ce39c3200f67feef01d82b81e1a3d71ec",
+      "bytes": 855771,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "fawn",
+      "path": "assets/topics/mammals/vocabulary/fawn.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "a8cb4b53554173b8fd69cc106ef54e40c545702e217b3a8d7afb044c4900e4c6",
+      "bytes": 1562061,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "fin",
+      "path": "assets/topics/mammals/vocabulary/fin.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5523ce2bd04e02fc5cc04b2f593faf601f10adbf1e6ecb703089c7c00858cf05",
+      "bytes": 669458,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "gnaw",
+      "path": "assets/topics/mammals/vocabulary/gnaw.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8ce7c1733b3ed9a25c850cfba73f578013f55d6aeb1878ff387ee96515800bab",
+      "bytes": 1188870,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "graze",
+      "path": "assets/topics/mammals/vocabulary/graze.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6c3d6428c08861f5c998902bbadd155de2afdca7d6ee4025e0ab0f789254a231",
+      "bytes": 1161877,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hay",
+      "path": "assets/topics/mammals/vocabulary/hay.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "76b066cb5e508e5a2ac16ebb06764ff7ddc7dfe25216de8a2e08eda2ca382ba2",
+      "bytes": 1564118,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hump",
+      "path": "assets/topics/mammals/vocabulary/hump.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "809a3f57fcc7473fd9dac491a925ffdb30b6c4cbd80d1c2fe5b25f6310e1fc69",
+      "bytes": 858657,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "krill",
+      "path": "assets/topics/mammals/vocabulary/krill.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "90b24dc4d8d50ed4529edf2f37dcef5cfbf2dfede69e0522f2d12e6e8574e2f5",
+      "bytes": 792493,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "litter",
+      "path": "assets/topics/mammals/vocabulary/litter.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "2249269983cedaf7d3e5725e915014ab627f1479544dc8ef0e263fd6750f04ef",
+      "bytes": 1510349,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "meat-eater",
+      "path": "assets/topics/mammals/vocabulary/meat-eater.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6ce7c8f1ccf1b89e8590124f9b0d68865c96838cd500d6770f89f2b4fa618160",
+      "bytes": 1149081,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "mother",
+      "path": "assets/topics/mammals/vocabulary/mother.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "599626eae2bdf83ef4647c927a0a31decf861354ff44f2a38ea0e00f701f00e7",
+      "bytes": 1483266,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "nuts",
+      "path": "assets/topics/mammals/vocabulary/nuts.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "a140f183e723f64c8b863580b69f53201170d65632aca74a276de32a073debae",
+      "bytes": 1231501,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "piglet",
+      "path": "assets/topics/mammals/vocabulary/piglet.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "4f80f6e4b256f90899eace87d5d8bed0286551b41d9ee5617610465e8d174706",
+      "bytes": 923846,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "plant-eater",
+      "path": "assets/topics/mammals/vocabulary/plant-eater.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "45f1fdf78145c89046156b830d1ae8666110e27e9d02d2e5c85c5d327b5d3c80",
+      "bytes": 1426031,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "predator",
+      "path": "assets/topics/mammals/vocabulary/predator.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "cf36bafcf516e9b67111e13501c5c7510040394ec72d52177e6eb320a167ee22",
+      "bytes": 1430759,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "prey",
+      "path": "assets/topics/mammals/vocabulary/prey.png",
+      "category": "food",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "5eb77e092a52fb145bb3844ba8a5a3a79fa1d34eda9e2ff801b822d56bb5ccaf",
+      "bytes": 841299,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "pup",
+      "path": "assets/topics/mammals/vocabulary/pup.png",
+      "category": "life-cycle",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "42fb4963f7fa1d5da00b4dd41518c61f4dcd7a5f5c9fc79e36eae0f3bd4b3d08",
+      "bytes": 1224095,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "snout",
+      "path": "assets/topics/mammals/vocabulary/snout.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "bf7b743888d245a4d47c20d0f144c99c5c7491e290750f8414c14e9c124203be",
+      "bytes": 1486308,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "spines",
+      "path": "assets/topics/mammals/vocabulary/spines.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "d8105b862b153fb61f108cafd13b58eba32d08d6c3b73c403cd157a17a3d3528",
+      "bytes": 1477234,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "spots",
+      "path": "assets/topics/mammals/vocabulary/spots.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6d1db87bb0c4393faa716a67fbd7bfc762ed0a8e711e0b074ddbb1530192f409",
+      "bytes": 1558086,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "stripes",
+      "path": "assets/topics/mammals/vocabulary/stripes.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "627949636118444ec6127089fa8c2346665ea9c48cf7b3d5e88e2b1548ca0113",
+      "bytes": 1404915,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "webbed-feet",
+      "path": "assets/topics/mammals/vocabulary/webbed-feet.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6fe9edc59fc0e26103575bc8fff60b76ab4543235a046780a38841468a86ee68",
+      "bytes": 1449387,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "wool",
+      "path": "assets/topics/mammals/vocabulary/wool.png",
+      "category": "body",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "33d5c8d8406bded9c735678e4efcd37da559e674caf56ddc70a83ee0ac67ca6f",
+      "bytes": 1489249,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {

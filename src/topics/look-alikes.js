@@ -57,4 +57,8 @@ export const LOOK_ALIKES = [
   ["curl-up", "sleep"], ["hibernate", "sleep"], ["hibernate", "curl-up"], ["herd", "pack"], ["camouflage", "hide"], ["listen", "ear"],
   ["hedge", "garden"], ["beach", "ocean"], ["winter", "snow"], ["autumn", "leaf"], ["spring", "summer"], ["farm", "barn"],
   ["notebook", "field-guide"], ["quiet", "stay-back"], ["grown-up", "stay-back"], ["footprint", "snow"],
+  // batch 8 (22 November 2026): animals whose own pictures plainly show the feature, and the spotted cats
+  ["spots", "leopard"], ["spots", "jaguar"], ["spots", "snow-leopard"], ["spots", "lynx"], ["spots", "fawn"],
+  ["cheetah", "jaguar"], ["cheetah", "snow-leopard"], ["stripes", "tiger"], ["stripes", "badger"], ["wool", "llama"],
+  ["hay", "barn"], ["predator", "meat-eater"],
 ];

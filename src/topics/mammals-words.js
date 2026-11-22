@@ -223,7 +223,35 @@ snow leopard|A wild cat with thick, spotty grey fur and a very long tail.|A snow
 stoat|A small, slim hunter with a black tip on its tail.|A slim stoat standing up on its back legs, with a black tip on its tail.|The stoat has a black tail tip.
 sugar glider|A small pouched mammal that glides from tree to tree on flaps of skin.|A grey sugar glider with big dark eyes, holding on to a branch.|The sugar glider has big eyes.
 vole|A small, round mammal like a mouse, with a short tail and small ears.|A small round brown vole with short ears and a short tail.|The vole hides in the grass.
-wallaby|A pouched mammal like a small kangaroo.|A wallaby standing up on its big back feet, with its long tail behind.|The wallaby hops away.`
+wallaby|A pouched mammal like a small kangaroo.|A wallaby standing up on its big back feet, with its long tail behind.|The wallaby hops away.`,
+ batch8: `bill|The wide, flat mouth of a platypus, a bit like a duck's beak.|A platypus head, with its flat grey bill.|The platypus has a flat bill.
+snout|The long nose and mouth of an animal such as a pig.|A pink pig's face, with its round pink snout in the middle.|The pig has a pink snout.
+wool|The thick, curly hair of a sheep.|A sheep covered in thick, curly cream wool.|The sheep has thick wool.
+stripes|Long bands of colour on an animal's coat.|A zebra looking round, its black and white stripes filling the picture.|The zebra has stripes.
+spots|Small round marks on an animal's coat.|A cheetah sitting, its golden coat covered in black spots.|The cheetah has black spots.
+fin|A flat part that helps an animal steer and balance in water.|A dolphin's grey back fin sticking up out of the water.|The dolphin has a fin on its back.
+hump|A big lump on a camel's back that stores fat.|A sandy-coloured camel standing side-on, with one big hump on its back.|The camel has one hump.
+spines|Stiff, sharp hairs that keep some animals, like a hedgehog, safe.|A hedgehog side-on, its back covered in sharp brown and cream spines.|The hedgehog has sharp spines.
+webbed feet|Feet with skin between the toes, for swimming.|An otter on a rock, one webbed back foot spread out in front.|The otter has webbed feet.
+baby|A very young animal.|A baby elephant standing close beside its mother's legs.|The baby stays close to its mother.
+born|Come into the world from the mother's body.|A newborn foal lying in straw while its mother bends down to it.|The foal was born today.
+egg|A case with a shell that a baby grows in; the platypus and echidna are the only mammals that lay eggs.|One small cream egg resting on a dry brown leaf.|The platypus lays an egg.
+fawn|A young deer.|A spotted fawn standing in the grass, its mother behind it.|The fawn has white spots.
+litter|A group of babies born to one mother at the same time.|A mother pig lying on straw, with a row of piglets feeding.|The pig has a litter of piglets.
+mother|A female animal that has babies.|A mother orangutan hugging her baby to her chest.|The mother hugs her baby.
+piglet|A young pig.|A small pink piglet standing in front of a grown-up pig.|The piglet is pink.
+pup|A young seal; young dogs and some other mammals are called pups too.|A fluffy white seal pup lying on the sand beside its grey mother.|The seal pup is fluffy.
+bamboo|A tall, woody grass that giant pandas eat.|A clump of green bamboo stems with leaves.|The panda eats bamboo.
+berries|Small, soft fruits that grow on bushes.|A sprig of shiny blackberries with green leaves.|The bear eats berries.
+gnaw|Bite at something hard again and again.|A beaver gnawing a small tree trunk, wood chips at its feet.|The beaver gnaws the log.
+graze|Eat grass slowly while walking across a field.|A sheep with its head down, eating grass.|The sheep graze in the field.
+hay|Dried grass that farm animals and pets eat.|A rectangular bale of dry golden hay tied with string.|The horse eats hay.
+krill|Tiny sea animals like shrimps that many whales eat.|Three pink, see-through krill, shown large.|Whales eat lots of krill.
+nuts|Seeds with hard shells, such as hazelnuts and acorns.|A small pile of hazelnuts and acorns.|The squirrel hides nuts.
+plant-eater|An animal that eats only plants.|A brown rabbit sitting in the grass, nibbling a dandelion leaf.|A rabbit is a plant-eater.
+meat-eater|An animal that eats other animals.|A grey seal in the water with a fish in its mouth.|A seal is a meat-eater.
+predator|An animal that hunts other animals for food.|A red fox creeping low through the grass, eyes fixed ahead.|The fox is a predator.
+prey|An animal that is hunted by another animal.|A brown rabbit sitting up, alert, with its ears raised.|The rabbit is prey for the fox.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

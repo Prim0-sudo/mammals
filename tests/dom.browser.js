@@ -291,10 +291,11 @@ await test("Every Flip size keeps a mismatch open until the next click", async (
 await test("The groups and the full word set are selectable", () => {
   game.start("learn");
   assert(qa("[data-category]").length === liveGroups + 1, "Expected All Words plus every group");
-  assert(q('[data-category="body"]').textContent.includes("23 words"), "Body words missing");
+  const bodyCount = topic.items.filter((x) => x.categoryId === "body").length;
+  assert(q('[data-category="body"]').textContent.includes(`${bodyCount} words`), "Body words missing");
   click('[data-category="body"]');
   if (game.state.stage === "families") click('[data-family="body"]');
-  assert(game.state.items.length === 23, "Body group is incomplete");
+  assert(game.state.items.length === bodyCount, "Body group is incomplete");
   game.start("identify");
   click('[data-count="all"]');
   assert(game.state.items.length === topic.items.length, "Full set missing from Which One Is It?");

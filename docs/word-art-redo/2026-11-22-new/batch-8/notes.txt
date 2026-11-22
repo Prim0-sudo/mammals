@@ -1,0 +1,18 @@
+﻿Batch 8 | Bodies Up Close, Mothers & Young, Food & Feeding
+
+28 studio-photo cutouts made with the built-in image tool, one at a time.
+The batch folder was empty at the start. Prompts and the two attached
+style references for each generation are recorded in prompts.md.
+
+The tool returned 1254 x 1254 images. The final 1024 x 1024 RGBA PNGs
+retain the generated transparency, with near-zero alpha noise removed
+and the visible subject centred at roughly 85% of the square.
+
+Every final picture was composited on charcoal and checked for matte,
+edge halos and grey boxes, then inspected at 120 px. The soft fades in
+the close-ups and secondary subjects are intentional.
+
+Replaced first-pass haze in hump and berries. Tightened the close-up
+in spines, softened the adult fades in baby, piglet and fawn, and kept
+the full sapling in frame for gnaw. The final litter has eight visible
+piglets. Final visual review passed.
