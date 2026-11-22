@@ -1,0 +1,28 @@
+Mammal Discovery Club | Batch 9
+
+All 19 pictures were generated with the built-in image tool. The batch folder
+contained no pictures at the start of this run.
+
+The original brief text was used verbatim for each subject. Each call added
+a sentence marking the two attached images as style-only references. Each
+rerender added a targeted instruction. See prompts.md for every call.
+
+The tool returned 1254 px squares. Each accepted cutout was centred and
+resampled to a 1024 × 1024 RGBA PNG, with the main silhouette spanning
+about 85% of the canvas along its longest side.
+
+Every delivered cutout was checked on charcoal for visible matte, halo and
+grey boxes. The contact sheet shows the full batch at 120 px in brief order.
+
+Rerenders
+
+- wade.png. The first waterline read as too shallow. The replacement puts
+  the lake surface higher on the moose's legs, with ripples around them.
+- swing.png. The first render had pale haze around the gibbon's fur. The
+  replacement has a clearer cutout edge and open space between its arms.
+- rainforest.png. The first render copied the kangaroo from the pilot
+  reference. The replacement used forest and pond as its style references.
+  The same pair was used for the remaining habitat and season pictures.
+- summer.png. The first render included a fox. The replacement shows the
+  meadow, poppies and daisies in warm light.
+

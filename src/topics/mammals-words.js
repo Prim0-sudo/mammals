@@ -251,7 +251,26 @@ nuts|Seeds with hard shells, such as hazelnuts and acorns.|A small pile of hazel
 plant-eater|An animal that eats only plants.|A brown rabbit sitting in the grass, nibbling a dandelion leaf.|A rabbit is a plant-eater.
 meat-eater|An animal that eats other animals.|A grey seal in the water with a fish in its mouth.|A seal is a meat-eater.
 predator|An animal that hunts other animals for food.|A red fox creeping low through the grass, eyes fixed ahead.|The fox is a predator.
-prey|An animal that is hunted by another animal.|A brown rabbit sitting up, alert, with its ears raised.|The rabbit is prey for the fox.`
+prey|An animal that is hunted by another animal.|A brown rabbit sitting up, alert, with its ears raised.|The rabbit is prey for the fox.`,
+ batch9: `wade|Walk through shallow water.|A moose standing knee-deep in a pond.|The moose wades into the lake.
+gallop|Run very fast, like a horse.|A chestnut horse galloping, all four hooves off the ground.|The horse gallops in the field.
+scamper|Run with quick, small steps.|A small brown mouse running along a mossy log.|The mouse scampers away.
+pounce|Jump suddenly onto something.|A red fox leaping high, arching down nose-first towards the snow.|The fox pounces in the snow.
+swing|Move to and fro while hanging from something.|A gibbon swinging between two branches by its long arms.|The gibbon swings from branch to branch.
+hang|Hold on from above, with the body below.|A brown bat hanging upside down from a twig, its wings folded.|The bat hangs upside down.
+paddle|Push through water with the legs or feet.|A golden dog swimming in a pond, only its head above the water.|The dog paddles in the lake.
+glide|Move smoothly through the air without flapping.|A sugar glider in the air, the skin flaps between its legs spread wide.|The sugar glider glides to a tree.
+habitat|The natural home of an animal or plant.|A woodland edge with trees and a hedge, a rabbit and a hedgehog tucked in the grass.|A river is a habitat for otters.
+rainforest|A thick, warm forest where it rains nearly every day.|A tall, misty rainforest with vines and layers of green leaves.|Orangutans live in the rainforest.
+mountain|A very high hill with steep, rocky sides.|A tall rocky mountain with snow on top.|Snow leopards live on the mountain.
+beach|Land by the sea, covered in sand or pebbles.|A sandy beach with shells and small waves.|The seal rests on the beach.
+farm|Land where people grow crops and keep animals.|A red barn, a farmhouse and green fields seen from a distance.|The cows live on the farm.
+garden|Land by a home where plants grow.|A small garden with a lawn, a flower bed and a wooden fence.|A fox comes into the garden.
+hedge|A row of bushes growing close together.|A long green hedge with white flowers and red berries along the edge of a field.|The hedgehog hides in the hedge.
+spring|The season when plants grow and many babies are born.|A blossom tree with pink flowers and yellow daffodils in the grass.|Lambs are born in spring.
+summer|The warmest season.|A sunny meadow with long grass, red poppies and white daisies.|In summer the days are long.
+autumn|The season when leaves fall and animals get ready for winter.|A tree with orange and red leaves, more leaves falling to the ground.|In autumn the leaves fall.
+winter|The coldest season.|A bare frosty tree beside a frozen pond.|In winter the pond freezes.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

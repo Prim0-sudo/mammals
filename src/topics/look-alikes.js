@@ -33,6 +33,7 @@ export const SHOWS = {
   "stay-back": ["deer", "human"], gentle: ["guinea-pig", "human"],
   // the people pictures (batch 6) count as the human word (batch 7, a girl waving), 22 November 2026
   "grown-up": ["human"], quiet: ["human"], "wash-hands": ["human"],
+  habitat: ["rabbit", "hedgehog"],
 };
 
 // Pairs that look alike though neither is a kind of the other.
@@ -61,4 +62,9 @@ export const LOOK_ALIKES = [
   ["spots", "leopard"], ["spots", "jaguar"], ["spots", "snow-leopard"], ["spots", "lynx"], ["spots", "fawn"],
   ["cheetah", "jaguar"], ["cheetah", "snow-leopard"], ["stripes", "tiger"], ["stripes", "badger"], ["wool", "llama"],
   ["hay", "barn"], ["predator", "meat-eater"],
+  // batch 9 (22 November 2026): the island scenes and the moves read off the final pictures
+  ["autumn", "spring"], ["summer", "grass"], ["summer", "grassland"], ["winter", "pond"], ["mountain", "snow"],
+  ["habitat", "forest"], ["habitat", "hedge"], ["habitat", "garden"], ["rainforest", "habitat"],
+  ["wade", "pond"], ["wade", "lake"], ["paddle", "pond"], ["paddle", "lake"], ["paddle", "swim"],
+  ["pounce", "jump"], ["pounce", "snow"], ["hang", "gibbon"],
 ];

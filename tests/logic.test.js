@@ -28,13 +28,13 @@ test("Complete topic passes the contract; menu order is enforced", () => {
   assert.throws(() => validateTopic(tiles), /Home tiles/);
 });
 test("The pictured words sit in the ten groups, in teaching order; empty groups show as Coming soon", () => {
-  assert.equal(topic.items.length, 249);
+  assert.equal(topic.items.length, 268);
   assert.equal(wordRows.length, new Set(wordRows.map((x) => x.id)).size);
   assert.ok(topic.items.every((x) => !Object.hasOwn(x, "tier")));
   assert.ok(topic.showEmptyGroups, "Groups with no words yet must still show");
   assert.deepEqual(topic.categories.map((c) => [c.id, topic.items.filter((x) => x.categoryId === c.id).length]), [
     ["mammals", 82], ["body", 32], ["life-cycle", 18], ["food", 19], ["homes", 15],
-    ["movement", 12], ["survival", 15], ["habitats", 12], ["neighbours", 32], ["watching", 12],
+    ["movement", 20], ["survival", 15], ["habitats", 23], ["neighbours", 32], ["watching", 12],
   ]);
   assert.ok(topic.categories.every((c) => c.image.startsWith("assets/topics/mammals/")), "Each group has a Mammals picture");
   const strict = structuredClone(topic);

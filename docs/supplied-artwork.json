@@ -4574,6 +4574,348 @@
       "mode": "RGBA",
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "autumn",
+      "path": "assets/topics/mammals/vocabulary/autumn.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "7c3aed0218388cee60bae325755e451418c02074f4dac13fce15c8a1a2a248b7",
+      "bytes": 1695503,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "beach",
+      "path": "assets/topics/mammals/vocabulary/beach.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "1561848bddc2cf677e7572e9ff207befefa237172bd8c4a6fed11f2d07294a91",
+      "bytes": 1357582,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "farm",
+      "path": "assets/topics/mammals/vocabulary/farm.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b82688051b4ba37862bab1dd16260bc2b1dac7c2f4bab40b4bffbb81b03ccbcb",
+      "bytes": 1232015,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "gallop",
+      "path": "assets/topics/mammals/vocabulary/gallop.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "883279fdc5307009a04760b681712b0d5f9639f323417a124644ed4218b38dc8",
+      "bytes": 759136,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "garden",
+      "path": "assets/topics/mammals/vocabulary/garden.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0232112afd5b266a208cc27b33ec3d9e76fe65ccf7269551d654c7fb56d144fd",
+      "bytes": 1522057,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "glide",
+      "path": "assets/topics/mammals/vocabulary/glide.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "78d215b85478fb99c1de6f6866bd6398dd3ff8dccdcca4c65bc76bf2b941aa79",
+      "bytes": 959085,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "habitat",
+      "path": "assets/topics/mammals/vocabulary/habitat.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b0c241fe60f92d487073ec42e855a380c889b8eb0f571361693f3899226b982f",
+      "bytes": 1870433,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hang",
+      "path": "assets/topics/mammals/vocabulary/hang.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "e163c2083fd7596576e3d78a732eff025fbf369df0f6a9797d284ac98ec667f5",
+      "bytes": 930839,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hedge",
+      "path": "assets/topics/mammals/vocabulary/hedge.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0cfba7e912f439eb63dbc9066fec557f185800747e8dd24e9354fa99a671b844",
+      "bytes": 1630844,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "mountain",
+      "path": "assets/topics/mammals/vocabulary/mountain.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0c4fc530169e59b218d0887cc8ad1d42e0936728845e75329679adb3da93e201",
+      "bytes": 1342598,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "paddle",
+      "path": "assets/topics/mammals/vocabulary/paddle.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "62c8df62fc248d9dd7e4e767b27a56a67905c7c240ca74f1280df61a113e36b6",
+      "bytes": 1257914,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "pounce",
+      "path": "assets/topics/mammals/vocabulary/pounce.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "da0e2f5166aa162d0c6dde1b453b324a1f37f0c393a978e11193f01d4a69bd3a",
+      "bytes": 1242209,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "rainforest",
+      "path": "assets/topics/mammals/vocabulary/rainforest.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ecab8ab131b2908011eca6d5cf4756b8e6c933bea49454ef905cfde2154c22dd",
+      "bytes": 1907172,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "scamper",
+      "path": "assets/topics/mammals/vocabulary/scamper.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0758b68b6fa575b37fe9e57f6cb24aa98d31c595dee507d10096ced0b0ae146f",
+      "bytes": 850063,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "spring",
+      "path": "assets/topics/mammals/vocabulary/spring.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "bd2c0e83b63db2bde1ee708de0a3d53a7eaa89eb6f6ca372219eac1801cdc7ba",
+      "bytes": 1789528,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "summer",
+      "path": "assets/topics/mammals/vocabulary/summer.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ac8b545b057bb6c30620b9a567349f5e21bc4fbcc77ab95f2afc0c5051510be4",
+      "bytes": 1572559,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "swing",
+      "path": "assets/topics/mammals/vocabulary/swing.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "634a9c6b60481e0f8c3860eea69abc854ee5fd7c75bf89f42390e4c5ed462be2",
+      "bytes": 735410,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "wade",
+      "path": "assets/topics/mammals/vocabulary/wade.png",
+      "category": "movement",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b14d1ee22f28793c0178b5f216857d38ba35337007203c8a3869cee5b5745688",
+      "bytes": 1401168,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "winter",
+      "path": "assets/topics/mammals/vocabulary/winter.png",
+      "category": "habitats",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3349ae0b79c0e3bd4b70f273886883e417004b9d2f8ef3a78af5a81f02ac272a",
+      "bytes": 1789291,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-9); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {
