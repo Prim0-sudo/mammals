@@ -4,7 +4,7 @@
 
 Repository: https://github.com/Prim0-sudo/mammals-weekly-game
 
-Production Pages address: https://mammals-weekly-game.pages.dev/ (deployment verification recorded in HANDOFF.md). Cloudflare automatically deploys `main` using framework preset None, build command `npm run build`, output directory `dist`, and repository root `/`.
+Production Pages address: https://mammals-weekly-game.pages.dev/ (deployment verification recorded in HANDOFF.md). The live game is ludimi.org/mammals: the 6-hourly Ludimi auto-release (Prim0-sudo/ludimi-field-guide, at :17 past 00, 06, 12 and 18 UTC) moves the Mammals pin to this repository's `main`, builds it (`npm run build`, output `dist`) and deploys ludimi.org if its checks pass. A push to `main` no longer starts a Pages build on its own (the last Pages deployment is from early November 2026). Never hand-deploy.
 
 Start from this directory with `npm start`, then open [the local preview](http://127.0.0.1:4186/). The preview is currently running. No installation or account is required; Node.js serves the local files. `npm test`, `npm run check` and `npm run build` run the checks and create `dist` from current source. Use `node scripts/serve.mjs --dist` with a different `PORT` to inspect the build while the source preview runs.
 
