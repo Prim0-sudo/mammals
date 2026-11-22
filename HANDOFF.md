@@ -1,3 +1,67 @@
+# Continue here — 23 November 2026 (start of day)
+
+Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. The deadline is about **30 November 2026**. Everything below this section is history from October.
+
+## Where it stands
+
+- **main = origin/main.** The last game change is `b610e72` (22 November). Nothing is waiting locally.
+- **Words: all 268 in the approved vocabulary plan (docs/VOCABULARY-PLAN.md) have studio-photo pictures; none wait.**
+  - Groups: Mammals 82, Bodies 32, Mothers & Young 18, Food 19, Homes 15, On the Move 20, Senses & Survival 15, Habitats & Seasons 23, Other Animals 32, Animal Watching 12.
+  - 134 Knowledge & Safety questions, 13 of them safety. 297 WebP twins.
+- **Families:** 15, all with 5 or more words except the catch-all "Other sea animals" (3). The data also has 41 "kind of" links, 125 look-alike pairs and 109 SHOWS entries.
+  - Look-alikes were read off the final pictures, batch by batch. When a picture is redrawn, check its row in src/topics/look-alikes.js again.
+- **Art:** the Art session (named "Art") makes all art, across apps, through Codex. Delivery folders are docs/word-art-redo/2026-11-22-new/batch-5 … batch-9 and fixes-1, each with its briefs.
+  - Art is finished for Mammals word pictures.
+  - Codex flagged 8 earlier pictures for small details (gentle, notebook, wash-hands, field-guide, nest, lodge, hutch, barn). Judged minor and left as they are.
+- **Checks at `b610e72`:**
+  - `npm test`: 27 pass, 1 skipped; the narration test waits for the voice.
+  - `npm run check` and `npm run build` pass.
+  - The browser suites pass: tests/browser.html 26/26, tests/homeward.html 8/8, and tests/layout.html with no overflow.
+
+## Live
+
+- A push does **not** start a Pages build. ludimi.org/mammals updates through the 6-hourly Ludimi auto-release in Prim0-sudo/ludimi-field-guide (cron `17 */6 * * *` UTC), which moves the `mammals-weekly-game` pin to main. mammals-weekly-game.pages.dev redirects there. **Never hand-deploy.**
+- At 17:20 UTC on 22 November the live site still had the earlier set. The pushes of batches 6–9 (fc171e6, b610e72) went out after the 12:17 UTC release, so the 18:17 UTC release is the first to carry them.
+- **First job today: check it went live.**
+  - `curl -sL -o /dev/null -w "%{http_code}" https://ludimi.org/_games/mammals/assets/topics/mammals/vocabulary/autumn.webp` should give 200; it was 404 before the release.
+  - Do the same for `fawn.webp`, `arctic-fox.webp` and `pack.webp`.
+  - If any is still 404 after a later release, look at the auto-release run in ludimi-field-guide. Don't deploy by hand.
+
+## How to work here
+
+- **Install word art:** these steps take a delivered batch into the game.
+  1. Check the batch on dark.
+  2. Write alt text from the pictures into a JSON file of id → alt.
+  3. Run `python -I tools/art/install-word-art.py <folder> [ids]`.
+  4. Run `python -I tools/art/add-word-rows.py <alts.json> <new block key>`. The definition and sentence come from VOCABULARY-PLAN section 6. Use a new key each run.
+  5. Run `python -I tools/art/png-to-webp.py`.
+  6. Bump the counts in tests/logic.test.js, then update the look-alikes.
+- **Browser suites:** run `npm start` (port 4186), then `node tools/test/run-browser.mjs tests/browser.html`, and the same for `tests/homeward.html` and `tests/layout.html`. layout.html never prints PASS: it runs the full 3 minutes and prints "Layout — …", or "OVERFLOW — …" on a fault. The runner uses the CDP helper in E:/Projects/Codex/hunt-club/docs/deck/tools/cdp.mjs.
+- **"Push" means:** `npm test`, `npm run check`, `npm run build` and the three browser suites, then push main. Commit messages end with the Co-Authored-By line.
+- **House rules:**
+  - No visible Pause button.
+  - Popouts are centred, and a short last row is centred.
+  - Pictures fill their box.
+  - Use GSAP for coordinated animation, with reduced-motion support.
+  - Run Codex one batch at a time.
+  - Owner files go to `G:\My Drive\1.   Coding Hardware Software\Mammals rebuild 2026-11-21\`.
+
+## What's left (build order from docs/UPGRADE-PLAN.md section 6)
+
+1. **Landing:** three concepts for the owner, then the layered scene (Insects has 16 painted layers, an emblem and fliers).
+2. **Topic Games:** three concepts from moving previews, then build them. This is the biggest job; they are placeholders now. Point the Home banner at the first real game.
+3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
+4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.
+5. **Menu tiles:** 4 more to reach 17, plus a Picture Pick container (for example a burrow or a field bag).
+6. **Phonics sound mats and Media:** flashcards, slides, worksheets, tracing and Draw & Trace outlines. The generator scripts are under scripts/; each stops with a message until it is fitted to Mammals.
+7. **Reading practice:** add 2 Say-together and 3 Talk-together cards.
+8. **Teacher scope:** rebalance the levels and lessons now that all the words are in. Check that the Sort It "Mammal or not?" sort can now be played with the Other Animals words.
+9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
+10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
+
+**Owner decisions pending:** the Kokoro voice, the landing concept and the three Topic Game concepts.
+
+---
 # Current release — mammals-only topic, 6 October 2026
 
 The user confirmed that fish content was accidentally clipped from the next theme. The active game now contains 123 words in five categories (50/23/22/20/8), 13 knowledge questions and 15 Read, Draw & Talk cards. Eight fish species and gills, their nine runtime PNGs, three comparison questions, one reading card and the fish comparison objective were removed. Marine mammals remain. Every vocabulary activity uses the same reduced bank.
