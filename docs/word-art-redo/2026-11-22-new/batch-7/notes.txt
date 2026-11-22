@@ -1,0 +1,10 @@
+Batch 7 | Meet the Mammals
+
+32 studio-photo cutouts, generated individually with the built-in image tool.
+The pilot hedgehog and the redone wood mouse were attached to every call as style references only.
+Each prompt preserves the full text from new-batch-7.md. The last line identifies the role of the attachments.
+The image tool returned 1254 x 1254 PNGs. Exports were centred and resized to 1024 x 1024 RGBA, keeping the generated alpha and about 85% visible fill along the longest dimension.
+
+Each cutout was inspected on a charcoal background. No visible matte, halo, or grey box was found.
+The contact sheet uses 120 x 120 previews on the same background.
+Some cutouts retain traces of very low opacity beyond the silhouette. These traces were not visible in the dark-background review.

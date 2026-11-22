@@ -30,7 +30,9 @@ export const SHOWS = {
   glide: ["sugar-glider"],
   listen: ["deer"], camouflage: ["arctic-fox"], "curl-up": ["hedgehog"], lookout: ["meerkat"], herd: ["zebra"], pack: ["wolf"],
   roar: ["lion"], howl: ["wolf"], nocturnal: ["badger"], hibernate: ["hedgehog"],
-  "stay-back": ["deer"], gentle: ["guinea-pig"],
+  "stay-back": ["deer", "human"], gentle: ["guinea-pig", "human"],
+  // the people pictures (batch 6) count as the human word (batch 7, a girl waving), 22 November 2026
+  "grown-up": ["human"], quiet: ["human"], "wash-hands": ["human"],
 };
 
 // Pairs that look alike though neither is a kind of the other.
@@ -43,7 +45,7 @@ export const LOOK_ALIKES = [
   ["hop", "jump"], ["walk", "run"], ["swim", "dive"], ["dive", "float"], ["drink", "water"], ["milk", "feed"],
   ["kid", "lamb"], ["calf", "foal"], ["cub", "kitten"], ["burrow", "den"], ["snow", "sea-ice"],
   // vocabulary plan, 22 November 2026 (whale/dolphin is now a kind link)
-  ["leopard", "jaguar"], ["leopard", "snow-leopard"], ["rabbit", "hare"], ["mouse", "vole"], ["mouse", "shrew"], ["vole", "shrew"],
+  ["leopard", "jaguar"], ["leopard", "snow-leopard"], ["rabbit", "hare"], ["mouse", "vole"], ["mouse", "shrew"], ["vole", "shrew"], ["harvest-mouse", "vole"], ["harvest-mouse", "shrew"],
   ["mole", "shrew"], ["stoat", "ferret"], ["stoat", "pine-marten"], ["otter", "beaver"], ["monkey", "gibbon"], ["kangaroo", "wallaby"],
   ["reindeer", "moose"], ["donkey", "pony"], ["camel", "llama"], ["dolphin", "shark"], ["whale", "shark"], ["wolf", "dingo"],
   ["owl", "eagle"], ["newt", "lizard"], ["newt", "salamander"], ["salamander", "lizard"], ["tortoise", "turtle"], ["snake", "worm"], ["frog", "toad"],

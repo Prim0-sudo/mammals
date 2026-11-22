@@ -191,7 +191,39 @@ roar|A loud, deep sound, like a lion's.|A lion standing with its mouth wide open
 howl|A long, loud cry, like a wolf's.|A grey wolf sitting with its muzzle pointed up to the sky as it howls.|The wolf howls at night.
 nocturnal|Awake at night and asleep in the day.|A badger walking on the grass at night, with a full moon above.|Badgers are nocturnal.
 hibernate|Sleep very deeply all through the winter.|A hedgehog curled up asleep in a nest of frosty leaves.|The hedgehog hibernates in winter.`,
- homes2: `roost|A place where bats rest and sleep.|Five bats hanging upside down under a wooden roof, their roost.|The bats sleep in the roost.`
+ homes2: `roost|A place where bats rest and sleep.|Five bats hanging upside down under a wooden roof, their roost.|The bats sleep in the roost.`,
+ mammals2: `arctic fox|A fox of the far north whose thick coat turns white in winter.|A white arctic fox standing side-on, with thick fur and a bushy tail.|The arctic fox has thick fur.
+baboon|A big monkey that lives in groups and spends a lot of time on the ground.|An olive-brown baboon walking on all fours, its tail curved up behind.|The baboon sits on a rock.
+badger|A strong digging mammal with a black and white striped face.|A badger walking side-on, with its black and white striped face.|The badger comes out at night.
+beaver|A mammal with big orange front teeth and a flat tail that builds dams.|A brown beaver sitting on a mossy bank, its flat tail behind it.|The beaver has a flat tail.
+blue whale|A huge whale; the biggest animal that has ever lived.|A long blue-grey whale swimming side-on.|The blue whale is very big.
+dingo|A wild dog that lives in Australia.|A ginger dingo standing side-on, with pointed ears and a white-tipped tail.|The dingo runs in the bush.
+fennec fox|A tiny desert fox with huge ears.|A small sandy fennec fox sitting up, with very large ears.|The fennec fox has big ears.
+ferret|A small, long-bodied mammal that people keep as a pet.|A dark brown ferret with a pale masked face, its long body stretched out.|The ferret is long and thin.
+giant panda|A black and white bear from China that eats bamboo.|A black and white giant panda sitting down.|The giant panda is black and white.
+gibbon|A small ape with very long arms that swings through the trees.|A pale gibbon hanging from a branch by one long arm.|The gibbon has long arms.
+hare|A fast mammal like a big rabbit, with very long ears and long back legs.|A brown hare sitting side-on, with very long ears and long back legs.|The hare runs across the field.
+harvest mouse|A tiny mouse that climbs grass stems, holding on with its tail.|A tiny orange harvest mouse climbing a wheat stalk, its tail wrapped round the stem.|The harvest mouse climbs a stem.
+human|A person. People are mammals too.|A smiling girl standing and waving, in jeans and a cardigan.|I am a human.
+jaguar|A strong wild cat from South and Central America with spotty rings on its coat.|A jaguar standing side-on, its golden coat covered in spotty rings.|The jaguar can swim.
+llama|A woolly South American mammal with a long neck; a cousin of the camel.|A woolly light brown llama standing side-on, with a long neck.|The llama has a long neck.
+lynx|A wild cat with a short tail and black tufts on its ears.|A spotted lynx standing, with black tufts on its ears and a short tail.|The lynx has tufts on its ears.
+meerkat|A small African mammal that lives in groups and digs burrows.|A meerkat standing up tall on its back legs.|The meerkat stands up tall.
+mole|A small mammal with velvety fur and big digging paws that lives under the ground.|A black mole on a pile of soil, with pink digging paws.|The mole digs a tunnel.
+narwhal|A whale of the Arctic; most males have one long, spiral tusk.|A spotted grey narwhal swimming side-on, with one long spiral tusk.|The narwhal has a long tusk.
+orangutan|An ape with long orange-red hair that lives in rainforest trees.|An orangutan with long orange-red hair, sitting down.|The orangutan has orange hair.
+orca|A big black and white dolphin, also called a killer whale.|A black and white orca swimming side-on, with a tall back fin.|The orca has a tall fin.
+otter|A mammal with thick fur and webbed feet that swims in rivers.|A brown otter standing on a mossy rock, with a long thick tail.|The otter swims in the river.
+pine marten|A tree-climbing mammal with brown fur and a creamy patch on its throat.|A brown pine marten on a branch, with a creamy patch on its throat.|The pine marten climbs a tree.
+pony|A small kind of horse.|A short chestnut pony with a thick blond mane, standing side-on.|The pony eats hay.
+red squirrel|A squirrel with red-brown fur and tufts on its ears.|A red squirrel sitting on a branch, with tufts on its ears and a bushy tail.|The red squirrel has ear tufts.
+reindeer|A deer of cold northern lands; both males and females grow antlers.|A reindeer standing side-on, with big branching antlers.|The reindeer has big antlers.
+shrew|A tiny mammal with a long, pointed nose that eats minibeasts.|A brown shrew with a long pointed nose, on dry leaves.|The shrew has a long nose.
+snow leopard|A wild cat with thick, spotty grey fur and a very long tail.|A snow leopard standing side-on, with thick spotty grey fur and a long tail.|The snow leopard has a long tail.
+stoat|A small, slim hunter with a black tip on its tail.|A slim stoat standing up on its back legs, with a black tip on its tail.|The stoat has a black tail tip.
+sugar glider|A small pouched mammal that glides from tree to tree on flaps of skin.|A grey sugar glider with big dark eyes, holding on to a branch.|The sugar glider has big eyes.
+vole|A small, round mammal like a mouse, with a short tail and small ears.|A small round brown vole with short ears and a short tail.|The vole hides in the grass.
+wallaby|A pouched mammal like a small kangaroo.|A wallaby standing up on its big back feet, with its long tail behind.|The wallaby hops away.`
 };
 const source = new Set('lion,elephant,giraffe,monkey,bear,rabbit,dolphin,whale,fur,backbone,milk,land,water,ocean floor,cat,dog'.split(','));
 export const wordRows = Object.values(groups).flatMap((raw) => raw.split("\n").map((line) => {

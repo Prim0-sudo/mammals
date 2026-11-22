@@ -3494,6 +3494,582 @@
       "mode": "RGBA",
       "iccProfile": false,
       "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-6); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "arctic-fox",
+      "path": "assets/topics/mammals/vocabulary/arctic-fox.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b7aeb98132b1a0cd0265fd0c6e3d6747df368de1fbe5bd4809bca0e4282b15a9",
+      "bytes": 857661,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "baboon",
+      "path": "assets/topics/mammals/vocabulary/baboon.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "9e73982b72adb4f06cd13613c166a997aef2c55e24f6d2b7eb0164f5fcbdaf8e",
+      "bytes": 1169155,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "badger",
+      "path": "assets/topics/mammals/vocabulary/badger.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "482a28ac709b2fc6561b2d22255aa2d9bddc842f43ccac809893a75f0eb96d7f",
+      "bytes": 1082552,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "beaver",
+      "path": "assets/topics/mammals/vocabulary/beaver.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "36df20dab4e9b41b0eb0b599959e7bada18b887594056d73c196509da5064ebe",
+      "bytes": 1416494,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "blue-whale",
+      "path": "assets/topics/mammals/vocabulary/blue-whale.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3655b367627f6219d51ed28c1a0a14196d3a768460711969c825fe9c84becfd9",
+      "bytes": 265661,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "dingo",
+      "path": "assets/topics/mammals/vocabulary/dingo.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "6fe7c8b94c8aeacbeb0e62e43fb8665cba998104ffd09a723164817455f74691",
+      "bytes": 920369,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "fennec-fox",
+      "path": "assets/topics/mammals/vocabulary/fennec-fox.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3a72936adcaff01bdd76ab4c2fe7f4b4b3f58c89d427f260453368e47cb4f97b",
+      "bytes": 1051398,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "ferret",
+      "path": "assets/topics/mammals/vocabulary/ferret.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b4d5beabdcf44ea4ed5f3f809699c0d03ff85a7566ebb61a8b17ce3bf51c4d75",
+      "bytes": 732970,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "giant-panda",
+      "path": "assets/topics/mammals/vocabulary/giant-panda.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "c6d5030318d7075de8252f9109629a18cd6a8bbac5e00a733e85fbfa4029b111",
+      "bytes": 1310814,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "gibbon",
+      "path": "assets/topics/mammals/vocabulary/gibbon.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "a41aa2ffb9fb82ecdf19014d6c3557f050663687a44109621dd0bc8d2d98db6b",
+      "bytes": 570939,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "hare",
+      "path": "assets/topics/mammals/vocabulary/hare.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "aaf2cda30ac2896622e51b34a95940777df2bad5060e8d5e7fb8c5b87ecd8dca",
+      "bytes": 984056,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "harvest-mouse",
+      "path": "assets/topics/mammals/vocabulary/harvest-mouse.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "993ab3bd5703b40a5183c21320faf849fecf9422badbce658f41ce985101030a",
+      "bytes": 681648,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "human",
+      "path": "assets/topics/mammals/vocabulary/human.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "be2d2d104b3eb146cbfcad515d50b3f421f2fe3f2083d76cf976796b3a14552f",
+      "bytes": 594925,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "jaguar",
+      "path": "assets/topics/mammals/vocabulary/jaguar.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "131ebe6597f372542520968c99c3a5957ff54ee48b2bd5b8b40a62cb43509ae5",
+      "bytes": 1053182,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "llama",
+      "path": "assets/topics/mammals/vocabulary/llama.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "e5b5f49850ac0c86b35a4c55ac0632ba1162e6ae28796b7acbaf718fba09ab4c",
+      "bytes": 984101,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "lynx",
+      "path": "assets/topics/mammals/vocabulary/lynx.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ca6891f2d4d9786cb12a0e1bced36c544c6627856516736612bec51c2e1227c0",
+      "bytes": 1325511,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "meerkat",
+      "path": "assets/topics/mammals/vocabulary/meerkat.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "21cec74354c76f6e7a747d889bbc7eee7b58378649262c80e23d9ecfb85b0975",
+      "bytes": 962645,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "mole",
+      "path": "assets/topics/mammals/vocabulary/mole.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3a035966bbe480fea78ae6da453b0d2f6c17a062503cf9645bc132232f3ea27a",
+      "bytes": 1211299,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "narwhal",
+      "path": "assets/topics/mammals/vocabulary/narwhal.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "3b4e7e80cd4ceaa9f76954f605116df9fa6479eff39a95371bdc4b8f635c4309",
+      "bytes": 301972,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "orangutan",
+      "path": "assets/topics/mammals/vocabulary/orangutan.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "cfccd518ed5261bd50309bf0247ce9476637b16a9db103b72448b38bfaf8a9b7",
+      "bytes": 1649392,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "orca",
+      "path": "assets/topics/mammals/vocabulary/orca.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "76be8858bd6e237d2e964a90681fa19570d70c37ac39e8ff2c95de9b5e1f1ef5",
+      "bytes": 395188,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "otter",
+      "path": "assets/topics/mammals/vocabulary/otter.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "1940155e41e06b10c7b399d496c07bfd0d1dc1265f5dd7cb1c5b4fa8ce364376",
+      "bytes": 1043818,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "pine-marten",
+      "path": "assets/topics/mammals/vocabulary/pine-marten.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "cbc1e4e545ebee2d2c8e6102c1d4dbad8ab87c32af3b4a26d382de0633e9ebed",
+      "bytes": 1259170,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "pony",
+      "path": "assets/topics/mammals/vocabulary/pony.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ed268412216eea977e48c75bf3a28c809431b30a6a340385fd9f415e2f921494",
+      "bytes": 1296687,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "red-squirrel",
+      "path": "assets/topics/mammals/vocabulary/red-squirrel.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8de9d5255440c32a7e5b8a3b07d2e3e30f3eff70c2119af7fa13327f83580a0f",
+      "bytes": 1498365,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "reindeer",
+      "path": "assets/topics/mammals/vocabulary/reindeer.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ce87e75000274c1adf61b003b81aad4c41fceb32d972874a59d1832d32a579de",
+      "bytes": 1094297,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "shrew",
+      "path": "assets/topics/mammals/vocabulary/shrew.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "67c33f3af3fbb263e430883e4ecfb9009ab9d9f1d2727efa32475384e5a7b731",
+      "bytes": 1115380,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "snow-leopard",
+      "path": "assets/topics/mammals/vocabulary/snow-leopard.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "10eead9425f473e51c8c266378a4b9b6dd663b0a42b7e9cc5fc2d970398da47b",
+      "bytes": 980114,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "stoat",
+      "path": "assets/topics/mammals/vocabulary/stoat.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "c6871d0992de8c5e6bf865a6d0ffc7bcebce47c3d0e261e9eed784d82c170e25",
+      "bytes": 704619,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "sugar-glider",
+      "path": "assets/topics/mammals/vocabulary/sugar-glider.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "8f1b0fe5ca65802cee7b4ae5dd3fcd647cb239ed604174c8fe73884554f94227",
+      "bytes": 1415047,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "vole",
+      "path": "assets/topics/mammals/vocabulary/vole.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "0eeb95c47f608ad44a79284f8d4b466dbc1f37db0653be458fbcd012bd1e929f",
+      "bytes": 1047704,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
+    },
+    {
+      "id": "wallaby",
+      "path": "assets/topics/mammals/vocabulary/wallaby.png",
+      "category": "mammals",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "1f5867223ffd93599c7be307e4dc762ad6c5606b85d9eb7be324b6cff488f8fb",
+      "bytes": 950424,
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "iccProfile": false,
+      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-7); checked against docs/word-art-redo/codex-redo-brief.md."
     }
   ],
   "excludedFromActiveTopic": {
