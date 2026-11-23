@@ -3,7 +3,7 @@
 // id to READY. Until then every screen keeps its fallback look (the landing background picture),
 // so nothing breaks while art is out.
 // 23 November 2026: the owner chose landing concept A, Burrow Bank (docs/landing-art/).
-const LANDING = ["sky", "distant", "middle", "tunnels", "bank", "foreground", "cloud-1", "cloud-2", "cloud-3"];
+const LANDING = ["sky", "distant", "middle", "tunnels", "bank", "leaf-hollow", "foreground", "cloud-1", "cloud-2", "cloud-3"];
 export const READY = new Set(LANDING.map((n) => `landing/${n}`));
 
 let where = (id) => `assets/painted/${id}.webp`;
@@ -16,9 +16,10 @@ export const usePaintedSource = (fn) => { where = fn; };
 // A scene only switches over when all its planes are ready; clouds are added one by one.
 export const SCENES = {
   // The landing and the app backdrop behind every screen: the Burrow Bank. The dark tunnel insides
-  // sit right behind the bank (same depth) so the peeking animals rise out of the cut-out holes.
+  // sit right behind the bank (same depth) so the peeking animals rise out of the cut-out holes; the
+  // leaf hollow does the same for the hedgehog behind the foreground's leaf pile (FIX-4).
   backdrop: {
-    layers: [["landing/sky", 0], ["landing/distant", 0.2], ["landing/middle", 0.5], ["landing/tunnels", 0.62], ["landing/bank", 0.62], ["landing/foreground", 1]],
+    layers: [["landing/sky", 0], ["landing/distant", 0.2], ["landing/middle", 0.5], ["landing/tunnels", 0.62], ["landing/bank", 0.62], ["landing/leaf-hollow", 1], ["landing/foreground", 1]],
     clouds: [["landing/cloud-1", 7, 34], ["landing/cloud-2", 19, 24], ["landing/cloud-3", 12, 16]],
   },
 };
@@ -36,8 +37,8 @@ export const LANDING_PEEKS = {
     { name: "fox", x: 528, edge: 1262, width: 300, depth: 0.62, poses: peek("fox", "sniff") },
     { name: "badger", x: 295, edge: 1515, width: 360, depth: 0.62, poses: peek("badger", "sniff") },
     { name: "mouse", x: 1410, edge: 1560, width: 190, depth: 0.62, poses: peek("mouse", "whiskers") },
-    // Hedgehog off 23 Nov: owner found it floating over the leaf pile; repaint before returning.
-    //     { name: "hedgehog", x: 1880, edge: 1670, width: 330, depth: 1, under: "foreground", poses: peek("hedgehog", "sniff") },
+    // Hedgehog back 23 Nov (FIX-4): it sits inside the leaf pile's cut-out opening, crown under the arch.
+    { name: "hedgehog", x: 1885, edge: 1695, width: 330, depth: 1, poses: peek("hedgehog", "sniff") },
   ],
 };
 
