@@ -1,25 +1,27 @@
-# Continue here — 23 November 2026 (evening, at home)
+# Continue here — 23 November 2026 (late evening)
 
 Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. Deadline about **30 November 2026**.
 
 ## Where it stands
 
-- **main = origin/main at `78d1f7b` plus this note.** Nothing waits locally. Pull and go.
-- **Live:** the 07:01 UTC release on 23 November (started by hand, Protocol Renew) moved mammals 3f46b09 -> 78d1f7b. ludimi.org/mammals shows the Burrow Bank landing: six parallax layers, four peeking animals (rabbit, fox, badger, mouse). Hedgehog is switched off in src/topics/painted-art.js (commented out).
+- **main = origin/main** after tonight's landing push. Nothing waits locally.
+- **Live:** the next 6-hourly Ludimi auto-release carries tonight's landing. Don't hand-deploy.
 - **Word art:** all 268 words have pictures; nothing waits.
-- **Checks at 670ace8:** npm test 27 pass / 1 skipped (narration), check and build pass. Browser suites not rerun today (once-a-day rule) — run them before the next big push.
+- **Checks tonight:** npm test 27 pass / 1 skipped (narration), check, build, browser 26/26, homeward PASS, layout clean.
 
-## First job tonight: redo the middle of the landing
+## Landing: parked, revisit after the rest of the app
 
-Owner on the live landing: "the middle is a heavy miss, especially the hedgehog".
-1. Look at the middle at 1920x1080 and 1024x768 first (the middle layer, the leaf pile around x1589–2134 / top y1630 in layer pixels, and how it meets the bank). Decide with the owner what is wrong before painting: likely the leaf pile and the empty middle ground read as flat or out of place.
-2. Write a FIX-4 brief in docs/landing-art/2026-11-23-layers/ (same rules as FIX-1..3: change only the named layer, clean alpha, redo previews) and run Codex (codex exec, background, one job at a time; path in the codex-cli memory).
-3. Repaint the hedgehog peek so it sits behind and inside the leaf pile (the leaves in front must cover its lower body; a front leaf strip on the foreground plane may be needed rather than the fade). Then uncomment its LANDING_PEEKS entry and re-measure x/edge/width on the new pile.
-4. Convert to WebP (quality 85, peeks at 320 px), check in the preview (launch.json entry "mammals", port 4187; if the pane is hidden, step gsap.updateRoot by hand), commit, push to main, renew.
+Owner, 23 Nov: "this is a pretty low quality landing page, we need to circle back once we finish the rest of the app". Leave it alone until the build order below is done, then redo it properly (new concept work, not patches).
 
-Still open on the landing: the painted Explore emblem (the rabbit badge stays for now).
+What it is now:
+- Burrow Bank layers in assets/painted/landing (sky, distant, middle, tunnels, bank, bank-lip, foreground, 3 clouds). The middle was repainted (FIX-4: a worn path, depth, fuller hedgerow).
+- The leaf pile and the hedgehog were removed at the owner's word. Four animals peek: rabbit, fox, badger, and the mouse, whose hump was moved from mid-meadow to the right (x 2300).
+- bank-lip.png is the bank's own lower rim round each opening, drawn in front of the animals so the painted rim hides their bodies (no straight clip line). Moving or adding a hole means rebuilding it; run `python -I tools/art/build-bank-lip.py .` (per hole: the lip starts at the opening's lower rim, 20 px margin, 8 px soft top).
+- The peek motion: pose crossfades, two-step rise, breathing, lean, duck (src/core/landing-peeks.js).
+- The round rabbit badge fills the Explore button; the words sit on a cream band (src/styles/shell.css).
+- docs/landing-art previews (preview-stacked, preview-phone, holes.png) are out of date: they still show the leaf pile and the old mouse spot.
 
-## Then
+## Next
 Continue the build order below from item 2, Topic Games.
 
 ---
@@ -27,11 +29,7 @@ Continue the build order below from item 2, Topic Games.
 ## Live
 
 - A push does **not** start a Pages build. ludimi.org/mammals updates through the 6-hourly Ludimi auto-release in Prim0-sudo/ludimi-field-guide (cron `17 */6 * * *` UTC), which moves the `mammals-weekly-game` pin to main. mammals-weekly-game.pages.dev redirects there. **Never hand-deploy.**
-- At 17:20 UTC on 22 November the live site still had the earlier set. The pushes of batches 6–9 (fc171e6, b610e72) went out after the 12:17 UTC release, so the 18:17 UTC release is the first to carry them.
-- **First job today: check it went live.**
-  - `curl -sL -o /dev/null -w "%{http_code}" https://ludimi.org/_games/mammals/assets/topics/mammals/vocabulary/autumn.webp` should give 200; it was 404 before the release.
-  - Do the same for `fawn.webp`, `arctic-fox.webp` and `pack.webp`.
-  - If any is still 404 after a later release, look at the auto-release run in ludimi-field-guide. Don't deploy by hand.
+- Batches 6–9 went live with the releases of 22–23 November; all 268 words are live.
 
 ## How to work here
 
@@ -54,7 +52,7 @@ Continue the build order below from item 2, Topic Games.
 
 ## What's left (build order from docs/UPGRADE-PLAN.md section 6)
 
-1. **Landing: done 23 November.** Owner chose concept A, Burrow Bank. Six parallax layers plus three clouds in assets/painted/landing (art and briefs in docs/landing-art/). One animal at a time (rabbit, fox, badger, mouse, hedgehog) peeks out of its hole through five poses (src/core/landing-peeks.js); animals skip holes that are off screen or would crowd the title or Explore button. Landscape screens line the planes up at 10% so 4:3 tablets keep the bank. Hedgehog peek switched off (owner: floats over the pile, looks wrong); repaint it tucked behind the leaves. Still open: the painted Explore emblem (the rabbit badge stays for now).
+1. **Landing: parked** (see the top). Working, but the owner wants it redone once the rest of the app is finished.
 2. **Topic Games:** three concepts from moving previews, then build them. This is the biggest job; they are placeholders now. Point the Home banner at the first real game.
 3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
 4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.
@@ -65,7 +63,7 @@ Continue the build order below from item 2, Topic Games.
 9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
 10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
 
-**Owner decisions pending:** the Kokoro voice, the landing concept and the three Topic Game concepts.
+**Owner decisions pending:** the Kokoro voice and the three Topic Game concepts. The landing comes back last.
 
 ---
 # Current release — mammals-only topic, 6 October 2026
