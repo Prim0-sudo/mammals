@@ -1,9 +1,10 @@
 // Painted art from Codex that the games, the landing and the app backdrop use once it arrives.
 // Install a piece by converting it to WebP at quality 85 as assets/painted/<id>.webp, then add its
 // id to READY. Until then every screen keeps its fallback look (the landing background picture),
-// so nothing breaks while art is out. Mammals has no painted art yet (21 November 2026); the
-// layered landing scene comes after the owner picks the art style.
-export const READY = new Set([]);
+// so nothing breaks while art is out.
+// 23 November 2026: the owner chose landing concept A, Burrow Bank (docs/landing-art/).
+const LANDING = ["sky", "distant", "middle", "tunnels", "bank", "foreground", "cloud-1", "cloud-2", "cloud-3"];
+export const READY = new Set(LANDING.map((n) => `landing/${n}`));
 
 let where = (id) => `assets/painted/${id}.webp`;
 export const painted = (id) => (READY.has(id) ? where(id) : null);
@@ -14,15 +15,32 @@ export const usePaintedSource = (fn) => { where = fn; };
 // from one camera, each with a depth from 0 (still) to 1 (moves the most), plus loose clouds.
 // A scene only switches over when all its planes are ready; clouds are added one by one.
 export const SCENES = {
-  // The landing and the app backdrop behind every screen (a woodland edge, planned).
+  // The landing and the app backdrop behind every screen: the Burrow Bank. The dark tunnel insides
+  // sit right behind the bank (same depth) so the peeking animals rise out of the cut-out holes.
   backdrop: {
-    layers: [["landing/sky", 0], ["landing/distant", 0.2], ["landing/middle", 0.5], ["landing/foreground", 1]],
+    layers: [["landing/sky", 0], ["landing/distant", 0.2], ["landing/middle", 0.5], ["landing/tunnels", 0.62], ["landing/bank", 0.62], ["landing/foreground", 1]],
     clouds: [["landing/cloud-1", 7, 34], ["landing/cloud-2", 19, 24], ["landing/cloud-3", 12, 16]],
   },
 };
 
-// Landing spots where the landing's animals stop, read off the middle layer once it is painted.
-// Until then the list is empty and the landing keeps still.
+// Burrow Bank peeks, measured on the 3344 x 1882 layers (docs/landing-art/2026-11-23-layers/holes.png).
+// x: centre of the opening; edge: the line the animal rises from behind (low in the opening, or the top
+// of the hedgehog's leaf pile); width: how wide the animal's 512 canvas is drawn, in layer pixels.
+// layer: the plane it rides with. Poses: ahead, left, right, blink and one special.
+const peek = (animal, special) => ["ahead", "left", "right", "blink", special].map((p) => `assets/painted/landing/peeks/${animal}-${p}.webp`);
+export const LANDING_PEEKS = {
+  width: 3344,
+  height: 1882,
+  animals: [
+    { name: "rabbit", x: 148, edge: 1066, width: 200, depth: 0.62, poses: peek("rabbit", "ears") },
+    { name: "fox", x: 528, edge: 1262, width: 300, depth: 0.62, poses: peek("fox", "sniff") },
+    { name: "badger", x: 295, edge: 1515, width: 360, depth: 0.62, poses: peek("badger", "sniff") },
+    { name: "mouse", x: 1410, edge: 1560, width: 190, depth: 0.62, poses: peek("mouse", "whiskers") },
+    { name: "hedgehog", x: 1880, edge: 1670, width: 330, depth: 1, under: "foreground", poses: peek("hedgehog", "sniff") },
+  ],
+};
+
+// Landing spots where flying animals stop. Mammals has no fliers; the animals peek instead.
 export const LANDING_SPOTS = { layer: "landing/middle", width: 0, height: 0, left: [], right: [] };
 export const spotsReady = (spots = LANDING_SPOTS, source = painted) =>
   !!(spots.width && spots.height && source(spots.layer) && (spots.left.length || spots.right.length));

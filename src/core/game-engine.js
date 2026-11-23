@@ -32,6 +32,7 @@ import { mountScene } from "./layered-scene.js";
 import { installPictureZoom, zoomButton } from "./picture-zoom.js";
 import { ARTS_SECTIONS, ArtsSectionView } from "./arts-crafts-view.js";
 import { normaliseScope, isFiltered, inScope, questionInScope, scopeLabel } from "../topics/curriculum.js";
+import { mountLandingPeeks } from "./landing-peeks.js";
 
 // The More Topics tile goes back to Ludimi's games list: the app list inside the installed app,
 // the website list on ludimi.org, and the public site anywhere else.
@@ -179,6 +180,8 @@ export class GameEngine {
     this.view?.destroy();
     this.view = null;
     this.motion = [];
+    this.peeks?.destroy();
+    this.peeks = null;
     this.letGoFlyers?.();
     this.letGoFlyers = null;
     this.flyers?.destroy();
@@ -349,6 +352,8 @@ export class GameEngine {
       esc(this.topic.text.launchHint || "Choose an activity") +
       "</span></button></section>";
     this.bind("launch", () => this.menu());
+    // Burrow Bank: one animal at a time peeks out of its hole (landing only, never under reduced motion).
+    if (this.backdrop && !this.reduced()) this.peeks = mountLandingPeeks(this.backdrop);
     if (this.topic.launch.flyingBugs) {
       // Once the landing spots are measured the fliers visit them, riding the plane the spots are on.
       const layer = LANDING_SPOTS.layer;
