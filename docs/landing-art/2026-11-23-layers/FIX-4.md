@@ -74,3 +74,7 @@ RGBA, all five line up exactly, only the named detail changes) with these change
 - `../2026-11-23-peeks/peeks/hedgehog-sheet.png`: the five new hedgehog poses in a row on mid-green.
 
 When finished, list anything skipped or unhappy with, and say if any layer doesn't line up.
+
+## Outcome (23 November 2026)
+
+The owner rejected the leaf pile and its hedgehog. The pile was cut out of `layers/foreground.png`; the leaf hollow, the seating check and the hedgehog peek were removed. The repainted middle stays. `preview-stacked.png`, `preview-phone.png` and `holes.png` still show the pile.
