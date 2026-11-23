@@ -37,10 +37,10 @@ export const LANDING_PEEKS = {
   front: "bank-lip",
   animals: [
     { name: "rabbit", x: 148, edge: 1066, width: 200, depth: 0.62, poses: peek("rabbit", "ears") },
-    { name: "fox", x: 528, edge: 1262, width: 300, depth: 0.62, poses: peek("fox", "sniff") },
+    { name: "fox", x: 528, edge: 1262, width: 350, depth: 0.62, poses: peek("fox", "sniff") },
     { name: "badger", x: 295, edge: 1515, width: 360, depth: 0.62, poses: peek("badger", "sniff") },
     // The mouse's hump moved from mid-meadow (x 1410) to the right (x 2300, in view on 4:3 too) on 23 Nov (owner).
-    { name: "mouse", x: 2300, edge: 1560, width: 190, depth: 0.62, poses: peek("mouse", "whiskers") },
+    { name: "mouse", x: 2300, edge: 1560, width: 130, depth: 0.62, poses: peek("mouse", "whiskers") },
     // 23 Nov: the owner had the leaf pile and its hedgehog removed; the meadow is open there now.
   ],
 };

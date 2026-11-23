@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 R = sys.argv[1]
 L = f'{R}/docs/landing-art/2026-11-23-layers/layers'
-HOLES = [('rabbit', 148, 1066, 200), ('fox', 528, 1262, 300), ('badger', 295, 1515, 360), ('mouse', 2300, 1560, 190)]
+HOLES = [('rabbit', 148, 1066, 200), ('fox', 528, 1262, 350), ('badger', 295, 1515, 360), ('mouse', 2300, 1560, 130)]
 bank = np.array(Image.open(f'{L}/bank.png').convert('RGBA'))
 al = bank[..., 3]
 H, W = al.shape

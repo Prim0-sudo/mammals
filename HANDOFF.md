@@ -14,17 +14,15 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
 - **Word art:** all 268 words have pictures; nothing waits.
 - **Checks tonight:** npm test 27 pass / 1 skipped (narration), check, build, browser 26/26, homeward PASS, layout clean.
 
-## Landing: parked, revisit after the rest of the app
+## Landing: finished, do not touch
 
-Owner, 23 Nov: "this is a pretty low quality landing page, we need to circle back once we finish the rest of the app". Leave it alone until the build order below is done, then redo it properly (new concept work, not patches).
+Owner, 23 Nov (night): after mirroring the mouse hump and resizing the mouse and fox, "we arent touching the landing page again". This replaces the earlier plan to redo it. Leave it as it is.
 
-What it is now:
-- Burrow Bank layers in assets/painted/landing (sky, distant, middle, tunnels, bank, bank-lip, foreground, 3 clouds). The middle was repainted (FIX-4: a worn path, depth, fuller hedgerow).
-- The leaf pile and the hedgehog were removed at the owner's word. Four animals peek: rabbit, fox, badger, and the mouse, whose hump was moved from mid-meadow to the right (x 2300).
-- bank-lip.png is the bank's own lower rim round each opening, drawn in front of the animals so the painted rim hides their bodies (no straight clip line). Moving or adding a hole means rebuilding it; run `python -I tools/art/build-bank-lip.py .` (per hole: the lip starts at the opening's lower rim, 20 px margin, 8 px soft top).
-- The peek motion: pose crossfades, two-step rise, breathing, lean, duck (src/core/landing-peeks.js).
-- The round rabbit badge fills the Explore button; the words sit on a cream band (src/styles/shell.css).
-- docs/landing-art previews (preview-stacked, preview-phone, holes.png) are out of date: they still show the leaf pile and the old mouse spot.
+What it is:
+- Burrow Bank layers in assets/painted/landing (sky, distant, middle, tunnels, bank, bank-lip, foreground, 3 clouds).
+- Four animals peek: rabbit, fox (drawn 350 wide), badger, and the mouse (130 wide). The mouse's hump at x 2300 was mirrored so its opening faces the middle of the scene.
+- bank-lip.png is the bank's own lower rim round each opening, drawn in front of the animals. Rebuild it with `python -I tools/art/build-bank-lip.py .` if a hole or animal width ever changes; keep HOLES in step with LANDING_PEEKS.
+- The round rabbit badge fills the Explore button.
 
 ## Next
 Finish item 2, Topic Games:
@@ -61,7 +59,7 @@ Finish item 2, Topic Games:
 
 ## What's left (build order from docs/UPGRADE-PLAN.md section 6)
 
-1. **Landing: parked** (see the top). Working, but the owner wants it redone once the rest of the app is finished.
+1. **Landing: finished** (see the top). The owner does not want it touched again.
 2. **Topic Games:** six games, in progress (see the top). The Home banner is Otter Dive.
 3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
 4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.
@@ -72,7 +70,7 @@ Finish item 2, Topic Games:
 9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
 10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
 
-**Owner decisions pending:** the Kokoro voice, and approval of the six Topic Games from the clips. The landing comes back last.
+**Owner decisions pending:** the Kokoro voice, and approval of the six Topic Games from the clips.
 
 ---
 # Current release — mammals-only topic, 6 October 2026
