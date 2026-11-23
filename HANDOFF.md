@@ -48,7 +48,7 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
 
 ## What's left (build order from docs/UPGRADE-PLAN.md section 6)
 
-1. **Landing: done 23 November.** Owner chose concept A, Burrow Bank. Six parallax layers plus three clouds in assets/painted/landing (art and briefs in docs/landing-art/). One animal at a time (rabbit, fox, badger, mouse, hedgehog) peeks out of its hole through five poses (src/core/landing-peeks.js); animals skip holes that are off screen or would crowd the title or Explore button. Landscape screens line the planes up at 10% so 4:3 tablets keep the bank. Still open: the painted Explore emblem (the rabbit badge stays for now).
+1. **Landing: done 23 November.** Owner chose concept A, Burrow Bank. Six parallax layers plus three clouds in assets/painted/landing (art and briefs in docs/landing-art/). One animal at a time (rabbit, fox, badger, mouse, hedgehog) peeks out of its hole through five poses (src/core/landing-peeks.js); animals skip holes that are off screen or would crowd the title or Explore button. Landscape screens line the planes up at 10% so 4:3 tablets keep the bank. Hedgehog peek switched off (owner: floats over the pile, looks wrong); repaint it tucked behind the leaves. Still open: the painted Explore emblem (the rabbit badge stays for now).
 2. **Topic Games:** three concepts from moving previews, then build them. This is the biggest job; they are placeholders now. Point the Home banner at the first real game.
 3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
 4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.

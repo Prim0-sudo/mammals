@@ -36,7 +36,8 @@ export const LANDING_PEEKS = {
     { name: "fox", x: 528, edge: 1262, width: 300, depth: 0.62, poses: peek("fox", "sniff") },
     { name: "badger", x: 295, edge: 1515, width: 360, depth: 0.62, poses: peek("badger", "sniff") },
     { name: "mouse", x: 1410, edge: 1560, width: 190, depth: 0.62, poses: peek("mouse", "whiskers") },
-    { name: "hedgehog", x: 1880, edge: 1670, width: 330, depth: 1, under: "foreground", poses: peek("hedgehog", "sniff") },
+    // Hedgehog off 23 Nov: owner found it floating over the leaf pile; repaint before returning.
+    //     { name: "hedgehog", x: 1880, edge: 1670, width: 330, depth: 1, under: "foreground", poses: peek("hedgehog", "sniff") },
   ],
 };
 
