@@ -1,0 +1,21 @@
+Mammal peek sprites — generation and QA
+
+Built-in image generation/editing tool used. Each left/right/blink/special pose was edited directly from its own animal's ahead image. References: ../reference-concept-a.png and ../scene.png. Local processing: resizing, alpha-edge cleanup, common silhouette alignment, bottom alpha fades, and contact sheets only.
+
+Prompt set
+Ahead base:
+Use case: illustration-story. ONE transparent game sprite, head and shoulders only, facing directly toward viewer, horizontally centered. Square canvas, highest head/ear point at 12% height; bottom body fully transparent before 88% height. Warm storybook gouache/watercolour matching reference scene, realistic friendly proportions (not chibi, no cartoon eyes), natural small dark eyes, soft upper-right light. Lower body darkens to deep warm-brown shadow and gradually dissolves into transparency. No flat cut line, scenery, ground, grass, props, cast shadows, text, checkerboard or other animal. Mouth closed, gentle curious expression. Master ahead pose for exact aligned edits. 
+Animal details: European rabbit brown-grey, long upright ears; calm red fox with white cheeks/throat and black ear backs; Eurasian badger with black-and-white striped face; wood mouse with large rounded ears and dark eyes; European hedgehog with natural brown spines, no painted leaves.
+Edit base:
+Use case: precise-object-edit. Edit this animal's ahead sprite into ONE new pose for an in-place game sprite swap. PRESERVE original canvas size, scale, absolute position, head position, body, shoulders, painted texture, colours, lighting, transparent background and outline EXACTLY, except named change. Do not redraw or reframe. No added props, text, scenery or cast shadows. Mouth stays closed. Keep natural realistic gentle proportions. Only requested change: 
+Left/right: slight head turn toward viewer's left/right, nose and eyes following, ear placement and outside silhouette preserved.
+Blink: close both eyes naturally, only eyelids change.
+Rabbit ears: upper half of viewer-right ear bends distinctly sideways, base fixed, other ear upright.
+Fox/badger sniff: lift nose and muzzle slightly, mouth closed.
+Mouse whiskers: whiskers forward and slight nose twitch.
+Hedgehog sniff: snout raised, eyes, ears and spiny outline fixed.
+
+QA and reservations
+25 RGBA PNG sprites, exactly 512 x 512; head tops around 60 px; bottom 60 px fully transparent. Checked visually on mid-green, black and white. Shared alpha silhouettes aligned within each animal, except the intentionally bent rabbit ear. Left/right poses read correctly from the viewer's perspective. No scenery or leaves are painted into the hedgehog sprite; the existing scene supplies those leaves.
+Remaining reservations: subtle painted fur/shoulder texture and tonal variation persists between generated edits, so pixel-identical body artwork is not achieved even though placement and alpha silhouettes are matched. The rabbit bent-ear silhouette intentionally differs. Mouse whisker/nose movement is subtle. Lower bodies use soft alpha fades; their remaining fur colour is lighter than the requested deep warm-brown shadow, particularly the mouse. No other files outside peeks were changed.
+
