@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mammal Games concepts</title>
+<style>
+:root { --ink: #1f2a1c; --soft: #5b6656; --card: #fffdf6; --line: #e3dccb; --pick: #2f7d4f; --bg: #f3efe3; --edu: #2f6f9f; --arc: #b4532a; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 "Segoe UI", system-ui, sans-serif; }
+main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 28px; margin: 0 0 4px; }
+.lead { color: var(--soft); margin: 0 0 22px; max-width: 760px; }
+h2 { font-size: 19px; margin: 26px 0 12px; display: flex; gap: 10px; align-items: baseline; }
+h2 small { font-weight: 400; color: var(--soft); font-size: 14px; }
+.row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 980px) { .row { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+.card.pick { border: 2px solid var(--pick); }
+.card.pick .kind::after { content: "Our pick"; margin-left: 8px; letter-spacing: 0; text-transform: none; background: var(--pick); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 99px; }
+.stage { display: block; width: 100%; aspect-ratio: 16 / 10; background: #ddd; }
+.body { padding: 12px 16px 16px; }
+.kind { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.kind.edu { color: var(--edu); } .kind.arc { color: var(--arc); }
+h3 { margin: 2px 0 6px; font-size: 20px; }
+.pitch { margin: 0 0 8px; }
+dl { margin: 0; display: grid; grid-template-columns: 84px 1fr; gap: 4px 10px; font-size: 13.5px; }
+dt { color: var(--soft); font-weight: 600; }
+dd { margin: 0; }
+.foot { margin-top: 28px; color: var(--soft); font-size: 13.5px; }
+.reel main { max-width: none; padding: 12px; } .reel h1, .reel .lead, .reel h2, .reel .foot, .reel .body > :not(h3) { display: none; } .reel .row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; gap: 12px; margin-bottom: 12px; } .reel .body { padding: 6px 12px 8px; } .reel h3 { font-size: 18px; margin: 0; }
+svg text { font-family: "Segoe UI", system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+<h1>Mammal Games: six concepts</h1>
+<p class="lead">Mammals needs two education games and one arcade game. Each has mechanics of its own, not copies of the Insects games. Pick two from the top row and one from the bottom row. The green "Our pick" cards are my recommendation. Each preview plays its game's core loop with the real word pictures.</p>
+
+<h2>Education <small>pick two</small></h2>
+<div class="row">
+
+<article class="card pick">
+<svg class="stage" id="s-checkup" viewBox="0 0 480 300" role="img" aria-label="Preview of Mammal Check-up">
+  <rect width="480" height="300" fill="#dff1ee"/>
+  <rect y="228" width="480" height="72" fill="#b9d9d2"/>
+  <rect x="150" y="212" width="190" height="20" rx="6" fill="#7aa69c"/>
+  <g id="cu-tools">
+    <g class="tool" id="cu-t0"><circle cx="40" cy="58" r="30" fill="#fff" stroke="#7aa69c" stroke-width="3"/><image href="IMG(fur)" x="14" y="32" width="52" height="52"/><text x="40" y="104" text-anchor="middle" font-size="13" font-weight="600" fill="#24453e">Fur?</text></g>
+    <g class="tool" id="cu-t1"><circle cx="40" cy="146" r="30" fill="#fff" stroke="#7aa69c" stroke-width="3"/><image href="IMG(lungs)" x="14" y="120" width="52" height="52"/><text x="40" y="192" text-anchor="middle" font-size="13" font-weight="600" fill="#24453e">Breathes air?</text></g>
+    <g class="tool" id="cu-t2"><circle cx="40" cy="234" r="30" fill="#fff" stroke="#7aa69c" stroke-width="3"/><image href="IMG(milk)" x="14" y="208" width="52" height="52"/><text x="40" y="280" text-anchor="middle" font-size="13" font-weight="600" fill="#24453e">Milk?</text></g>
+  </g>
+  <g id="cu-visitors">
+    <g id="cu-v0"><image href="IMG(whale)" x="170" y="70" width="150" height="150"/><text x="245" y="64" text-anchor="middle" font-size="16" font-weight="700" fill="#24453e">whale</text></g>
+    <g id="cu-v1"><image href="IMG(penguin)" x="180" y="70" width="140" height="150"/><text x="250" y="64" text-anchor="middle" font-size="16" font-weight="700" fill="#24453e">penguin</text></g>
+  </g>
+  <g transform="translate(352,40)">
+    <rect width="114" height="150" rx="10" fill="#fff" stroke="#c9ddd8"/>
+    <text x="57" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#24453e">Check list</text>
+    <text x="10" y="54" font-size="12" fill="#24453e">Fur or hair</text><text id="cu-r0" x="104" y="54" text-anchor="end" font-size="16" font-weight="700"></text>
+    <text x="10" y="86" font-size="12" fill="#24453e">Breathes air</text><text id="cu-r1" x="104" y="86" text-anchor="end" font-size="16" font-weight="700"></text>
+    <text x="10" y="118" font-size="12" fill="#24453e">Feeds milk</text><text id="cu-r2" x="104" y="118" text-anchor="end" font-size="16" font-weight="700"></text>
+  </g>
+  <g id="cu-stamps" font-size="13" font-weight="700">
+    <g id="cu-yes"><rect x="352" y="206" width="114" height="34" rx="17" fill="#2f7d4f"/><text x="409" y="228" text-anchor="middle" fill="#fff">Mammal</text></g>
+    <g id="cu-no"><rect x="352" y="248" width="114" height="34" rx="17" fill="#a34a3a"/><text x="409" y="270" text-anchor="middle" fill="#fff">Not a mammal</text></g>
+  </g>
+  <g id="cu-stamp" opacity="0"><rect x="166" y="120" width="160" height="44" rx="8" fill="none" stroke-width="5"/><text x="246" y="151" text-anchor="middle" font-size="22" font-weight="800"></text></g>
+  <circle id="cu-ptr" cx="0" cy="0" r="11" fill="rgba(255,255,255,.55)" stroke="#1f2a1c" stroke-width="3"/>
+</svg>
+<div class="body"><div class="kind edu">Education</div><h3>Mammal Check-up</h3>
+<p class="pitch">Animals visit the vet. Run the three checks, then stamp the card: mammal or not?</p>
+<dl><dt>You do</dt><dd>Tap a check (fur, breathes air, milk), tap the animal to see the answer, then pick a stamp.</dd>
+<dt>Teaches</dt><dd>What makes a mammal. Whales have a few hairs and breathe air. A platypus lays eggs but still feeds milk.</dd>
+<dt>Levels</dt><dd>Easy: 4 clear visitors, the next check glows. Medium: 6 visitors, one from the sea. Hard: 6 tricky ones (platypus, bat, dolphin, penguin, shark), with no glow.</dd>
+<dt>Stars</dt><dd>By wrong stamps: 3 with none.</dd></dl></div>
+</article>
+
+<article class="card pick">
+<svg class="stage" id="s-homes" viewBox="0 0 480 300" role="img" aria-label="Preview of Home Before Dark">
+  <defs><linearGradient id="hm-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7c27a"/><stop offset="1" stop-color="#e98f5c"/></linearGradient>
+  <linearGradient id="hm-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d2346"/><stop offset="1" stop-color="#4b3a6a"/></linearGradient></defs>
+  <rect width="480" height="300" fill="url(#hm-sky)"/>
+  <rect id="hm-dark" width="480" height="300" fill="url(#hm-night)" opacity="0"/>
+  <g id="hm-stars" fill="#fff" opacity="0"><circle cx="60" cy="30" r="1.6"/><circle cx="140" cy="18" r="1.3"/><circle cx="230" cy="40" r="1.6"/><circle cx="300" cy="16" r="1.2"/><circle cx="350" cy="44" r="1.4"/><circle cx="96" cy="66" r="1.1"/></g>
+  <path d="M0,120 Q120,90 240,112 T480,104 L480,300 L0,300 Z" fill="#6f9a4d" opacity=".85"/>
+  <g fill="none" stroke-linecap="round" stroke-width="13">
+    <path id="hm-p0" d="M48,160 L140,160" stroke="#e8d9a8"/>
+    <path id="hm-pA" d="M140,160 C220,160 300,70 392,70" stroke="#e8d9a8"/>
+    <path id="hm-pJ" d="M140,160 L260,205" stroke="#e8d9a8"/>
+    <path id="hm-pB" d="M260,205 C320,205 330,165 392,165" stroke="#e8d9a8"/>
+    <path id="hm-pC" d="M260,205 C320,205 330,252 392,252" stroke="#e8d9a8"/>
+  </g>
+  <g id="hm-sw0"><circle cx="140" cy="160" r="15" fill="#fff" stroke="#5a4a2a" stroke-width="3"/><path id="hm-a0" d="M132,160 L148,160 M142,154 L148,160 L142,166" stroke="#5a4a2a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="hm-sw1"><circle cx="260" cy="205" r="15" fill="#fff" stroke="#5a4a2a" stroke-width="3"/><path id="hm-a1" d="M252,205 L268,205 M262,199 L268,205 L262,211" stroke="#5a4a2a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g font-size="13" font-weight="700" fill="#fff" text-anchor="middle">
+    <image href="IMG(warren)" x="388" y="30" width="82" height="82"/><text x="429" y="118" stroke="#3a2c14" stroke-width="3" paint-order="stroke">warren</text>
+    <image href="IMG(sett)" x="388" y="126" width="82" height="82"/><text x="429" y="212" stroke="#3a2c14" stroke-width="3" paint-order="stroke">sett</text>
+    <image href="IMG(drey)" x="388" y="214" width="82" height="70"/><text x="429" y="294" stroke="#3a2c14" stroke-width="3" paint-order="stroke">drey</text>
+  </g>
+  <g id="hm-walkers">
+    <g id="hm-w0"><image href="IMG(rabbit)" x="-30" y="-46" width="60" height="60"/><text y="-48" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" stroke="#3a2c14" stroke-width="3" paint-order="stroke">rabbit</text></g>
+    <g id="hm-w1"><image href="IMG(badger)" x="-34" y="-46" width="68" height="60"/><text y="-48" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" stroke="#3a2c14" stroke-width="3" paint-order="stroke">badger</text></g>
+    <g id="hm-w2"><image href="IMG(squirrel)" x="-30" y="-46" width="60" height="60"/><text y="-48" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" stroke="#3a2c14" stroke-width="3" paint-order="stroke">squirrel</text></g>
+  </g>
+  <text id="hm-say" x="240" y="28" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" stroke="#3a2c14" stroke-width="4" paint-order="stroke" opacity="0"></text>
+  <circle id="hm-ptr" cx="0" cy="0" r="11" fill="rgba(255,255,255,.55)" stroke="#1f2a1c" stroke-width="3"/>
+</svg>
+<div class="body"><div class="kind edu">Education</div><h3>Home Before Dark</h3>
+<p class="pitch">Dusk is falling. Flip the switches where paths split, so each animal walks into its own home.</p>
+<dl><dt>You do</dt><dd>Read who is coming, then tap a switch (or Tab to it and press Space) to send them up or down.</dd>
+<dt>Teaches</dt><dd>Home words: warren, sett, drey, holt, lodge, den, roost, nest, tree hollow.</dd>
+<dt>Levels</dt><dd>Easy: 3 homes, one walker at a time. Medium: 5 homes, two walkers. Hard: 7 homes, three walkers and a faster dusk.</dd>
+<dt>Stars</dt><dd>By wrong homes: a lost animal turns back, and that counts as a slip.</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" id="s-nursery" viewBox="0 0 480 300" role="img" aria-label="Preview of Nursery Round-up">
+  <rect width="480" height="300" fill="#cfe6a8"/>
+  <path d="M0,170 Q240,140 480,170 L480,300 L0,300 Z" fill="#a9cf78"/>
+  <g id="nu-mums" font-size="13" font-weight="700" fill="#2c3b1c" text-anchor="middle">
+    <g id="nu-m0"><image href="IMG(kangaroo)" x="30" y="170" width="110" height="110"/><text x="85" y="294">kangaroo</text></g>
+    <g id="nu-m1"><image href="IMG(cow)" x="185" y="178" width="112" height="100"/><text x="241" y="294">cow</text></g>
+    <g id="nu-m2"><image href="IMG(sheep)" x="340" y="178" width="110" height="100"/><text x="395" y="294">sheep</text></g>
+  </g>
+  <g id="nu-babies" font-size="13" font-weight="700" fill="#2c3b1c" text-anchor="middle">
+    <g id="nu-b0"><circle id="nu-r0" cx="0" cy="0" r="38" fill="none" stroke="#fff" stroke-width="4" opacity="0"/><image href="IMG(joey)" x="-30" y="-34" width="60" height="60"/><text y="40">joey</text></g>
+    <g id="nu-b1"><circle id="nu-r1" cx="0" cy="0" r="38" fill="none" stroke="#fff" stroke-width="4" opacity="0"/><image href="IMG(calf)" x="-32" y="-34" width="64" height="60"/><text y="40">calf</text></g>
+    <g id="nu-b2"><circle id="nu-r2" cx="0" cy="0" r="38" fill="none" stroke="#fff" stroke-width="4" opacity="0"/><image href="IMG(lamb)" x="-30" y="-34" width="60" height="60"/><text y="40">lamb</text></g>
+  </g>
+  <text id="nu-say" x="240" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="#2c3b1c" opacity="0"></text>
+  <circle id="nu-ptr" cx="0" cy="0" r="11" fill="rgba(255,255,255,.55)" stroke="#1f2a1c" stroke-width="3"/>
+</svg>
+<div class="body"><div class="kind edu">Education</div><h3>Nursery Round-up</h3>
+<p class="pitch">Babies have wandered off. Tap a baby, then tap its mother, and she calls it home.</p>
+<dl><dt>You do</dt><dd>Tap or drag the baby to its mother. A wrong mother says who she is, and the baby stays to try again.</dd>
+<dt>Teaches</dt><dd>Young names: joey, cub, calf, foal, lamb, kid, piglet, fawn, pup. Mothers feed their babies milk.</dd>
+<dt>Levels</dt><dd>Easy: 3 pairs, with names shown. Medium: 5 pairs. Hard: 6 pairs, and you hear the mother's call instead of reading her name.</dd>
+<dt>Stars</dt><dd>By wrong mothers: 3 with none.</dd></dl></div>
+</article>
+</div>
+
+<h2>Arcade <small>pick one (it becomes the Home banner)</small></h2>
+<div class="row">
+
+<article class="card pick">
+<svg class="stage" id="s-otter" viewBox="0 0 480 300" role="img" aria-label="Preview of Otter Dive">
+  <defs><linearGradient id="ot-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb0c4"/><stop offset="1" stop-color="#1f5b70"/></linearGradient></defs>
+  <rect width="480" height="300" fill="#cfeaf2"/>
+  <path d="M0,40 Q60,28 120,38 T240,36 T360,40 T480,34 L480,62 L0,62 Z" fill="#7cae5a"/>
+  <rect y="70" width="480" height="230" fill="url(#ot-w)"/>
+  <path id="ot-surf" d="M0,70 Q30,64 60,70 T120,70 T180,70 T240,70 T300,70 T360,70 T420,70 T480,70 T540,70 T600,70" stroke="#e8f7fb" stroke-width="3" fill="none"/>
+  <g id="ot-bed" fill="#3c4a3c"><ellipse cx="40" cy="296" rx="44" ry="14"/><ellipse cx="170" cy="300" rx="60" ry="16"/><ellipse cx="310" cy="296" rx="40" ry="12"/><ellipse cx="430" cy="300" rx="60" ry="16"/><ellipse cx="560" cy="298" rx="50" ry="14"/><ellipse cx="690" cy="300" rx="60" ry="16"/></g>
+  <g id="ot-snag" stroke="#5a3d22" stroke-width="7" stroke-linecap="round"><path d="M0,0 L60,40 M24,16 L18,48 M40,27 L66,10"/></g>
+  <g id="ot-fish"><image id="ot-f0" href="IMG(fish)" x="0" y="0" width="54" height="40"/><image id="ot-f1" href="IMG(fish)" x="0" y="0" width="54" height="40"/></g>
+  <g id="ot-bubbles" fill="none" stroke="#e8f7fb" stroke-width="2"><circle cx="0" cy="0" r="4"/><circle cx="8" cy="-10" r="3"/><circle cx="-4" cy="-20" r="2.5"/></g>
+  <g id="ot-o"><image href="IMG(otter)" x="-48" y="-36" width="96" height="72"/></g>
+  <g transform="translate(14,12)"><rect width="140" height="24" rx="12" fill="rgba(255,255,255,.85)"/><text x="10" y="17" font-size="12" font-weight="700" fill="#1f5b70">Air</text><rect x="36" y="7" width="96" height="10" rx="5" fill="#c9dde3"/><rect id="ot-air" x="36" y="7" width="96" height="10" rx="5" fill="#2f9fd0"/></g>
+  <g transform="translate(366,12)"><rect width="100" height="24" rx="12" fill="rgba(255,255,255,.85)"/><text id="ot-score" x="50" y="17" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5b70">Fish 0</text></g>
+  <text id="ot-say" x="240" y="104" text-anchor="middle" font-size="15" font-weight="700" fill="#fff" opacity="0">Up for air!</text>
+</svg>
+<div class="body"><div class="kind arc">Arcade</div><h3>Otter Dive</h3>
+<p class="pitch">Swim down the river and dive for fish. Otters are mammals, so come up for air before your breath runs out.</p>
+<dl><dt>You do</dt><dd>Steer up and down to catch fish and dodge snags and litter. Your air fills again at the surface.</dd>
+<dt>Teaches</dt><dd>swim, dive, breathe, whiskers. In muddy water on Hard, a whisker ring shows nearby fish.</dd>
+<dt>Levels</dt><dd>Easy: slow river, long breath. Medium: faster, with snags. Hard: muddy water, shorter breath, and a fishing line to avoid.</dd>
+<dt>Controls</dt><dd>Arrow keys or W and S, mouse, or touch drag.</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" id="s-dash" viewBox="0 0 480 300" role="img" aria-label="Preview of Burrow Dash">
+  <rect width="480" height="300" fill="#bfe3f2"/>
+  <g id="bd-hills"><path d="M0,200 Q80,150 160,190 T320,180 T480,190 T640,180 T800,190 L800,300 L0,300 Z" fill="#9cc77a"/></g>
+  <rect y="230" width="480" height="70" fill="#7fae55"/>
+  <g id="bd-ground">
+    <ellipse cx="200" cy="240" rx="30" ry="10" fill="#3a2c14"/><ellipse cx="560" cy="240" rx="30" ry="10" fill="#3a2c14"/><ellipse cx="900" cy="240" rx="30" ry="10" fill="#3a2c14"/>
+    <image href="IMG(leaf)" x="330" y="200" width="36" height="36"/><image href="IMG(leaf)" x="430" y="200" width="36" height="36"/><image href="IMG(leaf)" x="700" y="200" width="36" height="36"/><image href="IMG(leaf)" x="800" y="200" width="36" height="36"/>
+  </g>
+  <g id="bd-hawk" opacity="0"><ellipse cx="0" cy="0" rx="90" ry="16" fill="rgba(20,30,20,.28)"/><image href="IMG(eagle)" x="-60" y="-222" width="120" height="90"/></g>
+  <g id="bd-r"><image href="IMG(rabbit)" x="-36" y="-66" width="72" height="72"/></g>
+  <g transform="translate(366,12)"><rect width="100" height="24" rx="12" fill="rgba(255,255,255,.85)"/><text id="bd-score" x="50" y="17" text-anchor="middle" font-size="13" font-weight="700" fill="#3c5a22">Leaves 0</text></g>
+  <text id="bd-say" x="240" y="60" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" stroke="#3a2c14" stroke-width="4" paint-order="stroke" opacity="0">An eagle! Hide!</text>
+</svg>
+<div class="body"><div class="kind arc">Arcade</div><h3>Burrow Dash</h3>
+<p class="pitch">The rabbit hops across the meadow eating leaves. When an eagle's shadow passes, dive into a burrow.</p>
+<dl><dt>You do</dt><dd>Hop over stones, collect leaves, and press Down to hide when the warning comes.</dd>
+<dt>Teaches</dt><dd>predator, prey, hide, burrow, warren, plant-eater.</dd>
+<dt>Levels</dt><dd>Easy: one eagle, long warnings. Medium: an eagle and a fox. Hard: shorter warnings, and the burrows are further apart.</dd>
+<dt>Controls</dt><dd>Space or tap to hop, Down or swipe to hide.</dd></dl></div>
+</article>
+
+<article class="card">
+<svg class="stage" id="s-bat" viewBox="0 0 480 300" role="img" aria-label="Preview of Bat Night Hunt">
+  <rect width="480" height="300" fill="#141a33"/>
+  <circle cx="420" cy="50" r="22" fill="#f4eecb"/>
+  <path d="M0,250 Q120,230 240,252 T480,244 L480,300 L0,300 Z" fill="#0b0f20"/>
+  <g id="bt-hidden" opacity=".08">
+    <g stroke="#6b5a40" stroke-width="7" stroke-linecap="round"><path d="M480,120 L380,150 M420,138 L400,110"/><path d="M0,90 L90,118"/></g>
+    <g id="bt-moths" fill="#d9cba6"><g id="bt-m0"><ellipse cx="-7" cy="0" rx="8" ry="5"/><ellipse cx="7" cy="0" rx="8" ry="5"/></g><g id="bt-m1"><ellipse cx="-7" cy="0" rx="8" ry="5"/><ellipse cx="7" cy="0" rx="8" ry="5"/></g><g id="bt-m2"><ellipse cx="-7" cy="0" rx="8" ry="5"/><ellipse cx="7" cy="0" rx="8" ry="5"/></g></g>
+  </g>
+  <g id="bt-rings" fill="none" stroke="#9fd3ff" stroke-width="3"><circle id="bt-c0" r="10" opacity="0"/><circle id="bt-c1" r="10" opacity="0"/></g>
+  <g id="bt-b"><image href="IMG(bat)" x="-44" y="-34" width="88" height="68"/></g>
+  <g transform="translate(14,12)"><rect width="120" height="24" rx="12" fill="rgba(255,255,255,.12)"/><text id="bt-score" x="60" y="17" text-anchor="middle" font-size="13" font-weight="700" fill="#dbe7ff">Moths 0</text></g>
+</svg>
+<div class="body"><div class="kind arc">Arcade</div><h3>Bat Night Hunt</h3>
+<p class="pitch">It is too dark to see. Send out an echo and catch the moths that show up, before dawn comes.</p>
+<dl><dt>You do</dt><dd>Tap or press Space to echo, then fly to the moths it shows before they fade again.</dd>
+<dt>Teaches</dt><dd>nocturnal, listen, bat, fly. Bats find food by sound.</dd>
+<dt>Levels</dt><dd>Easy: slow moths, long echoes. Medium: branches to avoid. Hard: an owl, and short echoes.</dd>
+<dt>Controls</dt><dd>Arrow keys or W A S D, mouse, or touch drag. Space to echo.</dd></dl><p class="pitch" style="margin-top:8px;font-size:13px;color:#8a5a2a">Risk: it is a flying game, like Insects' Pollinator Flight.</p></div>
+</article>
+</div>
+
+<p class="foot">After your pick: a detailed movement and layout preview of the three games (hardest moments, keyboard and tap paths, phone layout), then the art brief, then the build. Every game gets Easy, Medium and Hard level cards, a How to play popout and a results popout, using the Insects kit.</p>
+</main>
+<script>GSAP_INLINE</script>
+<script>
+gsap.registerPlugin(MotionPathPlugin);
+if (location.search.includes("reel")) document.body.classList.add("reel");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s) => document.querySelector(s);
+const tls = [];
+const loop = (tl) => { tl.repeat(-1); tls.push(tl); return tl; };
+const tap = (tl, ptr, x, y, at) => tl.to(ptr, { attr: { cx: x, cy: y }, duration: 0.55, ease: "power2.inOut" }, at).to(ptr, { attr: { r: 7 }, duration: 0.1, yoyo: true, repeat: 1 });
+const txt = (el, s) => () => { el.textContent = s; };
+
+// 1. Mammal Check-up
+(() => {
+  const p = $("#cu-ptr"), v0 = $("#cu-v0"), v1 = $("#cu-v1"), st = $("#cu-stamp"), rows = [0, 1, 2].map((i) => $(`#cu-r${i}`));
+  const stRect = st.querySelector("rect"), stText = st.querySelector("text");
+  const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+  tl.set(p, { attr: { cx: 240, cy: 290 } }).set([v0, v1], { x: 330, opacity: 0 }).set(st, { opacity: 0 }).call(() => rows.forEach((r) => (r.textContent = "")));
+  const visit = (v, ans, mammal) => {
+    tl.to(v, { x: 0, opacity: 1, duration: 0.8 });
+    ans.forEach(([mark, col], i) => {
+      tap(tl, p, 40, 58 + i * 88);
+      tl.to(`#cu-t${i} circle`, { attr: { stroke: "#2f7d4f" }, duration: 0.15 }, "<");
+      tap(tl, p, 245, 150);
+      tl.call(() => { rows[i].textContent = mark; rows[i].setAttribute("fill", col); }).to(`#cu-t${i} circle`, { attr: { stroke: "#7aa69c" }, duration: 0.2 }).to({}, { duration: 0.25 });
+    });
+    tap(tl, p, 409, mammal ? 223 : 265);
+    tl.call(() => { const c = mammal ? "#2f7d4f" : "#a34a3a"; stRect.setAttribute("stroke", c); stText.setAttribute("fill", c); stText.textContent = mammal ? "MAMMAL" : "NOT A MAMMAL"; })
+      .fromTo(st, { opacity: 0, scale: 1.6, svgOrigin: "246 142" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" })
+      .to({}, { duration: 1 })
+      .to([v, st], { x: -330, opacity: 0, duration: 0.6, ease: "power2.in" })
+      .set(st, { x: 0 }).call(() => rows.forEach((r) => (r.textContent = "")));
+  };
+  visit(v0, [["✓", "#2f7d4f"], ["✓", "#2f7d4f"], ["✓", "#2f7d4f"]], true);
+  visit(v1, [["✗", "#a34a3a"], ["✓", "#2f7d4f"], ["✗", "#a34a3a"]], false);
+  loop(tl);
+})();
+
+// 2. Home Before Dark
+(() => {
+  const p = $("#hm-ptr"), say = $("#hm-say"), w = [0, 1, 2].map((i) => $(`#hm-w${i}`));
+  const lit = "#fff4c8", dim = "#cdb98a";
+  const routes = ["M48,160 L140,160 C220,160 300,70 392,70", "M48,160 L140,160 L260,205 C320,205 330,165 392,165", "M48,160 L140,160 L260,205 C320,205 330,252 392,252"];
+  const sw = (n, up) => { const a = n ? $("#hm-a1") : $("#hm-a0"); gsap.to(a, { rotation: up ? -35 : 25, svgOrigin: n ? "260 205" : "140 160", duration: 0.25 }); };
+  const show = (r) => {
+    const on = { 0: ["p0", "pA"], 1: ["p0", "pJ", "pB"], 2: ["p0", "pJ", "pC"] }[r];
+    ["p0", "pA", "pJ", "pB", "pC"].forEach((id) => gsap.to(`#hm-${id}`, { attr: { stroke: on.includes(id) ? lit : dim }, duration: 0.25 }));
+  };
+  const homes = ["warren", "sett", "drey"];
+  const tl = gsap.timeline();
+  tl.set(w, { x: 48, y: 160, opacity: 0, scale: 1 }).set(p, { attr: { cx: 240, cy: 300 } }).set("#hm-dark", { opacity: 0 }).set("#hm-stars", { opacity: 0 }).set(say, { opacity: 0 });
+  [0, 1, 2].forEach((i) => {
+    tl.to(w[i], { opacity: 1, duration: 0.4 });
+    tl.call(txt(say, `Here comes a ${["rabbit", "badger", "squirrel"][i]}`)).to(say, { opacity: 1, duration: 0.3 }, "<");
+    tap(tl, p, 140, 160);
+    tl.call(() => { sw(0, i === 0); show(i); });
+    if (i > 0) { tap(tl, p, 260, 205); tl.call(() => { sw(1, i === 1); show(i); }); }
+    tl.to(p, { attr: { cy: 320 }, duration: 0.4 })
+      .to(w[i], { motionPath: { path: routes[i] }, duration: 2.2, ease: "none" })
+      .call(txt(say, `Home in its ${homes[i]}!`))
+      .to(w[i], { scale: 0.3, opacity: 0, duration: 0.4 })
+      .to("#hm-dark", { opacity: (i + 1) / 3 * 0.85, duration: 0.6 }, "<")
+      .to("#hm-stars", { opacity: i === 2 ? 1 : 0.3 * i, duration: 0.6 }, "<")
+      .to({}, { duration: 0.5 });
+  });
+  tl.to(say, { opacity: 0, duration: 0.3 }).to({}, { duration: 0.6 });
+  loop(tl);
+})();
+
+// 3. Nursery Round-up
+(() => {
+  const p = $("#nu-ptr"), say = $("#nu-say"), b = [0, 1, 2].map((i) => $(`#nu-b${i}`));
+  const start = [[110, 90], [250, 100], [380, 84]];
+  const mum = [[95, 214], [255, 214], [398, 214]];
+  const tl = gsap.timeline();
+  tl.set(p, { attr: { cx: 240, cy: 300 } }).set(say, { opacity: 0 });
+  b.forEach((g, i) => tl.set(g, { x: start[i][0], y: start[i][1], opacity: 1, scale: 1 }));
+  b.forEach((g, i) => gsap.to(g.querySelector("image"), { y: -5, duration: 0.6 + i * 0.13, yoyo: true, repeat: -1, ease: "sine.inOut" }));
+  const pair = (i, m, wrong) => {
+    tap(tl, p, start[i][0], start[i][1]);
+    tl.to(`#nu-r${i}`, { opacity: 1, duration: 0.2 });
+    if (wrong !== undefined) {
+      tap(tl, p, mum[wrong][0], mum[wrong][1]);
+      tl.call(txt(say, "I'm a sheep. A calf's mother is a cow.")).to(say, { opacity: 1, duration: 0.2 })
+        .to(`#nu-m${wrong}`, { x: 4, duration: 0.06, yoyo: true, repeat: 5 }).to({}, { duration: 0.9 });
+    }
+    tap(tl, p, mum[m][0], mum[m][1]);
+    tl.to(`#nu-r${i}`, { opacity: 0, duration: 0.2 })
+      .to(b[i], { motionPath: { path: [{ x: start[i][0], y: start[i][1] }, { x: (start[i][0] + mum[m][0]) / 2, y: 40 }, { x: mum[m][0] + 34, y: 190 }], curviness: 1.2 }, duration: 0.9, ease: "power1.inOut" }, "<")
+      .call(txt(say, ["A joey goes in its mother's pouch.", "A calf drinks its mother's milk.", "A lamb finds its mother."][i])).to(say, { opacity: 1, duration: 0.2 })
+      .to(b[i], { scale: i === 0 ? 0.4 : 0.8, duration: 0.3 }).to({}, { duration: 1 }).to(say, { opacity: 0, duration: 0.2 });
+  };
+  pair(2, 2);
+  pair(1, 1, 2);
+  pair(0, 0);
+  tl.to(b, { opacity: 0, duration: 0.4 }).to({}, { duration: 0.4 });
+  loop(tl);
+})();
+
+// 4. Otter Dive
+(() => {
+  const o = $("#ot-o"), f = [$("#ot-f0"), $("#ot-f1")], air = $("#ot-air"), score = $("#ot-score"), say = $("#ot-say");
+  gsap.to("#ot-bed", { x: -260, duration: 6, ease: "none", repeat: -1 });
+  gsap.to("#ot-surf", { x: -120, duration: 3, ease: "none", repeat: -1 });
+  const tl = gsap.timeline();
+  let n = 0;
+  tl.call(() => { n = 0; score.textContent = "Fish 0"; }).set(o, { x: 120, y: 76, rotation: 0 }).set(air, { attr: { width: 96 } })
+    .set(f[0], { x: 520, y: 210 }).set(f[1], { x: 720, y: 150 }).set("#ot-snag", { x: 620, y: 240 }).set("#ot-bubbles", { opacity: 0 })
+    .to(f[0], { x: -80, duration: 5, ease: "none" }, 0).to(f[1], { x: -80, duration: 7, ease: "none" }, 0).to("#ot-snag", { x: -100, duration: 6.5, ease: "none" }, 0)
+    .to(o, { y: 222, rotation: 18, duration: 1.4, ease: "sine.inOut" }, 0.3)
+    .to(air, { attr: { width: 30 }, duration: 3.6, ease: "none" }, 0.4)
+    .to(o, { rotation: 0, duration: 0.3 }, 1.7)
+    .call(() => { score.textContent = "Fish 1"; gsap.set(f[0], { opacity: 0 }); }, null, 2.1)
+    .to(o, { y: 150, rotation: -14, duration: 0.9, ease: "sine.inOut" }, 2.3)
+    .call(() => { score.textContent = "Fish 2"; gsap.set(f[1], { opacity: 0 }); }, null, 3.4)
+    .to(say, { opacity: 1, duration: 0.2 }, 3.4)
+    .to(o, { y: 74, rotation: -20, duration: 0.8, ease: "power2.out" }, 3.6)
+    .to(o, { rotation: 0, duration: 0.3 }, 4.4)
+    .set("#ot-bubbles", { x: 150, y: 70, opacity: 1 }, 4.4)
+    .to("#ot-bubbles", { y: 30, opacity: 0, duration: 0.8 }, 4.4)
+    .to(air, { attr: { width: 96 }, duration: 0.6 }, 4.4)
+    .to(say, { opacity: 0, duration: 0.3 }, 4.6)
+    .to(o, { y: 82, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut" }, 4.7)
+    .set(f, { opacity: 1 }, 6.9).to({}, { duration: 0.1 }, 6.9);
+  loop(tl);
+})();
+
+// 5. Burrow Dash
+(() => {
+  const r = $("#bd-r"), score = $("#bd-score"), say = $("#bd-say");
+  const tl = gsap.timeline();
+  let n = 0;
+  tl.call(() => { n = 0; score.textContent = "Leaves 0"; }).set(r, { x: 110, y: 236, scale: 1, opacity: 1 }).set("#bd-ground", { x: 0 }).set("#bd-hills", { x: 0 }).set("#bd-hawk", { x: 560, y: 250, opacity: 0 }).set(say, { opacity: 0 })
+    .to("#bd-ground", { x: -470, duration: 6, ease: "none" }, 0)
+    .to("#bd-hills", { x: -160, duration: 6, ease: "none" }, 0);
+  [0.3, 1.2, 2.1].forEach((t, i) => {
+    tl.to(r, { y: 186, duration: 0.3, ease: "power2.out" }, t).to(r, { y: 236, duration: 0.3, ease: "power2.in" }, t + 0.3);
+    if (i < 2) tl.call(() => { score.textContent = `Leaves ${i + 1}`; }, null, t + 0.45);
+  });
+  tl.to(say, { opacity: 1, duration: 0.2 }, 2.9)
+    .to("#bd-hawk", { opacity: 1, duration: 0.3 }, 2.9)
+    .to("#bd-hawk", { x: -120, duration: 2.6, ease: "none" }, 2.9)
+    .to(r, { y: 254, scale: 0.2, opacity: 0, duration: 0.35, ease: "power2.in" }, 3.3)
+    .to(say, { opacity: 0, duration: 0.2 }, 4.6)
+    .to(r, { y: 236, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 5.0)
+    .call(() => { score.textContent = "Leaves 3"; }, null, 5.6)
+    .to({}, { duration: 0.6 }, 5.6);
+  loop(tl);
+})();
+
+// 6. Bat Night Hunt
+(() => {
+  const b = $("#bt-b"), score = $("#bt-score"), m = [0, 1, 2].map((i) => $(`#bt-m${i}`));
+  const at = [[300, 120], [200, 200], [380, 220]];
+  m.forEach((g, i) => gsap.to(g, { rotation: 20, svgOrigin: `${at[i][0]} ${at[i][1]}`, duration: 0.12, yoyo: true, repeat: -1 }));
+  const tl = gsap.timeline();
+  let n = 0;
+  tl.call(() => { n = 0; score.textContent = "Moths 0"; }).set(b, { x: 80, y: 150 }).set("#bt-hidden", { opacity: 0.08 });
+  m.forEach((g, i) => tl.set(g, { x: at[i][0], y: at[i][1], opacity: 1 }));
+  const echo = (x, y) => {
+    tl.set(["#bt-c0", "#bt-c1"], { attr: { cx: x, cy: y, r: 10 }, opacity: 1 })
+      .to("#bt-c0", { attr: { r: 260 }, opacity: 0, duration: 1.1, ease: "power1.out" })
+      .to("#bt-c1", { attr: { r: 200 }, opacity: 0, duration: 1.1, ease: "power1.out" }, "<0.18")
+      .to("#bt-hidden", { opacity: 1, duration: 0.3 }, "<")
+      .to("#bt-hidden", { opacity: 0.08, duration: 1.4 }, ">0.2");
+  };
+  const catchMoth = (i) => {
+    tl.to(b, { x: at[i][0], y: at[i][1], duration: 0.9, ease: "sine.inOut" }, "<-1.2")
+      .set(m[i], { opacity: 0 }).call(() => { score.textContent = `Moths ${i + 1}`; });
+  };
+  echo(80, 150); catchMoth(0);
+  echo(300, 120); catchMoth(1);
+  echo(200, 200); catchMoth(2);
+  tl.to(b, { x: 80, y: 150, duration: 1, ease: "sine.inOut" }).to({}, { duration: 0.4 });
+  gsap.to(b.querySelector("image"), { y: -6, duration: 0.3, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  loop(tl);
+})();
+
+// Reduced motion: hold each preview on a still mid-frame. Off-screen previews pause.
+if (reduce) { gsap.globalTimeline.pause(); tls.forEach((t) => t.progress(0.45)); }
+else {
+  const io = new IntersectionObserver((es) => es.forEach((e) => { const i = [...document.querySelectorAll(".stage")].indexOf(e.target); if (tls[i]) e.isIntersecting ? tls[i].play() : tls[i].pause(); }));
+  document.querySelectorAll(".stage").forEach((s) => io.observe(s));
+  document.addEventListener("visibilitychange", () => (document.hidden ? gsap.globalTimeline.pause() : gsap.globalTimeline.resume()));
+}
+</script>
+</body>
+</html>
