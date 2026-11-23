@@ -1,10 +1,15 @@
-# Continue here — 23 November 2026 (late evening)
+# Continue here — 23 November 2026 (night)
 
 Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. Deadline about **30 November 2026**.
 
 ## Where it stands
 
-- **main = origin/main** after tonight's landing push. Nothing waits locally.
+- **Topic Games, all six being built** (owner, 23 Nov: "yes go ahead with all six"). Education: Mammal Check-up, Home Before Dark, Nursery Round-up. Arcade: Otter Dive (the Home banner), Burrow Dash, Bat Night Hunt. Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game.
+  - Done and play-tested headless: **Check-up** and **Bat Night Hunt**. Home Before Dark, Nursery, Otter and Dash were built by two agents and still need review and a play-test.
+  - Bat Hard: a careful bot loses all three lives in about half its nights. Flag it to the owner with the clips.
+  - **Not pushed. Nothing goes to main on GitHub before the owner approves.** The order is: the playable game with word pictures as the preview, then clips (Easy, Medium and Hard at desktop size, plus phone) to the owner, then painted art, a second approval, then the push.
+  - Play-test tool (scratchpad, copy it into tools/test if kept): play-arcade.mjs rewrites main.js in flight to expose window.__game, so the game's own botInput drives the real screen.
+- **origin/main** has tonight's landing push.
 - **Live:** the next 6-hourly Ludimi auto-release carries tonight's landing. Don't hand-deploy.
 - **Word art:** all 268 words have pictures; nothing waits.
 - **Checks tonight:** npm test 27 pass / 1 skipped (narration), check, build, browser 26/26, homeward PASS, layout clean.
@@ -22,7 +27,11 @@ What it is now:
 - docs/landing-art previews (preview-stacked, preview-phone, holes.png) are out of date: they still show the leaf pile and the old mouse spot.
 
 ## Next
-Continue the build order below from item 2, Topic Games.
+Finish item 2, Topic Games:
+1. Review and play-test the four agent-built games.
+2. Record clips and send them to the owner.
+3. After approval, paint the art (a new Art session; the old one is closed) and get a second approval.
+4. Then push.
 
 ---
 
@@ -53,7 +62,7 @@ Continue the build order below from item 2, Topic Games.
 ## What's left (build order from docs/UPGRADE-PLAN.md section 6)
 
 1. **Landing: parked** (see the top). Working, but the owner wants it redone once the rest of the app is finished.
-2. **Topic Games:** three concepts from moving previews, then build them. This is the biggest job; they are placeholders now. Point the Home banner at the first real game.
+2. **Topic Games:** six games, in progress (see the top). The Home banner is Otter Dive.
 3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
 4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.
 5. **Menu tiles:** 4 more to reach 17, plus a Picture Pick container (for example a burrow or a field bag).
@@ -63,7 +72,7 @@ Continue the build order below from item 2, Topic Games.
 9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
 10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
 
-**Owner decisions pending:** the Kokoro voice and the three Topic Game concepts. The landing comes back last.
+**Owner decisions pending:** the Kokoro voice, and approval of the six Topic Games from the clips. The landing comes back last.
 
 ---
 # Current release — mammals-only topic, 6 October 2026

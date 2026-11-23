@@ -1,1 +1,67 @@
-/* bat: every selector starts with .ig-card--bat. */
+/* Bat Night Hunt: every selector starts with .ig-card--bat. The wood is a canvas; the points, lives,
+   night left and the Echo button sit above it (phone rule: controls above the playfield). */
+.ig-card--bat .bat-play { gap: 8px; }
+.ig-card--bat .bat-bar { flex: none; display: flex; align-items: center; gap: 8px 12px; padding: 8px 10px; background: #eef0fb; border: 1px solid #c2c6e6; border-radius: 20px; }
+.ig-card--bat .bat-hud { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ig-card--bat .bat-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 14px; border-radius: 999px; background: #fff; box-shadow: 0 2px 0 rgba(36, 40, 90, .14); font-size: 17px; font-weight: 900; color: #252a5c; white-space: nowrap; }
+.ig-card--bat .bat-points b { font-size: 22px; min-width: 2ch; text-align: right; }
+.ig-card--bat .bat-streak { background: #fff1a8; color: #6b5200; }
+.ig-card--bat .bat-streak[hidden] { display: none; }
+.ig-card--bat .bat-lives { gap: 5px; }
+.ig-card--bat .bat-lives i { width: 20px; height: 18px; background: #e2412f; clip-path: path("M10 18 L1.6 9.4 A4.9 4.9 0 0 1 10 3.4 A4.9 4.9 0 0 1 18.4 9.4 Z"); }
+.ig-card--bat .bat-lives i.is-lost { background: #d0d3e2; }
+.ig-card--bat .bat-meter { flex: 1 1 170px; min-width: 0; max-width: 300px; }
+.ig-card--bat .bat-meter__label { flex: none; font-size: 16px; }
+.ig-card--bat .bat-meter__bar { flex: 1; min-width: 60px; height: 14px; border-radius: 999px; background: #d9dcef; overflow: hidden; }
+.ig-card--bat .bat-meter__bar i { display: block; height: 100%; border-radius: inherit; transform-origin: 0 50%; background: linear-gradient(90deg, #3b4aa0, #7d8de0); }
+.ig-card--bat .bat-time.is-low i { background: linear-gradient(90deg, #e08a3c, #f6c56a); }
+
+/* The Echo button refills round its edge while the echo comes back (#app matches the shared button
+   rule's weight). It shows once the night has started; Start comes first. */
+#app .ig-card--bat .bat-echo { --cool: 0; position: relative; isolation: isolate; flex: none; min-width: 120px; overflow: hidden; background: #2f3c8f; border-color: #1b2560; box-shadow: 0 4px 0 #1b2560; color: #fff; }
+#app .ig-card--bat .bat-echo.is-cooling { background: #6a73ad; }
+.ig-card--bat .bat-echo__ring { position: absolute; inset: 0; z-index: -1; background: conic-gradient(from 0deg, rgba(20, 28, 80, .55) calc(var(--cool) * 360deg), transparent 0); }
+#app .ig-card--bat .bat-play:not(.is-flying) .bat-echo { display: none; }
+.ig-card--bat .bat-start { flex: none; min-width: 120px; }
+
+.ig-card--bat .bat-stage { background: #0a1230; border-color: #fff; }
+.ig-card--bat .bat-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; touch-action: none; }
+.ig-card--bat .bat-canvas:focus-visible { outline: 4px solid #ffcf4a; outline-offset: -4px; }
+.ig-card--bat .bat-toasts { position: absolute; inset: 0; z-index: 6; pointer-events: none; overflow: hidden; }
+.ig-card--bat .bat-toast {
+  position: absolute; transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  font-size: 17px; font-weight: 1000; background: #fffdf2; color: #252a5c; box-shadow: 0 3px 8px rgba(0, 0, 20, .35);
+}
+.ig-card--bat .bat-toast--good { background: #f3d35a; color: #3d2f00; }
+.ig-card--bat .bat-toast--bad { background: #b8321f; color: #fff; }
+
+.ig-card--bat .bat-intro-wrap { position: absolute; inset: 0; z-index: 8; display: grid; place-items: center; padding: 12px; pointer-events: none; }
+.ig-card--bat .bat-intro {
+  width: min(500px, 100%); max-height: 100%; overflow: auto; padding: 16px 22px 18px; text-align: center; pointer-events: auto;
+  background: rgba(250, 250, 255, .96); border: 2px solid #8f97d6; border-radius: 22px; box-shadow: 0 16px 50px rgba(0, 0, 20, .45);
+}
+.ig-card--bat .bat-intro__art { width: 160px; height: 90px; object-fit: cover; object-position: 50% 50%; }
+.ig-card--bat .bat-intro h2 { margin: 0 0 6px; font-size: 26px; font-weight: 900; color: #252a5c; }
+.ig-card--bat .bat-intro p { margin: 6px 0; font-size: 16px; line-height: 1.45; color: #3a3f6c; }
+.ig-card--bat .bat-intro__how { font-weight: 800; }
+
+@media (max-width: 900px) {
+  .ig-card--bat .bat-meter { flex: 1 1 40%; max-width: none; }
+}
+/* Phones: points, lives and Echo on top, the night meter under them, all above the wood. */
+@media (max-width: 500px) {
+  .ig-card--bat .bat-bar { flex-wrap: wrap; padding: 6px 8px; border-radius: 16px; gap: 6px; }
+  .ig-card--bat .bat-hud { gap: 6px; }
+  .ig-card--bat .bat-chip { min-height: 36px; padding: 3px 10px; font-size: 16px; gap: 6px; }
+  .ig-card--bat .bat-points b { font-size: 18px; }
+  .ig-card--bat .bat-meter { flex: 1 1 40%; }
+  .ig-card--bat .bat-meter__bar { min-width: 40px; height: 12px; }
+  .ig-card--bat .bat-meter__label { font-size: 14px; }
+  #app .ig-card--bat .bat-echo, .ig-card--bat .bat-start { min-width: 0; padding: 8px 16px; }
+  .ig-card--bat .bat-intro { padding: 12px 14px; }
+  .ig-card--bat .bat-intro__art { width: 120px; height: 68px; }
+  .ig-card--bat .bat-intro h2 { font-size: 21px; }
+  .ig-card--bat .bat-toast { font-size: 16px; }
+}
+/* The shared feedback line is not used here: give its room to the wood. */
+.ig-card--bat.is-playing #feedback:empty { display: none; }
