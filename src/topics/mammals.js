@@ -151,7 +151,8 @@ export const topic = {
   // Home menu (blueprint v6.1): featured game banner, then eight tiles; Activities is a folder.
   menu: {
     title: "Choose a game",
-    featured: { target: "games", title: "Mammal Games", subtitle: "Three new mammal games are on the way.", image: word("elephant"), imageAlt: "An elephant" },
+    // The arcade game is the Home banner (blueprint v7.0): Otter Dive, chosen 23 November 2026.
+    featured: { target: "otter", title: "Otter Dive", subtitle: "Dive for fish, and come up for air in time.", image: word("otter"), imageAlt: "An otter" },
     tiles: [
       { id: "learn", label: "Meet the Words", image: menuArt("learn") },
       { id: "activities", label: "Activities", image: menuArt("sort") },

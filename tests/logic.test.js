@@ -263,9 +263,12 @@ test("Media: every listed printable exists at its listed size, and the deck's pi
   assert.equal(new Set(deck.slides.map((s) => s.id)).size, deck.slides.length, "slide ids are unique");
 });
 
-test("Mammal Games: three honest placeholders (two education, one arcade) until the games are built", async () => {
+test("Mammal Games: six games, three education then three arcade, each with rules; Otter Dive is the Home banner", async () => {
   const { TOPIC_GAMES } = await import("../src/topics/topic-games.js");
-  assert.deepEqual(TOPIC_GAMES.map((g) => g.kind), ["Education", "Education", "Arcade"]);
+  const { GAME_RULES } = await import("../src/topics/topic-games-rules.js");
+  assert.deepEqual(TOPIC_GAMES.map((g) => g.kind), ["Education", "Education", "Education", "Arcade", "Arcade", "Arcade"]);
+  for (const g of TOPIC_GAMES) assert.ok(GAME_RULES[g.id]?.length, `${g.id}: no How to play`);
+  assert.equal(topic.menu.featured.target, "otter");
   const ids = new Set(topic.items.map((x) => x.id));
   for (const g of TOPIC_GAMES) assert.ok(ids.has(g.image), `${g.id}: picture ${g.image} is not a word`);
 });

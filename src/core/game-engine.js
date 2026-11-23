@@ -27,6 +27,13 @@ import { PhonicsView, PHONICS_SECTIONS } from "./phonics-view.js";
 import { MediaView } from "./media-view.js";
 import { TOPIC_GAMES } from "../topics/topic-games.js";
 import { PlaceholderGameView } from "./placeholder-game-view.js";
+import { View as CheckupView } from "./games/checkup-view.js";
+import { View as HomesView } from "./games/homes-view.js";
+import { View as NurseryView } from "./games/nursery-view.js";
+import { View as OtterView } from "./games/otter-view.js";
+import { View as DashView } from "./games/dash-view.js";
+import { View as BatView } from "./games/bat-view.js";
+const GAME_VIEWS = { checkup: CheckupView, homes: HomesView, nursery: NurseryView, otter: OtterView, dash: DashView, bat: BatView };
 import { painted, SCENES, LANDING_SPOTS, spotsReady } from "../topics/painted-art.js";
 import { mountScene } from "./layered-scene.js";
 import { installPictureZoom, zoomButton } from "./picture-zoom.js";
@@ -462,7 +469,7 @@ export class GameEngine {
     this.app.innerHTML = `<div class="game-toolbar">${button("Games", "back", "back-button", 'data-icon="previous"')}<div class="toolbar-progress"><span class="round-pill"></span></div></div><section class="game-card chooser-card"><div class="card-heading"><h1>${esc(title)}</h1></div><div class="choice-cards">${cards.map(card).join("")}</div></section>`;
     drawIcons(this.app);
   }
-  // Mammal Games: the folder of three topic games, or one game. Each game's view runs its own
+  // Mammal Games: the folder of six topic games (two rows of three), or one game. Each game's view runs its own
   // level picker, play and results; Back steps out through them, then to this folder.
   games(id = null, focusId = null) {
     this.returnUnplayed();
@@ -480,7 +487,7 @@ export class GameEngine {
     this.state = { screen: "game", mode: "games", game: id, stage: "setup", score: 0 };
     this.shell(g.title, "", '<div class="ig-root"></div>', 0, 0, { setup: true, label: g.kind, listen: false });
     this.app.querySelector(".game-card").classList.add("ig-card", `ig-card--${id}`);
-    const View = g.pending ? PlaceholderGameView : { }[id];
+    const View = GAME_VIEWS[id] || PlaceholderGameView;
     this.view = new View(this, this.app.querySelector(".ig-root"), g);
     this.focus();
   }

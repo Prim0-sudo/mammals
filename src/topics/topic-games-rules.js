@@ -1,6 +1,11 @@
-// Full rules for the three Mammal Games, shown from the "How to play" button on each game's level
-// page. Keep it in step with the games: level counts come from the level tables, not from copied
-// numbers. The games are not designed yet (21 November 2026), so each says so honestly.
-const soon = [{ title: "Coming soon", items: ["This game is being made. Its rules will appear here when it is ready.", "Until then, try the six games in Activities."] }];
+// Full rules for the six Mammal Games, shown from the "How to play" button on each game's level
+// page. Each game keeps its rules next to its data (src/topics/games/<id>-rules.js), with level
+// numbers taken from that game's SETTINGS table.
+import { RULES as checkup } from "./games/checkup-rules.js";
+import { RULES as homes } from "./games/homes-rules.js";
+import { RULES as nursery } from "./games/nursery-rules.js";
+import { RULES as otter } from "./games/otter-rules.js";
+import { RULES as dash } from "./games/dash-rules.js";
+import { RULES as bat } from "./games/bat-rules.js";
 
-export const GAME_RULES = { "edu-1": soon, "edu-2": soon, arcade: soon };
+export const GAME_RULES = { checkup, homes, nursery, otter, dash, bat };

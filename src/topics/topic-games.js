@@ -1,12 +1,15 @@
-// Mammal Games: the three topic games' data and pure rules, kept apart from the screens so tests can
-// check them (the Insects pattern: two education games and one arcade game). Not designed yet
-// (21 November 2026): the folder shows three placeholder cards whose level pages say the game is
-// being made. Their names, mechanics and art come after the art style and vocabulary are agreed.
+// Mammal Games: the six topic games, three education and three arcade (owner, 23 November 2026:
+// "build them all"). Each game keeps its data and pure rules in src/topics/games/<id>.js and its
+// screen in src/core/games/<id>-view.js; the design is docs/topic-games-concepts/DESIGN.md.
+// A game whose view file still re-exports PlaceholderGameView shows its honest "being made" page.
 
 export const TOPIC_GAMES = [
-  { id: "edu-1", title: "Education game 1", kind: "Education", line: "A Mammals education game is being made for this space.", image: "elephant", pending: true },
-  { id: "edu-2", title: "Education game 2", kind: "Education", line: "A second Mammals education game is being made for this space.", image: "kangaroo", pending: true },
-  { id: "arcade", title: "Arcade game", kind: "Arcade", line: "A Mammals arcade game is being made for this space.", image: "cheetah", pending: true },
+  { id: "checkup", title: "Mammal Check-up", kind: "Education", line: "Run the vet checks. Is this visitor a mammal?", image: "whale" },
+  { id: "homes", title: "Home Before Dark", kind: "Education", line: "Flip the path switches so every animal gets home.", image: "warren" },
+  { id: "nursery", title: "Nursery Round-up", kind: "Education", line: "Help each baby find its mother.", image: "joey" },
+  { id: "otter", title: "Otter Dive", kind: "Arcade", line: "Dive for fish, and come up for air in time.", image: "otter" },
+  { id: "dash", title: "Burrow Dash", kind: "Arcade", line: "Hop, eat, and hide from the eagle.", image: "rabbit" },
+  { id: "bat", title: "Bat Night Hunt", kind: "Arcade", line: "Echo in the dark to find the moths.", image: "bat" },
 ];
 
 export const LEVELS = [
