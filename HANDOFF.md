@@ -1,22 +1,28 @@
-# Continue here — 23 November 2026 (start of day)
+# Continue here — 23 November 2026 (evening, at home)
 
-Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. The deadline is about **30 November 2026**. Everything below this section is history from October.
+Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. Deadline about **30 November 2026**.
 
 ## Where it stands
 
-- **main = origin/main.** The last game change is `b610e72` (22 November). Nothing is waiting locally.
-- **Words: all 268 in the approved vocabulary plan (docs/VOCABULARY-PLAN.md) have studio-photo pictures; none wait.**
-  - Groups: Mammals 82, Bodies 32, Mothers & Young 18, Food 19, Homes 15, On the Move 20, Senses & Survival 15, Habitats & Seasons 23, Other Animals 32, Animal Watching 12.
-  - 134 Knowledge & Safety questions, 13 of them safety. 297 WebP twins.
-- **Families:** 15, all with 5 or more words except the catch-all "Other sea animals" (3). The data also has 41 "kind of" links, 125 look-alike pairs and 109 SHOWS entries.
-  - Look-alikes were read off the final pictures, batch by batch. When a picture is redrawn, check its row in src/topics/look-alikes.js again.
-- **Art:** the Art session (named "Art") makes all art, across apps, through Codex. Delivery folders are docs/word-art-redo/2026-11-22-new/batch-5 … batch-9 and fixes-1, each with its briefs.
-  - Art is finished for Mammals word pictures.
-  - Codex flagged 8 earlier pictures for small details (gentle, notebook, wash-hands, field-guide, nest, lodge, hutch, barn). Judged minor and left as they are.
-- **Checks at `b610e72`:**
-  - `npm test`: 27 pass, 1 skipped; the narration test waits for the voice.
-  - `npm run check` and `npm run build` pass.
-  - The browser suites pass: tests/browser.html 26/26, tests/homeward.html 8/8, and tests/layout.html with no overflow.
+- **main = origin/main at `78d1f7b` plus this note.** Nothing waits locally. Pull and go.
+- **Live:** the 07:01 UTC release on 23 November (started by hand, Protocol Renew) moved mammals 3f46b09 -> 78d1f7b. ludimi.org/mammals shows the Burrow Bank landing: six parallax layers, four peeking animals (rabbit, fox, badger, mouse). Hedgehog is switched off in src/topics/painted-art.js (commented out).
+- **Word art:** all 268 words have pictures; nothing waits.
+- **Checks at 670ace8:** npm test 27 pass / 1 skipped (narration), check and build pass. Browser suites not rerun today (once-a-day rule) — run them before the next big push.
+
+## First job tonight: redo the middle of the landing
+
+Owner on the live landing: "the middle is a heavy miss, especially the hedgehog".
+1. Look at the middle at 1920x1080 and 1024x768 first (the middle layer, the leaf pile around x1589–2134 / top y1630 in layer pixels, and how it meets the bank). Decide with the owner what is wrong before painting: likely the leaf pile and the empty middle ground read as flat or out of place.
+2. Write a FIX-4 brief in docs/landing-art/2026-11-23-layers/ (same rules as FIX-1..3: change only the named layer, clean alpha, redo previews) and run Codex (codex exec, background, one job at a time; path in the codex-cli memory).
+3. Repaint the hedgehog peek so it sits behind and inside the leaf pile (the leaves in front must cover its lower body; a front leaf strip on the foreground plane may be needed rather than the fade). Then uncomment its LANDING_PEEKS entry and re-measure x/edge/width on the new pile.
+4. Convert to WebP (quality 85, peeks at 320 px), check in the preview (launch.json entry "mammals", port 4187; if the pane is hidden, step gsap.updateRoot by hand), commit, push to main, renew.
+
+Still open on the landing: the painted Explore emblem (the rabbit badge stays for now).
+
+## Then
+Continue the build order below from item 2, Topic Games.
+
+---
 
 ## Live
 
