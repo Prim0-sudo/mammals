@@ -1,1 +1,71 @@
-/* otter: every selector starts with .ig-card--otter. */
+/* Otter Dive: every selector starts with .ig-card--otter. The river is a canvas; the points, lives,
+   air and time sit above it with the Start button (phone rule: controls above the playfield). */
+.ig-card--otter .otter-play { gap: 8px; }
+.ig-card--otter .otter-bar { flex: none; display: flex; align-items: center; gap: 8px 12px; padding: 8px 10px; background: #f2fafb; border: 1px solid #b9d7dc; border-radius: 20px; }
+.ig-card--otter .otter-hud { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ig-card--otter .otter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 14px; border-radius: 999px; background: #fff; box-shadow: 0 2px 0 rgba(31, 91, 112, .14); font-size: 17px; font-weight: 900; color: #17485a; white-space: nowrap; }
+.ig-card--otter .otter-points b { font-size: 22px; min-width: 2ch; text-align: right; }
+.ig-card--otter .otter-combo { background: #fff1a8; color: #6b5200; }
+.ig-card--otter .otter-combo[hidden] { display: none; }
+.ig-card--otter .otter-lives { gap: 5px; }
+.ig-card--otter .otter-lives i { width: 20px; height: 18px; background: #e2412f; clip-path: path("M10 18 L1.6 9.4 A4.9 4.9 0 0 1 10 3.4 A4.9 4.9 0 0 1 18.4 9.4 Z"); }
+.ig-card--otter .otter-lives i.is-lost { background: #d0d7d6; }
+.ig-card--otter .otter-meter { flex: 1 1 170px; min-width: 0; max-width: 300px; }
+.ig-card--otter .otter-meter__label { flex: none; font-size: 16px; }
+.ig-card--otter .otter-meter__bar { flex: 1; min-width: 60px; height: 14px; border-radius: 999px; background: #d6e6ea; overflow: hidden; }
+.ig-card--otter .otter-meter__bar i { display: block; height: 100%; border-radius: inherit; transform-origin: 0 50%; }
+.ig-card--otter .otter-air i { background: linear-gradient(90deg, #2f9fd0, #6fd0ef); }
+.ig-card--otter .otter-air.is-filling i { background: linear-gradient(90deg, #4bbf73, #9be3a8); }
+.ig-card--otter .otter-air.is-low { background: #ffe3dc; color: #9b2a17; }
+.ig-card--otter .otter-air.is-low i { background: linear-gradient(90deg, #d9452b, #f3864f); }
+.ig-card--otter .otter-air.is-low .otter-meter__bar { animation: otter-gasp .7s ease-in-out infinite; }
+@keyframes otter-gasp { 50% { box-shadow: 0 0 0 3px rgba(217, 69, 43, .45); } }
+.ig-card--otter .otter-time i { background: linear-gradient(90deg, #f6b80d, #ffd85c); }
+.ig-card--otter .otter-time.is-low i { background: linear-gradient(90deg, #d9622b, #f3a63a); }
+.ig-card--otter .otter-start { flex: none; min-width: 120px; }
+
+.ig-card--otter .otter-stage { background: #2a6f84; border-color: #fff; }
+.ig-card--otter .otter-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: ns-resize; touch-action: none; }
+.ig-card--otter .otter-toasts { position: absolute; inset: 0; z-index: 6; pointer-events: none; overflow: hidden; }
+.ig-card--otter .otter-toast {
+  position: absolute; transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  font-size: 17px; font-weight: 1000; background: #fffdf2; color: #17485a; box-shadow: 0 3px 8px rgba(10, 40, 50, .25);
+}
+.ig-card--otter .otter-toast--good { background: #2b7a4b; color: #fff; }
+.ig-card--otter .otter-toast--dive { background: #fff1a8; color: #6b5200; }
+.ig-card--otter .otter-toast--bad { background: #b8321f; color: #fff; }
+
+.ig-card--otter .otter-intro-wrap { position: absolute; inset: 0; z-index: 8; display: grid; place-items: center; padding: 12px; pointer-events: none; }
+.ig-card--otter .otter-intro {
+  width: min(480px, 100%); max-height: 100%; overflow: auto; padding: 16px 22px 18px; text-align: center; pointer-events: auto;
+  background: rgba(253, 255, 252, .96); border: 2px solid #7fb3bf; border-radius: 22px; box-shadow: 0 16px 50px rgba(10, 40, 50, .35);
+}
+.ig-card--otter .otter-intro__art { width: 150px; height: 96px; object-fit: cover; object-position: 50% 35%; }
+.ig-card--otter .otter-intro h2 { margin: 0 0 6px; font-size: 26px; font-weight: 900; color: #17485a; }
+.ig-card--otter .otter-intro p { margin: 6px 0; font-size: 16px; line-height: 1.45; color: #2c5a66; }
+.ig-card--otter .otter-intro__how { font-weight: 800; }
+
+/* Tablet portrait: the meters take a row of their own under the points and lives */
+@media (max-width: 900px) {
+  .ig-card--otter .otter-meter { flex: 1 1 40%; max-width: none; }
+}
+/* Phones: points and lives with Start on the first row, air and time on the second, all above the river */
+@media (max-width: 500px) {
+  .ig-card--otter .otter-bar { flex-wrap: wrap; padding: 6px 8px; border-radius: 16px; gap: 6px; }
+  .ig-card--otter .otter-hud { gap: 6px; }
+  .ig-card--otter .otter-chip { min-height: 36px; padding: 3px 10px; font-size: 16px; gap: 6px; }
+  .ig-card--otter .otter-points b { font-size: 18px; }
+  .ig-card--otter .otter-meter { flex: 1 1 40%; }
+  .ig-card--otter .otter-meter__bar { min-width: 40px; height: 12px; }
+  .ig-card--otter .otter-meter__label { font-size: 14px; }
+  .ig-card--otter .otter-start { min-width: 0; padding: 8px 16px; }
+  .ig-card--otter .otter-intro { padding: 12px 14px; }
+  .ig-card--otter .otter-intro__art { width: 110px; height: 70px; }
+  .ig-card--otter .otter-intro h2 { font-size: 21px; }
+  .ig-card--otter .otter-toast { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ig-card--otter .otter-air.is-low .otter-meter__bar { animation: none; box-shadow: 0 0 0 3px rgba(217, 69, 43, .45); }
+}
+/* The shared feedback line is not used here: give its room to the river. */
+.ig-card--otter.is-playing #feedback:empty { display: none; }

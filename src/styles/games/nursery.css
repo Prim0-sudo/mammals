@@ -1,1 +1,96 @@
-/* nursery: every selector starts with .ig-card--nursery. */
+/* Nursery Round-up: every selector starts with .ig-card--nursery. A spring-meadow tint of its own until the painted scene arrives. */
+.ig-card--nursery .nu-play { gap: 8px; }
+.ig-card--nursery.is-playing #feedback:empty { display: none; }
+
+.ig-card--nursery .nu-dock { grid-template-columns: minmax(0, 1fr) auto; padding: 8px 14px; }
+.ig-card--nursery .nu-status { margin: 0; min-height: 1.35em; font-size: 18px; font-weight: 800; line-height: 1.35; color: #2c4a1c; }
+.ig-card--nursery .nu-count { font-size: 17px; font-weight: 900; color: #153f30; white-space: nowrap; }
+
+/* The meadow on top, the mothers' row along the bottom. */
+.ig-card--nursery .nu-stage {
+  display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, auto); gap: 6px; padding: 10px 12px 12px;
+  background: linear-gradient(180deg, #d9efb8 0%, #c6e49a 48%, #a9cf78 62%, #94c167 100%);
+}
+.ig-card--nursery .nu-meadow {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr);
+  align-items: center; justify-items: center; min-height: 0; padding: 4px 4%;
+}
+.ig-card--nursery .nu-stage--3 .nu-meadow { --cols: 3; }
+.ig-card--nursery .nu-stage--5 .nu-meadow, .ig-card--nursery .nu-stage--6 .nu-meadow { --cols: 3; }
+.ig-card--nursery .nu-spot { position: relative; display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; translate: calc(var(--jx, 0px) * var(--jk, 1)) calc(var(--jy, 0px) * var(--jk, 1)); }
+
+.ig-card--nursery .nu-baby {
+  position: relative; display: grid; place-items: center; width: min(100%, 190px); height: 100%; max-height: 190px; min-height: 64px; padding: 0;
+  background: none; border: 0; border-radius: 26px; cursor: grab; touch-action: none; color: inherit; outline: none;
+}
+.ig-card--nursery .nu-baby__bob { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; pointer-events: none; }
+.ig-card--nursery .nu-baby__art { position: relative; flex: 1 1 auto; width: 100%; min-height: 0; }
+.ig-card--nursery .nu-baby__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 5px rgba(40, 60, 20, .3)); }
+.ig-card--nursery .nu-baby__name, .ig-card--nursery.nu-drag .nu-baby__name {
+  flex: none; padding: 2px 12px; border-radius: 999px; background: rgba(255, 253, 242, .94); font-size: 18px; font-weight: 900; color: #2c3b1c; box-shadow: 0 2px 4px rgba(40, 60, 20, .18);
+}
+/* Hard: a name card only, like a little luggage tag. */
+.ig-card--nursery .nu-baby__card, .ig-card--nursery.nu-drag .nu-baby__card {
+  display: grid; place-items: center; min-width: 110px; padding: 14px 20px; border-radius: 16px; background: #fffdf2; border: 3px solid #c9b27a;
+  font-size: 26px; font-weight: 900; color: #3a2c14; box-shadow: 0 6px 0 #b39a5c, 0 10px 16px rgba(40, 60, 20, .2);
+}
+.ig-card--nursery .nu-baby--card { max-height: 120px; }
+.ig-card--nursery .nu-baby::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 30px; border: 5px solid transparent; pointer-events: none; transition: border-color .15s, box-shadow .15s;
+}
+.ig-card--nursery .nu-baby.is-picked::after { border-color: #fff; box-shadow: 0 0 0 4px #f2b632, 0 0 22px rgba(255, 216, 92, .9); }
+.ig-card--nursery .nu-baby:focus-visible::after { border-color: #1f5fbf; }
+.ig-card--nursery .nu-baby.is-picked:focus-visible::after { border-color: #1f5fbf; box-shadow: 0 0 0 4px #f2b632, 0 0 22px rgba(255, 216, 92, .9); }
+.ig-card--nursery .nu-baby.is-lifted .nu-baby__bob { opacity: .3; }
+/* !important: the entrance tween leaves an inline visibility on each baby. */
+.ig-card--nursery .nu-baby.is-gone { visibility: hidden !important; }
+
+.ig-card--nursery.nu-drag { position: fixed; z-index: 60; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; transform: scale(1.06) rotate(-4deg); }
+.ig-card--nursery.nu-drag .nu-baby__art { position: relative; flex: 1 1 auto; width: 100%; min-height: 0; }
+.ig-card--nursery.nu-drag .nu-baby__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 12px 10px rgba(40, 28, 10, .35)); }
+
+.ig-card--nursery .nu-mothers { display: grid; grid-template-columns: repeat(var(--mums, 3), minmax(0, 1fr)); gap: 10px; }
+.ig-card--nursery .nu-stage--5 .nu-mothers { --mums: 5; }
+.ig-card--nursery .nu-stage--6 .nu-mothers { --mums: 6; }
+.ig-card--nursery .nu-mother {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; padding: 8px 6px 10px;
+  background: rgba(255, 253, 242, .9); border: 3px solid #fff; border-radius: 22px; box-shadow: 0 5px 0 rgba(60, 90, 30, .25); cursor: pointer; color: inherit; outline: none;
+  transition: box-shadow .15s, transform .15s;
+}
+.ig-card--nursery .nu-mother:hover:not(:disabled), .ig-card--nursery .nu-mother.is-over { box-shadow: 0 0 0 5px #ffd85c, 0 5px 0 rgba(60, 90, 30, .25); }
+.ig-card--nursery .nu-mother:focus-visible { box-shadow: 0 0 0 5px #1f5fbf, 0 5px 0 rgba(60, 90, 30, .25); }
+.ig-card--nursery .nu-mother:disabled { cursor: default; }
+.ig-card--nursery .nu-mother.is-done { background: rgba(232, 246, 214, .95); border-color: #2b7a4b; }
+.ig-card--nursery .nu-mother__art { position: relative; width: 100%; height: clamp(84px, 17vh, 170px); }
+.ig-card--nursery .nu-mother__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 5px rgba(40, 60, 20, .3)); }
+.ig-card--nursery .nu-mother__name { font-size: 18px; font-weight: 900; color: #2c3b1c; }
+/* Her baby, once home, snuggles at her feet. */
+.ig-card--nursery .nu-mother__kid { position: absolute; right: 4%; bottom: 28px; width: 42%; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none; }
+.ig-card--nursery .nu-mother__kid img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 4px rgba(40, 60, 20, .35)); }
+.ig-card--nursery .nu-mother__kid span { margin-top: -6px; padding: 0 8px; border-radius: 999px; background: #2b7a4b; color: #fff; font-size: 14px; font-weight: 900; }
+.ig-card--nursery .nu-mother__say {
+  position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 3; padding: 6px 12px; border-radius: 14px; background: #fffdf2; border: 2px solid #c9b27a;
+  font-size: 16px; font-weight: 900; color: #6a3412; white-space: nowrap; transform: translateX(-50%); opacity: 0; transition: opacity .2s; pointer-events: none;
+}
+.ig-card--nursery .nu-mother__say::after { content: ""; position: absolute; left: 50%; top: 100%; border: 8px solid transparent; border-top-color: #c9b27a; transform: translateX(-50%); }
+.ig-card--nursery .nu-mother__say.is-on { opacity: 1; }
+
+@media (max-width: 900px) {
+  .ig-card--nursery .nu-stage--6 .nu-mothers, .ig-card--nursery .nu-stage--5 .nu-mothers { --mums: 3; }
+}
+@media (max-width: 500px) {
+  .ig-card--nursery .nu-dock { padding: 6px 10px; gap: 4px 8px; }
+  .ig-card--nursery .nu-status { font-size: 16px; min-height: 2.7em; }
+  .ig-card--nursery .nu-count { font-size: 16px; align-self: start; }
+  .ig-card--nursery .nu-stage { padding: 6px; gap: 4px; }
+  /* Room for the picked ring at the edges; babies wander less on a narrow screen. */
+  .ig-card--nursery .nu-meadow { padding: 10px 8px 8px; --jk: .4; }
+  .ig-card--nursery .nu-baby__name { font-size: 16px; padding: 1px 8px; }
+  .ig-card--nursery .nu-baby__card { min-width: 0; padding: 10px 12px; font-size: 20px; }
+  .ig-card--nursery .nu-mothers { gap: 6px; }
+  .ig-card--nursery .nu-mother { padding: 4px 4px 6px; border-radius: 16px; }
+  .ig-card--nursery .nu-mother__art { height: clamp(56px, 10vh, 96px); }
+  .ig-card--nursery .nu-mother__name { font-size: 16px; }
+  .ig-card--nursery .nu-mother__kid { bottom: 22px; width: 46%; }
+  .ig-card--nursery .nu-mother__say { font-size: 14px; }
+}

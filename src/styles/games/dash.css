@@ -1,1 +1,79 @@
-/* dash: every selector starts with .ig-card--dash. */
+/* Burrow Dash: every selector starts with .ig-card--dash. The meadow is a canvas; the points, lives
+   and time sit above it with Start, Hop and Hide (phone rule: controls above the playfield). */
+.ig-card--dash .dash-play { gap: 8px; }
+.ig-card--dash .dash-bar { flex: none; display: flex; align-items: center; gap: 8px 12px; padding: 8px 10px; background: #f5f8ec; border: 1px solid #c9d7a8; border-radius: 20px; }
+.ig-card--dash .dash-hud { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ig-card--dash .dash-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 14px; border-radius: 999px; background: #fff; box-shadow: 0 2px 0 rgba(70, 90, 30, .14); font-size: 17px; font-weight: 900; color: #3b4a1c; white-space: nowrap; }
+.ig-card--dash .dash-points b { font-size: 22px; min-width: 2ch; text-align: right; }
+.ig-card--dash .dash-lives { gap: 5px; }
+.ig-card--dash .dash-lives i { width: 20px; height: 18px; background: #e2412f; clip-path: path("M10 18 L1.6 9.4 A4.9 4.9 0 0 1 10 3.4 A4.9 4.9 0 0 1 18.4 9.4 Z"); }
+.ig-card--dash .dash-lives i.is-lost { background: #d6d9cf; }
+.ig-card--dash .dash-time { flex: 1 1 160px; min-width: 0; max-width: 280px; }
+.ig-card--dash .dash-time__sun { flex: none; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #fff3a0, #f6b80d); box-shadow: 0 0 0 3px rgba(246, 184, 13, .25); }
+.ig-card--dash .dash-time__bar { flex: 1; min-width: 60px; height: 14px; border-radius: 999px; background: #e3e8d3; overflow: hidden; }
+.ig-card--dash .dash-time__bar i { display: block; height: 100%; border-radius: inherit; transform-origin: 0 50%; background: linear-gradient(90deg, #f6b80d, #ffd85c); }
+.ig-card--dash .dash-time.is-low .dash-time__bar i { background: linear-gradient(90deg, #c4572a, #f39a4a); }
+.ig-card--dash .dash-time.is-low .dash-time__sun { background: radial-gradient(circle at 40% 40%, #ffc38a, #e0642a); }
+
+.ig-card--dash .dash-controls { flex: none; display: flex; align-items: center; gap: 8px; }
+.ig-card--dash .dash-start { min-width: 120px; }
+.ig-card--dash .dash-btn { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+/* :is(#app *) lifts these over the shared #app .button sizes; colours stay the shared ones. */
+.ig-card--dash:is(#app *) .dash-btn { min-width: 104px; padding: 8px 16px; font-size: 18px; }
+.ig-card--dash .dash-btn[hidden] { display: none; }
+.ig-card--dash .dash-btn span { font-size: 20px; line-height: 1; }
+.ig-card--dash .dash-btn:disabled { opacity: .55; }
+.ig-card--dash .dash-hide.is-ready { animation: dash-ready .8s ease-in-out infinite alternate; }
+@keyframes dash-ready { from { outline: 4px solid rgba(255, 200, 40, .55); outline-offset: 1px; } to { outline: 4px solid rgba(255, 200, 40, 0); outline-offset: 7px; } }
+
+.ig-card--dash .dash-stage { background: #9fd3ef; border-color: #fff; }
+.ig-card--dash .dash-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; touch-action: none; }
+.ig-card--dash .dash-toasts { position: absolute; inset: 0; z-index: 6; pointer-events: none; overflow: hidden; }
+.ig-card--dash .dash-toast {
+  position: absolute; transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  font-size: 17px; font-weight: 1000; background: #fffdf2; color: #3b4a1c; box-shadow: 0 3px 8px rgba(40, 50, 20, .25);
+}
+.ig-card--dash .dash-toast--good { background: #2b7a4b; color: #fff; }
+.ig-card--dash .dash-toast--safe { background: #5a4126; color: #fff; }
+.ig-card--dash .dash-toast--warn { background: #fff1a8; color: #6b5200; }
+.ig-card--dash .dash-toast--bad { background: #b8321f; color: #fff; }
+
+.ig-card--dash .dash-intro-wrap { position: absolute; inset: 0; z-index: 8; display: grid; place-items: center; padding: 12px; pointer-events: none; }
+.ig-card--dash .dash-intro {
+  width: min(500px, 100%); max-height: 100%; overflow: auto; padding: 16px 22px 18px; text-align: center; pointer-events: auto;
+  background: rgba(255, 254, 247, .96); border: 2px solid #b6c98a; border-radius: 22px; box-shadow: 0 16px 50px rgba(40, 50, 20, .3);
+}
+.ig-card--dash .dash-intro__art { width: 120px; height: 100px; object-fit: contain; }
+.ig-card--dash .dash-intro h2 { margin: 0 0 6px; font-size: 26px; font-weight: 900; color: #3b4a1c; }
+.ig-card--dash .dash-intro p { margin: 6px 0; font-size: 16px; line-height: 1.45; color: #4a5631; }
+.ig-card--dash .dash-intro__how { font-weight: 800; }
+
+/* Tablet portrait: the time bar takes the rest of the row */
+@media (max-width: 900px) {
+  .ig-card--dash .dash-time { max-width: none; }
+}
+/* Phones: points and lives with Hop and Hide on the first row, the time bar on the second, all above the meadow */
+@media (max-width: 500px) {
+  .ig-card--dash .dash-bar { flex-wrap: wrap; padding: 6px 8px; border-radius: 16px; gap: 6px; }
+  .ig-card--dash .dash-hud { display: contents; }
+  .ig-card--dash .dash-chip { min-height: 36px; padding: 3px 10px; font-size: 16px; gap: 6px; }
+  .ig-card--dash .dash-points { order: 1; }
+  .ig-card--dash .dash-controls { order: 2; margin-left: auto; gap: 6px; }
+  .ig-card--dash .dash-bar::after { content: ""; order: 3; flex: 0 0 100%; height: 0; margin-top: -6px; }
+  .ig-card--dash .dash-lives { order: 4; }
+  .ig-card--dash .dash-time { order: 5; flex: 1 1 0; max-width: none; }
+  .ig-card--dash .dash-points b { font-size: 18px; }
+  .ig-card--dash .dash-time__bar { min-width: 40px; height: 12px; }
+  .ig-card--dash:is(#app *) .dash-start { min-width: 0; min-height: 44px; padding: 6px 16px; }
+  .ig-card--dash:is(#app *) .dash-btn { min-width: 0; min-height: 44px; padding: 6px 12px; font-size: 16px; }
+  .ig-card--dash .dash-btn span { font-size: 17px; }
+  .ig-card--dash .dash-intro { padding: 12px 14px; }
+  .ig-card--dash .dash-intro__art { width: 84px; height: 70px; }
+  .ig-card--dash .dash-intro h2 { font-size: 21px; }
+  .ig-card--dash .dash-toast { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ig-card--dash .dash-hide.is-ready { animation: none; outline: 4px solid rgba(255, 200, 40, .55); outline-offset: 1px; }
+}
+/* The shared feedback line is not used here: give its room to the meadow. */
+.ig-card--dash.is-playing #feedback:empty { display: none; }
