@@ -58,6 +58,11 @@ a { text-decoration: none; color: inherit; }
 #app .launch-explore .launch-emblem { width: 118px; height: 104px; aspect-ratio: auto; margin: 0 0 4px; border: 0; background: none; box-shadow: none; }
 #app .launch-explore .launch-emblem-image { width: 118px; height: 104px; object-fit: contain; margin: 0 0 4px; }
 #app .launch-explore .launch-bee { inset: 0; }
+/* The round club badge fills the whole Explore button (owner, 23 Nov); the words sit on a cream band
+   across its foot, cut to the circle. */
+#app .launch-explore { position: relative; overflow: hidden; justify-content: flex-end; padding: 0 0 30px; isolation: isolate; }
+#app .launch-explore .launch-emblem-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; margin: 0; object-fit: cover; border-radius: 50%; }
+#app .launch-explore::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: -1; background: rgba(246, 249, 235, .94); }
 #app .launch-explore strong { font-size: 30.7px; font-weight: 1000; line-height: 1.1; }
 #app .launch-explore > span { font-size: 13.6px; font-weight: 900; }
 #app.menu-screen, #app.game-screen, #app.results-screen {

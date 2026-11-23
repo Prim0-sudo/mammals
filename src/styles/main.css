@@ -1611,7 +1611,7 @@ img {
    animal at the hole's lower edge. */
 .landing-peeks { position: absolute; inset: -3% -4%; will-change: transform; pointer-events: none; }
 .landing-peek { position: absolute; overflow: hidden; }
-.landing-peek__body { position: absolute; left: 0; right: 0; bottom: 0; will-change: transform; }
+.landing-peek__body { position: absolute; left: 0; right: 0; bottom: 0; will-change: transform; isolation: isolate; }
 .landing-peek__body img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .landing-peek__body img[hidden] { display: none; }
 /* Landscape screens narrower than the 16:9 painting (4:3 tablets) keep the burrow bank in view by

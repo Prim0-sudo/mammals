@@ -9,11 +9,16 @@ import { LANDING_PEEKS } from "../topics/painted-art.js";
 // Pose order while it is up: [pose index, seconds]. 0 ahead, 1 left, 2 right, 3 blink, 4 special.
 const LOOK = [[0, 1.0], [1, 0.9], [0, 0.5], [4, 0.9], [3, 0.15], [0, 0.6], [2, 0.9], [0, 0.7]];
 const SHOW = 0.2; // share of the canvas left below the edge at full height (the faded chest)
+// The window reaches this share of the canvas below the edge, under the bank lip, so the painted rim
+// hides the body rather than the window's straight bottom. pos() turns "share below the edge" into
+// the body's yPercent inside that taller window.
+const DROP = 0.2;
+const pos = (below) => (below - DROP) * 100;
 
 export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PEEKS } = {}) {
   if (!scene || !gsap) return null;
   const root = scene.root;
-  const front = root.querySelector('[data-layer="foreground"]');
+  const front = root.querySelector(`[data-layer="${spec.front || "foreground"}"]`) || root.querySelector('[data-layer="foreground"]');
   const lets = [];
   const planes = new Map();
   const planeFor = (depth) => {
@@ -60,7 +65,7 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
       const w = a.width * s;
       const left = ox + (a.x - a.width / 2) * s;
       const bottom = oy + a.edge * s;
-      a.win.style.cssText = `left:${left}px;top:${bottom - w * 1.15}px;width:${w}px;height:${w * 1.15}px`;
+      a.win.style.cssText = `left:${left}px;top:${bottom - w * 1.15}px;width:${w}px;height:${w * (1.15 + DROP)}px`;
       a.body.style.height = `${w}px`;
       // Only peek where the hole is comfortably on screen (phones show the mouse and hedgehog).
       const cx = plane.offsetLeft + ox + a.x * s;
@@ -126,16 +131,16 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
     tl.set(a.imgs, { opacity: 0, zIndex: 0 }).set(a.imgs[0], { opacity: 1 })
       .set(a.body, { rotation: 0, scaleY: 1, transformOrigin: "50% 100%" });
     // Rise in two steps: ears and eyes first, a wary pause, then up with a soft settle.
-    tl.to(a.body, { yPercent: 62, duration: 0.9, ease: "sine.out" });
-    tl.to(a.body, { yPercent: 58, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 });
-    tl.to(a.body, { yPercent: SHOW * 100, duration: 0.7, ease: "back.out(1.3)" });
+    tl.to(a.body, { yPercent: pos(0.62), duration: 0.9, ease: "sine.out" });
+    tl.to(a.body, { yPercent: pos(0.58), duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 });
+    tl.to(a.body, { yPercent: pos(SHOW), duration: 0.7, ease: "back.out(1.3)" });
     const up = tl.duration();
     look(a, tl);
     // Breathe while up (scale from the hole's edge, so it never lifts the faded chest into view).
     const breaths = Math.max(1, Math.floor((tl.duration() - up) / 2.4));
     tl.to(a.body, { scaleY: 1.012, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: breaths * 2 - 1 }, up);
     // A little duck before it drops back in.
-    tl.to(a.body, { rotation: 0, scaleY: 1, yPercent: SHOW * 100 + 4, duration: 0.25, ease: "sine.inOut" });
+    tl.to(a.body, { rotation: 0, scaleY: 1, yPercent: pos(SHOW + 0.04), duration: 0.25, ease: "sine.inOut" });
     tl.to(a.body, { yPercent: 100, duration: 0.55, ease: "power3.in" });
     tl.to({}, { duration: 2.5 + Math.random() * 2.5 });
     current = tl;
