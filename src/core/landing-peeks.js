@@ -35,7 +35,7 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
       img.src = src;
       img.alt = "";
       img.draggable = false;
-      img.hidden = i !== 0;
+      img.style.opacity = i === 0 ? "1" : "0";
       body.append(img);
       return img;
     });
@@ -89,7 +89,29 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
   let current = null;
   let last = null;
   let dead = false;
-  const show = (a, i) => a.imgs.forEach((img, n) => (img.hidden = n !== i));
+  // The poses have no in-between frames, so a hard swap jumps. Fade the next pose in on top of the
+  // last one (no see-through dip), then drop the last one. Blinks are quick; head turns are soft.
+  const fade = (a, from, to, d) => {
+    const t = gsap.timeline();
+    if (from === to) return t;
+    t.set(a.imgs[to], { zIndex: 2, opacity: 0 }).set(a.imgs[from], { zIndex: 1 })
+      .to(a.imgs[to], { opacity: 1, duration: d, ease: "sine.inOut" })
+      .set(a.imgs[from], { opacity: 0, zIndex: 0 });
+    return t;
+  };
+  const TILT = { 1: -2, 2: 2 }; // a small lean that carries the head turn between poses
+  const look = (a, tl) => {
+    let prev = 0;
+    for (const [pose, hold] of LOOK) {
+      const d = pose === 3 || prev === 3 ? 0.07 : 0.22;
+      const at = tl.duration();
+      tl.add(fade(a, prev, pose, d), at);
+      if (pose !== 3) tl.to(a.body, { rotation: TILT[pose] || 0, duration: 0.45, ease: "sine.inOut" }, at);
+      tl.to({}, { duration: Math.max(hold, d) }, at);
+      prev = pose;
+    }
+    if (prev !== 0) tl.add(fade(a, prev, 0, 0.22));
+  };
   const next = () => {
     if (dead) return;
     layout(); // fonts and the title's wrap settle after mounting
@@ -101,10 +123,20 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
     }
     last = a;
     const tl = gsap.timeline({ onComplete: next });
-    tl.call(() => show(a, 0));
-    tl.to(a.body, { yPercent: SHOW * 100, duration: 0.8, ease: "power2.out" });
-    for (const [pose, hold] of LOOK) tl.call(() => show(a, pose)).to({}, { duration: hold });
-    tl.to(a.body, { yPercent: 100, duration: 0.6, ease: "power2.in" });
+    tl.set(a.imgs, { opacity: 0, zIndex: 0 }).set(a.imgs[0], { opacity: 1 })
+      .set(a.body, { rotation: 0, scaleY: 1, transformOrigin: "50% 100%" });
+    // Rise in two steps: ears and eyes first, a wary pause, then up with a soft settle.
+    tl.to(a.body, { yPercent: 62, duration: 0.9, ease: "sine.out" });
+    tl.to(a.body, { yPercent: 58, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 });
+    tl.to(a.body, { yPercent: SHOW * 100, duration: 0.7, ease: "back.out(1.3)" });
+    const up = tl.duration();
+    look(a, tl);
+    // Breathe while up (scale from the hole's edge, so it never lifts the faded chest into view).
+    const breaths = Math.max(1, Math.floor((tl.duration() - up) / 2.4));
+    tl.to(a.body, { scaleY: 1.012, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: breaths * 2 - 1 }, up);
+    // A little duck before it drops back in.
+    tl.to(a.body, { rotation: 0, scaleY: 1, yPercent: SHOW * 100 + 4, duration: 0.25, ease: "sine.inOut" });
+    tl.to(a.body, { yPercent: 100, duration: 0.55, ease: "power3.in" });
     tl.to({}, { duration: 2.5 + Math.random() * 2.5 });
     current = tl;
   };
@@ -124,7 +156,7 @@ export function mountLandingPeeks(scene, { gsap = window.gsap, spec = LANDING_PE
       current?.kill();
       resize.disconnect();
       document.removeEventListener("visibilitychange", onVisible);
-      for (const a of animals) gsap.killTweensOf(a.body);
+      for (const a of animals) gsap.killTweensOf([a.body, ...a.imgs]);
       lets.forEach((f) => f());
       planes.forEach((el) => el.remove());
     },
