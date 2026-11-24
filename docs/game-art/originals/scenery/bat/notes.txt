@@ -1,0 +1,29 @@
+﻿Bat Night Hunt scenery
+======================
+
+Generated one picture at a time with the built-in image tool using the
+verbatim prompts in prompts.md. Reviewed the bat flight grid and
+vocabulary pond as visual references.
+
+Backdrops (1536 x 1024 RGBA PNG)
+  far-trees.png, near-trees.png, pond.png
+
+Objects (1024 x 1024 RGBA PNG)
+  moon.png, branch.png, branch-2.png, branch-3.png, moth.png, moth-2.png
+
+The tool rendered at several native sizes. The backdrops were fitted to
+the requested canvas and placed at the bottom over transparent padding.
+The near trees were trimmed slightly at both sides during fitting to
+remove the rounded ends and bring the edge heights closer. The objects
+were scaled proportionally and centred on square canvases. The moths
+were fitted to approximately 60% of the canvas width.
+
+All nine PNGs were checked on dark navy (#0d1832) for visible matte,
+fringe, boxes and shadows. The objects were also checked at 120 px.
+The moon has the requested soft glow. Each branch is horizontal and
+tapers from its left base. All three backdrop top halves have zero
+alpha, and each backdrop was previewed two copies side by side.
+
+The pond water occupies about 9% of the canvas height across most of the
+strip. The reeds reach about 30%. The three backdrops are the PNG
+originals for the later seam and WebP preparation step.
