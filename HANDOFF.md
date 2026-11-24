@@ -8,17 +8,19 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
   - **Art** (brief: docs/game-art/BRIEF.md): **all done, owner approved and wired in on 24 Nov.**
     - Home Before Dark shows the 12 empty homes (games/homes/), Nursery has the 11 lone babies and the hind, so deer and fawn are back (f22c127).
     - Motion frames (assets/topics/mammals/games/sprites/, drawn by src/core/games/sprites.js): rabbit hop and gallop, fox trot and eagle soar/swoop in Burrow Dash; otter swim in Otter Dive; bat and barn owl flight in Bat Night Hunt. Frame 0 is the still pose before a round and under reduced motion. The bat and owl are anchored by the eye, keeping a fifth of the bat's natural body rise.
-    - The Art session (Ludimi group) did the pictures; its next job is the teaching scenes.
+    - The Art session (Ludimi group) did the pictures.
+  - **Owner, 24 Nov, after playing:** fish heads were cut off in Otter Dive (fixed, f76f719); Bat Night Hunt must not show unlit moths or branches at all (fixed, f76f719); the bat game was a bit plain, so it now has a **beetle** (a cockchafer crosses now and then, 30 points, counts in the streak) and a **dawn flight home to the roost** at the end (owner said "add both"). The beetle is drawn in code and the roost uses homes/roost.webp until Art's scenery lands.
+  - **Scenery next (Art):** the owner wants Codex art for everything still drawn in code in the three arcade games. Brief: docs/game-art/SCENERY-BRIEF.md (strips, objects, four new otter foods: trout, eel, crayfish, swimming frog). Order: bat, dash, otter. Wire each in after the owner approves it; the otter foods need game logic too. Then Art does the teaching scenes.
   - **Voice:** the education games now speak every status line, and tapping an animal, home, baby or mother says its name. All 441 game lines are in src/topics/narration-lines.js, and tests/games-voice.test.js checks them.
     - **Recorded:** the owner picked Heart (af_heart, as in Insects). All 2,257 clips are in assets/audio/heart (49 MB) and the manifest is complete. The headless check finds no missing line in any of the three games at 1366 or 390. Re-run `node tools/voice/build.mjs --make` (in the background, about 50 minutes on the CPU, and it only records new lines) whenever spoken text changes.
   - Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game. Committed locally.
-  - **Not pushed. Nothing goes to main on GitHub before the art is approved.**
+  - **Pushed to 13d0fc9 (motion frames).** f76f719, 5ff38fd and the beetle/roost commit are local only; push when the owner says so.
   - Hard levels end early for a careful simulated player in about half the runs (Bat, Otter and Dash). The owner has played them.
   - Play-test tool (scratchpad; copy it into tools/test if kept): play-arcade.mjs rewrites main.js in flight to expose window.__game, so the game's own botInput drives the real screen.
 - **origin/main** has tonight's landing push.
 - **Live:** the next 6-hourly Ludimi auto-release carries tonight's landing. Don't hand-deploy.
 - **Word art:** all 268 words have pictures; nothing waits.
-- **Checks (24 Nov):** npm test 72/72 including narration, and check passes. The menu cards lost their light corner lines on hover (a7246cb).
+- **Checks (24 Nov):** npm test 73/73 including narration, check and build pass. The menu cards lost their light corner lines on hover (a7246cb).
 
 ## Landing: finished, do not touch
 
@@ -32,8 +34,8 @@ What it is:
 
 ## Next
 Finish item 2, Topic Games:
-1. Art is in (see above).
-2. Push, once the owner says so.
+1. Push the bat and otter fixes once the owner says so.
+2. Wire in the scenery art as Art delivers and the owner approves it (SCENERY-BRIEF.md).
 
 ---
 

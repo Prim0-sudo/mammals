@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  SETTINGS, LIVES, ECHO_COOLDOWN, ECHO_RANGE, MOTH_POINTS, MAX_STREAK, BAT_R, SIM_VIEW,
+  SETTINGS, LIVES, ECHO_COOLDOWN, ECHO_RANGE, MOTH_POINTS, BEETLE_POINTS, MAX_STREAK, BAT_R, SIM_VIEW,
   createRun, step, echo, resizeRun, nearOnBranch, branchCount, stars, simulate, simulatedStars,
 } from "../src/topics/games/bat.js";
 import { RULES } from "../src/topics/games/bat-rules.js";
@@ -115,4 +115,36 @@ test("Bat: star thresholds match the play simulation, and the rules quote the se
     assert.ok(text.includes(`${SETTINGS[level].night} seconds`), level);
     assert.ok(text.includes(`${SETTINGS[level].seen} seconds`), level);
   }
+});
+
+test("Bat: a beetle crosses now and then on every level, worth more, and counts in the streak", () => {
+  for (const level of levels) {
+    const run = createRun(level, { seed: 8 });
+    let beetle = null;
+    while (!beetle && run.time < 20) {
+      step(run, {}, 1 / 30);
+      beetle = run.things.find((t) => t.type === "beetle");
+    }
+    assert.ok(beetle, level);
+    run.bat.x = Math.min(run.view - 0.1, Math.max(0.1, beetle.x + 0.25 * beetle.dir));
+    run.bat.y = beetle.y;
+    run.cool = 0;
+    assert.ok(echo(run));
+    for (let i = 0; i < 60 && !beetle.lit; i++) step(run, {}, 1 / 30);
+    assert.ok(beetle.lit > 0, `${level}: an echo lights the beetle`);
+    run.bat.blink = 99; // keep bumps out of the way
+    beetle.x = run.view / 2; // in the open, away from the edge the bat cannot pass
+    Object.assign(run.bat, { x: beetle.x, y: beetle.base, vx: 0, vy: 0 });
+    const got = step(run, {}, 1 / 60).find((e) => e.type === "beetle");
+    assert.equal(got?.points, BEETLE_POINTS, level);
+    assert.equal(run.beetles, 1);
+    assert.ok(!run.things.includes(beetle), "a caught beetle is gone");
+  }
+  // Left alone, a beetle flies off the far side.
+  const run = createRun("easy", { seed: 3 });
+  while (!run.things.some((t) => t.type === "beetle")) step(run, {}, 1 / 30);
+  const b = run.things.find((t) => t.type === "beetle");
+  run.bat.x = b.dir > 0 ? 0.1 : run.view - 0.1; run.bat.y = b.y > 0.5 ? 0.1 : 0.9;
+  for (let i = 0; i < 30 * 20 && run.things.includes(b); i++) { run.bat.blink = 99; step(run, {}, 1 / 30); }
+  assert.ok(!run.things.includes(b));
 });

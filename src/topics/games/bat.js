@@ -1,5 +1,5 @@
 // Bat Night Hunt (arcade): a bat flies through a dark wood and sends out echoes. The rings light up
-// the moths, branches and owl they pass, which then fade again. Bats are nocturnal and find food by
+// the moths, beetles, branches and owl they pass, which then fade again. Bats are nocturnal and find food by
 // sound. Pure and seeded: the screen is src/core/games/bat-view.js. Design: DESIGN.md, section 6.
 // The wood is in stage units: y runs 0 (top) to 1 (bottom), x runs 0 to `view` (width / height).
 import { seeded } from "../topic-games.js";
@@ -21,6 +21,11 @@ export const MOTH_POINTS = 10;
 export const MAX_STREAK = 3;
 export const OWL_SPEED = 0.15;
 export const MOTH_BACK = 0.8; // seconds before a caught moth is replaced
+// Now and then a beetle (a cockchafer) blunders straight across the wood: rarer, and worth more.
+export const BEETLE_R = 0.035;
+export const BEETLE_POINTS = 30;
+export const BEETLE_EVERY = 14; // seconds between beetles (the first comes sooner)
+export const BEETLE_SPEED = 0.16;
 export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (desktop)
 
 // Per level. seen: seconds a lit thing stays visible. mothSpeed: stage heights a second. moths: how
@@ -28,9 +33,9 @@ export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (de
 // none). autoEcho: a free echo this often (0 for none). stars: points for one, two and three stars,
 // from the play simulation below (the test checks they still match it).
 export const SETTINGS = {
-  easy: { night: 60, seen: 2.5, mothSpeed: 0.08, moths: 4, branches: 0, owlEvery: 0, autoEcho: 3, pace: "slow", stars: [200, 450, 750] },
-  medium: { night: 75, seen: 1.8, mothSpeed: 0.13, moths: 4, branches: 3, owlEvery: 0, autoEcho: 0, pace: "quicker", stars: [200, 450, 750] },
-  hard: { night: 90, seen: 1.2, mothSpeed: 0.18, moths: 5, branches: 3, owlEvery: 16, autoEcho: 0, pace: "fast", stars: [200, 450, 800] },
+  easy: { night: 60, seen: 2.5, mothSpeed: 0.08, moths: 4, branches: 0, owlEvery: 0, autoEcho: 3, pace: "slow", stars: [200, 500, 850] },
+  medium: { night: 75, seen: 1.8, mothSpeed: 0.13, moths: 4, branches: 3, owlEvery: 0, autoEcho: 0, pace: "quicker", stars: [200, 550, 900] },
+  hard: { night: 90, seen: 1.2, mothSpeed: 0.18, moths: 5, branches: 3, owlEvery: 16, autoEcho: 0, pace: "fast", stars: [250, 550, 950] },
 };
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -44,7 +49,7 @@ export function nearOnBranch(px, py, b) {
 // The distance from a point to the edge of a thing.
 export function gap(t, x, y) {
   if (t.type === "branch") return nearOnBranch(x, y, t).d - BRANCH_W;
-  return Math.hypot(t.x - x, t.y - y) - (t.type === "owl" ? OWL_R : MOTH_R);
+  return Math.hypot(t.x - x, t.y - y) - (t.type === "owl" ? OWL_R : t.type === "beetle" ? BEETLE_R : MOTH_R);
 }
 
 // A fresh night. rand drives every spawn, so a seed replays the same wood.
@@ -56,6 +61,7 @@ export function createRun(level, { seed = 1, view = SIM_VIEW } = {}) {
     bat: { x: view / 2, y: 0.5, vx: 0, vy: 0, face: 1, blink: 0 },
     things: [], rings: [], cool: 0, auto: cfg.autoEcho || Infinity,
     nextOwl: cfg.owlEvery ? 6 + seeded(seed + 1)() * 4 : Infinity, id: 0,
+    beetles: 0, nextBeetle: 7 + seeded(seed + 2)() * 5,
   };
   placeBranches(run);
   for (let i = 0; i < cfg.moths; i++) spawnMoth(run);
@@ -123,6 +129,7 @@ export function resizeRun(run, view) {
     if (t.type === "branch") { t.x1 *= k; t.x2 *= k; } else t.x *= k;
   }
 }
+export const isPrey = (t) => t.type === "moth" || t.type === "beetle";
 
 // One step. input: { dx, dy } from keys (each -1 to 1), or { tx, ty } a point to fly towards, and
 // echo: true to send an echo. Returns what happened, for the screen to show and say.
@@ -213,19 +220,38 @@ export function step(run, input = {}, dt = 1 / 60) {
     if ((t.dir > 0 && t.x > run.view + 0.15) || (t.dir < 0 && t.x < -0.15)) run.things.splice(run.things.indexOf(t), 1);
   }
 
-  // Catches: a streak builds while the moths come from the same echo.
-  for (const t of run.things) {
-    if (t.type !== "moth" || t.caught || Math.hypot(t.x - bat.x, t.y - bat.y) > BAT_R + MOTH_R) continue;
+  // A beetle now and then (every level): it flies straight across with a heavy bob and is gone.
+  if (run.time >= run.nextBeetle) {
+    const dir = rand() < 0.5 ? 1 : -1;
+    const y = 0.18 + rand() * 0.6;
+    run.things.push({ type: "beetle", id: ++run.id, x: dir > 0 ? -0.08 : run.view + 0.08, y, base: y, dir, phase: rand() * 6, lit: 0, litBy: -1, caught: false });
+    run.nextBeetle = run.time + BEETLE_EVERY * (0.8 + rand() * 0.4);
+  }
+  for (const t of [...run.things]) {
+    if (t.type !== "beetle") continue;
+    t.x += t.dir * BEETLE_SPEED * dt;
+    t.phase += dt * 3;
+    t.y = t.base + Math.sin(t.phase) * 0.025;
+    if (t.caught || (t.dir > 0 && t.x > run.view + 0.1) || (t.dir < 0 && t.x < -0.1)) run.things.splice(run.things.indexOf(t), 1);
+  }
+
+  // Catches: a streak builds while the moths and beetles come from the same echo.
+  for (const t of [...run.things]) {
+    if (!isPrey(t) || t.caught || Math.hypot(t.x - bat.x, t.y - bat.y) > BAT_R + (t.type === "beetle" ? BEETLE_R : MOTH_R)) continue;
     t.caught = true;
     t.back = MOTH_BACK;
     const from = t.lit > 0 ? t.litBy : -1;
     run.streak = from >= 0 && from === run.streakEcho ? Math.min(MAX_STREAK, run.streak + 1) : 1;
     run.streakEcho = from;
     run.bestStreak = Math.max(run.bestStreak, run.streak);
-    const points = MOTH_POINTS * run.streak;
+    const beetle = t.type === "beetle";
+    const points = (beetle ? BEETLE_POINTS : MOTH_POINTS) * run.streak;
     run.points += points;
-    run.moths++;
-    events.push({ type: "moth", points, streak: run.streak, x: t.x, y: t.y });
+    if (beetle) {
+      run.beetles++;
+      run.things.splice(run.things.indexOf(t), 1); // a caught beetle is gone at once
+    } else run.moths++;
+    events.push({ type: beetle ? "beetle" : "moth", points, streak: run.streak, x: t.x, y: t.y });
   }
 
   // Bumps: a branch or the owl costs a life; the bat is pushed back and blinks for a moment.
@@ -265,7 +291,7 @@ export function stars(points, level) {
 
 /* ---------- play simulation (star thresholds) ---------- */
 
-// A steady young player: it echoes when it can see no moth, flies at the nearest lit one, and steers
+// A steady young player: it echoes when it can see no moth or beetle, flies at the nearest lit one, and steers
 // round the branches and owl it has seen. It reacts a little late and now and then misses a danger.
 export function botInput(run, brain) {
   brain.wait -= 1 / 60;
@@ -274,8 +300,9 @@ export function botInput(run, brain) {
   const { bat } = run;
   let best = null, bd = Infinity;
   for (const t of run.things) {
-    if (t.type !== "moth" || t.caught || t.lit <= 0) continue;
-    const d = Math.hypot(t.x - bat.x, t.y - bat.y);
+    if (!isPrey(t) || t.caught || t.lit <= 0) continue;
+    // A beetle is worth the longer flight.
+    const d = Math.hypot(t.x - bat.x, t.y - bat.y) * (t.type === "beetle" ? 0.6 : 1);
     if (d < bd) { bd = d; best = t; }
   }
   if (!best && (brain.roamUntil <= run.time || Math.hypot(brain.rx - bat.x, brain.ry - bat.y) < 0.05)) {

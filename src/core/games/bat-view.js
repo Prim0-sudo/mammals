@@ -4,7 +4,7 @@
 // Word pictures stand in for the painted art. Design: DESIGN.md, section 6.
 import { TopicGameView, esc } from "../topic-games-kit.js";
 import {
-  SETTINGS, LIVES, MAX_STREAK, ECHO_COOLDOWN, ECHO_RANGE, BRANCH_W, OWL_R, MOTH_R,
+  SETTINGS, LIVES, MAX_STREAK, ECHO_COOLDOWN, ECHO_RANGE, BRANCH_W, OWL_R, MOTH_R, BEETLE_R,
   createRun, step, stars, resizeRun,
 } from "../../topics/games/bat.js";
 import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
@@ -26,6 +26,9 @@ const BAT_FLY = {
 // The barn owl glides, then gives two beats of its wings.
 const OWL_EYES = [[393, 288], [446, 293], [426, 165]];
 const OWL_FLY = { ms: 160, seq: [0, 0, 1, 2], size: 4.4, eye: [120, -15], at: OWL_EYES.map(([x, y]) => [x - 120, y + 15]) };
+// At dawn the bat flies home to a bat box on a tree (the empty roost from Home Before Dark). Its
+// entrance slot is at this share of the picture.
+const ROOST = { src: "assets/topics/mammals/games/homes/roost.webp", size: 0.42, door: [0.54, 0.68] };
 const WHAT = { branch: "Ouch, a branch!", owl: "Look out, an owl!" };
 
 function loadImage(src) {
@@ -86,7 +89,7 @@ export class View extends TopicGameView {
   play() {
     this.setStage("play");
     this.cfg = SETTINGS[this.level];
-    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly") };
+    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly"), roost: loadImage(ROOST.src) };
     const c = this.cfg;
     const dangers = c.branches ? `Keep away from the branches${c.owlEvery ? " and the owl" : ""}!` : "";
     this.root.innerHTML = `<div class="ig-play bat-play">
@@ -135,6 +138,8 @@ export class View extends TopicGameView {
     this.ending = false;
     this.dawn = 0;
     this.clock = 0;
+    this.home = null;
+    this.flyer = null;
     this.shown = null;
     this.run = null;
     this.layout();
@@ -270,6 +275,11 @@ export class View extends TopicGameView {
       this.toast(e.streak > 1 ? `×${e.streak} +${e.points}` : `+${e.points}`, "good", e.x, e.y - 0.08);
       this.game.audio.tone(560 + e.streak * 120, 0.1);
       this.say(`A moth! ${e.points} points.${e.streak === MAX_STREAK ? " Top streak!" : ""}`);
+    } else if (e.type === "beetle") {
+      this.toast(`Beetle! +${e.points}`, "good", e.x, e.y - 0.08);
+      this.game.audio.tone(420, 0.08);
+      this.after(90, () => this.game.audio.tone(840 + e.streak * 120, 0.12));
+      this.say(`A beetle! ${e.points} points.${e.streak === MAX_STREAK ? " Top streak!" : ""}`);
     } else if (e.type === "life") {
       this.game.audio.tone(180, 0.22);
       this.toast(WHAT[e.why], "bad", e.x, clamp(e.y - 0.1, 0.08, 0.9));
@@ -325,13 +335,31 @@ export class View extends TopicGameView {
     this.aim = null;
     const why = this.run.end;
     this.say(why === "lives" ? "Time to rest. Back to the roost." : "Dawn is coming! Back to the roost.");
+    this.sayWord("roost");
     const done = () => this.results(why);
+    // The roost comes in at the side nearer the bat; the bat flies home and in through the slot.
+    const b = this.run.bat, view = this.run.view;
+    const right = b.x >= view / 2;
+    const at = { x: right ? view - 0.17 : 0.17, y: 0.57 };
+    this.home = { x: right ? view + 0.3 : -0.3, y: at.y };
+    const door = { x: at.x + (ROOST.door[0] - 0.5) * ROOST.size, y: at.y + (ROOST.door[1] - 0.5) * ROOST.size };
     if (this.reduced) {
       this.dawn = 1;
-      this.after(700, done);
+      this.home.x = at.x;
+      this.flyer = { x: door.x, y: door.y, face: 1, alpha: 0, s: 1 };
+      this.after(900, done);
       return;
     }
-    this.to(this, { dawn: 1, duration: 1.4, ease: "sine.inOut", onComplete: done });
+    this.flyer = { x: b.x, y: b.y, face: b.face || 1, alpha: 1, s: 1 };
+    this.to(this, { dawn: 1, duration: 2.4, ease: "sine.inOut" });
+    this.to(this.home, { x: at.x, duration: 0.8, ease: "power2.out" });
+    const below = { x: door.x + (b.x < door.x ? -0.12 : 0.12), y: Math.min(0.92, door.y + 0.2) };
+    this.to(this.flyer, {
+      motionPath: { path: [{ x: b.x, y: b.y }, below, { x: door.x, y: door.y }], curviness: 1.2 },
+      duration: 1.5, delay: 0.5, ease: "power1.inOut",
+      onUpdate: () => { const f = this.flyer; if (f.lx != null && Math.abs(f.x - f.lx) > 0.0005) f.face = Math.sign(f.x - f.lx); f.lx = f.x; },
+    });
+    this.to(this.flyer, { s: 0.55, alpha: 0, duration: 0.3, delay: 1.85, onComplete: () => this.after(350, done) });
   }
   results(why) {
     const r = this.run;
@@ -341,9 +369,9 @@ export class View extends TopicGameView {
       title: why === "lives" ? "Back to the roost to rest" : "Dawn! Back to the roost",
       stars: got,
       lines: [
-        `You caught ${r.moths} ${r.moths === 1 ? "moth" : "moths"} and scored ${r.points} points.`,
+        `You caught ${r.moths} ${r.moths === 1 ? "moth" : "moths"}${r.beetles ? ` and ${r.beetles} ${r.beetles === 1 ? "beetle" : "beetles"}` : ""}, and scored ${r.points} points.`,
         r.bestStreak > 1 ? `Best echo streak: ×${r.bestStreak}.` : "Tip: catch more moths from the same echo to build a streak.",
-        "Bats are nocturnal. They find their food in the dark by listening.",
+        "Bats are nocturnal. They hunt in the dark by listening, then sleep in their roost by day.",
       ],
       best: isBest,
       bestLine: isBest ? "New best for this level!" : `Best: ${this.game.gameBest(this.meta.id)[this.level]} points`,
@@ -360,7 +388,9 @@ export class View extends TopicGameView {
     for (const t of this.run.things) if (t.type === "branch") this.drawBranch(t, lit(t));
     for (const ring of this.run.rings) this.drawRing(ring);
     for (const t of this.run.things) if (t.type === "moth") this.drawMoth(t, lit(t));
+    for (const t of this.run.things) if (t.type === "beetle") this.drawBeetle(t, lit(t));
     for (const t of this.run.things) if (t.type === "owl") this.drawOwl(t, lit(t));
+    if (this.home) this.drawRoost();
     this.drawBat();
     ctx.globalAlpha = 1;
   }
@@ -529,9 +559,52 @@ export class View extends TopicGameView {
     }
     ctx.globalAlpha = 1;
   }
+  // A cockchafer from above: brown wing cases held open, buzzing wings, invisible until an echo.
+  // Drawn in code until the scenery art arrives.
+  drawBeetle(t, lit) {
+    if (t.caught || lit <= 0) return;
+    const { ctx, gh } = this;
+    const x = this.px(t.x), y = this.py(t.y), s = BEETLE_R * gh;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, s * 3);
+    g.addColorStop(0, `rgba(255, 200, 120, ${0.45 * lit})`);
+    g.addColorStop(1, "rgba(255, 200, 120, 0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(x - s * 3, y - s * 3, s * 6, s * 6);
+    ctx.save();
+    ctx.globalAlpha = lit;
+    ctx.translate(x, y);
+    ctx.rotate(t.dir > 0 ? Math.PI / 2 : -Math.PI / 2); // head first across the wood
+    const buzz = this.reduced ? 1 : 0.75 + 0.25 * Math.sin(this.clock * 60);
+    ctx.fillStyle = "rgba(225, 220, 205, .55)";
+    for (const side of [-1, 1]) {
+      ctx.beginPath();
+      ctx.ellipse(side * s * 0.95 * buzz, s * 0.15, s * 0.5, s * 0.95, side * 0.35, 0, 6.29);
+      ctx.fill();
+    }
+    ctx.fillStyle = "#8a4f24";
+    for (const side of [-1, 1]) {
+      ctx.beginPath();
+      ctx.ellipse(side * s * 0.42, s * 0.05, s * 0.32, s * 0.72, side * 0.45, 0, 6.29);
+      ctx.fill();
+    }
+    ctx.fillStyle = "#2a1d14";
+    ctx.beginPath();
+    ctx.ellipse(0, -s * 0.7, s * 0.3, s * 0.28, 0, 0, 6.29);
+    ctx.fill();
+    ctx.restore();
+  }
+  drawRoost() {
+    const img = this.img.roost;
+    if (!ready(img)) return;
+    const { ctx, gh } = this;
+    const w = ROOST.size * gh;
+    ctx.drawImage(img, this.px(this.home.x) - w / 2, this.py(this.home.y) - w / 2, w, w);
+  }
   drawBat() {
     const { ctx, gh } = this;
-    const b = this.run.bat;
+    const fl = this.flyer;
+    const b = fl ? { ...this.run.bat, x: fl.x, y: fl.y, face: fl.face, vy: 0, blink: 0 } : this.run.bat;
+    if (fl && fl.alpha <= 0) return;
     const x = this.px(b.x), y = this.py(b.y);
     // A soft glow so the child can always find the bat.
     const g = ctx.createRadialGradient(x, y, 0, x, y, 0.13 * gh);
@@ -542,10 +615,11 @@ export class View extends TopicGameView {
     const blink = b.blink > 0 && Math.floor(b.blink * 10) % 2 === 0;
     const sheet = this.img.batFly;
     if (sheetReady(sheet)) {
-      const f = this.reduced || !this.running ? 0 : cycleFrame(this.clock, BAT_FLY.ms, BAT_FLY.seq);
+      const f = this.reduced || (!this.running && !fl) ? 0 : cycleFrame(this.clock, BAT_FLY.ms, BAT_FLY.seq);
       ctx.save();
-      ctx.globalAlpha = blink ? 0.35 : 1;
+      ctx.globalAlpha = fl ? fl.alpha : blink ? 0.35 : 1;
       ctx.translate(x, y);
+      if (fl) ctx.scale(fl.s, fl.s);
       ctx.rotate(clamp(b.vy * 0.3, -0.25, 0.25) * (b.face || 1));
       if (b.face < 0) ctx.scale(-1, 1);
       drawCell(ctx, sheet, f, BAT_FLY.at[f], BAT_FLY.size * gh);

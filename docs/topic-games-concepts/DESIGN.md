@@ -182,13 +182,14 @@ The owner liked all six concepts on the concept board and said to build them all
 ## 6. Bat Night Hunt (arcade) — id `bat`
 
 - **Goal.** Words: nocturnal, listen, bat and fly. Bats find food by sound.
-- **Picture.** A dark wood at night with a moon. The bat flies freely in two dimensions. Moths and branches are almost invisible.
+- **Picture.** A dark wood at night with a moon. The bat flies freely in two dimensions. Moths, beetles and branches are invisible until an echo finds them (owner, 24 Nov 2026); only the owl's glowing eye shows in the dark.
 - **Echo.** Space, a tap of the Echo button, or a double-tap on the stage sends rings out from the bat. Things the rings pass light up, then fade over the "seen" time. Echo has a cooldown of 1.2 s.
 - **Moths.** Worth 10 points each. A streak builds within one echo, up to ×3.
+- **Beetles (every level, added 24 Nov 2026).** A cockchafer flies straight across about every 14 s (the first after 7–12 s): 30 points, and it counts in the streak.
 - **Dangers.**
   - **Branches (Medium and Hard):** they stay put; bumping one loses a life.
   - **Owl (Hard):** it glides slowly across. Bumping it loses a life.
-- **Lives.** 3. The round ends at dawn.
+- **Lives.** 3. The round ends at dawn: the bat box on its tree slides in and the bat flies home to its roost along a curve, then the results show.
 - **Levels.**
 
   | Level | Seen for | Moth speed | Dangers | Help | Night |

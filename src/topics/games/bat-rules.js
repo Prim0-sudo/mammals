@@ -1,5 +1,5 @@
 // How to play Bat Night Hunt. Numbers come from the game's settings.
-import { SETTINGS, LIVES, MOTH_POINTS, MAX_STREAK, ECHO_COOLDOWN } from "./bat.js";
+import { SETTINGS, LIVES, MOTH_POINTS, BEETLE_POINTS, MAX_STREAK, ECHO_COOLDOWN } from "./bat.js";
 
 const s = SETTINGS;
 const danger = (l) => (s[l].branches ? `up to ${s[l].branches} branches${s[l].owlEvery ? " and an owl" : ""}` : "nothing to bump into");
@@ -7,10 +7,11 @@ const danger = (l) => (s[l].branches ? `up to ${s[l].branches} branches${s[l].ow
 export const RULES = [
   { title: "How to play", items: [
     "Bats are nocturnal: they hunt at night. It is too dark to see, so a bat listens.",
-    "Send an echo. The rings light up the moths, branches and owls they pass, then everything fades into the dark again.",
+    "Send an echo. The rings light up the moths, beetles, branches and owls they pass, then everything fades into the dark again.",
     `Fly into a moth to catch it: ${MOTH_POINTS} points.`,
-    `Catch more moths from the same echo for a streak, up to ×${MAX_STREAK}.`,
-    `Bumping a branch or an owl costs a life. You have ${LIVES}. The night ends at dawn.`,
+    `Now and then a beetle flies straight across the wood. Catch it for ${BEETLE_POINTS} points.`,
+    `Catch more moths and beetles from the same echo for a streak, up to ×${MAX_STREAK}.`,
+    `Bumping a branch or an owl costs a life. You have ${LIVES}. At dawn the bat flies home to its roost to sleep.`,
   ] },
   { title: "Levels", items: [
     `Easy: ${s.easy.night} seconds of night, slow moths, ${danger("easy")}. A free echo every ${s.easy.autoEcho} seconds, and things stay lit for ${s.easy.seen} seconds.`,
