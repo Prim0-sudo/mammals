@@ -1,0 +1,15 @@
+11 lone baby pictures for Nursery Round-up. The adult red deer hind is delivered
+as ../originals/hind.png and appears on the contact sheet for review.
+
+Each image was generated individually with the built-in image tool. Every call used
+the exact three-paragraph prompt and the rabbit.png and hare.png style references.
+The delivered files are 1024 x 1024 RGBA PNGs. The generated cutouts were resampled
+and centred on transparent canvases. Each subject's longest dimension spans
+about 85% of the canvas.
+
+Visually checked that each baby appears alone, with no adult, adult body part
+or adult shadow. The hind faces right in side view and has no antlers. Inspected
+the edges on dark charcoal and reviewed the silhouettes at 120 px. The piglet
+was regenerated with the same prompt to get a cleaner outline.
+
+The seal pup's front flippers have a rounded, paw-like shape.

@@ -1,0 +1,16 @@
+12 empty-home pictures for Home Before Dark.
+
+Each image was generated individually with the built-in image tool. Every call used
+the exact three-paragraph prompt and the warren.png and drey.png style references.
+The delivered files are 1024 x 1024 RGBA PNGs. The generated cutouts were resampled
+and centred on transparent canvases. Each subject's longest dimension spans
+about 85% of the canvas.
+
+The full-size inspection of openings and interiors showed no animals, body
+parts, eyes, faces, tracks, droppings, fur or feathers. Inspected the
+edges on dark charcoal and reviewed the silhouettes at 120 px.
+
+The lodge diorama shows a visible opening at the waterline. Real
+beavers enter lodges through submerged openings.
+National Park Service
+https://www.nps.gov/articles/buildabeaverdam.htm
