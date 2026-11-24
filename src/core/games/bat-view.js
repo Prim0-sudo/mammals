@@ -405,7 +405,8 @@ export class View extends TopicGameView {
       ctx.fill();
     }
   }
-  // Branches are dim shapes in the dark; an echo shows the bark for a moment.
+  // Branches are hidden in the dark (owner, 24 Nov: no faint outlines, so the child must echo); an
+  // echo shows the bark for a moment.
   drawBranch(t, lit) {
     const { ctx, gh } = this;
     const x1 = this.px(t.x1), y1 = this.py(t.y1), x2 = this.px(t.x2), y2 = this.py(t.y2);
@@ -430,7 +431,6 @@ export class View extends TopicGameView {
       twig(0.45 + t.twig * 0.2, 1, 0.08, BRANCH_W * gh);
       twig(0.7, -1, 0.06, BRANCH_W * gh * 0.8);
     };
-    paint("#2b3456", 0.75);
     if (lit > 0) paint("#b58b5c", lit);
     ctx.globalAlpha = 1;
   }
@@ -455,12 +455,12 @@ export class View extends TopicGameView {
     }
     ctx.restore();
   }
-  // Moths are nearly invisible until an echo finds them.
+  // Moths are invisible until an echo finds them.
   drawMoth(t, lit) {
     const { ctx, gh } = this;
     if (t.caught) return;
     const x = this.px(t.x), y = this.py(t.y), s = MOTH_R * gh;
-    const alpha = 0.07 + 0.93 * lit;
+    const alpha = lit;
     if (lit > 0) {
       const g = ctx.createRadialGradient(x, y, 0, x, y, s * 3);
       g.addColorStop(0, `rgba(255, 236, 160, ${0.5 * lit})`);
@@ -498,7 +498,7 @@ export class View extends TopicGameView {
       ctx.save();
       ctx.translate(x, y);
       if (t.dir < 0) ctx.scale(-1, 1);
-      ctx.globalAlpha = 0.18 + 0.82 * lit;
+      ctx.globalAlpha = lit; // only its glowing eye shows until an echo finds it
       drawCell(ctx, sheet, f, OWL_FLY.at[f], size);
       // One glowing eye, side on, so the owl shows in the dark before an echo finds it.
       ctx.globalAlpha = 0.9;
@@ -514,7 +514,7 @@ export class View extends TopicGameView {
       const [cx, cy, cw, ch] = CROP.owl;
       const w = (h * cw * img.naturalWidth) / (ch * img.naturalHeight);
       ctx.save();
-      ctx.globalAlpha = 0.18 + 0.82 * lit;
+      ctx.globalAlpha = lit; // only its glowing eye shows until an echo finds it
       ctx.translate(x, y);
       if (t.dir < 0) ctx.scale(-1, 1);
       ctx.drawImage(img, cx * img.naturalWidth, cy * img.naturalHeight, cw * img.naturalWidth, ch * img.naturalHeight, -w / 2, -h / 2, w, h);

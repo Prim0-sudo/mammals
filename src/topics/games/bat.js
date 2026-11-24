@@ -286,8 +286,10 @@ export function botInput(run, brain) {
   let tx = best ? best.x : brain.rx, ty = best ? best.y : brain.ry;
   // Dangers it knows about: look a little way ahead and turn aside if the way is blocked.
   const known = run.things.filter((t) => {
-    // Branches show faintly even in the dark, and the owl's eyes glow, so both can be learnt.
+    // The owl's eye glows, so it can always be learnt. Branches are hidden in the dark: it knows one
+    // only once an echo has shown it.
     if (t.type !== "branch" && t.type !== "owl") return false;
+    if (t.type === "branch" && !(t.lit > 0) && !brain.seen.has(t.id)) return false;
     // Now and then it forgets one for a few seconds (a slip), as a child might.
     const s = brain.seen.get(t.id);
     if (!s || s.until <= run.time) brain.seen.set(t.id, { ok: brain.rand() >= brain.slip, until: run.time + 4 });

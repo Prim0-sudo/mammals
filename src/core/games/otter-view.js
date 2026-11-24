@@ -17,7 +17,7 @@ const ready = (img) => !!(img && img.complete && img.naturalWidth);
 const OTTER_CUT = [[0, 0], [1, 0], [1, 0.61], [0.11, 0.61], [0.11, 0.72], [0, 0.72]];
 const CROP = {
   otter: [0.02, 0.2, 0.94, 0.52],
-  fish: [0.16, 0.24, 0.68, 0.52],
+  fish: [0.01, 0.24, 0.98, 0.52], // the whole fish, nose to tail
   holt: [0, 0.04, 1, 0.92],
 };
 
@@ -536,9 +536,9 @@ export class View extends TopicGameView {
   drawFish(t) {
     const { ctx, gh } = this;
     const img = this.img.fish;
-    const w = 0.13 * gh;
+    const w = 0.17 * gh;
     const x = this.px(t.x), y = this.py(t.y);
-    if (ready(img)) this.crop(img, CROP.fish, x - w / 2, y - w * 0.38, w, false);
+    if (ready(img)) this.crop(img, CROP.fish, x - w / 2, y - w * 0.265, w, false);
     else {
       ctx.fillStyle = "#c9c2a5";
       ctx.beginPath();
