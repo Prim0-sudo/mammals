@@ -5,11 +5,10 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
 ## Where it stands
 
 - **Topic Games: the owner approved all six on 24 Nov** ("these are great"), subject to these changes:
-  - **Art** (brief: docs/game-art/BRIEF.md):
-    - Home Before Dark needs empty homes, with no animals inside.
-    - Nursery needs each baby alone, not beside its mother (that made it too easy). Deer and fawn are out until there is a hind picture.
-    - The arcade animals need motion frames: rabbit hop and run, otter swim, bat, owl, eagle and fox.
-    - The brief is with the existing **Art** session (Ludimi group, cwd insects-weekly-game, works here by absolute path). The owner approved the rabbit-hop pilot on 24 Nov (Art commit 9f66473), and it is wired into Burrow Dash (6dced85). The frames bound on the ground and push off, leap and land on a hop. Art is now doing the homes, the babies and the hind, then the other six cycles. Wire each batch in after the owner approves it.
+  - **Art** (brief: docs/game-art/BRIEF.md): **all done, owner approved and wired in on 24 Nov.**
+    - Home Before Dark shows the 12 empty homes (games/homes/), Nursery has the 11 lone babies and the hind, so deer and fawn are back (f22c127).
+    - Motion frames (assets/topics/mammals/games/sprites/, drawn by src/core/games/sprites.js): rabbit hop and gallop, fox trot and eagle soar/swoop in Burrow Dash; otter swim in Otter Dive; bat and barn owl flight in Bat Night Hunt. Frame 0 is the still pose before a round and under reduced motion. The bat and owl are anchored by the eye, keeping a fifth of the bat's natural body rise.
+    - The Art session (Ludimi group) did the pictures; its next job is the teaching scenes.
   - **Voice:** the education games now speak every status line, and tapping an animal, home, baby or mother says its name. All 441 game lines are in src/topics/narration-lines.js, and tests/games-voice.test.js checks them.
     - **Recorded:** the owner picked Heart (af_heart, as in Insects). All 2,257 clips are in assets/audio/heart (49 MB) and the manifest is complete. The headless check finds no missing line in any of the three games at 1366 or 390. Re-run `node tools/voice/build.mjs --make` (in the background, about 50 minutes on the CPU, and it only records new lines) whenever spoken text changes.
   - Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game. Committed locally.
@@ -33,12 +32,8 @@ What it is:
 
 ## Next
 Finish item 2, Topic Games:
-1. The Art session makes the pictures in docs/game-art/BRIEF.md. Wire them in after the owner approves them:
-   - empty homes into Home Before Dark;
-   - lone babies as the word pictures, rewriting their descriptions in mammals-words.js;
-   - the hind, which brings back deer and fawn;
-   - the sprite frames into the arcade canvases.
-2. Then push.
+1. Art is in (see above).
+2. Push, once the owner says so.
 
 ---
 

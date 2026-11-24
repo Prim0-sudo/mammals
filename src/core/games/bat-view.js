@@ -7,6 +7,7 @@ import {
   SETTINGS, LIVES, MAX_STREAK, ECHO_COOLDOWN, ECHO_RANGE, BRANCH_W, OWL_R, MOTH_R,
   createRun, step, stars, resizeRun,
 } from "../../topics/games/bat.js";
+import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
 
 const LEVEL_ART = { easy: "bat", medium: "nocturnal", hard: "owl" };
 const ASPECT = [0.78, 2.4]; // the wood's shape: deeper than wide on a phone, wide on a desktop
@@ -14,6 +15,17 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const ready = (img) => !!(img && img.complete && img.naturalWidth);
 // Each word picture has a wide clear margin: draw only the animal.
 const CROP = { bat: [0.02, 0.21, 0.96, 0.58], owl: [0.25, 0.02, 0.5, 0.96] };
+// Flight frames (owner approved, 24 November 2026), facing right. The wings fill the cells differently,
+// so each frame is anchored by the animal's eye (cell pixels) plus a shift to the middle of its body.
+// A real bat's body rises on the downstroke; only a fifth of that rise is kept, so it does not jump.
+const BAT_EYES = [[440, 330], [438, 330], [433, 212], [433, 217]];
+const BAT_FLY = {
+  ms: 80, seq: [0, 1, 2, 3], size: 0.24,
+  at: BAT_EYES.map(([x, y]) => [x - 110, y + 20 + (330 - y) * 0.2]),
+};
+// The barn owl glides, then gives two beats of its wings.
+const OWL_EYES = [[393, 288], [446, 293], [426, 165]];
+const OWL_FLY = { ms: 160, seq: [0, 0, 1, 2], size: 4.4, eye: [120, -15], at: OWL_EYES.map(([x, y]) => [x - 120, y + 15]) };
 const WHAT = { branch: "Ouch, a branch!", owl: "Look out, an owl!" };
 
 function loadImage(src) {
@@ -74,7 +86,7 @@ export class View extends TopicGameView {
   play() {
     this.setStage("play");
     this.cfg = SETTINGS[this.level];
-    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")) };
+    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly") };
     const c = this.cfg;
     const dangers = c.branches ? `Keep away from the branches${c.owlEvery ? " and the owl" : ""}!` : "";
     this.root.innerHTML = `<div class="ig-play bat-play">
@@ -479,6 +491,25 @@ export class View extends TopicGameView {
     const img = this.img.owl;
     const h = OWL_R * 2.6 * gh;
     const x = this.px(t.x), y = this.py(t.y);
+    const sheet = this.img.owlFly;
+    if (sheetReady(sheet)) {
+      const size = OWL_FLY.size * OWL_R * gh;
+      const f = this.reduced ? 0 : cycleFrame(this.clock + t.phase, OWL_FLY.ms, OWL_FLY.seq);
+      ctx.save();
+      ctx.translate(x, y);
+      if (t.dir < 0) ctx.scale(-1, 1);
+      ctx.globalAlpha = 0.18 + 0.82 * lit;
+      drawCell(ctx, sheet, f, OWL_FLY.at[f], size);
+      // One glowing eye, side on, so the owl shows in the dark before an echo finds it.
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = "#ffd23f";
+      ctx.beginPath();
+      ctx.arc((OWL_FLY.eye[0] / 512) * size, (OWL_FLY.eye[1] / 512) * size, 0.008 * gh, 0, 6.29);
+      ctx.fill();
+      ctx.restore();
+      ctx.globalAlpha = 1;
+      return;
+    }
     if (ready(img)) {
       const [cx, cy, cw, ch] = CROP.owl;
       const w = (h * cw * img.naturalWidth) / (ch * img.naturalHeight);
@@ -508,9 +539,21 @@ export class View extends TopicGameView {
     g.addColorStop(1, "rgba(140, 200, 255, 0)");
     ctx.fillStyle = g;
     ctx.fillRect(x - 0.13 * gh, y - 0.13 * gh, 0.26 * gh, 0.26 * gh);
+    const blink = b.blink > 0 && Math.floor(b.blink * 10) % 2 === 0;
+    const sheet = this.img.batFly;
+    if (sheetReady(sheet)) {
+      const f = this.reduced || !this.running ? 0 : cycleFrame(this.clock, BAT_FLY.ms, BAT_FLY.seq);
+      ctx.save();
+      ctx.globalAlpha = blink ? 0.35 : 1;
+      ctx.translate(x, y);
+      ctx.rotate(clamp(b.vy * 0.3, -0.25, 0.25) * (b.face || 1));
+      if (b.face < 0) ctx.scale(-1, 1);
+      drawCell(ctx, sheet, f, BAT_FLY.at[f], BAT_FLY.size * gh);
+      ctx.restore();
+      return;
+    }
     const img = this.img.bat;
     if (!ready(img)) return;
-    const blink = b.blink > 0 && Math.floor(b.blink * 10) % 2 === 0;
     const [cx, cy, cw, ch] = CROP.bat;
     const w = 0.2 * gh, h = (w * ch * img.naturalHeight) / (cw * img.naturalWidth);
     const flap = this.reduced || !this.running ? 1 : 0.62 + 0.38 * Math.abs(Math.sin(this.clock * 11));

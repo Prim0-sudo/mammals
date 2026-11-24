@@ -7,6 +7,7 @@ import {
   SETTINGS, GROUND, RABBIT_X, LIVES, LEAF_POINTS, SWOOP,
   createRun, step, stars, burrowNear,
 } from "../../topics/games/dash.js";
+import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
 
 const LEVEL_ART = { easy: "rabbit", medium: "fox", hard: "eagle" };
 const EARS = 0.84; // how far the rabbit sinks into a burrow: its ear tips stay above the ground
@@ -28,6 +29,11 @@ const CROP = {
 // crouch, push off, mid-leap, landing. Every frame shares one ground line and one nose line.
 const HOP = { src: "assets/topics/mammals/games/sprites/rabbit-hop.webp", cell: 512, frames: 4, feet: 481, mid: 285, tall: 319 };
 const STRIDE = 11; // the running bounce: |sin(time * STRIDE)|, so one bound lasts PI / STRIDE seconds
+// The other motion frames (owner approved, 24 November 2026). Anchors are cell pixels: the rabbit and
+// the fox by the body middle on the ground line, the eagle by the middle of its body.
+const RUN = { ms: 110, seq: [0, 1, 2, 3], at: [285, 481] }; // a gallop, the same rabbit as the hop
+const FOX = { ms: 140, fast: 90, seq: [0, 1, 2, 3], at: [256, 481], size: 0.36 }; // bigger than the rabbit
+const EAGLE = { soar: 0, swoop: 1, at: [[256, 246], [330, 260]], size: 1.15 };
 const mix = (c1, c2, t) => {
   const p = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
   const a = p(c1), b = p(c2);
@@ -79,6 +85,7 @@ export class View extends TopicGameView {
     this.cfg = SETTINGS[this.level];
     this.img = Object.fromEntries(["rabbit", "eagle", "fox", "leaf", "warren"].map((id) => [id, loadImage(this.art(id))]));
     this.img.hop = loadImage(HOP.src);
+    for (const name of ["rabbit-run", "fox-trot", "eagle-fly"]) this.img[name] = loadSheet(name);
     this.root.innerHTML = `<div class="ig-play dash-play">
       <div class="dash-bar">
         <div class="dash-hud">
@@ -625,6 +632,10 @@ export class View extends TopicGameView {
     const phase = (((this.time || 0) * STRIDE) / Math.PI) % 1;
     return Math.min(HOP.frames - 1, Math.floor(phase * HOP.frames));
   }
+  // Running along the ground (no hop, not hiding, not heading home): the gallop frames, if loaded.
+  galloping(h, s, rb) {
+    return !s && h === 0 && rb.hop < 0 && !rb.hidden && this.sink <= 0 && this.running && !this.reduced && sheetReady(this.img["rabbit-run"]);
+  }
   drawRabbit() {
     const { ctx, gh } = this;
     const r = this.run, rb = r.rabbit;
@@ -642,8 +653,11 @@ export class View extends TopicGameView {
     const ht = sheet ? (size * HOP.tall) / HOP.cell : (w * ch * img.naturalHeight) / (cw * img.naturalWidth);
     const g = this.sy(0);
     // A running bounce while on the ground (none under reduced motion); the frames bound with it.
+    // The gallop lifts the rabbit only on its stretched, all-feet-off frame.
+    const gallop = this.galloping(h, s, rb) ? cycleFrame(this.time, RUN.ms, RUN.seq) : -1;
     const lift = sheet ? 0.03 : 0.012;
-    const bounce = !s && h === 0 && this.running && !this.reduced ? Math.abs(Math.sin((this.time || 0) * STRIDE)) * lift * gh : 0;
+    const bounce = gallop >= 0 ? (gallop === 2 ? 0.014 * gh : 0)
+      : !s && h === 0 && this.running && !this.reduced ? Math.abs(Math.sin((this.time || 0) * STRIDE)) * lift * gh : 0;
     const feet = this.sy(h) - bounce + this.sink * ht;
     ctx.save();
     ctx.globalAlpha = alpha;
@@ -663,7 +677,9 @@ export class View extends TopicGameView {
     const sy = this.pose.sy;
     ctx.scale(1 + (1 - sy) * 0.5, sy);
     if (h > 0 && !this.reduced) ctx.rotate(sheet ? -0.06 + rb.hop * 0.12 : -0.12 + rb.hop * 0.24);
-    if (sheet) {
+    if (gallop >= 0) {
+      drawCell(ctx, this.img["rabbit-run"], gallop, RUN.at, size);
+    } else if (sheet) {
       const f = this.hopFrame(h, s, rb);
       ctx.drawImage(sheet, f * HOP.cell, 0, HOP.cell, HOP.cell, (-HOP.mid / HOP.cell) * size, (-HOP.feet / HOP.cell) * size, size, size);
     } else this.crop(img, CROP.rabbit, -w * 0.5, -ht, w);
@@ -696,20 +712,42 @@ export class View extends TopicGameView {
     const k = clamp((d.t - d.warn) / SWOOP, 0, 1);
     return { x: lerp(rx + 0.02, rx - 0.7, k), y: lerp(GROUND - 0.1, -0.1, Math.sqrt(k)), size: 0.24, rot: -0.5 + k * 0.9 };
   }
+  // The eagle soars in with its wings spread, swoops with its talons out, and climbs away soaring.
   drawEagle(d) {
+    const sheet = sheetReady(this.img["eagle-fly"]) ? this.img["eagle-fly"] : null;
     const img = this.img.eagle;
-    if (!ready(img)) return;
+    if (!sheet && !ready(img)) return;
     const { ctx, gh } = this;
     const p = this.eaglePos(d);
     const w = p.size * gh;
     ctx.save();
     ctx.translate(this.gx + p.x * gh, this.gy + p.y * gh);
-    ctx.rotate(p.rot);
-    this.crop(img, CROP.eagle, -w / 2, -w / 2, w, true, EAGLE_CUT);
+    if (sheet) {
+      const swoop = d.t >= d.warn - 0.35 && d.t < d.warn + SWOOP * 0.3;
+      const f = swoop ? EAGLE.swoop : EAGLE.soar;
+      // The swoop frame is already angled down, so it turns less than the soaring one.
+      ctx.rotate(swoop ? p.rot * 0.3 : p.rot);
+      ctx.scale(-1, 1); // the frames face right; the eagle flies in from the right
+      drawCell(ctx, sheet, f, EAGLE.at[f], w * EAGLE.size);
+    } else {
+      ctx.rotate(p.rot);
+      this.crop(img, CROP.eagle, -w / 2, -w / 2, w, true, EAGLE_CUT);
+    }
     ctx.restore();
   }
   // The fox trots in crouched, from the right; after its pounce it runs off to the left.
   drawFox(x, gone) {
+    const sheet = this.img["fox-trot"];
+    if (sheetReady(sheet)) {
+      const { ctx, gh } = this;
+      const f = this.reduced ? 0 : cycleFrame(this.time, gone ? FOX.fast : FOX.ms, FOX.seq);
+      ctx.save();
+      ctx.translate(this.sx(x), this.sy(0));
+      ctx.scale(-1, gone ? 1 : 0.86); // facing left, crouched while it stalks
+      drawCell(ctx, sheet, f, FOX.at, FOX.size * gh);
+      ctx.restore();
+      return;
+    }
     const img = this.img.fox;
     if (!ready(img)) return;
     const { ctx, gh } = this;

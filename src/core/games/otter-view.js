@@ -6,6 +6,7 @@ import {
   SETTINGS, SURFACE, BED, TOP, DEEP, WHISKERS, LIVES, MAX_COMBO,
   createRun, step, stars, otterX,
 } from "../../topics/games/otter.js";
+import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
 
 const LEVEL_ART = { easy: "otter", medium: "dive", hard: "whiskers" };
 const ASPECT = [0.78, 2.6]; // the river's shape: deeper than wide on a phone, wide on a desktop
@@ -19,6 +20,10 @@ const CROP = {
   fish: [0.16, 0.24, 0.68, 0.52],
   holt: [0, 0.04, 1, 0.92],
 };
+
+// The otter's swim frames (owner approved, 24 November 2026): straight, arched, straight, arched the
+// other way. Anchored at the middle of the cell; a slower stroke while it floats at the surface.
+const SWIM_FRAMES = { ms: 170, surface: 260, seq: [0, 1, 2, 3], at: [256, 256], size: 0.32 };
 
 function loadImage(src) {
   const img = new Image();
@@ -68,6 +73,7 @@ export class View extends TopicGameView {
       otter: loadImage(this.art("otter")),
       fish: loadImage(this.art("fish")),
       holt: loadImage(this.art("holt")),
+      swim: loadSheet("otter-swim"),
     };
     const muddy = this.cfg.muddy;
     this.root.innerHTML = `<div class="ig-play otter-play${muddy ? " is-muddy" : ""}">
@@ -664,12 +670,20 @@ export class View extends TopicGameView {
     // A narrow (phone) river draws the otter a little smaller so its tail stays on screen.
     const k = clamp((this.run.view || 1.8) / 1.2, 0.75, 1);
     const w = 0.3 * k * gh;
+    const sheet = sheetReady(this.img.swim) ? this.img.swim : null;
     const img = this.img.otter;
-    if (!ready(img) || alpha <= 0) return;
+    if ((!sheet && !ready(img)) || alpha <= 0) return;
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.translate(this.px(x) - 0.06 * k * gh, this.py(y));
     ctx.rotate(tilt);
+    if (sheet) {
+      const still = this.reduced || !(this.running || s);
+      const f = still ? 0 : cycleFrame(this.time, o.under || s ? SWIM_FRAMES.ms : SWIM_FRAMES.surface, SWIM_FRAMES.seq);
+      drawCell(ctx, sheet, f, SWIM_FRAMES.at, SWIM_FRAMES.size * k * gh);
+      ctx.restore();
+      return;
+    }
     const [, , cw, ch] = CROP.otter;
     const h = (w * ch) / cw;
     this.crop(img, CROP.otter, -w / 2, -h * 0.48, w, false, OTTER_CUT);
