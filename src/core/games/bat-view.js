@@ -26,14 +26,16 @@ const BAT_FLY = {
 // The barn owl glides, then gives two beats of its wings.
 const OWL_EYES = [[393, 288], [446, 293], [426, 165]];
 const OWL_FLY = { ms: 160, seq: [0, 0, 1, 2], size: 4.4, eye: [120, -15], at: OWL_EYES.map(([x, y]) => [x - 120, y + 15]) };
-// At dawn the bat flies home to a bat box on a tree (the empty roost from Home Before Dark). Its
-// entrance slot is at this share of the picture.
-const ROOST = { src: "assets/topics/mammals/games/homes/roost.webp", size: 0.42, door: [0.54, 0.68] };
 // The moonlit wood (assets/topics/mammals/games/scenery/bat/). The three strips loop left to right
 // with the scenery on their bottom edge; they are drawn back to front at one scale, and shift a little
 // with the bat for depth. At night they are dimmed so the lit moths and the bat stand out.
 const SCENE = "assets/topics/mammals/games/scenery/bat/";
 const STRIPS = [{ name: "far-trees", shift: 0.02 }, { name: "near-trees", shift: 0.05 }, { name: "pond", shift: 0.09 }];
+// At dawn the bat flies home to an old oak and in through the hollow in its trunk. The oak's roots
+// sit on the bank (base, a share of the wood's height); its hollow is at this share of the picture.
+// size is the picture's side, kept narrower than a phone's wood.
+const ROOST = { name: "roost", size: 0.8, maxShare: 0.95, base: 0.95, roots: 481 / 512, door: [0.535, 0.65] };
+const BEETLE_SIZE = 3.6; // the beetle picture's side, in beetle radii (its wings span 90% of it)
 const STRIP_H = 0.62; // a strip's height, as a share of the wood's height (2048 x 512, so 4 wide)
 const MOON_DISC = 0.8; // the moon's disc fills this share of its square (the rest is glow)
 // Each branch picture runs left to right from its base, within this crop of the square (x, y, w, h).
@@ -101,7 +103,7 @@ export class View extends TopicGameView {
   play() {
     this.setStage("play");
     this.cfg = SETTINGS[this.level];
-    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly"), roost: loadImage(ROOST.src),
+    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly"), roost: loadImage(`${SCENE}${ROOST.name}.webp`), beetle: loadImage(`${SCENE}beetle.webp`),
       strips: STRIPS.map((st) => loadImage(`${SCENE}${st.name}.webp`)), moon: loadImage(`${SCENE}moon.webp`),
       branches: ["branch", "branch-2", "branch-3"].map((n) => loadImage(`${SCENE}${n}.webp`)),
       moths: ["moth", "moth-2"].map((n) => loadImage(`${SCENE}${n}.webp`)) };
@@ -355,9 +357,10 @@ export class View extends TopicGameView {
     // The roost comes in at the side nearer the bat; the bat flies home and in through the slot.
     const b = this.run.bat, view = this.run.view;
     const right = b.x >= view / 2;
-    const at = { x: right ? view - 0.17 : 0.17, y: 0.57 };
-    this.home = { x: right ? view + 0.3 : -0.3, y: at.y };
-    const door = { x: at.x + (ROOST.door[0] - 0.5) * ROOST.size, y: at.y + (ROOST.door[1] - 0.5) * ROOST.size };
+    const size = this.roostSize();
+    const at = { x: right ? view - size * 0.3 : size * 0.3, y: ROOST.base - (ROOST.roots - 0.5) * size };
+    this.home = { x: right ? view + size * 0.6 : -size * 0.6, y: at.y };
+    const door = { x: at.x + (ROOST.door[0] - 0.5) * size, y: at.y + (ROOST.door[1] - 0.5) * size };
     if (this.reduced) {
       this.dawn = 1;
       this.home.x = at.x;
@@ -626,7 +629,7 @@ export class View extends TopicGameView {
     ctx.globalAlpha = 1;
   }
   // A cockchafer from above: brown wing cases held open, buzzing wings, invisible until an echo.
-  // Drawn in code until the scenery art arrives.
+  // The picture is drawn head first across the wood; the code drawing stands in while it loads.
   drawBeetle(t, lit) {
     if (t.caught || lit <= 0) return;
     const { ctx, gh } = this;
@@ -641,6 +644,14 @@ export class View extends TopicGameView {
     ctx.translate(x, y);
     ctx.rotate(t.dir > 0 ? Math.PI / 2 : -Math.PI / 2); // head first across the wood
     const buzz = this.reduced ? 1 : 0.75 + 0.25 * Math.sin(this.clock * 60);
+    const img = this.img.beetle;
+    if (ready(img)) {
+      const side = BEETLE_SIZE * s;
+      ctx.scale(0.9 + 0.1 * buzz, 1); // the wings whirr
+      ctx.drawImage(img, -side / 2, -side / 2, side, side);
+      ctx.restore();
+      return;
+    }
     ctx.fillStyle = "rgba(225, 220, 205, .55)";
     for (const side of [-1, 1]) {
       ctx.beginPath();
@@ -659,12 +670,18 @@ export class View extends TopicGameView {
     ctx.fill();
     ctx.restore();
   }
+  roostSize() {
+    return Math.min(ROOST.size, ROOST.maxShare * this.run.view);
+  }
   drawRoost() {
     const img = this.img.roost;
     if (!ready(img)) return;
     const { ctx, gh } = this;
-    const w = ROOST.size * gh;
+    const w = this.roostSize() * gh;
+    ctx.save();
+    ctx.filter = `brightness(${(0.6 + 0.4 * this.dawn).toFixed(3)})`; // lit like the wood
     ctx.drawImage(img, this.px(this.home.x) - w / 2, this.py(this.home.y) - w / 2, w, w);
+    ctx.restore();
   }
   drawBat() {
     const { ctx, gh } = this;
