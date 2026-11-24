@@ -373,8 +373,10 @@ await test("Leaving a moving Picture Pick cancels the reveal; mute works while s
   );
 });
 await test("Reduced motion avoids confetti and has stable spelling outcomes", () => {
+  // A results screen just before may have left its still sparkles; a small pop must add nothing.
+  const before = q("#effects").children.length;
   game.confetti(20);
-  assert(q("#effects").children.length === 0, "Confetti on reduced motion");
+  assert(q("#effects").children.length === before, "Confetti on reduced motion");
 });
 await test("Rendered controls have accessible names and images have alt attributes", () => {
   assert(

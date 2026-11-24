@@ -14,6 +14,7 @@ import {
   restoreSession,
 } from "./logic.js";
 import { AudioManager } from "./audio.js";
+import { fireConfetti } from "./confetti.js";
 import { getSkin } from "./skins/index.js";
 import { renderScene } from "./theme.js";
 import { mountFlyingBugs } from "./flying-bugs.js";
@@ -1745,7 +1746,7 @@ export class GameEngine {
     this.bind("again", () => this.nextSession(s));
     this.bind("menu", () => this.leaveTo(s.mode));
     this.focus();
-    this.confetti(110);
+    this.confetti(count >= 3 ? 120 : count === 2 ? 75 : 40, { from: this.app.querySelector(".result-stars") });
   }
   // Next session keeps the chosen group and word count; the word cycle carries on.
   nextSession(previous) {
@@ -1773,16 +1774,12 @@ export class GameEngine {
     }
     this.start(mode);
   }
-  confetti(count) {
-    if (this.reduced()) return;
-    const root = document.getElementById("effects");
-    root.replaceChildren();
-    for (let i = 0; i < count; i++) {
-      const el = document.createElement("i");
-      el.style.cssText = `left:${Math.random() * 100}%;background:${this.topic.theme.cardColors[i % this.topic.theme.cardColors.length]};animation-delay:${Math.random() * 0.3}s;--drift:${Math.random() * 200 - 100}px`;
-      root.append(el);
-    }
-    this.later(() => root.replaceChildren(), 2100);
+  // Confetti sized to the moment (src/core/confetti.js): from (an element) is where a burst starts,
+  // gold adds more gold and silver.
+  confetti(count, { from, gold = false } = {}) {
+    fireConfetti(document.getElementById("effects"), count, {
+      from, gold, reduced: this.reduced(), sound: () => this.audio.pop(),
+    });
   }
   mute() {
     const muted = this.audio.toggle(),

@@ -197,7 +197,7 @@ export class TopicGameView {
     wrap.querySelector("[data-ig-again]").onclick = () => { this.reset(); this.play(); };
     wrap.querySelector("[data-ig-levels]").onclick = () => { this.reset(); this.levels(this.level); };
     if (!this.reduced) this.fromTo(wrap.firstElementChild, { scale: 0.85, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.35, ease: "back.out(1.7)" });
-    if (stars) this.game.confetti(70);
+    if (stars) this.game.confetti([0, 40, 75, 120][stars] || 40, { from: wrap.querySelector(".ig-stars"), gold: best });
     wrap.querySelector("[data-ig-again]").focus({ preventScroll: true });
   }
   // A picture flies along a curve from one element to another (MotionPathPlugin), then fades.

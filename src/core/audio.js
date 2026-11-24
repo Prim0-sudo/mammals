@@ -85,4 +85,34 @@ export class AudioManager {
       /* Audio is an optional enhancement. */
     }
   }
+  // A soft party-popper "pop" for the confetti cannons: a short burst of filtered noise.
+  pop() {
+    if (this.muted) return;
+    try {
+      const Audio = globalThis.AudioContext || globalThis.webkitAudioContext;
+      if (!Audio) return;
+      this.context ||= new Audio();
+      this.context.resume().catch(() => {});
+      const ctx = this.context, now = ctx.currentTime, length = Math.round(ctx.sampleRate * 0.14);
+      const buffer = ctx.createBuffer(1, length, ctx.sampleRate), data = buffer.getChannelData(0);
+      for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length) ** 3;
+      const node = ctx.createBufferSource(), filter = ctx.createBiquadFilter(), gain = ctx.createGain();
+      node.buffer = buffer;
+      filter.type = "bandpass";
+      filter.frequency.value = 1400;
+      filter.Q.value = 0.8;
+      gain.gain.value = 0.12;
+      node.connect(filter).connect(gain).connect(ctx.destination);
+      node.onended = () => {
+        this.nodes.delete(node);
+        node.disconnect();
+        filter.disconnect();
+        gain.disconnect();
+      };
+      this.nodes.add(node);
+      node.start(now);
+    } catch {
+      /* Audio is an optional enhancement. */
+    }
+  }
 }
