@@ -249,3 +249,11 @@
 #app .ig-soon h2 { margin: 6px 0 0; font-size: 1.6rem; color: #1f4f39; }
 #app .ig-soon p { margin: 0; font-size: 1.05rem; line-height: 1.4; }
 #app .ig-soon .button { margin-top: 8px; }
+
+/* Green-band cards: paint the bottom strip of the card itself green, under the band. The band is clipped to the
+   card's rounded corner, and the white behind it showed as thin light lines at the corners and sides
+   (most visible on hover, when the border turns the same green). Owner, 24 November 2026. */
+#app .home-tile, #app .phonics-tile, #app .phonics-tile:nth-child(n), #app .category-card, #app .category-card:nth-child(n), #app .choice-card {
+  background: linear-gradient(#fff, #fff) top / 100% calc(100% - 24px) no-repeat, #1e5631;
+}
+#app .home-tile--more { background: linear-gradient(160deg, #fbf3dc, #efe2bd) top / 100% calc(100% - 24px) no-repeat, #1e5631; }
