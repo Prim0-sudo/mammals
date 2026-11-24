@@ -1,5 +1,5 @@
 // How to play Otter Dive. Every number comes from SETTINGS in otter.js, never typed in here.
-import { SETTINGS, LIVES, FISH_POINTS, MAX_COMBO, REFILL } from "./otter.js";
+import { SETTINGS, LIVES, FISH_POINTS, MAX_COMBO, REFILL, FOODS } from "./otter.js";
 
 const word = (n) => ["no", "one", "two", "three", "four", "five", "six"][n] || String(n);
 const secs = (n) => `${n} ${n === 1 ? "second" : "seconds"}`;
@@ -13,6 +13,7 @@ export const RULES = [
   { title: "How to play", items: [
     "Otters are mammals. They swim and dive for fish, but they breathe air, so they must come up to the surface.",
     `Swim into a fish to catch it: ${FISH_POINTS} points. Each extra fish on the same dive raises your dive combo, up to ×${MAX_COMBO}.`,
+    `Otters eat more than fish. Now and then a trout or an eel comes (${FOODS.trout.points} points), or a frog, or a crayfish walking on the riverbed (${FOODS.frog.points} points).`,
     `Your air bar goes down under water. At the surface it fills again in ${secs(REFILL)}.`,
     "If your air runs out, the otter is lifted up for air and loses a life. Otters never drown in this game.",
     "Bumping a snag or a piece of litter loses a life and breaks your combo.",

@@ -30,12 +30,24 @@ export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (de
 // between fishing lines (0 for none). stars: points for one, two and three stars, from the play
 // simulation below (the test checks they still match it).
 export const SETTINGS = {
-  easy: { speed: 0.3, breath: 12, time: 60, fishEvery: 1.9, obstacleEvery: 4.6, line: 0, muddy: false, river: "slow", obstacles: "a few", stars: [250, 600, 1000] },
-  medium: { speed: 0.4, breath: 9, time: 75, fishEvery: 1.8, obstacleEvery: 2.9, line: 0, muddy: false, river: "faster", obstacles: "more", stars: [250, 650, 1100] },
-  hard: { speed: 0.5, breath: 7, time: 90, fishEvery: 1.7, obstacleEvery: 2.7, line: 15, muddy: true, river: "fast", obstacles: "many", stars: [250, 550, 950] },
+  easy: { speed: 0.3, breath: 12, time: 60, fishEvery: 1.9, obstacleEvery: 4.6, line: 0, muddy: false, river: "slow", obstacles: "a few", stars: [200, 500, 900] },
+  medium: { speed: 0.4, breath: 9, time: 75, fishEvery: 1.8, obstacleEvery: 2.9, line: 0, muddy: false, river: "faster", obstacles: "more", stars: [250, 550, 950] },
+  hard: { speed: 0.5, breath: 7, time: 90, fishEvery: 1.7, obstacleEvery: 2.7, line: 15, muddy: true, river: "fast", obstacles: "many", stars: [200, 500, 800] },
 };
 
 export const LITTER_KINDS = ["can", "bottle", "bag"];
+// What otters eat (owner asked for more kinds, 24 November 2026): fish are the main catch, and now and
+// then one of these comes instead of a shoal. Points are before the dive combo. bob: how far it rises
+// and falls; drift: its speed against the river's (below 1 swims upstream); a crayfish walks the bed.
+export const FOODS = {
+  fish: { name: "fish", plural: "fish", points: FISH_POINTS, r: 0.045, bob: 0.018 },
+  trout: { name: "trout", plural: "trout", points: 20, r: 0.05, bob: 0.014, drift: 0.8, weight: 3 },
+  eel: { name: "eel", plural: "eels", points: 20, r: 0.05, bob: 0.03, drift: 0.95, weight: 2 },
+  frog: { name: "frog", plural: "frogs", points: 15, r: 0.045, bob: 0.022, drift: 0.75, weight: 2 },
+  crayfish: { name: "crayfish", plural: "crayfish", points: 15, r: 0.045, bob: 0, drift: 0.9, weight: 2, bed: true },
+};
+export const FOOD_CHANCE = 0.25; // the share of spawns that bring one of the other foods instead of a shoal
+export const CRAYFISH_Y = BED - 0.035; // a crayfish walks on the bed, just in reach at the otter's deepest
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 // A fresh round. rand drives every spawn, so a seed replays the same river.
@@ -44,7 +56,7 @@ export function createRun(level, { seed = 1, view = SIM_VIEW } = {}) {
   const rand = seeded(seed);
   return {
     level, cfg, view, rand, time: 0, dist: 0, over: false, end: null,
-    points: 0, fish: 0, bestCombo: 1, combo: 1, diveFish: 0, lives: LIVES, bumps: 0, breaths: 0,
+    points: 0, fish: 0, caught: {}, bestCombo: 1, combo: 1, diveFish: 0, lives: LIVES, bumps: 0, breaths: 0,
     otter: { y: TOP, target: TOP, vy: 0, air: 1, under: false, lift: false, blink: 0 },
     things: [],
     nextFish: 0.8, nextObstacle: 2.2 + rand() * 1.5, nextLine: cfg.line ? 6 + rand() * 4 : Infinity,
@@ -57,13 +69,26 @@ const spawnX = (run) => run.view + 0.22;
 
 function spawnShoal(run) {
   const { rand } = run;
+  if (rand() < FOOD_CHANCE) return spawnFood(run);
   const n = 1 + Math.floor(rand() * 3);
   const y0 = SURFACE + 0.12 + rand() * (DEEP - SURFACE - 0.18);
   const slope = rand() < 0.5 ? -1 : 1;
   for (let i = 0; i < n; i++) {
     const y = clamp(y0 + slope * i * 0.07, SURFACE + 0.1, DEEP - 0.02);
-    run.things.push({ id: ++run.id, type: "fish", x: spawnX(run) + i * 0.16, y, base: y, r: 0.045, drift: 0.85 + rand() * 0.3, phase: rand() * 6.28, caught: false });
+    run.things.push({ id: ++run.id, type: "fish", kind: "fish", x: spawnX(run) + i * 0.16, y, base: y, r: FOODS.fish.r, drift: 0.85 + rand() * 0.3, phase: rand() * 6.28, caught: false });
   }
+  run.lastFishAt = run.time;
+}
+
+// One of the other foods on its own: a trout, an eel or a frog in the water, or a crayfish on the bed.
+function spawnFood(run) {
+  const { rand } = run;
+  const kinds = Object.keys(FOODS).filter((k) => FOODS[k].weight);
+  let pick = rand() * kinds.reduce((n, k) => n + FOODS[k].weight, 0);
+  const kind = kinds.find((k) => (pick -= FOODS[k].weight) < 0) || kinds[0];
+  const f = FOODS[kind];
+  const y = f.bed ? CRAYFISH_Y : SURFACE + 0.14 + rand() * (DEEP - SURFACE - 0.22);
+  run.things.push({ id: ++run.id, type: "fish", kind, x: spawnX(run), y, base: y, r: f.r, drift: f.drift, phase: rand() * 6.28, caught: false });
   run.lastFishAt = run.time;
 }
 
@@ -169,7 +194,7 @@ export function step(run, input = {}, dt = 1 / 60) {
     if (t.x2 != null) t.x2 -= dx;
     if (t.type === "fish" || t.type === "litter" || t.type === "line") {
       t.phase += dt * (t.type === "line" ? 1.3 : 2.2);
-      t.y = t.base + Math.sin(t.phase) * (t.type === "fish" ? 0.018 : 0.012);
+      t.y = t.base + Math.sin(t.phase) * (t.type === "fish" ? FOODS[t.kind || "fish"].bob : 0.012);
       if (t.type === "line") t.hook = t.y;
       if (t.type === "litter") t.spin += dt * 0.8;
     }
@@ -193,11 +218,13 @@ export function step(run, input = {}, dt = 1 / 60) {
 
 function catchFish(run, fish, events) {
   fish.caught = true;
-  const points = FISH_POINTS * run.combo;
+  const kind = fish.kind || "fish";
+  const points = FOODS[kind].points * run.combo;
   run.points += points;
   run.fish++;
+  run.caught[kind] = (run.caught[kind] || 0) + 1;
   run.diveFish++;
-  events.push({ type: "fish", points, combo: run.combo, x: fish.x, y: fish.y });
+  events.push({ type: "fish", kind, points, combo: run.combo, x: fish.x, y: fish.y });
   run.bestCombo = Math.max(run.bestCombo, run.combo);
   run.combo = Math.min(MAX_COMBO, run.combo + 1);
 }

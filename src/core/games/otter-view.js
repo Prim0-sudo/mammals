@@ -3,7 +3,7 @@
 // and this view only reads input, steps the river and draws it. Word pictures stand in for the art.
 import { TopicGameView, esc } from "../topic-games-kit.js";
 import {
-  SETTINGS, SURFACE, BED, TOP, DEEP, WHISKERS, LIVES, MAX_COMBO,
+  SETTINGS, SURFACE, BED, TOP, DEEP, WHISKERS, LIVES, MAX_COMBO, FOODS,
   createRun, step, stars, otterX,
 } from "../../topics/games/otter.js";
 import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
@@ -24,6 +24,33 @@ const CROP = {
 // The otter's swim frames (owner approved, 24 November 2026): straight, arched, straight, arched the
 // other way. Anchored at the middle of the cell; a slower stroke while it floats at the surface.
 const SWIM_FRAMES = { ms: 170, surface: 260, seq: [0, 1, 2, 3], at: [256, 256], size: 0.32 };
+
+// The clear river (owner approved, Art 30a0f19; assets/topics/mammals/games/scenery/otter/). The strips
+// loop with the scenery on their bottom edge (2048 x 512, so 4 wide): h is the strip's height in stage
+// heights and speed the parallax against the river. The banks end at the water line; the riverbed's
+// top sits just above BED. Sky, water, light rays and the surface stay in code, and the code drawings
+// stand in while a picture loads.
+const SCENE = "assets/topics/mammals/games/scenery/otter/";
+const BANKS = [{ name: "far-bank", h: 0.31, speed: 0.15, sink: 0.005 }, { name: "near-bank", h: 0.22, speed: 0.4, sink: 0.008 }];
+const BED_STRIP = { name: "riverbed", h: 0.35, top: 362 / 512, rise: 0.035, gravel: "#4c5444" };
+const WEED = { size: 0.26, every: 0.48 }; // a strand of weed (roots at y = 481 of 512) every so far along the bed
+// Pictures centred in a 512 square: side in stage heights.
+const SIDE = { can: 0.11, bottle: 0.12, bag: 0.13, trout: 0.22, eel: 0.27, frog: 0.2, crayfish: 0.17 };
+const FLOAT = { side: 0.1, water: 190 / 512 }; // the stick float, its red tip above the water line
+// The snag picture runs from its base (bottom left) up to its tip (top right), in pixels of the square.
+const SNAG = { base: [140, 478], tip: [436, 12] };
+const CRAYFISH_FEET = 381 / 512; // where the crayfish's legs stand in its picture
+
+const aWord = (name) => `${/^[aeiou]/.test(name) ? "An" : "A"} ${name}`;
+// "23 fish, 2 eels and a crayfish": what the otter caught, fish first.
+function caughtList(caught = {}) {
+  const parts = Object.keys(FOODS).filter((k) => caught[k]).map((k) => {
+    const n = caught[k], f = FOODS[k];
+    return n > 1 ? `${n} ${f.plural}` : k === "fish" ? "one fish" : aWord(f.name).toLowerCase();
+  });
+  if (!parts.length) return "no fish";
+  return parts.length === 1 ? parts[0] : `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}`;
+}
 
 function loadImage(src) {
   const img = new Image();
@@ -74,6 +101,13 @@ export class View extends TopicGameView {
       fish: loadImage(this.art("fish")),
       holt: loadImage(this.art("holt")),
       swim: loadSheet("otter-swim"),
+      banks: BANKS.map((b) => loadImage(`${SCENE}${b.name}.webp`)),
+      bed: loadImage(`${SCENE}${BED_STRIP.name}.webp`),
+      weeds: ["weed", "weed-2"].map((n) => loadImage(`${SCENE}${n}.webp`)),
+      snag: loadImage(`${SCENE}snag.webp`),
+      float: loadImage(`${SCENE}float.webp`),
+      litter: { can: loadImage(`${SCENE}can.webp`), bottle: loadImage(`${SCENE}bottle.webp`), bag: loadImage(`${SCENE}bag.webp`) },
+      foods: { trout: loadImage(`${SCENE}trout.webp`), eel: loadImage(`${SCENE}eel.webp`), frog: loadImage(`${SCENE}frog-swim.webp`), crayfish: loadImage(`${SCENE}crayfish.webp`) },
     };
     const muddy = this.cfg.muddy;
     this.root.innerHTML = `<div class="ig-play otter-play${muddy ? " is-muddy" : ""}">
@@ -225,9 +259,11 @@ export class View extends TopicGameView {
   react(e) {
     const o = this.run.otter;
     if (e.type === "fish") {
-      this.toast(e.combo > 1 ? `×${e.combo} +${e.points}` : `+${e.points}`, "good", e.x, e.y - 0.08);
+      const kind = e.kind || "fish", name = FOODS[kind].name;
+      const label = kind === "fish" ? "" : `${name.charAt(0).toUpperCase()}${name.slice(1)}! `;
+      this.toast(`${label}${e.combo > 1 ? `×${e.combo} ` : ""}+${e.points}`, "good", e.x, e.y - 0.08);
       this.game.audio.tone(560 + e.combo * 110, 0.1);
-      this.say(`A fish! ${e.points} points.${e.combo < MAX_COMBO ? "" : " Top combo!"}`);
+      this.say(`${aWord(name)}! ${e.points} points.${e.combo < MAX_COMBO ? "" : " Top combo!"}`);
       if (this.cfg.muddy) this.pulse = 0.35;
     } else if (e.type === "surface") {
       this.splash(0.5);
@@ -338,7 +374,7 @@ export class View extends TopicGameView {
       title: why === "lives" ? "Back to the holt to rest" : "Home to the holt!",
       stars: got,
       lines: [
-        `You caught ${r.fish} ${r.fish === 1 ? "fish" : "fish"} and scored ${r.points} points.`,
+        `You caught ${caughtList(r.caught)} and scored ${r.points} points.`,
         r.bestCombo > 1 ? `Best dive combo: ×${r.bestCombo}.` : "Tip: catch more than one fish on the same dive to build a combo.",
       ],
       best: isBest,
@@ -361,8 +397,10 @@ export class View extends TopicGameView {
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, W, surf);
     this.clouds(scroll);
-    this.bank(scroll * 0.15 * u, surf - 0.1 * u, 0.05, "#a9cf86", 1.3, true);
-    this.bank(scroll * 0.4 * u, surf - 0.045 * u, 0.035, "#7cae5a", 2.6, false);
+    if (!this.banks(scroll, surf)) {
+      this.bank(scroll * 0.15 * u, surf - 0.1 * u, 0.05, "#a9cf86", 1.3, true);
+      this.bank(scroll * 0.4 * u, surf - 0.045 * u, 0.035, "#7cae5a", 2.6, false);
+    }
     // Water
     const water = ctx.createLinearGradient(0, surf, 0, H);
     if (muddy) {
@@ -431,6 +469,19 @@ export class View extends TopicGameView {
       ctx.fill();
     }
   }
+  // One looping strip, its bottom at y (canvas px), moved along by shift (px).
+  strip(img, h, bottom, shift) {
+    const w = h * 4;
+    const off = ((-shift % w) + w) % w;
+    for (let x = off - w; x < this.W; x += w) this.ctx.drawImage(img, Math.floor(x), bottom - h, Math.ceil(w) + 1, h);
+  }
+  // The far bank (alders and willows) and the near bank (reeds), ending at the water line.
+  banks(scroll, surf) {
+    const imgs = this.img.banks;
+    if (!imgs.every(ready)) return false;
+    BANKS.forEach((b, i) => this.strip(imgs[i], b.h * this.gh, surf + b.sink * this.gh, scroll * b.speed * this.gh));
+    return true;
+  }
   // A rolling bank: far hills with round trees, or the near grass with reeds.
   bank(shift, top, amp, colour, freq, trees) {
     const { ctx, W, gh } = this;
@@ -492,6 +543,21 @@ export class View extends TopicGameView {
   riverbed(scroll, bed) {
     const { ctx, W, H, gh } = this;
     const shift = scroll * gh;
+    const img = this.img.bed;
+    if (ready(img)) {
+      // Gravel, pebbles and mossy stones; muddy water browns it. Weed strands rise from it, swaying.
+      // On a tall (phone) stage the strip grows until its gravel reaches the bottom edge.
+      const h = Math.max(BED_STRIP.h * gh, (H - bed + BED_STRIP.rise * gh) / (1 - BED_STRIP.top));
+      const top = bed - BED_STRIP.rise * gh - BED_STRIP.top * h;
+      ctx.save();
+      if (this.cfg.muddy) ctx.filter = "sepia(.45) brightness(.72)";
+      this.weeds(shift, bed);
+      this.strip(img, h, top + h, shift);
+      ctx.fillStyle = BED_STRIP.gravel;
+      if (top + h < H) ctx.fillRect(0, top + h - 1, W, H - top - h + 1);
+      ctx.restore();
+      return;
+    }
     ctx.fillStyle = this.cfg.muddy ? "#3a301c" : "#3c4a3c";
     ctx.beginPath();
     ctx.moveTo(0, H);
@@ -521,6 +587,32 @@ export class View extends TopicGameView {
       }
     }
   }
+  weeds(shift, bed) {
+    const { ctx, gh } = this;
+    const imgs = this.img.weeds;
+    if (!imgs.every(ready)) return;
+    const gap = WEED.every * gh, side = WEED.size * gh;
+    for (let x = -(shift % gap) - gap; x < this.W + gap; x += gap) {
+      const k = Math.floor((x + shift) / gap);
+      const px = x + ((k * 37) % 50) * gh * 0.004;
+      const tall = 0.8 + ((k * 13) % 5) * 0.08;
+      const sway = this.reduced ? 0 : Math.sin((this.time || 0) * 1.4 + k) * 0.06;
+      ctx.save();
+      ctx.translate(px, bed + 0.01 * gh);
+      ctx.rotate(sway);
+      ctx.drawImage(imgs[Math.abs(k) % 2], (-side * tall) / 2, -side * tall * (481 / 512), side * tall, side * tall);
+      ctx.restore();
+    }
+  }
+  // A picture centred on (x, y) in a square of side px, turned by rot.
+  centred(img, x, y, side, rot = 0) {
+    const { ctx } = this;
+    ctx.save();
+    ctx.translate(x, y);
+    if (rot) ctx.rotate(rot);
+    ctx.drawImage(img, -side / 2, -side / 2, side, side);
+    ctx.restore();
+  }
   surface(scroll, surf) {
     const { ctx, W, gh } = this;
     const shift = scroll * 1.2 * gh;
@@ -535,6 +627,14 @@ export class View extends TopicGameView {
   }
   drawFish(t) {
     const { ctx, gh } = this;
+    const food = t.kind && t.kind !== "fish" ? this.img.foods[t.kind] : null;
+    if (ready(food)) {
+      const side = SIDE[t.kind] * gh, x = this.px(t.x);
+      // A crayfish walks on the bed; the others swim, the eel with a slow wriggle.
+      if (t.kind === "crayfish") ctx.drawImage(food, x - side / 2, this.py(BED) + 0.006 * gh - CRAYFISH_FEET * side, side, side);
+      else this.centred(food, x, this.py(t.y), side, t.kind === "eel" && !this.reduced ? Math.sin(t.phase * 1.5) * 0.08 : 0);
+      return;
+    }
     const img = this.img.fish;
     const w = 0.17 * gh;
     const x = this.px(t.x), y = this.py(t.y);
@@ -549,6 +649,21 @@ export class View extends TopicGameView {
   drawSnag(t) {
     const { ctx, gh } = this;
     const bx = this.px(t.x2), by = this.py(BED + 0.02), tx = this.px(t.x), ty = this.py(t.tip);
+    const img = this.img.snag;
+    if (ready(img)) {
+      // The picture leans the other way, so it is mirrored, then turned and scaled so its base and tip
+      // land on the snag's own line (the one the otter bumps).
+      const [b0, b1] = SNAG.base, [t0, t1] = SNAG.tip;
+      const iv = [-(t0 - b0), t1 - b1], wv = [tx - bx, ty - by];
+      const k = Math.hypot(...wv) / Math.hypot(...iv);
+      ctx.save();
+      ctx.translate(bx, by);
+      ctx.rotate(Math.atan2(wv[1], wv[0]) - Math.atan2(iv[1], iv[0]));
+      ctx.scale(-k, k);
+      ctx.drawImage(img, -b0, -b1);
+      ctx.restore();
+      return;
+    }
     ctx.lineCap = "round";
     for (const [col, w] of [["#2f2112", 0.034], ["#6b4a2a", 0.022]]) {
       ctx.strokeStyle = col;
@@ -568,9 +683,12 @@ export class View extends TopicGameView {
   drawLitter(t) {
     const { ctx, gh } = this;
     const x = this.px(t.x), y = this.py(t.y), s = t.r * gh;
+    const rot = this.reduced ? 0.3 : Math.sin(t.spin) * 0.5 + 0.3;
+    const img = this.img.litter[t.kind];
+    if (ready(img)) return this.centred(img, x, y, SIDE[t.kind] * gh, rot - 0.3);
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(this.reduced ? 0.3 : Math.sin(t.spin) * 0.5 + 0.3);
+    ctx.rotate(rot);
     ctx.lineWidth = 2;
     if (t.kind === "can") {
       ctx.fillStyle = "#d8402f";
@@ -622,6 +740,12 @@ export class View extends TopicGameView {
     ctx.arc(x - 0.012 * gh, hy, 0.012 * gh, 0, Math.PI);
     ctx.stroke();
     // The float
+    const img = this.img.float;
+    if (ready(img)) {
+      const side = FLOAT.side * gh;
+      ctx.drawImage(img, x - side / 2, surf - FLOAT.water * side, side, side);
+      return;
+    }
     ctx.fillStyle = "#e2412f";
     ctx.beginPath();
     ctx.ellipse(x, surf - 0.004 * gh, 0.012 * gh, 0.018 * gh, 0, Math.PI, 0);
