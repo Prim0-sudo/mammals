@@ -9,10 +9,9 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
     - Home Before Dark needs empty homes, with no animals inside.
     - Nursery needs each baby alone, not beside its mother (that made it too easy). Deer and fawn are out until there is a hind picture.
     - The arcade animals need motion frames: rabbit hop and run, otter swim, bat, owl, eagle and fox.
-    - An Art session card was proposed to the owner (task_57fa2cdb). Nothing is wired until the owner approves the contact sheets.
+    - The brief is with the existing **Art** session (Ludimi group, cwd insects-weekly-game, works here by absolute path). The owner approved the rabbit-hop pilot on 24 Nov (Art commit 9f66473), and it is wired into Burrow Dash (6dced85). The frames bound on the ground and push off, leap and land on a hop. Art is now doing the homes, the babies and the hind, then the other six cycles. Wire each batch in after the owner approves it.
   - **Voice:** the education games now speak every status line, and tapping an animal, home, baby or mother says its name. All 441 game lines are in src/topics/narration-lines.js, and tests/games-voice.test.js checks them.
-    - They play once the bank is recorded: `node tools/voice/build.mjs --make` records all 2,257 lines on the CPU, in about an hour.
-    - **The owner must pick the voice first.** Samples are in Drive under voice-samples: af_heart, bf_emma, bf_isabella and bm_george. Set it in tools/voice/config.json.
+    - **Recorded:** the owner picked Heart (af_heart, as in Insects). All 2,257 clips are in assets/audio/heart (49 MB) and the manifest is complete. The headless check finds no missing line in any of the three games at 1366 or 390. Re-run `node tools/voice/build.mjs --make` (in the background, about 50 minutes on the CPU, and it only records new lines) whenever spoken text changes.
   - Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game. Committed locally.
   - **Not pushed. Nothing goes to main on GitHub before the art is approved.**
   - Hard levels end early for a careful simulated player in about half the runs (Bat, Otter and Dash). The owner has played them.
@@ -20,7 +19,7 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
 - **origin/main** has tonight's landing push.
 - **Live:** the next 6-hourly Ludimi auto-release carries tonight's landing. Don't hand-deploy.
 - **Word art:** all 268 words have pictures; nothing waits.
-- **Checks tonight:** npm test 27 pass / 1 skipped (narration), check, build, browser 26/26, homeward PASS, layout clean.
+- **Checks (24 Nov):** npm test 72/72 including narration, and check passes. The menu cards lost their light corner lines on hover (a7246cb).
 
 ## Landing: finished, do not touch
 
@@ -34,13 +33,12 @@ What it is:
 
 ## Next
 Finish item 2, Topic Games:
-1. The owner picks a voice. Then set it in tools/voice/config.json and run `node tools/voice/build.mjs --make` in the background.
-2. The Art session makes the pictures in docs/game-art/BRIEF.md. Wire them in after the owner approves them:
+1. The Art session makes the pictures in docs/game-art/BRIEF.md. Wire them in after the owner approves them:
    - empty homes into Home Before Dark;
    - lone babies as the word pictures, rewriting their descriptions in mammals-words.js;
    - the hind, which brings back deer and fawn;
    - the sprite frames into the arcade canvases.
-3. Then push.
+2. Then push.
 
 ---
 
