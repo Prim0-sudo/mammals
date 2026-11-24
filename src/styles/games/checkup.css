@@ -74,3 +74,7 @@
   .ig-card--checkup .cu-count { font-size: 14px; }
   .ig-card--checkup .cu-dock { grid-template-columns: minmax(0, 1fr); }
 }
+/* The visitor is a button: tap it to hear its name. */
+.ig-card--checkup .cu-pic { display: block; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; border-radius: 18px; }
+.ig-card--checkup .cu-pic:focus-visible { outline: 4px solid #ffcf4a; outline-offset: 4px; }
+.ig-card--checkup .cu-name { cursor: pointer; }

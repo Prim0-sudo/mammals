@@ -3,7 +3,7 @@
 // Landscape: the tree runs left to right with the homes down the right. Portrait (phones): top to bottom,
 // with five or seven homes in two staggered rows along the bottom.
 import { TopicGameView, esc } from "../topic-games-kit.js";
-import { SETTINGS, buildRound, switchesOf, leavesOf, nameOf, rightLine, wrongLine, enterLine } from "../../topics/games/homes.js";
+import { SETTINGS, buildRound, switchesOf, leavesOf, nameOf, rightLine, wrongLine, enterLine, waitLine, START_LINE, DARK_LINE } from "../../topics/games/homes.js";
 import { roundStars } from "../../topics/topic-games.js";
 
 const NS = "http://www.w3.org/2000/svg";
@@ -53,7 +53,8 @@ export class View extends TopicGameView {
     this.observer = new ResizeObserver(() => this.layout());
     this.observer.observe(this.stageEl);
     this.updateCount();
-    this.say("Flip the switches to send each animal home.");
+    this.say(START_LINE);
+    this.game.audio.speak(START_LINE);
     this.startDusk();
     if (!this.reduced) this.fromTo(this.svg.querySelectorAll(".hb-home"), { autoAlpha: 0, scale: 0.6, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.45, stagger: 0.06, ease: "back.out(1.7)" });
     this.after(this.reduced ? 300 : 900, () => this.pump());
@@ -100,7 +101,9 @@ export class View extends TopicGameView {
     this.gStart.innerHTML = '<circle class="hb-start__pad" r="22"/><text class="hb-start__label" text-anchor="middle">Start</text>';
     this.leaves.forEach((n) => {
       const id = this.round.homes[n.leaf];
-      const g = gHome.appendChild(svgEl("g", { class: "hb-home", "data-home": id, role: "img", "aria-label": `${nameOf(id)}` }));
+      const g = gHome.appendChild(svgEl("g", { class: "hb-home", "data-home": id, role: "button", tabindex: "-1", "aria-label": `${nameOf(id)}: hear the name` }));
+      // Tap a home to hear its name.
+      this.on(g, "click", () => this.game.audio.speak(nameOf(id)));
       g.innerHTML = `<circle class="hb-home__glow" r="10"/><image class="hb-home__art" href="${esc(this.art(id))}" preserveAspectRatio="xMidYMid meet"/><text class="hb-home__label">${esc(nameOf(id))}</text><g class="hb-home__tally"></g>`;
       n.home = id;
       n.g = g;
@@ -261,7 +264,8 @@ export class View extends TopicGameView {
     if (!this.s || this.s.finished) return;
     if (sw.locks.size) {
       const w = [...sw.locks][0];
-      this.say(`Wait: the ${nameOf(w.id)} is crossing this switch.`);
+      this.say(waitLine(w.id));
+      this.game.audio.speak(waitLine(w.id));
       this.game.audio.tone(220, 0.1);
       this.nudge(sw.el.querySelector(".hb-switch__ring"));
       return;
@@ -326,7 +330,7 @@ export class View extends TopicGameView {
     this.s.walkers.push(w);
     this.place(w, this.start.pos);
     this.say(enterLine(w.id));
-    this.game.audio.speak(this.item(w.id)?.name || nameOf(w.id));
+    this.game.audio.speak(enterLine(w.id));
     if (this.reduced) this.fromTo(g, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 });
     else this.fromTo(g, { autoAlpha: 0, scale: 0.4, transformOrigin: "50% 100%" }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(2)" });
     this.after(this.cfg.atOnce === 1 ? 1500 : 1100, () => this.go(w));
@@ -518,7 +522,8 @@ export class View extends TopicGameView {
     const out = s.walkers.filter((w) => w.state !== "home");
     s.missed = out.length + s.queue.length;
     s.queue = [];
-    this.say("It is dark. The animals still out find their own way home.");
+    this.say(DARK_LINE);
+    this.game.audio.speak(DARK_LINE);
     for (const sw of this.switches) for (const w of [...sw.locks]) this.unlock(sw, w);
     out.forEach((w) => {
       w.moveToken++;
@@ -557,8 +562,7 @@ export class View extends TopicGameView {
     this.statusEl.textContent = text;
   }
   async speakLine(text) {
-    const audio = this.game.audio;
-    if (await audio.hasRecording?.(text)) audio.speak(text);
+    this.game.audio.speak(text);
   }
   updateCount() {
     this.root.querySelector(".hb-count").textContent = `Home ${this.s.homeCount} of ${this.s.total}`;

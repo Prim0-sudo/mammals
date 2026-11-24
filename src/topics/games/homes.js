@@ -53,6 +53,20 @@ export const rightLine = (home) => `Home in its ${nameOf(home)}!`;
 export const wrongLine = (walker, home) =>
   `This is ${an(nameOf(home))} ${nameOf(home)}. ${cap(an(nameOf(walker)))} ${nameOf(walker)} lives in ${an(nameOf(homeOf(walker)))} ${nameOf(homeOf(walker))}.`;
 export const enterLine = (walker) => `Here comes ${an(nameOf(walker))} ${nameOf(walker)}.`;
+export const waitLine = (walker) => `Wait: the ${nameOf(walker)} is crossing this switch.`;
+export const START_LINE = "Flip the switches to send each animal home.";
+export const DARK_LINE = "It is dark. The animals still out find their own way home.";
+// Everything Home Before Dark can say: home names (tapped), each walker's lines, right and wrong homes.
+export function voiceLines() {
+  const lines = [START_LINE, DARK_LINE];
+  const homes = Object.keys(HOMES);
+  for (const h of homes) lines.push(nameOf(h), rightLine(h));
+  for (const h of homes) for (const w of HOMES[h].walkers) {
+    lines.push(enterLine(w), waitLine(w));
+    for (const other of homes) if (!homesFor(w).includes(other)) lines.push(wrongLine(w, other));
+  }
+  return lines;
+}
 
 const pick = (list, rand) => list[Math.floor(rand() * list.length)];
 function shuffled(list, rand) {

@@ -1,14 +1,22 @@
-# Continue here — 23 November 2026 (night)
+# Continue here — 24 November 2026
 
 Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap table is docs/UPGRADE-PLAN.md. Deadline about **30 November 2026**.
 
 ## Where it stands
 
-- **Topic Games, all six being built** (owner, 23 Nov: "yes go ahead with all six"). Education: Mammal Check-up, Home Before Dark, Nursery Round-up. Arcade: Otter Dive (the Home banner), Burrow Dash, Bat Night Hunt. Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game.
-  - Done and play-tested headless: **Check-up** and **Bat Night Hunt**. Home Before Dark, Nursery, Otter and Dash were built by two agents and still need review and a play-test.
-  - Bat Hard: a careful bot loses all three lives in about half its nights. Flag it to the owner with the clips.
-  - **Not pushed. Nothing goes to main on GitHub before the owner approves.** The order is: the playable game with word pictures as the preview, then clips (Easy, Medium and Hard at desktop size, plus phone) to the owner, then painted art, a second approval, then the push.
-  - Play-test tool (scratchpad, copy it into tools/test if kept): play-arcade.mjs rewrites main.js in flight to expose window.__game, so the game's own botInput drives the real screen.
+- **Topic Games: the owner approved all six on 24 Nov** ("these are great"), subject to these changes:
+  - **Art** (brief: docs/game-art/BRIEF.md):
+    - Home Before Dark needs empty homes, with no animals inside.
+    - Nursery needs each baby alone, not beside its mother (that made it too easy). Deer and fawn are out until there is a hind picture.
+    - The arcade animals need motion frames: rabbit hop and run, otter swim, bat, owl, eagle and fox.
+    - An Art session card was proposed to the owner (task_57fa2cdb). Nothing is wired until the owner approves the contact sheets.
+  - **Voice:** the education games now speak every status line, and tapping an animal, home, baby or mother says its name. All 441 game lines are in src/topics/narration-lines.js, and tests/games-voice.test.js checks them.
+    - They play once the bank is recorded: `node tools/voice/build.mjs --make` records all 2,257 lines on the CPU, in about an hour.
+    - **The owner must pick the voice first.** Samples are in Drive under voice-samples: af_heart, bf_emma, bf_isabella and bm_george. Set it in tools/voice/config.json.
+  - Code is under src/topics/games, src/core/games and src/styles/games, with a test file per game. Committed locally.
+  - **Not pushed. Nothing goes to main on GitHub before the art is approved.**
+  - Hard levels end early for a careful simulated player in about half the runs (Bat, Otter and Dash). The owner has played them.
+  - Play-test tool (scratchpad; copy it into tools/test if kept): play-arcade.mjs rewrites main.js in flight to expose window.__game, so the game's own botInput drives the real screen.
 - **origin/main** has tonight's landing push.
 - **Live:** the next 6-hourly Ludimi auto-release carries tonight's landing. Don't hand-deploy.
 - **Word art:** all 268 words have pictures; nothing waits.
@@ -26,10 +34,13 @@ What it is:
 
 ## Next
 Finish item 2, Topic Games:
-1. Review and play-test the four agent-built games.
-2. Record clips and send them to the owner.
-3. After approval, paint the art (a new Art session; the old one is closed) and get a second approval.
-4. Then push.
+1. The owner picks a voice. Then set it in tools/voice/config.json and run `node tools/voice/build.mjs --make` in the background.
+2. The Art session makes the pictures in docs/game-art/BRIEF.md. Wire them in after the owner approves them:
+   - empty homes into Home Before Dark;
+   - lone babies as the word pictures, rewriting their descriptions in mammals-words.js;
+   - the hind, which brings back deer and fawn;
+   - the sprite frames into the arcade canvases.
+3. Then push.
 
 ---
 
@@ -70,7 +81,7 @@ Finish item 2, Topic Games:
 9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
 10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
 
-**Owner decisions pending:** the Kokoro voice, and approval of the six Topic Games from the clips.
+**Owner decisions pending:** the Kokoro voice, and the game art contact sheets.
 
 ---
 # Current release — mammals-only topic, 6 October 2026

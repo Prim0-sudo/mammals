@@ -2,7 +2,7 @@
 // bottom. Tap a baby, then its mother (or drag the baby onto her). The right mother calls it home along an
 // arc and gives a small nuzzle; a wrong one says who she is and the baby goes back.
 import { TopicGameView, esc } from "../topic-games-kit.js";
-import { SETTINGS, buildRound, nameOf, motherOf, rightLine, wrongLine } from "../../topics/games/nursery.js";
+import { SETTINGS, buildRound, nameOf, motherOf, rightLine, wrongLine, PICK_FIRST, START_PICTURES, START_CARDS } from "../../topics/games/nursery.js";
 import { roundStars } from "../../topics/topic-games.js";
 
 const word = (n) => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"][n] || String(n);
@@ -66,7 +66,8 @@ export class View extends TopicGameView {
       }
     });
     this.updateCount();
-    this.say(cfg.picture ? "Tap a baby, then tap its mother." : "Read the name card, then tap the baby's mother.");
+    this.say(cfg.picture ? START_PICTURES : START_CARDS);
+    this.game.audio.speak(cfg.picture ? START_PICTURES : START_CARDS);
     if (!this.reduced) {
       this.fromTo(this.motherEls, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.06, ease: "back.out(1.6)" });
       this.fromTo(this.babyEls, { scale: 0.5, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.45, stagger: 0.08, delay: 0.2, ease: "back.out(2)" });
@@ -181,7 +182,8 @@ export class View extends TopicGameView {
     el.setAttribute("aria-pressed", "true");
     this.game.audio.tone(660, 0.07);
     if (quiet) return;
-    if (this.cfg.speakName) this.game.audio.speak(this.item(id)?.name || nameOf(id));
+    // Every level says the baby's name when it is picked.
+    this.game.audio.speak(nameOf(id));
     if (!this.reduced) this.fromTo(el.querySelector(".nu-baby__bob"), { scale: 1.12 }, { scale: 1, duration: 0.35, ease: "back.out(3)" });
     this.say(this.cfg.picture ? `The ${nameOf(id)}. Now tap its mother.` : `${an(nameOf(id)) === "an" ? "An" : "A"} ${nameOf(id)}. Who is its mother?`);
     // Keyboard and switch users go straight on to the mothers.
@@ -208,7 +210,8 @@ export class View extends TopicGameView {
     const s = this.s;
     if (!s || s.finished || s.busy || mother.disabled) return;
     if (!s.picked) {
-      this.say("Pick a baby first, then its mother.");
+      this.say(PICK_FIRST);
+      this.game.audio.speak([nameOf(mother.dataset.mother), PICK_FIRST]);
       this.nudge(mother);
       return;
     }
@@ -260,8 +263,7 @@ export class View extends TopicGameView {
     }
     const line = rightLine(baby);
     this.say(line);
-    if (this.cfg.speakName) this.game.audio.speak(this.item(baby)?.name || nameOf(baby));
-    else this.speakLine(line);
+    this.speakLine(line);
     this.game.audio.tone(880, 0.14);
     this.updateCount();
     s.busy = false;
@@ -294,9 +296,8 @@ export class View extends TopicGameView {
   say(text) {
     this.statusEl.textContent = text;
   }
-  async speakLine(text) {
-    const audio = this.game.audio;
-    if (await audio.hasRecording?.(text)) audio.speak(text);
+  speakLine(text) {
+    this.game.audio.speak(text);
   }
   updateCount() {
     this.root.querySelector(".nu-count").textContent = `Matched ${this.s.done.size} of ${this.round.babies.length}`;

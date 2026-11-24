@@ -101,3 +101,17 @@ export function why(visitor, name) {
   const list = no.length > 1 ? `${no.slice(0, -1).join(", ")} and ${no.at(-1)}` : no[0];
   return `${cap(withA(name))} ${list}. It is not a mammal.`;
 }
+
+// Spoken lines. The view and the narration bank both build them here, so a clip always matches.
+export const arriveLine = (name) => `Here comes ${withA(name)}.`;
+export const stampLine = (visitor, name) => (isMammal(visitor) ? `Yes! ${cap(withA(name))} is a mammal.` : `Right! ${cap(withA(name))} is not a mammal.`);
+export const FIRST_LINE = "Run all three checks first.";
+// Everything Check-up can say, given how the app names each animal.
+export function voiceLines(name) {
+  const lines = [FIRST_LINE];
+  for (const v of VISITORS) {
+    const n = name(v.id);
+    lines.push(n, arriveLine(n), why(v, n), stampLine(v, n), ...CHECKS.map((c) => v[c.id][1]));
+  }
+  return lines;
+}

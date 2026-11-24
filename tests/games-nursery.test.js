@@ -58,7 +58,7 @@ test("Nursery Round-up: the rules take their numbers from SETTINGS", () => {
   const levelsText = RULES.find((s) => s.title === "Levels").items;
   levels.forEach((level, i) => assert.match(levelsText[i], new RegExp(`${words[SETTINGS[level].pairs]} babies`)));
   assert.match(levelsText[2], /only its name card/);
-  assert.match(levelsText[0], /hear the baby's name/);
+  assert.match(RULES.find((s) => s.title === "How to play").items.join(" "), /hear each baby's name/);
   const changed = structuredClone(SETTINGS);
   changed.easy.pairs = 4;
   changed.hard.picture = true;

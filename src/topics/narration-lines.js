@@ -5,6 +5,9 @@ import { topic } from "./mammals.js";
 import { sortingRules, sortingPool } from "./sorting.js";
 import { knowledgeBank } from "./knowledge-bank.js";
 import { drawTracePlanned } from "./draw-trace-pictures.js";
+import { voiceLines as checkupLines } from "./games/checkup.js";
+import { voiceLines as homesLines } from "./games/homes.js";
+import { voiceLines as nurseryLines } from "./games/nursery.js";
 
 // Screen titles the Listen button reads (static ones; per-word titles are built below).
 export const SCREEN_LINES = [
@@ -38,5 +41,10 @@ export function narrationLines() {
   // Reading sentences for Listen & Read (the talk prompts with gaps are not read aloud).
   for (const r of topic.curriculum.readingPractice || []) if (!r.text.includes("…")) add(r.text, `reading:${r.id}`);
   for (const text of SCREEN_LINES) add(text, "screen");
+  // Topic Games: the education games speak every status line and say names when tapped.
+  const gameName = (id) => (topic.items.find((i) => i.id === id)?.name || id).toLowerCase();
+  for (const text of checkupLines(gameName)) add(text, "game:checkup");
+  for (const text of homesLines()) add(text, "game:homes");
+  for (const text of nurseryLines()) add(text, "game:nursery");
   return [...lines].map(([text, sources]) => ({ text, sources }));
 }

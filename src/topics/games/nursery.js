@@ -4,9 +4,9 @@
 // Per level: how many mother-and-baby pairs, whether babies show their picture (Hard: the name card only),
 // and whether a baby's name is spoken when it is picked. two: most slips that still give two stars.
 export const SETTINGS = {
-  easy: { pairs: 3, picture: true, speakName: true, two: 2 },
-  medium: { pairs: 5, picture: true, speakName: false, two: 2 },
-  hard: { pairs: 6, picture: false, speakName: false, two: 2 },
+  easy: { pairs: 3, picture: true, two: 2 },
+  medium: { pairs: 5, picture: true, two: 2 },
+  hard: { pairs: 6, picture: false, two: 2 },
 };
 
 // mother -> baby, with the line that plays when the baby gets home. Every line is about milk.
@@ -71,4 +71,20 @@ export function buildRound(level, rand = Math.random) {
     return { level, babies, mothers };
   }
   throw new Error("No fair Nursery Round-up round");
+}
+
+// Spoken lines, shared by the view and the narration bank.
+export const PICK_FIRST = "Pick a baby first, then its mother.";
+export const START_PICTURES = "Tap a baby, then tap its mother.";
+export const START_CARDS = "Read the name card, then tap the baby's mother.";
+// Everything Nursery Round-up can say: every name (tapped), each right line and each wrong mother.
+export function voiceLines() {
+  const lines = [PICK_FIRST, START_PICTURES, START_CARDS];
+  const mothers = [...new Set(PAIRS.map((p) => p.mother))];
+  for (const m of mothers) lines.push(nameOf(m));
+  for (const p of PAIRS) {
+    lines.push(nameOf(p.baby), rightLine(p.baby));
+    for (const m of mothers) if (!mothersFor(p.baby).includes(m)) lines.push(wrongLine(p.baby, m));
+  }
+  return lines;
 }

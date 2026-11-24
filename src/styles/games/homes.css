@@ -69,3 +69,5 @@
 /* The shared feedback line is not used here: its room goes to the paths. */
 .ig-card--homes.is-playing #feedback:empty { display: none; }
 .ig-card--homes .hb-walkers { pointer-events: none; }
+/* Tap a home to hear its name. */
+.ig-card--homes .hb-home { cursor: pointer; }
