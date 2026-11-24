@@ -55,8 +55,8 @@ export class MediaView {
      </section>
      <section class="printables-library" aria-labelledby="tracing-title">
       <div class="printables-toolbar"><h2 id="tracing-title">Tracing sheets</h2>
-       ${traces.length ? `<label>Print layout <select data-media-trace><option value="A4">A4 landscape · 1 picture</option><option value="A5">A4 · 2 A5 pictures</option></select></label>` : ""}</div>
-      ${traces.length ? `<p class="printables-hint">Trace over the grey dashes. Print on A4${m.trace === "A5" ? "" : " in landscape"} at actual size (100%).${m.trace === "A5" ? " Cut the sheets in half along the centre line." : ""}</p>` : ""}
+       ${traces.length ? `<label>Print layout <select data-media-trace><option value="A4">A4 · 1 picture</option><option value="A5">A4 landscape · 2 A5 pictures</option></select></label>` : ""}</div>
+      ${traces.length ? `<p class="printables-hint">Trace the dashes and the word, then colour it in. Print on A4${m.trace === "A5" ? " in landscape" : ""} at actual size (100%).${m.trace === "A5" ? " Cut the sheets in half along the centre line." : " Wide pictures print in landscape."}</p>` : ""}
       ${traces.length ? `<div class="printables-grid">${traces.map((p) => `<article class="printable-card"><img src="${esc(p.cover)}" alt="" width="88" height="72" loading="lazy"><div class="printable-details"><h3>${esc(p.title)}</h3><p>${p.pageCount} pictures · ${p.pages} pages · ${size(p.bytes)}</p></div>${links(p.title, p.path)}</article>`).join("")}</div>` : soon("Tracing sheets")}
      </section>
      <section class="printables-library" aria-labelledby="mats-title">
