@@ -1,0 +1,27 @@
+Mammal Discovery Club motion cycles
+
+Six full-size RGBA PNGs from the built-in image tool. The delivered PNGs are byte-for-byte copies of the selected tool outputs. Every rerender generated the whole grid.
+
+For the five 1254 × 1254 grids, split at x=627 and y=627. Read the 627 × 627 cells left to right, top row first. Use the first two cells of the upper row and the first cell of the lower row for owl-fly. For eagle-fly, split the 1774 × 887 grid at x=887 to obtain two 887 × 887 cells, soar then dive. Coordinates are zero-based. Each split has alpha at most 1/255. The eagle split has alpha 0.
+
+On a charcoal composite, every intended cell showed one right-facing animal with no visible matte, halo, grey box or cast shadow. Each grid was checked for consistency of colour, markings and apparent scale using features such as heads and ears. Extended limbs, wings and tails make bounding boxes unreliable as scale measurements. The about-5% tolerance was assessed visually.
+
+rabbit-run (render 4)
+The bunched, driving, extended and landing poses are distinct. The bunched hind feet do not clearly plant ahead of the front feet. Lowest contact rows at 50% alpha are y=513 and y=514 in the top row and y=473 in the landing cell. The landing front paws need to come down about 41 pixels to share the top-row ground line.
+
+otter-swim (render 1)
+Straight, arched with the tail down, straight with paws tucked, then arched in the opposite direction. The small highlights suggesting bubbles are on the coat. The torso position is approximately centred.
+
+bat-fly (render 3)
+High, intermediate downstroke, low, intermediate upstroke. The final wings are slightly raised. The wing poses fit their cells, but the head and torso are higher within the lower cells. Align by the body before assembling the cycle.
+
+owl-fly (render 2)
+Glide, wings raised, wings down. The downstroke head and torso sit higher within the cell and need alignment. The unused lower-right quadrant looks empty on charcoal. It contains 6,859 pixels at alpha 1/255 and 386,270 at alpha 0.
+
+eagle-fly (render 1)
+Soaring with wings spread, then angled down with half-tucked wings and forward talons. The tool produced a wide PNG on all four exact-prompt attempts. The two square cells are fully separated.
+
+fox-trot (render 2)
+There is a visible hind-leg swap and two distinct passing poses. The front-leg swap between the two extended poses is ambiguous. The lowest contact rows at 50% alpha are y=475, 474, 466 and 465, so the lower-row contacts sit roughly nine pixels higher.
+
+See prompts.md for the prompt text and the reference and selection history for every render.

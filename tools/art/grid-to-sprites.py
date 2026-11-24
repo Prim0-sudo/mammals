@@ -14,12 +14,14 @@ ap = argparse.ArgumentParser()
 ap.add_argument('grid'); ap.add_argument('name')
 ap.add_argument('--frames', type=int, default=4); ap.add_argument('--cols', type=int, default=2); ap.add_argument('--rows', type=int, default=2)
 ap.add_argument('--cell', type=int, default=512); ap.add_argument('--float', action='store_true')
-ap.add_argument('--anchor', choices=['nose', 'centre'], default='nose')  # nose: the front edge (head) stays put, so the body moves behind it
+ap.add_argument('--anchor', choices=['nose', 'centre'], default='nose')
+ap.add_argument('--keep-y', action='store_true')  # keep each pose's height in its grid cell (flyers: the body stays level while the wings move)
+ap.add_argument('--rescale', default='')  # per-pose size fixes when the grid drew one pose smaller, e.g. '1:1.2,3:0.95'  # nose: the front edge (head) stays put, so the body moves behind it
 a = ap.parse_args()
 
 grid = Image.open(a.grid).convert('RGBA')
 cw, ch = grid.width // a.cols, grid.height // a.rows
-poses = []
+poses, tops = [], []
 for i in range(a.frames):
     r, c = divmod(i, a.cols)
     cell = grid.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch))
@@ -28,17 +30,27 @@ for i in range(a.frames):
     if not box:
         raise SystemExit(f'pose {i + 1} is empty')
     pose = cell.crop(box)
+    tops.append((box[1], box[3], ch))
     # clear faint specks left outside the animal
     pose.putalpha(pose.getchannel('A').point(lambda v: 0 if v < 6 else v))
     poses.append(pose)
 
+fix = {int(k): float(v) for k, v in (x.split(':') for x in a.rescale.split(',') if x)}
+for i in fix:
+    p = poses[i - 1]
+    poses[i - 1] = p.resize((round(p.width * fix[i]), round(p.height * fix[i])), Image.Resampling.LANCZOS)
 margin = round(a.cell * .06)
 scale = (a.cell - 2 * margin) / max(max(p.width for p in poses), max(p.height for p in poses))
 frames = []
 for p in poses:
     p = p.resize((max(1, round(p.width * scale)), max(1, round(p.height * scale))), Image.Resampling.LANCZOS)
     f = Image.new('RGBA', (a.cell, a.cell), (0, 0, 0, 0))
-    y = (a.cell - p.height) // 2 if a.float else a.cell - margin - p.height
+    if a.keep_y:  # the pose's vertical centre, as a share of its grid cell, kept in the frame
+        t, b, h = tops[len(frames)]
+        y = round((t + b) / 2 / h * a.cell - p.height / 2)
+        y = min(max(y, margin // 2), a.cell - margin // 2 - p.height)
+    else:
+        y = (a.cell - p.height) // 2 if a.float else a.cell - margin - p.height
     x = a.cell - margin - p.width if a.anchor == 'nose' else (a.cell - p.width) // 2
     f.alpha_composite(p, (x, y))
     frames.append(f)
