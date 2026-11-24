@@ -30,7 +30,7 @@ export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (de
 export const SETTINGS = {
   easy: { night: 60, seen: 2.5, mothSpeed: 0.08, moths: 4, branches: 0, owlEvery: 0, autoEcho: 3, pace: "slow", stars: [200, 450, 750] },
   medium: { night: 75, seen: 1.8, mothSpeed: 0.13, moths: 4, branches: 3, owlEvery: 0, autoEcho: 0, pace: "quicker", stars: [200, 450, 750] },
-  hard: { night: 90, seen: 1.2, mothSpeed: 0.18, moths: 5, branches: 3, owlEvery: 16, autoEcho: 0, pace: "fast", stars: [200, 450, 750] },
+  hard: { night: 90, seen: 1.2, mothSpeed: 0.18, moths: 5, branches: 3, owlEvery: 16, autoEcho: 0, pace: "fast", stars: [200, 450, 800] },
 };
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
