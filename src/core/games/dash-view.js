@@ -24,6 +24,10 @@ const CROP = {
   leaf: [0.04, 0.02, 0.92, 0.96],
   warren: [0, 0.1, 1, 0.82],
 };
+// The rabbit's hop frames (owner approved the pilot, 24 November 2026): one row of four 512 px cells,
+// crouch, push off, mid-leap, landing. Every frame shares one ground line and one nose line.
+const HOP = { src: "assets/topics/mammals/games/sprites/rabbit-hop.webp", cell: 512, frames: 4, feet: 481, mid: 285, tall: 319 };
+const STRIDE = 11; // the running bounce: |sin(time * STRIDE)|, so one bound lasts PI / STRIDE seconds
 const mix = (c1, c2, t) => {
   const p = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
   const a = p(c1), b = p(c2);
@@ -74,6 +78,7 @@ export class View extends TopicGameView {
     this.setStage("play");
     this.cfg = SETTINGS[this.level];
     this.img = Object.fromEntries(["rabbit", "eagle", "fox", "leaf", "warren"].map((id) => [id, loadImage(this.art(id))]));
+    this.img.hop = loadImage(HOP.src);
     this.root.innerHTML = `<div class="ig-play dash-play">
       <div class="dash-bar">
         <div class="dash-hud">
@@ -610,21 +615,35 @@ export class View extends TopicGameView {
     const x = this.sx(this.home.x);
     this.crop(img, CROP.warren, x - w / 2, this.sy(0) - 0.03 * this.gh, w);
   }
+  // Which hop frame to show (0 crouch, 1 push off, 2 mid-leap, 3 landing). On the ground the rabbit
+  // bounds along through all four, lifted on frames 1 and 2; a hop pushes off, flies and lands.
+  hopFrame(h, s, rb) {
+    if (this.sink > 0 || rb.hidden) return 0;
+    if (s) return h > 0.04 ? 2 : 3;
+    if (rb.hop >= 0) return this.reduced ? 2 : rb.hop < 0.15 ? 1 : rb.hop < 0.72 ? 2 : 3;
+    if (!this.running || this.reduced) return 0;
+    const phase = (((this.time || 0) * STRIDE) / Math.PI) % 1;
+    return Math.min(HOP.frames - 1, Math.floor(phase * HOP.frames));
+  }
   drawRabbit() {
     const { ctx, gh } = this;
     const r = this.run, rb = r.rabbit;
+    const sheet = ready(this.img.hop) ? this.img.hop : null;
     const img = this.img.rabbit;
-    if (!ready(img)) return;
+    if (!sheet && !ready(img)) return;
     const s = this.runner;
     const x = this.sx(s ? s.x : r.scroll);
     const h = s ? s.h : rb.h;
     const alpha = s ? s.alpha : rb.blink > 0 && Math.floor(rb.blink * 10) % 2 === 0 ? 0.35 : 1;
     if (alpha <= 0 || this.sink >= 1) return;
     const [, , cw, ch] = CROP.rabbit;
-    const w = 0.2 * gh, ht = (w * ch * img.naturalHeight) / (cw * img.naturalWidth);
+    const w = 0.2 * gh;
+    const size = 0.28 * gh; // one sprite cell on screen
+    const ht = sheet ? (size * HOP.tall) / HOP.cell : (w * ch * img.naturalHeight) / (cw * img.naturalWidth);
     const g = this.sy(0);
-    // A running bounce while on the ground (none under reduced motion)
-    const bounce = !s && h === 0 && this.running && !this.reduced ? Math.abs(Math.sin((this.time || 0) * 11)) * 0.012 * gh : 0;
+    // A running bounce while on the ground (none under reduced motion); the frames bound with it.
+    const lift = sheet ? 0.03 : 0.012;
+    const bounce = !s && h === 0 && this.running && !this.reduced ? Math.abs(Math.sin((this.time || 0) * STRIDE)) * lift * gh : 0;
     const feet = this.sy(h) - bounce + this.sink * ht;
     ctx.save();
     ctx.globalAlpha = alpha;
@@ -634,7 +653,7 @@ export class View extends TopicGameView {
       ctx.clip();
     }
     // Shadow on the ground
-    if (h > 0 && !s) {
+    if ((h > 0 || bounce > 0.01 * gh) && !s) {
       ctx.fillStyle = "rgba(30, 40, 20, .2)";
       ctx.beginPath();
       ctx.ellipse(x, g + 2, w * 0.35 * (1 - h), 0.01 * gh, 0, 0, 6.29);
@@ -643,8 +662,11 @@ export class View extends TopicGameView {
     ctx.translate(x, feet);
     const sy = this.pose.sy;
     ctx.scale(1 + (1 - sy) * 0.5, sy);
-    if (h > 0 && !this.reduced) ctx.rotate(-0.12 + rb.hop * 0.24);
-    this.crop(img, CROP.rabbit, -w * 0.5, -ht, w);
+    if (h > 0 && !this.reduced) ctx.rotate(sheet ? -0.06 + rb.hop * 0.12 : -0.12 + rb.hop * 0.24);
+    if (sheet) {
+      const f = this.hopFrame(h, s, rb);
+      ctx.drawImage(sheet, f * HOP.cell, 0, HOP.cell, HOP.cell, (-HOP.mid / HOP.cell) * size, (-HOP.feet / HOP.cell) * size, size, size);
+    } else this.crop(img, CROP.rabbit, -w * 0.5, -ht, w);
     ctx.restore();
   }
   // The eagle's warning shadow grows on the ground near the rabbit; then the eagle swoops through.
