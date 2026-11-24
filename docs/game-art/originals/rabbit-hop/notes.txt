@@ -1,0 +1,11 @@
+Rabbit hop pilot for Burrow Dash
+
+Render 4 is the selected grid for owner review. grid.png is the full-size, unmodified 1254 × 1254 RGBA PNG from the built-in image tool.
+
+The four equal 627 × 627 cells read in this order from the top left: crouch, push-off, mid-leap, landing. Cut between columns 626 and 627 and between rows 626 and 627, counting from zero. At the cut lines, the alpha value is at most 1 out of 255. All four right-facing profiles fit inside their cells.
+
+Within each cell, the lowest paw row at 50% opacity is y=524 for crouch and push-off and y=525 for landing, counting from zero. The lowest mid-leap paw row is y=495, about 29 pixels above that ground line. The front paws lift at push-off, and the hind paws tuck clear of the ground at landing.
+
+On a dark charcoal background, there is no visible matte, halo, grey box or cast shadow. The brown-grey agouti coat, white tail flash, ear shape and lighting read consistently across the four poses. Scale and ear length were checked visually. Changes in posture and ear angle make a strict 5% measurement uncertain.
+
+The prompt log records the exact text used for each render and the reason for each rerender. The pilot is ready for owner review before frame cutting and sprite-sheet assembly.
