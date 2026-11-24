@@ -1,0 +1,29 @@
+Burrow Dash scenery
+
+The built-in image tool generated each picture separately using the exact
+prompts in prompts.md. I reviewed the rabbit-hop grid and the warren
+picture as visual style references.
+
+Backdrops, 1536 × 1024 RGBA PNG
+  far-hills.png, hedge.png, ground.png
+
+Objects, 1024 × 1024 RGBA PNG
+  stone.png, stone-2.png, log.png, burrow.png, cloud.png, cloud-2.png
+
+The tool returned several native canvas sizes. I fitted the backdrops
+across the full delivery width and kept them aligned to the bottom. I
+reduced the hedge height to keep it close to the brief's 35% target. I
+preserved the objects' proportions when fitting them to square canvases
+and added margin around the burrow. I cleared isolated near-zero alpha
+noise while preserving visible soft edges.
+
+I inspected each saved PNG over dark and light backgrounds for a visible
+matte, halo, box or cast shadow. I rerendered the ground with its original
+prompt after the first render showed a pale fringe above the grass.
+All three backdrop upper halves have zero alpha. I previewed each
+backdrop twice side by side. The hedge shows a small change in canopy
+height at the join, which is visible in the original before seam work.
+
+All six objects read at 120 px. The stones, log and burrow sit flat
+on their bases. The burrow entrance is empty. The two clouds have
+different silhouettes, with the second lower and more elongated.
