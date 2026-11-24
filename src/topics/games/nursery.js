@@ -22,9 +22,9 @@ export const PAIRS = [
   { mother: "dog", baby: "puppy", line: "A puppy drinks its mother's milk until its teeth grow." },
   { mother: "seal", baby: "pup", line: "A seal pup drinks rich milk and grows fast." },
   { mother: "bear", baby: "cub", line: "A bear cub drinks its mother's milk in the winter den." },
-  // Deer and fawn come back once the painted art has a hind: the deer word picture is a stag, and a
-  // mother with antlers would teach the wrong thing.
-  // { mother: "deer", baby: "fawn", line: "A fawn hides in the long grass between drinks of milk." },
+  // The deer mother is drawn as a hind (games/hind.webp): the deer word picture is a stag, and a mother
+  // with antlers would teach the wrong thing.
+  { mother: "deer", baby: "fawn", line: "A fawn hides in the long grass between drinks of milk." },
 ];
 
 // Other mothers on the list whose young can share a baby's name, so they never meet in a round:

@@ -2239,8 +2239,8 @@
       "id": "kitten",
       "path": "assets/topics/mammals/vocabulary/kitten.png",
       "category": "young",
-      "sha256": "21396e1ea46c451ff72072ac5bebadfc95c2bb6d0eadb5a7d5c69bff43d20f05",
-      "bytes": 1155025,
+      "sha256": "9f008ba4820c80612026a4bd113ccb977cb31052af982b1eb5be39fac30619e5",
+      "bytes": 1139113,
       "dimensions": [
         1024,
         1024
@@ -2251,14 +2251,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "puppy",
       "path": "assets/topics/mammals/vocabulary/puppy.png",
       "category": "young",
-      "sha256": "0bac90061ad676ad8e450cb7c6f8e872e99f3d74fbdc92697ac075c5adce5b60",
-      "bytes": 986719,
+      "sha256": "b97edd135279539101c65ff2763a99ff3cf6dfc6000e0d5dfe1d5ff112357345",
+      "bytes": 1045844,
       "dimensions": [
         1024,
         1024
@@ -2269,14 +2269,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "calf",
       "path": "assets/topics/mammals/vocabulary/calf.png",
       "category": "young",
-      "sha256": "9691dbc4699347bbb22879330b2e3c63bb5aa62bdf4c40b3eda6081c48a83505",
-      "bytes": 1018986,
+      "sha256": "42b3da773ec3df24ff731b719ed3ee65cd1535ec36521d23823651fb9cd692f8",
+      "bytes": 1240680,
       "dimensions": [
         1024,
         1024
@@ -2287,14 +2287,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "lamb",
       "path": "assets/topics/mammals/vocabulary/lamb.png",
       "category": "young",
-      "sha256": "6eb2295e862d0080ca787868e69f1698f9fe771124ea2490e03691367c5964cd",
-      "bytes": 1204420,
+      "sha256": "7ad799db7b78f06048912efd0e6f863d31299572ad5602e3ddc1fe9405e07ce4",
+      "bytes": 1227831,
       "dimensions": [
         1024,
         1024
@@ -2305,14 +2305,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "kid",
       "path": "assets/topics/mammals/vocabulary/kid.png",
       "category": "young",
-      "sha256": "ce1d7f8e1e6abb04c3a07acd6892a825b5988ba3c00309a0d5f17b49291a53df",
-      "bytes": 1131393,
+      "sha256": "fdf7ed49abca1c5f5828bf567c7c3ea1779cb137e9856b1cc7642395448d6a53",
+      "bytes": 1344475,
       "dimensions": [
         1024,
         1024
@@ -2323,14 +2323,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "foal",
       "path": "assets/topics/mammals/vocabulary/foal.png",
       "category": "young",
-      "sha256": "e49d114e9cea391b781c669571bde19897212029456b6fa29d10b7ccfa367e90",
-      "bytes": 1047684,
+      "sha256": "831d13199dcebf6d3cf36dd7e80b5cef71b829099825093517874aad18c89865",
+      "bytes": 924163,
       "dimensions": [
         1024,
         1024
@@ -2341,14 +2341,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "cub",
       "path": "assets/topics/mammals/vocabulary/cub.png",
       "category": "young",
-      "sha256": "1a0dbfb641bcf144e91066bc5f27430dcd928173d822d75b107385028fface04",
-      "bytes": 1339350,
+      "sha256": "aabf0ecd127b81ba7a8d3bbfa569bd6e17b24e4c0049046ef8ded1214812af85",
+      "bytes": 1782198,
       "dimensions": [
         1024,
         1024
@@ -2359,14 +2359,14 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "joey",
       "path": "assets/topics/mammals/vocabulary/joey.png",
       "category": "young",
-      "sha256": "5e59b0d2199f8fa2e7e2b72ac0f5662037fe2b3c52e2658ba7951329ebf2a867",
-      "bytes": 1783096,
+      "sha256": "8c0d622bf5d7aea10e80522a0031e02d873c99827f94c4486f7a680328842d5f",
+      "bytes": 1025136,
       "dimensions": [
         1024,
         1024
@@ -2377,7 +2377,7 @@
         255
       ],
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-21-redo/batch-3); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "ant",
@@ -4187,15 +4187,15 @@
         0,
         255
       ],
-      "sha256": "aa8d3a3f3132c1fbfd9cff98c8b497163404002c641c452eddd1417ea91a142a",
-      "bytes": 1361478,
+      "sha256": "3b48523a86d6418ee923253c0505424c9fad029232a45657a682a4a68e5660b4",
+      "bytes": 1256106,
       "dimensions": [
         1024,
         1024
       ],
       "mode": "RGBA",
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/fixes-1); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "fin",
@@ -4385,15 +4385,15 @@
         0,
         255
       ],
-      "sha256": "4f80f6e4b256f90899eace87d5d8bed0286551b41d9ee5617610465e8d174706",
-      "bytes": 923846,
+      "sha256": "5ddb0006ad4013516820bbf21b7a2250bbe9f50e23d2c6d1c5eecca304161112",
+      "bytes": 1425716,
       "dimensions": [
         1024,
         1024
       ],
       "mode": "RGBA",
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "plant-eater",
@@ -4457,15 +4457,15 @@
         0,
         255
       ],
-      "sha256": "42fb4963f7fa1d5da00b4dd41518c61f4dcd7a5f5c9fc79e36eae0f3bd4b3d08",
-      "bytes": 1224095,
+      "sha256": "b2aab6ca04a7baf44c6753e4f528383248d9980080396e21c1210c214ef2bfd1",
+      "bytes": 971758,
       "dimensions": [
         1024,
         1024
       ],
       "mode": "RGBA",
       "iccProfile": false,
-      "qaNotes": "Studio-photo style (Codex word-art redo, 2026-11-22-new/batch-8); checked against docs/word-art-redo/codex-redo-brief.md."
+      "qaNotes": "Studio-photo style (Codex word-art redo, ../game-art/babies); checked against docs/word-art-redo/codex-redo-brief.md."
     },
     {
       "id": "snout",

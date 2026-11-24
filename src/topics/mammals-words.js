@@ -118,14 +118,14 @@ stretch|To reach out and lengthen the body or a limb.|A golden dog stretching, f
 groom|To clean or care for fur or skin.|A tabby cat licking its paw to clean itself.|The cat can groom its fur.
 carry|To hold and move something from one place to another.|A monkey walking on all fours, carrying a banana in one hand.|The monkey can carry fruit.
 hide|To move or stay where it is hard to be seen.|A mouse peeking out from behind a mossy log.|The mouse can hide.`,
- young: `kitten|A young cat.|A small tabby kitten sitting in front of its mother cat.|The kitten has soft fur.
-puppy|A young dog.|A golden puppy sitting in front of its mother dog.|The puppy drinks milk.
-calf|A young cow; the young of some other large mammals are also called calves.|A young calf standing beside its mother cow.|The calf stands by its mother.
-lamb|A young sheep.|A white lamb standing beside its woolly mother sheep.|The lamb has wool.
-kid|A young goat.|A young goat standing beside its mother goat.|The kid can jump.
-foal|A young horse or another young member of the horse family.|A long-legged foal standing beside its mother horse.|The foal stands by the horse.
-cub|A young bear, lion or some other wild mammals.|A lion cub sitting in front of a lioness.|The cub rests by its mother.
-joey|A young kangaroo or another young marsupial.|A kangaroo joey peeking out of its mother's pouch.|The joey is in the pouch.`,
+ young: `kitten|A young cat.|A small tabby kitten sitting on its own.|The kitten has soft fur.
+puppy|A young dog.|A golden puppy sitting on its own.|The puppy drinks milk.
+calf|A young cow; the young of some other large mammals are also called calves.|A black and white calf standing on a patch of grass.|The calf is black and white.
+lamb|A young sheep.|A white lamb standing on a patch of grass.|The lamb has wool.
+kid|A young goat.|A brown and white young goat standing on a patch of grass.|The kid can jump.
+foal|A young horse or another young member of the horse family.|A long-legged chestnut foal standing on a patch of grass.|The foal has long legs.
+cub|A young bear, lion or some other wild mammals.|A brown bear cub standing on a patch of grass.|The bear cub has thick fur.
+joey|A young kangaroo or another young marsupial.|A young kangaroo sitting up on a patch of grass, out of the pouch.|The joey can hop.`,
  neighbours: `bird|An animal with feathers, wings and a beak; baby birds hatch from eggs.|A house sparrow perched side-on on a short twig, its wings folded.|A bird has feathers.
 robin|A small brown bird with an orange-red chest.|A robin with its orange-red chest, perched on a small mossy stump.|The robin sings in the garden.
 owl|A bird with big eyes and soft feathers that hunts mostly at night.|A barn owl with its pale heart-shaped face, perched on a branch.|The owl has big eyes.
@@ -236,11 +236,11 @@ webbed feet|Feet with skin between the toes, for swimming.|An otter on a rock, o
 baby|A very young animal.|A baby elephant standing close beside its mother's legs.|The baby stays close to its mother.
 born|Come into the world from the mother's body.|A newborn foal lying in straw while its mother bends down to it.|The foal was born today.
 egg|A case with a shell that a baby grows in; the platypus and echidna are the only mammals that lay eggs.|One small cream egg resting on a dry brown leaf.|The platypus lays an egg.
-fawn|A young deer.|A spotted fawn standing in the grass, its mother behind it.|The fawn has white spots.
+fawn|A young deer.|A spotted fawn standing in the grass on its own.|The fawn has white spots.
 litter|A group of babies born to one mother at the same time.|A mother pig lying on straw, with a row of piglets feeding.|The pig has a litter of piglets.
 mother|A female animal that has babies.|A mother orangutan hugging her baby to her chest.|The mother hugs her baby.
-piglet|A young pig.|A small pink piglet standing in front of a grown-up pig.|The piglet is pink.
-pup|A young seal; young dogs and some other mammals are called pups too.|A fluffy white seal pup lying on the sand beside its grey mother.|The seal pup is fluffy.
+piglet|A young pig.|A small pink piglet standing on straw.|The piglet is pink.
+pup|A young seal; young dogs and some other mammals are called pups too.|A fluffy white seal pup lying on the sand.|The seal pup is fluffy.
 bamboo|A tall, woody grass that giant pandas eat.|A clump of green bamboo stems with leaves.|The panda eats bamboo.
 berries|Small, soft fruits that grow on bushes.|A sprig of shiny blackberries with green leaves.|The bear eats berries.
 gnaw|Bite at something hard again and again.|A beaver gnawing a small tree trunk, wood chips at its feet.|The beaver gnaws the log.

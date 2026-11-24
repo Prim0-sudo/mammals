@@ -3,12 +3,15 @@
 // Landscape: the tree runs left to right with the homes down the right. Portrait (phones): top to bottom,
 // with five or seven homes in two staggered rows along the bottom.
 import { TopicGameView, esc } from "../topic-games-kit.js";
-import { SETTINGS, buildRound, switchesOf, leavesOf, nameOf, rightLine, wrongLine, enterLine, waitLine, START_LINE, DARK_LINE } from "../../topics/games/homes.js";
+import { HOMES, SETTINGS, buildRound, switchesOf, leavesOf, nameOf, rightLine, wrongLine, enterLine, waitLine, START_LINE, DARK_LINE } from "../../topics/games/homes.js";
 import { roundStars } from "../../topics/topic-games.js";
 
 const NS = "http://www.w3.org/2000/svg";
 const word = (n) => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"][n] || String(n);
 const LEVEL_ART = { easy: "warren", medium: "sett", hard: "stable" };
+// The homes are drawn empty (owner, 24 November 2026): the word pictures show the animal inside, which
+// gave the answer away. The word pictures keep their animals, because there they teach whose home it is.
+const homeArt = (id) => `assets/topics/mammals/games/homes/${id}.webp`;
 const LOCK = 30; // px either side of a switch where a walker locks it
 const list = (items) => (items.length > 1 ? `${items.slice(0, -1).join(", ")} or ${items.at(-1)}` : items[0]);
 const svgEl = (tag, attrs = {}) => {
@@ -23,7 +26,11 @@ export class View extends TopicGameView {
     this.levels();
   }
   levelArt(level) {
-    return this.art(LEVEL_ART[level]);
+    return homeArt(LEVEL_ART[level]);
+  }
+  // A home is drawn empty; anything else (an animal) is its word picture.
+  art(id) {
+    return HOMES[id] ? homeArt(id) : super.art(id);
   }
   levelNote(level) {
     const s = SETTINGS[level];

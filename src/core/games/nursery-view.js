@@ -18,6 +18,10 @@ export class View extends TopicGameView {
   levelArt(level) {
     return this.art(LEVEL_ART[level]);
   }
+  // The deer mother is a hind with no antlers, not the stag of the deer word picture.
+  art(id) {
+    return id === "deer" ? "assets/topics/mammals/games/hind.webp" : super.art(id);
+  }
   levelNote(level) {
     const s = SETTINGS[level];
     return `${capitalWord(s.pairs)} babies, ${s.picture ? "with pictures and names" : "name cards only"}.`;

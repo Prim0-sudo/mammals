@@ -49,7 +49,7 @@ const readingRows = [
   ["milk", "Mammal mothers feed their young milk.", "Compare kitten and cat, calf and cow.", "young"],
   ["platypus", "Most mammals have live young. A platypus lays eggs.", "Echidnas also lay eggs.", "traits"],
   ["whale", "The whale comes up to breathe.", "Draw the caption, then explain why it comes up.", "homes"],
-  ["joey", "The joey is in the pouch.", "Find the mother and the baby in the picture.", "young"],
+  ["pouch", "The joey is in the pouch.", "Find the mother and the baby in the picture.", "young"],
   ["giraffe", "The giraffe eats a leaf.", "Draw the caption, then read it to the group.", "sentences"],
   ["seal", "We give the seal space.", "Watch from a safe distance with a grown-up and follow local guidance.", "care"],
   ["ocean-floor", "The walrus finds food on the ocean floor.", "The ocean floor is a feeding place, not somewhere a mammal can breathe.", "homes"],
