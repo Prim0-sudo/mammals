@@ -1,0 +1,29 @@
+﻿Otter Dive scenery and foods
+
+Generated each image separately with the built-in image tool. prompts.md
+records the exact text. I reviewed the otter-swim grid and the holt
+vocabulary picture as visual style references.
+
+Backdrops (1536 x 1024 RGBA PNG)
+  far-bank.png, near-bank.png, riverbed.png
+
+Objects (1024 x 1024 RGBA PNG)
+  weed.png, weed-2.png, snag.png, can.png, bottle.png, bag.png, float.png
+
+Foods (1024 x 1024 RGBA PNG)
+  trout.png, eel.png, crayfish.png, frog-swim.png
+
+I fitted the strips to the requested canvas and heights, anchored them at
+the bottom, and trimmed the water below the two bank edges. The objects
+and foods were centred on square canvases with proportional scaling.
+I cleared near-zero alpha noise while preserving visible soft edges.
+I rerendered the far bank for a cleaner canopy edge and the snag for a
+cleaner base. The rerenders used the original prompts.
+
+I checked every delivered PNG over dark and light backgrounds for visible
+matte, halo, box or cast shadow. Each backdrop has a fully transparent top.
+I previewed each backdrop two copies side by side and checked that edge
+heights and density were similar. The PNGs are ready for later seam work.
+
+I previewed the cutouts at 120 px. The litter is unbranded and has no
+visible text. Each food shows the whole animal in right-facing profile.
