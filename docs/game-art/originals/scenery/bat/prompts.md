@@ -73,3 +73,19 @@ Scientific educational game object for Mammal Discovery Club, ages 4–7. One is
 
 A brown night moth (a large yellow underwing or similar, forewings brown) seen from directly above with wings open flat, filling about 60% of the square.
 ```
+
+## beetle.png
+
+```text
+Scientific educational game object for Mammal Discovery Club, ages 4–7. One isolated subject in a square image with real transparent alpha, centred with clear margin, silhouette legible at 120 px. Lifelike photographic cutout, soft cool moonlight from the upper left, natural colours, realistic texture. No outlines, text, watermark, background or cast shadow.
+
+A cockchafer (may bug) in flight seen from directly above, head pointing up: reddish-brown wing cases lifted and spread open, the thin brown flight wings spread wide beneath them, black thorax, fanned antennae, legs tucked; filling about 60% of the square.
+```
+
+## roost.png
+
+```text
+Scientific educational game object for Mammal Discovery Club, ages 4–7. One isolated subject in a square image with real transparent alpha, centred with clear margin, silhouette legible at 120 px. Lifelike photographic cutout, soft cool moonlight from the upper left, natural colours, realistic texture. No outlines, text, watermark, background or cast shadow.
+
+A whole old English oak tree, short and broad, with a thick gnarled trunk and a spreading crown of dark leaves, and one round dark hollow (a woodpecker-style hole) in the trunk at about half the trunk's height, clearly visible; moonlit from the upper left, the roots sitting flat on the bottom of the frame with no ground. Empty hollow, no animal.
+```

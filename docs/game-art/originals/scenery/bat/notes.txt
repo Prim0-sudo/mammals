@@ -27,3 +27,14 @@ alpha, and each backdrop was previewed two copies side by side.
 The pond water occupies about 9% of the canvas height across most of the
 strip. The reeds reach about 30%. The three backdrops are the PNG
 originals for the later seam and WebP preparation step.
+
+Bat Night Hunt extras
+=====================
+
+Generated beetle.png and roost.png one at a time with the built-in image
+tool using the verbatim prompts in prompts.md. Used moth.png and
+near-trees.png as style references, respectively. Both are 1024 x 1024
+RGBA PNGs. The beetle is centred at 60% of the canvas width, and the
+roost is centred horizontally with its roots at the bottom edge.
+Checked both on dark navy (#0d1832) at 120 px and at a larger preview
+size. The oak's hollow is clearly visible and empty.
