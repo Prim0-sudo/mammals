@@ -34,6 +34,18 @@ const STRIDE = 11; // the running bounce: |sin(time * STRIDE)|, so one bound las
 const RUN = { ms: 110, seq: [0, 1, 2, 3], at: [285, 481] }; // a gallop, the same rabbit as the hop
 const FOX = { ms: 140, fast: 90, seq: [0, 1, 2, 3], at: [256, 481], size: 0.36 }; // bigger than the rabbit
 const EAGLE = { soar: 0, swoop: 1, at: [[256, 246], [330, 260]], size: 1.15 };
+// The meadow (assets/topics/mammals/games/scenery/dash/, owner approved 24 November 2026). The strips
+// are 2048 x 512 and loop left to right, scenery on their bottom edge; the far hills and hedge sit on
+// the ground line and scroll slower for depth, the ground strip moves with the stones.
+const SCENE = "assets/topics/mammals/games/scenery/dash/";
+const BACK = [{ name: "far-hills", h: 0.62, speed: 0.18, sink: 0.03 }, { name: "hedge", h: 0.42, speed: 0.45, sink: 0.02 }];
+const GROUND_STRIP = { h: 0.8, line: 420, soil: ["#634832", "#3a2717"] }; // picture row 420 (the grass) sits on the ground line
+// Each object picture's visible box (x, y, w, h in its 512 square; bases on y = 481), drawn to fit the
+// stone or log the rules use. The standing stone is drawn narrower and taller.
+const STONES = [{ name: "stone", box: [25, 279, 460, 202], w: 1.6, h: 1.05 }, { name: "stone-2", box: [53, 20, 405, 461], w: 1.05, h: 1.25 }];
+const LOG = { box: [25, 356, 461, 125], w: 1.3, h: 0.95 };
+const BURROW = { box: [25, 222, 461, 259], w: 0.2, hole: 0.62 }; // w in stage heights; the hole's middle
+const CLOUDS = [{ name: "cloud", w: 0.24 }, { name: "cloud-2", w: 0.28 }];
 const mix = (c1, c2, t) => {
   const p = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
   const a = p(c1), b = p(c2);
@@ -86,6 +98,11 @@ export class View extends TopicGameView {
     this.img = Object.fromEntries(["rabbit", "eagle", "fox", "leaf", "warren"].map((id) => [id, loadImage(this.art(id))]));
     this.img.hop = loadImage(HOP.src);
     for (const name of ["rabbit-run", "fox-trot", "eagle-fly"]) this.img[name] = loadSheet(name);
+    const scene = (n) => loadImage(`${SCENE}${n}.webp`);
+    Object.assign(this.img, {
+      back: BACK.map((b) => scene(b.name)), ground: scene("ground"), stones: STONES.map((st) => scene(st.name)),
+      log: scene("log"), burrow: scene("burrow"), clouds: CLOUDS.map((c) => scene(c.name)),
+    });
     this.root.innerHTML = `<div class="ig-play dash-play">
       <div class="dash-bar">
         <div class="dash-hud">
@@ -415,18 +432,7 @@ export class View extends TopicGameView {
     ctx.arc(this.gx + this.gw * 0.86, this.gy + sunY * u, 0.05 * u, 0, 6.29);
     ctx.fill();
     this.clouds(scroll);
-    this.hills(scroll * 0.18 * u, ground - 0.2 * u, 0.06, mix("#b9dc95", "#6f7f86", dusk * 0.7), 1.1);
-    this.hills(scroll * 0.45 * u, ground - 0.09 * u, 0.04, mix("#94c56d", "#5d7660", dusk * 0.7), 2.2, true);
-    // Ground
-    ctx.fillStyle = mix("#7fae55", "#5a7a46", dusk * 0.7);
-    ctx.fillRect(0, ground, W, 0.05 * u);
-    const soil = ctx.createLinearGradient(0, ground + 0.04 * u, 0, H);
-    soil.addColorStop(0, mix("#8a6a3e", "#5d4a33", dusk * 0.6));
-    soil.addColorStop(1, mix("#5a4126", "#3b2e20", dusk * 0.6));
-    ctx.fillStyle = soil;
-    ctx.fillRect(0, ground + 0.045 * u, W, H - ground);
-    this.pebbles(r.scroll, ground);
-    this.tufts(r.scroll, ground);
+    if (!this.meadow(scroll, ground)) this.plainMeadow(scroll, ground, dusk);
     // Burrows, stones, logs and leaves
     const near = !r.rabbit.hidden && burrowNear(r);
     for (const t of r.things) {
@@ -463,14 +469,64 @@ export class View extends TopicGameView {
       ctx.fillRect(this.gx + this.gw, 0, W - this.gx - this.gw, H);
     }
   }
+  // The far hills, hedge and ground strip. Returns false until all of them have loaded.
+  meadow(scroll, ground) {
+    const { ctx, W, H, gh } = this;
+    const strips = [...this.img.back, this.img.ground];
+    if (!strips.every(ready)) return false;
+    const tile = (img, h, shift, top) => {
+      const w = h * 4, off = ((-shift % w) + w) % w;
+      for (let x = off - w; x < W; x += w) ctx.drawImage(img, Math.floor(x), top, Math.ceil(w) + 1, h);
+    };
+    BACK.forEach((b, i) => tile(this.img.back[i], b.h * gh, scroll * b.speed * gh, ground + b.sink * gh - b.h * gh));
+    // The ground moves with the stones (even under reduced motion, like the stones themselves).
+    const gh2 = GROUND_STRIP.h * gh, top = ground - (GROUND_STRIP.line / 512) * gh2;
+    const shift = this.run.scroll * gh;
+    // Deeper soil below the strip (deep on a phone): its own bottom colour, darkening with depth.
+    const bottom = top + gh2 - 1;
+    if (bottom < H) {
+      const deep = ctx.createLinearGradient(0, bottom, 0, H);
+      deep.addColorStop(0, GROUND_STRIP.soil[0]);
+      deep.addColorStop(1, GROUND_STRIP.soil[1]);
+      ctx.fillStyle = deep;
+      ctx.fillRect(0, bottom, W, H - bottom);
+    }
+    tile(this.img.ground, gh2, shift, top);
+    return true;
+  }
+  // The code-drawn meadow, shown while the pictures load.
+  plainMeadow(scroll, ground, dusk) {
+    const { ctx, W, H } = this, u = this.gh;
+    this.hills(scroll * 0.18 * u, ground - 0.2 * u, 0.06, mix("#b9dc95", "#6f7f86", dusk * 0.7), 1.1);
+    this.hills(scroll * 0.45 * u, ground - 0.09 * u, 0.04, mix("#94c56d", "#5d7660", dusk * 0.7), 2.2, true);
+    ctx.fillStyle = mix("#7fae55", "#5a7a46", dusk * 0.7);
+    ctx.fillRect(0, ground, W, 0.05 * u);
+    const soil = ctx.createLinearGradient(0, ground + 0.04 * u, 0, H);
+    soil.addColorStop(0, mix("#8a6a3e", "#5d4a33", dusk * 0.6));
+    soil.addColorStop(1, mix("#5a4126", "#3b2e20", dusk * 0.6));
+    ctx.fillStyle = soil;
+    ctx.fillRect(0, ground + 0.045 * u, W, H - ground);
+    this.pebbles(this.run.scroll, ground);
+    this.tufts(this.run.scroll, ground);
+  }
+  // Draw part of an object picture (box in its 512 square) w x h px, its base centred at (x, base).
+  object(img, [bx, by, bw, bh], x, base, w, h) {
+    this.ctx.drawImage(img, bx, by, bw, bh, x - w / 2, base - h, w, h);
+  }
   clouds(scroll) {
     const { ctx, W, gh } = this;
     ctx.fillStyle = "rgba(255, 255, 255, .8)";
     const span = W + 0.6 * gh;
+    const pics = this.img.clouds?.every(ready) ? this.img.clouds : null;
     for (let i = 0; i < 3; i++) {
       const drift = this.reduced ? 0 : (this.time || 0) * 0.01;
       const x = span - ((((i * 0.41 + 0.1) * span + (scroll * 0.06 + drift) * gh) % span) + span) % span - 0.3 * gh;
       const y = this.gy + (0.08 + (i % 2) * 0.08) * gh;
+      if (pics) {
+        const c = CLOUDS[i % 2], w = c.w * gh;
+        ctx.drawImage(pics[i % 2], x - w * 0.4, y - w / 2, w, w);
+        continue;
+      }
       ctx.beginPath();
       ctx.ellipse(x, y, 0.1 * gh, 0.028 * gh, 0, 0, 6.29);
       ctx.ellipse(x + 0.06 * gh, y - 0.018 * gh, 0.065 * gh, 0.028 * gh, 0, 0, 6.29);
@@ -545,6 +601,12 @@ export class View extends TopicGameView {
   drawBurrow(t, x, near) {
     const { ctx, gh } = this;
     const g = this.sy(0);
+    if (ready(this.img.burrow)) {
+      const [, , bw, bh] = BURROW.box, w = BURROW.w * gh, h = (w * bh) / bw;
+      this.object(this.img.burrow, BURROW.box, x, g + 0.01 * gh, w, h);
+      if (near) this.burrowGlow(x, g - h * (1 - BURROW.hole) * 0.5, w * 0.5, h * 0.5);
+      return;
+    }
     // A mound of earth behind the hole, then the dark hole itself
     ctx.fillStyle = "#9b7444";
     ctx.beginPath();
@@ -555,19 +617,29 @@ export class View extends TopicGameView {
     ctx.ellipse(x, g + 0.008 * gh, 0.05 * gh, 0.03 * gh, 0, Math.PI, 0);
     ctx.ellipse(x, g + 0.008 * gh, 0.05 * gh, 0.012 * gh, 0, 0, Math.PI);
     ctx.fill();
-    if (near) {
-      const pulse = this.reduced ? 0 : Math.sin((this.time || 0) * 8) * 0.008;
-      ctx.strokeStyle = "#ffe066";
-      ctx.lineWidth = Math.max(3, gh * 0.008);
-      ctx.beginPath();
-      ctx.ellipse(x, g, (0.095 + pulse) * gh, (0.05 + pulse) * gh, 0, 0, 6.29);
-      ctx.stroke();
-    }
+    if (near) this.burrowGlow(x, g, 0.095 * gh, 0.05 * gh);
+  }
+  // A pulsing ring round the burrow the rabbit can dive into.
+  burrowGlow(x, y, rx, ry) {
+    const { ctx, gh } = this;
+    const pulse = this.reduced ? 0 : Math.sin((this.time || 0) * 8) * 0.008 * gh;
+    ctx.strokeStyle = "#ffe066";
+    ctx.lineWidth = Math.max(3, gh * 0.008);
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx + pulse, ry + pulse, 0, 0, 6.29);
+    ctx.stroke();
   }
   drawStone(t, x) {
     const { ctx, gh } = this;
     const g = this.sy(0), w = t.w * gh, h = t.h * gh;
     ctx.globalAlpha = t.hit ? 0.55 : 1;
+    const which = t.id % STONES.length, img = this.img.stones?.[which];
+    if (ready(img)) {
+      const st = STONES[which];
+      this.object(img, st.box, x, g + 0.006 * gh, w * st.w, h * st.h);
+      ctx.globalAlpha = 1;
+      return;
+    }
     ctx.fillStyle = "#8d8f88";
     ctx.strokeStyle = "#5c5e58";
     ctx.lineWidth = 2;
@@ -588,6 +660,11 @@ export class View extends TopicGameView {
     const { ctx, gh } = this;
     const g = this.sy(0), w = t.w * gh, h = t.h * gh;
     ctx.globalAlpha = t.hit ? 0.55 : 1;
+    if (ready(this.img.log)) {
+      this.object(this.img.log, LOG.box, x, g + 0.006 * gh, w * LOG.w, h * LOG.h);
+      ctx.globalAlpha = 1;
+      return;
+    }
     ctx.fillStyle = "#7a5230";
     ctx.strokeStyle = "#4a3019";
     ctx.lineWidth = 2;
