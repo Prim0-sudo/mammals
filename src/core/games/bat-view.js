@@ -1,7 +1,7 @@
 // Bat Night Hunt (arcade): a dark wood on a canvas driven by gsap.ticker. The bat sends out echoes;
 // the rings light up moths, branches and the owl, which fade again. The rules live in
 // src/topics/games/bat.js (pure and seeded); this view reads input, steps the night and draws it.
-// Word pictures stand in for the painted art. Design: DESIGN.md, section 6.
+// The wood is Codex scenery (owner approved, 24 November 2026). Design: DESIGN.md, section 6.
 import { TopicGameView, esc } from "../topic-games-kit.js";
 import {
   SETTINGS, LIVES, MAX_STREAK, ECHO_COOLDOWN, ECHO_RANGE, BRANCH_W, OWL_R, MOTH_R, BEETLE_R,
@@ -29,6 +29,18 @@ const OWL_FLY = { ms: 160, seq: [0, 0, 1, 2], size: 4.4, eye: [120, -15], at: OW
 // At dawn the bat flies home to a bat box on a tree (the empty roost from Home Before Dark). Its
 // entrance slot is at this share of the picture.
 const ROOST = { src: "assets/topics/mammals/games/homes/roost.webp", size: 0.42, door: [0.54, 0.68] };
+// The moonlit wood (assets/topics/mammals/games/scenery/bat/). The three strips loop left to right
+// with the scenery on their bottom edge; they are drawn back to front at one scale, and shift a little
+// with the bat for depth. At night they are dimmed so the lit moths and the bat stand out.
+const SCENE = "assets/topics/mammals/games/scenery/bat/";
+const STRIPS = [{ name: "far-trees", shift: 0.02 }, { name: "near-trees", shift: 0.05 }, { name: "pond", shift: 0.09 }];
+const STRIP_H = 0.62; // a strip's height, as a share of the wood's height (2048 x 512, so 4 wide)
+const MOON_DISC = 0.8; // the moon's disc fills this share of its square (the rest is glow)
+// Each branch picture runs left to right from its base, within this crop of the square (x, y, w, h).
+const BRANCH_CROP = [10, 150, 492, 212];
+const BRANCH_BASE = 50; // the bark's thickness at the base, in picture pixels
+const BRANCH_MID = [279, 293, 288]; // the middle of the bark at the base of each picture (y, picture pixels)
+const MOTH_SIZE = 3.4; // a moth picture's square, in moth radii
 const WHAT = { branch: "Ouch, a branch!", owl: "Look out, an owl!" };
 
 function loadImage(src) {
@@ -89,7 +101,10 @@ export class View extends TopicGameView {
   play() {
     this.setStage("play");
     this.cfg = SETTINGS[this.level];
-    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly"), roost: loadImage(ROOST.src) };
+    this.img = { bat: loadImage(this.art("bat")), owl: loadImage(this.art("owl")), batFly: loadSheet("bat-fly"), owlFly: loadSheet("owl-fly"), roost: loadImage(ROOST.src),
+      strips: STRIPS.map((st) => loadImage(`${SCENE}${st.name}.webp`)), moon: loadImage(`${SCENE}moon.webp`),
+      branches: ["branch", "branch-2", "branch-3"].map((n) => loadImage(`${SCENE}${n}.webp`)),
+      moths: ["moth", "moth-2"].map((n) => loadImage(`${SCENE}${n}.webp`)) };
     const c = this.cfg;
     const dangers = c.branches ? `Keep away from the branches${c.owlEvery ? " and the owl" : ""}!` : "";
     this.root.innerHTML = `<div class="ig-play bat-play">
@@ -419,12 +434,19 @@ export class View extends TopicGameView {
     ctx.fillStyle = glow;
     ctx.fillRect(mx - mr * 3, my - mr * 3, mr * 6, mr * 6);
     ctx.globalAlpha = 1 - d * 0.7;
-    ctx.fillStyle = "#f4efd2";
-    ctx.beginPath();
-    ctx.arc(mx, my, mr, 0, 6.29);
-    ctx.fill();
+    const moon = this.img?.moon;
+    if (ready(moon)) {
+      const side = (mr * 2) / MOON_DISC;
+      ctx.drawImage(moon, mx - side / 2, my - side / 2, side, side);
+    } else {
+      ctx.fillStyle = "#f4efd2";
+      ctx.beginPath();
+      ctx.arc(mx, my, mr, 0, 6.29);
+      ctx.fill();
+    }
     ctx.globalAlpha = 1;
-    // Tree tops along the bottom of the canvas.
+    if (this.drawWood()) return;
+    // Tree tops along the bottom of the canvas, until the scenery has loaded.
     ctx.fillStyle = mix("#050a1a", "#2c3a3a", d);
     for (const t of this.sky.trees) {
       const x = t.x * W, w = t.w * W, top = H - t.h * Math.min(H, W);
@@ -434,6 +456,22 @@ export class View extends TopicGameView {
       ctx.lineTo(x + w, H);
       ctx.fill();
     }
+  }
+  // The far trees, near trees and pond, tiled across the wood. Returns false until all three load.
+  drawWood() {
+    const strips = this.img?.strips;
+    if (!strips || !strips.every(ready)) return false;
+    const { ctx, W, H } = this;
+    const h = STRIP_H * H, w = h * 4;
+    const along = this.reduced || !this.run ? 0.5 : clamp((this.flyer?.x ?? this.run.bat.x) / this.view, 0, 1);
+    ctx.save();
+    ctx.filter = `brightness(${(0.6 + 0.4 * this.dawn).toFixed(3)})`;
+    STRIPS.forEach((st, i) => {
+      const off = (((0.5 - along) * st.shift * W) % w + w) % w;
+      for (let x = off - w; x < W; x += w) ctx.drawImage(strips[i], Math.floor(x), H - h, Math.ceil(w) + 1, h);
+    });
+    ctx.restore();
+    return true;
   }
   // Branches are hidden in the dark (owner, 24 Nov: no faint outlines, so the child must echo); an
   // echo shows the bark for a moment.
@@ -461,7 +499,22 @@ export class View extends TopicGameView {
       twig(0.45 + t.twig * 0.2, 1, 0.08, BRANCH_W * gh);
       twig(0.7, -1, 0.06, BRANCH_W * gh * 0.8);
     };
-    if (lit > 0) paint("#b58b5c", lit);
+    if (lit <= 0) return;
+    const which = t.id % this.img.branches.length, img = this.img.branches[which];
+    if (ready(img)) {
+      // The picture's base sits on the wall end (x1, y1); it is flipped when it points left, so the
+      // twigs stay on top.
+      const [cx, cy, cw, chh] = BRANCH_CROP;
+      const a = Math.atan2(y2 - y1, x2 - x1), len = Math.hypot(x2 - x1, y2 - y1);
+      const k = (BRANCH_W * 3.4 * gh) / BRANCH_BASE; // thicker at the base, as the bark tapers
+      ctx.save();
+      ctx.globalAlpha = lit;
+      ctx.translate(x1, y1);
+      ctx.rotate(a);
+      if (Math.cos(a) < 0) ctx.scale(1, -1);
+      ctx.drawImage(img, cx, cy, cw, chh, -0.02 * len, -(BRANCH_MID[which] - cy) * k, len * 1.04, chh * k);
+      ctx.restore();
+    } else paint("#b58b5c", lit);
     ctx.globalAlpha = 1;
   }
   drawRing(ring) {
@@ -499,6 +552,19 @@ export class View extends TopicGameView {
       ctx.fillRect(x - s * 3, y - s * 3, s * 6, s * 6);
     }
     const flap = this.reduced ? 0.8 : 0.45 + 0.55 * Math.abs(Math.sin(t.flap));
+    if (lit <= 0) return;
+    const img = this.img.moths[t.id % this.img.moths.length];
+    if (ready(img)) {
+      const side = MOTH_SIZE * s;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(x, y);
+      ctx.rotate(Math.cos(t.ang) * 0.3);
+      ctx.scale(0.35 + 0.65 * flap, 1); // the wings beat
+      ctx.drawImage(img, -side / 2, -side / 2, side, side);
+      ctx.restore();
+      return;
+    }
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.translate(x, y);
