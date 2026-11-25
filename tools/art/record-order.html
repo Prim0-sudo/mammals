@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Record drawing order</title>
+<!-- Owner tool (25 Nov 2026): trace each Draw & Trace outline the way you'd draw it, step by step, so the demo pen can follow
+     a person's order. Strokes are kept in this browser (localStorage) in the board's 1000 x 750 space, the same space
+     line-art.js converts into; "Download all" saves one JSON file with every recorded picture. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px system-ui, sans-serif; background: #f3f1e8; color: #244e3b; }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 12px; }
+  select, button { font: inherit; min-height: 40px; padding: 4px 12px; border: 2px solid #b9cba5; border-radius: 10px; background: #fff; color: inherit; }
+  button.main { background: #2f7d3e; border-color: #2f7d3e; color: #fff; font-weight: 700; }
+  button:disabled { opacity: .45; }
+  #step { flex: 1 1 260px; font-weight: 800; font-size: 18px; }
+  main { display: flex; justify-content: center; padding: 0 12px 12px; }
+  canvas { width: min(100%, calc((100vh - 150px) * 4 / 3)); aspect-ratio: 4 / 3; background: #fffdf6; border: 2px solid #d8cfae; border-radius: 12px; touch-action: none; cursor: crosshair; }
+  #note { padding: 0 12px 10px; font-size: 13px; text-align: center; }
+</style>
+<header>
+  <select id="pick" aria-label="Picture"></select>
+  <span id="step"></span>
+  <button id="undo">Undo</button>
+  <button id="back">Back a step</button>
+  <button id="next" class="main">Next step</button>
+  <button id="clear">Start picture again</button>
+  <button id="save">Download all</button>
+</header>
+<main><canvas id="board" width="1000" height="750"></canvas></main>
+<p id="note"></p>
+<script type="module">
+  const { drawTracePlans } = await import(`../../src/topics/draw-trace-plans.js?v=${Date.now()}`);
+  const W = 1000, H = 750, KEY = 'mammals-draw-order';
+  const COLOURS = ['#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4', '#00a8a8', '#f032e6', '#9a6324', '#808000', '#000075'];
+  const ids = Object.keys(drawTracePlans);
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  const store = load();
+  const keep = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch {} };
+  const $ = id => document.getElementById(id), cv = $('board'), g = cv.getContext('2d');
+  let id = null, img = null, rec = null, pen = null;
+
+  const steps = () => drawTracePlans[id].map(s => s.title);
+  const done = i => (store[i]?.strokes.length ?? 0) > 0;
+  function fillPicker() {
+    $('pick').innerHTML = ids.map(i => `<option value="${i}">${done(i) ? '✓ ' : ''}${i}</option>`).join('');
+    $('pick').value = id;
+  }
+  async function open(next) {
+    id = next; rec = store[id] ||= { strokes: [], step: 0 };
+    img = new Image(); img.src = `../../assets/line-art/${id}-v1.webp`;
+    await img.decode().catch(() => {});
+    fillPicker(); paint();
+  }
+  function paint() {
+    g.clearRect(0, 0, W, H);
+    // placed exactly as line-art.js places it: 36 px margin, centred
+    const S = Math.min((W - 72) / img.naturalWidth, (H - 72) / img.naturalHeight), w = img.naturalWidth * S, h = img.naturalHeight * S;
+    g.globalAlpha = .35; g.drawImage(img, (W - w) / 2, (H - h) / 2, w, h); g.globalAlpha = 1;
+    g.lineCap = g.lineJoin = 'round';
+    rec.strokes.forEach((s, n) => {
+      const mine = s.step === rec.step;
+      g.lineWidth = mine ? 6 : 4; g.strokeStyle = mine ? COLOURS[s.step % COLOURS.length] : '#9aa59a';
+      g.beginPath(); s.pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke();
+      if (mine) { const [x, y] = s.pts[0]; g.fillStyle = '#000'; g.beginPath(); g.arc(x, y, 11, 0, 7); g.fill();
+        g.fillStyle = '#fff'; g.font = 'bold 14px system-ui'; g.textAlign = 'center'; g.fillText(n + 1, x, y + 5); }
+    });
+    const list = steps(), last = rec.step >= list.length - 1;
+    $('step').textContent = `Step ${rec.step + 1} of ${list.length}: ${list[rec.step]}`;
+    $('next').textContent = last ? 'Next picture' : 'Next step';
+    $('back').disabled = rec.step === 0;
+    $('undo').disabled = !rec.strokes.some(s => s.step === rec.step);
+    const count = ids.filter(done).length;
+    $('note').textContent = `${count} of ${ids.length} pictures recorded. Trace each part the way you would draw it; lift the pen where you would. Grey lines are earlier steps.`;
+  }
+  const at = e => { const r = cv.getBoundingClientRect(); return [Math.round((e.clientX - r.left) * W / r.width), Math.round((e.clientY - r.top) * H / r.height)]; };
+  cv.addEventListener('pointerdown', e => {
+    if (pen || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    pen = { id: e.pointerId, stroke: { step: rec.step, pts: [at(e)] } }; rec.strokes.push(pen.stroke);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!pen || e.pointerId !== pen.id) return;
+    for (const ev of (e.getCoalescedEvents?.() || [e])) {
+      const p = at(ev), q = pen.stroke.pts[pen.stroke.pts.length - 1];
+      if (Math.hypot(p[0] - q[0], p[1] - q[1]) >= 3) pen.stroke.pts.push(p);
+    }
+    paint();
+  });
+  const up = e => { if (!pen || e.pointerId !== pen.id) return;
+    if (pen.stroke.pts.length < 2) rec.strokes.pop();   // a tap is not a stroke
+    pen = null; keep(); fillPicker(); paint(); };
+  for (const t of ['pointerup', 'pointercancel']) cv.addEventListener(t, up);
+
+  $('pick').onchange = () => open($('pick').value);
+  $('undo').onclick = () => { const i = rec.strokes.findLastIndex(s => s.step === rec.step); if (i >= 0) rec.strokes.splice(i, 1); keep(); fillPicker(); paint(); };
+  $('back').onclick = () => { rec.step = Math.max(0, rec.step - 1); keep(); paint(); };
+  $('next').onclick = () => {
+    if (rec.step < steps().length - 1) { rec.step++; keep(); paint(); return; }
+    const after = ids[ids.indexOf(id) + 1]; if (after) open(after);
+  };
+  $('clear').onclick = () => { if (!confirm(`Clear every stroke on ${id}?`)) return; store[id] = { strokes: [], step: 0 }; keep(); open(id); };
+  $('save').onclick = () => {
+    const out = { made: new Date().toISOString(), board: [W, H], pictures: Object.fromEntries(ids.filter(done).map(i => [i, { steps: drawTracePlans[i].map(s => s.title), strokes: store[i].strokes }])) };
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(out)], { type: 'application/json' }));
+    a.download = 'mammals-draw-order.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  open(ids.find(i => !done(i)) || ids[0]);
+</script>
