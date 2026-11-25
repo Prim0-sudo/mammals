@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Draw &amp; Trace step plans</title>
+<!-- Dev check for src/topics/draw-trace-plans.js: each outline converted with its plan, every step in its own colour.
+     Open /tools/art/plan-preview.html?ids=hard-07-bats-in-the-barn,easy-01-mouse (no ids = all planned pictures; add &big for
+     one large panel at a time). -->
+<style>
+  body { font: 13px system-ui, sans-serif; margin: 8px; background: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(2, 380px); gap: 6px; }
+  .panel { border: 1px solid #ccc; }
+  .panel h3 { margin: 2px 6px; font-size: 14px; }
+  canvas { display: block; width: 380px; height: 285px; }
+  ol { margin: 0 0 4px 22px; padding: 0; font-size: 11px; }
+  li span { display: inline-block; width: 12px; height: 12px; vertical-align: -2px; margin-right: 4px; }
+  .bad { color: #c00; font-weight: bold; }
+  .big .grid { grid-template-columns: 780px; }
+  .big canvas { width: 780px; height: 585px; }
+  .big ol { font-size: 13px; }
+</style>
+<div class="grid" id="grid"></div>
+<script type="module">
+  const v = Date.now();
+  const { convert } = await import(`../../src/core/line-art.js?v=${v}`);
+  const { drawTracePlans } = await import(`../../src/topics/draw-trace-plans.js?v=${v}`);
+  const COLOURS = ['#e6194b', '#3cb44b', '#4363d8', '#f58231', '#911eb4', '#00a8a8', '#f032e6', '#9a6324', '#808000', '#000075'];
+  const q = new URLSearchParams(location.search), want = q.get('ids');
+  if (q.has('big')) document.body.classList.add('big');   // one big panel per screen
+  const ids = want ? want.split(',') : Object.keys(drawTracePlans);
+  const grid = document.getElementById('grid');
+  for (const id of ids){
+    const plan = drawTracePlans[id], level = id.split('-')[0];
+    const panel = document.createElement('div'); panel.className = 'panel';
+    panel.innerHTML = `<h3>${id}</h3>`;
+    const cv = document.createElement('canvas'); cv.width = 500; cv.height = 375; panel.append(cv);
+    grid.append(panel);
+    const d = await convert(`../../assets/line-art/${id}-v1.webp`, id, level, plan);
+    const g = cv.getContext('2d'); g.scale(.5, .5); g.lineCap = g.lineJoin = 'round'; g.lineWidth = 7;
+    const counts = d.stepNames.map(() => 0);
+    for (const s of d.strokes){
+      counts[s.step]++;
+      g.strokeStyle = COLOURS[s.step % COLOURS.length]; g.beginPath();
+      s.pts.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke();
+    }
+    const want = { easy: 3, medium: 6, hard: 10 }[level];
+    const ol = document.createElement('ol');
+    ol.innerHTML = d.stepNames.map((n, i) => `<li><span style="background:${COLOURS[i % COLOURS.length]}"></span>${n} (${counts[i]})</li>`).join('')
+      + (plan && d.stepNames.length !== plan.length ? `<li class="bad">${plan.length - d.stepNames.length} planned step(s) came out empty</li>` : '')
+      + (d.stepNames.length !== want ? `<li class="bad">${d.stepNames.length} steps, ${level} wants ${want}</li>` : '');
+    panel.append(ol);
+  }
+  document.title = 'done';
+</script>

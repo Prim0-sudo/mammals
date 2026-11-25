@@ -561,7 +561,9 @@ async function convert(src, name = 'Line art', level, plan){
   for (const { c, joined } of parts) for (const line of joined){
     line.pts = line.pts.slice(); extendEnds(line, c, ink, lab, skAll);
     const L = lengthOf(line.pts); if (L < 12 && (line.free[0] || line.free[1] || L < 4)) continue;   // specks; a short link between two forks stays
-    lines.push({ pts: smooth(simplify(line.pts, .9)), len: L, rgb: PALETTE[c].rgb });
+    // smooth the pixel steps first, then thin the points out: smoothing the few points left after simplify pulled
+    // every square corner (a barn wall meeting the floor) 100 px inwards into a long diagonal
+    lines.push({ pts: simplify(smooth(line.pts), .9), len: L, rgb: PALETTE[c].rgb });
   }
   if (!lines.length) throw new Error('No lines found in that picture.');
   snapEnds(lines, ink);
