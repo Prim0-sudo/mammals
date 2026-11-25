@@ -486,26 +486,48 @@ function restroke(lines, before = [], ink = null){
   }
   for (const p of loops) shapes.push({ loop: p, area: Math.abs(p.pts.reduce((s, q, k, a) => (k ? s + a[k-1][0] * q[1] - q[0] * a[k-1][1] : 0), 0) / 2) });
   // strokes
-  const drawn = Uint8Array.from(edges, e => (e.ctx ? 1 : 0)), out = []; let pen = null;
+  // drawn: an edge is spoken for (a shape or an open line has it); done: it is on the paper
+  const drawn = Uint8Array.from(edges, e => (e.ctx ? 1 : 0)), done = drawn.slice(), out = []; let pen = null;
   const near = p => (pen ? Math.hypot(p[0] - pen[0], p[1] - pen[1]) : 0);
-  const emit = (pts, rgb, rank, flip = true) => {
+  // the ink so far, as points in 20 px cells, to tell how far a part is from it (owner's recorded mouse, 25 Nov 2026:
+  // a part that hangs off the drawing is drawn from where it joins, whiskers out from the nose, a floating eye last)
+  const CELL = 20, ATTACH = 30, grid = new Map();
+  const addInk = pts => { for (let k = 0; k < pts.length; k++){ const a = pts[k], b = pts[k + 1] || a, n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 8));
+    for (let s = 0; s < n; s++){ const x = a[0] + (b[0] - a[0]) * s / n, y = a[1] + (b[1] - a[1]) * s / n, key = Math.floor(x / CELL) * 1000 + Math.floor(y / CELL);
+      if (!grid.has(key)) grid.set(key, []); grid.get(key).push([x, y]); } } };
+  const gapAt = p => { const cx = Math.floor(p[0] / CELL), cy = Math.floor(p[1] / CELL); let best = Infinity;
+    for (let i = cx - 3; i <= cx + 3; i++) for (let j = cy - 3; j <= cy + 3; j++){ const b = grid.get(i * 1000 + j); if (b) for (const q of b){ const d = Math.hypot(q[0] - p[0], q[1] - p[1]); if (d < best) best = d; } }
+    return best; };
+  const gapOf = pts => pts.reduce((m, p) => Math.min(m, gapAt(p)), Infinity);
+  edges.forEach(e => { if (e.ctx) addInk(e.pts); }); pieces.forEach(p => { if (p.loop && p.ctx) addInk(p.pts); });
+  const emit = (pts, rgb, rank, flip = true, anchor = true) => {
     // from the end nearest the pen; the first line of a step from its top end (the back from the head down)
     if (flip && (pen ? near(pts[pts.length - 1]) < near(pts[0]) : pts[pts.length - 1][1] < pts[0][1])) pts = pts.slice().reverse();
-    out.push({ rgb, rank, pts }); pen = pts[pts.length - 1];
+    out.push({ rgb, rank, pts }); pen = pts[pts.length - 1]; if (anchor) addInk(pts);   // a short flick (a whisker) is no anchor for the next part
   };
+  // where to start round a closed outline: by the pen if it is close, else where it joins the ink, else its top
+  const startAt = ps => {
+    if (pen){ const k = ps.reduce((b, p, i) => (near(p) < near(ps[b]) ? i : b), 0); if (near(ps[k]) <= 60) return k; }
+    let k = -1, g = ATTACH; ps.forEach((p, i) => { const d = gapAt(p); if (d <= g){ g = d; k = i; } });
+    return k >= 0 ? k : ps.reduce((b, p, i) => (p[1] < ps[b][1] ? i : b), 0);
+  };
+  // a tiny undrawn piece from the ink to node v (a tail's root on the back) is drawn as the start of what begins at v
+  const leadInto = v => { for (const o of nodes[v].out){ const e = edges[o >> 1]; if (done[o >> 1] || e.len > 30) continue;
+    if (nodes[to(o)].out.some(p => p !== (o ^ 1) && done[p >> 1])) return o ^ 1; } return null; };
   const chainOut = hs => {   // half-edges in order, one stroke per colour run
     let cur = null;
-    for (const h of hs){ const e = edges[h >> 1], pts = hp(h); drawn[h >> 1] = 1;
+    for (const h of hs){ const e = edges[h >> 1], pts = hp(h); drawn[h >> 1] = done[h >> 1] = 1;
       if (cur && cur.rank === e.rank) cur.pts = cur.pts.concat(pts.slice(1)); else { if (cur) emit(cur.pts, cur.rgb, cur.rank, false); cur = { rgb: e.rgb, rank: e.rank, pts: pts.slice() }; } }
     if (cur) emit(cur.pts, cur.rgb, cur.rank, false);
   };
   const drawShape = s => {
-    if (s.loop){ const k = s.loop.pts.reduce((b, p, i, a) => (p[1] < a[b][1] ? i : b), 0), pts = s.loop.pts.slice(k).concat(s.loop.pts.slice(1, k + 1)); emit(pts, s.loop.rgb, s.loop.rank, false); return; }
+    if (s.loop){ const k = startAt(s.loop.pts.slice(0, -1)), pts = s.loop.pts.slice(k).concat(s.loop.pts.slice(1, k + 1)); emit(pts, s.loop.rgb, s.loop.rank, false); return; }
     const fresh = s.hs.map(h => !drawn[h >> 1]);
     if (!fresh.some(Boolean)) return;
-    if (fresh.every(Boolean)){   // a whole new shape: round in one go, from its top
-      const k = s.hs.reduce((b, h, i) => (nodes[from(h)].y < nodes[from(s.hs[b])].y ? i : b), 0);
-      chainOut(s.hs.slice(k).concat(s.hs.slice(0, k))); return;
+    if (fresh.every(Boolean)){   // a whole new shape: round in one go, from the pen, where it joins, or its top
+      const k = startAt(s.hs.map(h => [nodes[from(h)].x, nodes[from(h)].y])), lead = leadInto(from(s.hs[k]));
+      if (lead != null) drawn[lead >> 1] = 1;
+      chainOut([...(lead != null ? [lead] : []), ...s.hs.slice(k), ...s.hs.slice(0, k)]); return;
     }
     // only the new part of its outline, one run at a time (an ear's arch on the head)
     const n = s.hs.length, start = fresh.findIndex((f, i) => f && !fresh[(i - 1 + n) % n]);
@@ -531,23 +553,26 @@ function restroke(lines, before = [], ink = null){
   }
   // open lines: from the longest, carried on through a node only where the line runs straight on
   const turn = (hIn, hOut) => { const a = ang[hIn ^ 1] + Math.PI, b = ang[hOut]; let d = Math.abs(a - b) % (2 * Math.PI); return d > Math.PI ? 2 * Math.PI - d : d; };
-  // a small shape keeps its lines from the open lines, except those on the outside of the drawing: the top of a head
-  // between its two ears is the head's outline first, and the ear adds only its arch
-  const rim = new Uint8Array(edges.length); for (const o of outside.values()) for (const h of o.hs) rim[h >> 1] = 1;
-  const kept = new Uint8Array(edges.length); for (const s of small) if (!s.loop) for (const h of s.hs) if (!rim[h >> 1]) kept[h >> 1] = 1;
-  const taken = i => drawn[i] || kept[i];
+  // a small shape (a hand, a foot) keeps its lines for itself; an open line takes one only as a short bridge to more
+  // open line beyond it (the chest runs on past the hand to the belly, the head's top under an ear), so the outline is
+  // one long sweep and the hand is its own loop afterwards
+  const onShape = new Uint8Array(edges.length); for (const s of small) if (!s.loop) for (const h of s.hs) onShape[h >> 1] = 1;
+  const plain = o => !drawn[o >> 1] && !onShape[o >> 1];
+  const bridge = o => !drawn[o >> 1] && onShape[o >> 1] && edges[o >> 1].len <= 140 && nodes[to(o)].out.some(p => p !== (o ^ 1) && plain(p) && edges[p >> 1].len >= 40 && turn(o, p) < 2);
   const items = small.map(s => ({ shape: s }));
   for (;;){
-    let seed = -1; edges.forEach((e, i) => { if (!taken(i) && (seed < 0 || e.len > edges[seed].len)) seed = i; });
+    let seed = -1; edges.forEach((e, i) => { if (plain(i * 2) && (seed < 0 || e.len > edges[seed].len)) seed = i; });
     if (seed < 0) break;
     drawn[seed] = 1; const hs = [seed * 2];
     for (const side of [1, 0]){
       for (;;){
         const last = side ? hs[hs.length - 1] : hs[0] ^ 1, v = to(last), outs = nodes[v].out.filter(o => o !== (last ^ 1));
-        const free = outs.filter(o => !taken(o >> 1));
+        const ways = outs.filter(o => plain(o) || bridge(o)).map(o => [o, turn(last, o)]).sort((x, y) => x[1] - y[1]);
         let pick = null;
-        if (outs.length === 1 && free.length === 1) pick = free[0];
-        else { const best = free.map(o => [o, turn(last, o)]).sort((x, y) => x[1] - y[1])[0]; if (best && best[1] < .9) pick = best[0]; }
+        if (outs.length === 1 && ways.length === 1) pick = ways[0][0];
+        else if (ways.length && ways[0][1] < .9) pick = ways[0][0];
+        // round a corner only where a shape sits on the outline there and the outline is the one way on
+        else if (ways.length === 1 && ways[0][1] < 2 && outs.some(o => onShape[o >> 1])) pick = ways[0][0];
         if (pick == null || edges[pick >> 1].rank !== edges[seed].rank) break;
         drawn[pick >> 1] = 1;
         if (side) hs.push(pick); else hs.unshift(pick ^ 1);
@@ -556,15 +581,31 @@ function restroke(lines, before = [], ink = null){
     items.push({ hs });
   }
   const itemLen = it => (it.shape ? freshLen(it.shape) : it.hs.reduce((a, h) => a + edges[h >> 1].len, 0));
-  const itemPts = it => (it.shape ? (it.shape.loop ? it.shape.loop.pts : it.shape.hs.map(h => hp(h)[0])) : [hp(it.hs[0])[0], hp(it.hs[it.hs.length - 1]).slice(-1)[0]]);
+  const ptsOf = it => (it.shape ? (it.shape.loop ? it.shape.loop.pts : it.shape.hs.flatMap(h => hp(h))) : it.hs.flatMap(h => hp(h)));
+  const endsOf = it => (it.shape ? ptsOf(it) : [hp(it.hs[0])[0], hp(it.hs[it.hs.length - 1]).slice(-1)[0]]);
+  // a closed shape inside a longer open outline (an ear inside the head's line) waits until that outline is done
+  const box = new Map(items.map(it => [it, boxOf(ptsOf(it))]));
+  const within = (a, b) => a[0] >= b[0] && a[1] >= b[1] && a[2] <= b[2] && a[3] <= b[3];
+  const inner = it => it.shape && items.some(c => c.hs && itemLen(c) > itemLen(it) && within(box.get(it), box.get(c)));
+  const pickMin = (pool, f) => pool.reduce((b, it) => (f(it) < f(b) ? it : b));
   const longest = Math.max(0, ...items.map(itemLen));
   for (const group of [items.filter(it => itemLen(it) >= longest * .4), items.filter(it => itemLen(it) < longest * .4)]){
-    while (group.length){   // the nearest next, or the top one when the pen has not started
-      let bi = 0, bd = Infinity;
-      group.forEach((it, i) => { const d = Math.min(...itemPts(it).map(p => (pen ? near(p) : p[1]))); if (d < bd){ bd = d; bi = i; } });
-      const it = group.splice(bi, 1)[0];
-      if (it.shape) drawShape(it.shape);
-      else { const pts = it.hs.flatMap((h, k) => (k ? hp(h).slice(1) : hp(h))); emit(pts, edges[it.hs[0] >> 1].rgb, edges[it.hs[0] >> 1].rank, true); }
+    while (group.length){
+      // what joins the ink first (gap of 30 px or less), outlines before what sits inside them; then the nearest to the
+      // pen; a step that starts on bare paper starts with its longest line
+      let pool = group;
+      const outer = pool.filter(it => !inner(it)); if (outer.length) pool = outer;
+      if (grid.size){ const joined = pool.filter(it => gapOf(ptsOf(it)) <= ATTACH); if (joined.length) pool = joined; }
+      const it = pen ? pickMin(pool, c => Math.min(...endsOf(c).map(near))) : grid.size ? pickMin(pool, c => gapOf(ptsOf(c))) : pickMin(pool, c => -itemLen(c));
+      group.splice(group.indexOf(it), 1);
+      if (it.hs && it.hs.every(h => done[h >> 1])) continue;   // already drawn as the lead of a shape
+      if (it.shape){ drawShape(it.shape); continue; }
+      // a short line (a whisker) starts where it joins the ink and flicks outward; a long one from the pen, or its top
+      it.hs.forEach(h => { done[h >> 1] = 1; });
+      const pts = it.hs.flatMap((h, k) => (k ? hp(h).slice(1) : hp(h))), a = pts[0], b = pts[pts.length - 1];
+      let ga = Infinity, gb = Infinity; if (itemLen(it) < 150){ ga = gapAt(a); gb = gapAt(b); }
+      const fwd = ga !== gb ? ga < gb : pen ? near(a) <= near(b) : a[1] <= b[1];
+      emit(fwd ? pts : pts.slice().reverse(), edges[it.hs[0] >> 1].rgb, edges[it.hs[0] >> 1].rank, false, itemLen(it) >= 150);
     }
   }
   return out;
