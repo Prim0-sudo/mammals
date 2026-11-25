@@ -188,7 +188,7 @@ export const drawTracePlans = {
   'hard-04-beaver-lodge': [
     { title: 'Draw the river bank', find: [['brown', 70, 395, 560, 500]] },
     { title: 'Draw the beaver’s head and ears', find: [['brown', 245, 60, 460, 250]] },
-    { title: 'Draw its body', find: [['brown', 200, 240, 420, 400]] },
+    { title: 'Draw its body', find: [['brown', 200, 252, 420, 400]] },
     { title: 'Add the flat tail', find: [['brown', 125, 335, 215, 400]] },
     { title: 'Add the paws and the stick', find: [['brown', 300, 250, 515, 320]] },
     { title: 'Add the eye, nose and teeth', find: [['black', ...ALL]] },

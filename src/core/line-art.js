@@ -520,11 +520,15 @@ function restroke(lines, before = [], ink = null){
       if (cur && cur.rank === e.rank) cur.pts = cur.pts.concat(pts.slice(1)); else { if (cur) emit(cur.pts, cur.rgb, cur.rank, false); cur = { rgb: e.rgb, rank: e.rank, pts: pts.slice() }; } }
     if (cur) emit(cur.pts, cur.rgb, cur.rank, false);
   };
+  // a closed loop goes round anticlockwise on the page, as the owner mostly draws them (60 of 83 loops recorded)
+  const clockwise = ps => ps.reduce((a, p, i) => { const q = ps[(i + 1) % ps.length]; return a + p[0] * q[1] - q[0] * p[1]; }, 0) > 0;
   const drawShape = s => {
-    if (s.loop){ const k = startAt(s.loop.pts.slice(0, -1)), pts = s.loop.pts.slice(k).concat(s.loop.pts.slice(1, k + 1)); emit(pts, s.loop.rgb, s.loop.rank, false); return; }
+    if (s.loop){ let ring = s.loop.pts.slice(0, -1); if (clockwise(ring)) ring = ring.reverse(); ring.push(ring[0]);
+      const k = startAt(ring.slice(0, -1)), pts = ring.slice(k).concat(ring.slice(1, k + 1)); emit(pts, s.loop.rgb, s.loop.rank, false); return; }
     const fresh = s.hs.map(h => !drawn[h >> 1]);
     if (!fresh.some(Boolean)) return;
     if (fresh.every(Boolean)){   // a whole new shape: round in one go, from the pen, where it joins, or its top
+      if (clockwise(s.hs.map(h => [nodes[from(h)].x, nodes[from(h)].y]))) s = { ...s, hs: s.hs.map(h => h ^ 1).reverse() };
       const k = startAt(s.hs.map(h => [nodes[from(h)].x, nodes[from(h)].y])), lead = leadInto(from(s.hs[k]));
       if (lead != null) drawn[lead >> 1] = 1;
       chainOut([...(lead != null ? [lead] : []), ...s.hs.slice(k), ...s.hs.slice(0, k)]); return;
@@ -544,21 +548,34 @@ function restroke(lines, before = [], ink = null){
   // a hub (a body with wings and feet on it) is a big shape too, even when its own outline is short
   const ties = s => { if (s.loop) return 0; const own = new Set(s.hs.map(h => h >> 1)), at = new Set();
     for (const h of s.hs) for (const o of nodes[from(h)].out) if (!own.has(o >> 1) && !edges[o >> 1].ctx) at.add(o >> 1); return at.size; };
-  const big = shapes.filter(s => freshLen(s) >= stepLen * .3 || (freshLen(s) >= stepLen * .12 && ties(s) >= 3)), small = shapes.filter(s => !big.includes(s));
+  const turn = (hIn, hOut) => { const a = ang[hIn ^ 1] + Math.PI, b = ang[hOut]; let d = Math.abs(a - b) % (2 * Math.PI); return d > Math.PI ? 2 * Math.PI - d : d; };
+  // ...but not a shape an outline runs straight along (an ear on the head's line: the back runs on over its base)
+  const along = s => { if (s.loop) return false; const own = new Set(s.hs.map(h => h >> 1));
+    return s.hs.some(h => { const out = nodes[from(h)].out; return out.some(o => !own.has(o >> 1) && !edges[o >> 1].ctx && out.some(q => own.has(q >> 1) && turn(o ^ 1, q) < .6)); }); };
+  // (the step's main hub stays big even so: the bat's body, which both wing edges run along)
+  const hub = shapes.reduce((b, s) => (!s.loop && ties(s) >= 3 && (!b || ties(s) * s.area > ties(b) * b.area) ? s : b), null);
+  const big = shapes.filter(s => freshLen(s) >= stepLen * .3 || (freshLen(s) >= stepLen * .12 && ties(s) >= 3 && (s === hub || !along(s))));
+  // a small shape is one loop only when it is round (a paw, a foot, a hand: owner's recordings, 25 Nov 2026); a long
+  // narrow space (between two leg lines, a haunch closed off by a paw) is just lines, drawn as lines
+  const round = s => s.loop || 4 * Math.PI * s.area / s.hs.reduce((a, h) => a + edges[h >> 1].len, 0) ** 2 >= .8;
+  const small = shapes.filter(s => !big.includes(s) && round(s));
   const touches = s => (s.loop ? false : s.hs.some(h => nodes[from(h)].out.some(o => drawn[o >> 1])));
   while (big.length){   // the biggest shape, then the shapes that touch what is drawn, biggest first
     const touching = big.filter(touches), pool = touching.length ? touching : big;
-    const s = pool.reduce((b, c) => (c.area > b.area ? c : b));
+    // the hub first (the bat's body, which its wings and feet hang off), then by size (owner's recordings, 25 Nov 2026)
+    const rank = c => (ties(c) >= 3 ? 1e9 : 0) + c.area;
+    const s = pool.reduce((b, c) => (rank(c) > rank(b) ? c : b));
     big.splice(big.indexOf(s), 1); drawShape(s);
   }
   // open lines: from the longest, carried on through a node only where the line runs straight on
-  const turn = (hIn, hOut) => { const a = ang[hIn ^ 1] + Math.PI, b = ang[hOut]; let d = Math.abs(a - b) % (2 * Math.PI); return d > Math.PI ? 2 * Math.PI - d : d; };
   // a small shape (a hand, a foot) keeps its lines for itself; an open line takes one only as a short bridge to more
   // open line beyond it (the chest runs on past the hand to the belly, the head's top under an ear), so the outline is
   // one long sweep and the hand is its own loop afterwards
   const onShape = new Uint8Array(edges.length); for (const s of small) if (!s.loop) for (const h of s.hs) onShape[h >> 1] = 1;
   const plain = o => !drawn[o >> 1] && !onShape[o >> 1];
-  const bridge = o => !drawn[o >> 1] && onShape[o >> 1] && edges[o >> 1].len <= 140 && nodes[to(o)].out.some(p => p !== (o ^ 1) && plain(p) && edges[p >> 1].len >= 40 && turn(o, p) < 2);
+  // (two such pieces in a row too: the head's top runs under both ears to the forehead)
+  const bridge = (o, room = 140) => !drawn[o >> 1] && onShape[o >> 1] && edges[o >> 1].len <= room && nodes[to(o)].out.some(p => p !== (o ^ 1) &&
+    ((plain(p) && edges[p >> 1].len >= 40 && turn(o, p) < 2) || (room === 140 && turn(o, p) < .9 && bridge(p, room - edges[o >> 1].len))));
   const items = small.map(s => ({ shape: s }));
   for (;;){
     let seed = -1; edges.forEach((e, i) => { if (plain(i * 2) && (seed < 0 || e.len > edges[seed].len)) seed = i; });
@@ -596,7 +613,9 @@ function restroke(lines, before = [], ink = null){
       let pool = group;
       const outer = pool.filter(it => !inner(it)); if (outer.length) pool = outer;
       if (grid.size){ const joined = pool.filter(it => gapOf(ptsOf(it)) <= ATTACH); if (joined.length) pool = joined; }
-      const it = pen ? pickMin(pool, c => Math.min(...endsOf(c).map(near))) : grid.size ? pickMin(pool, c => gapOf(ptsOf(c))) : pickMin(pool, c => -itemLen(c));
+      // (equally joined, a long outline goes before a shape that hangs off it: the beaver's back and bottom, then its foot)
+      const sweep = c => (c.hs && itemLen(c) >= 150 ? 0 : 1);
+      const it = pen ? pickMin(pool, c => Math.min(...endsOf(c).map(near))) : grid.size ? pickMin(pool, c => Math.floor(gapOf(ptsOf(c)) / 10) * 2 + sweep(c)) : pickMin(pool, c => -itemLen(c));
       group.splice(group.indexOf(it), 1);
       if (it.hs && it.hs.every(h => done[h >> 1])) continue;   // already drawn as the lead of a shape
       if (it.shape){ drawShape(it.shape); continue; }

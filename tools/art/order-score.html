@@ -1,0 +1,77 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pen order score</title>
+<!-- Dev check (25 Nov 2026): how close the Draw & Trace demo pen (src/core/line-art.js) comes to the owner's recorded
+     drawings (tools/art/record-order.html, kept in this browser under 'mammals-draw-order', or ?file= a downloaded
+     mammals-draw-order.json). The recordings are lessons for the general rules, not data the app plays.
+     Per picture, inside each plan step:
+       order  share of point pairs the pen draws in the owner's order (1 = same order)
+       dir    share of the pen's line drawn in the owner's direction
+       joins  places the pen carries on where the owner lifted (a back run on into a leg): fewer is better
+       lifts  places the pen lifts where the owner carried on
+     ?ids=a,b picks pictures; &show draws each picture's wrong joins in red. -->
+<style>
+  body { font: 13px system-ui, sans-serif; margin: 8px; }
+  table { border-collapse: collapse; } td, th { border: 1px solid #ccc; padding: 2px 8px; text-align: right; } td:first-child { text-align: left; }
+  canvas { width: 500px; border: 1px solid #ccc; margin: 4px 4px 0 0; }
+  .bad { color: #c00; font-weight: 700; }
+</style>
+<table id="t"><tr><th>picture</th><th>order</th><th>dir</th><th>joins</th><th>lifts</th><th>strokes (owner)</th></tr></table>
+<div id="pics"></div>
+<script type="module">
+  const v = Date.now(), q = new URLSearchParams(location.search);
+  const { convert } = await import(`../../src/core/line-art.js?v=${v}`);
+  const { drawTracePlans } = await import(`../../src/topics/draw-trace-plans.js?v=${v}`);
+  const rec = q.get('file') ? (await (await fetch(q.get('file'))).json()).pictures : JSON.parse(localStorage.getItem('mammals-draw-order') || '{}');
+  const ids = (q.get('ids') || Object.keys(rec).join(',')).split(',').filter(id => rec[id]?.strokes.length && drawTracePlans[id]);
+  // owner's points, about every 4 px, each with its stroke and its place in the drawing
+  const along = (pts, gap) => { const out = [pts[0]]; for (let i = 1; i < pts.length; i++){ const a = pts[i-1], b = pts[i], n = Math.max(1, Math.round(Math.hypot(b[0] - a[0], b[1] - a[1]) / gap));
+    for (let k = 1; k <= n; k++) out.push([a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n]); } return out; };
+  const rows = [];
+  for (const id of ids){
+    const own = []; let t = 0;
+    rec[id].strokes.forEach((s, si) => along(s.pts, 4).forEach(p => own.push({ x: p[0], y: p[1], s: si, t: t++ })));
+    const grid = new Map(), key = (x, y) => Math.floor(x / 20) * 1000 + Math.floor(y / 20);
+    for (const o of own){ const k = key(o.x, o.y); if (!grid.has(k)) grid.set(k, []); grid.get(k).push(o); }
+    // every owner stroke that passes near a point (two strokes can trace the same bit: a foot's top on the belly), with
+    // its nearest point on each
+    const near = (p, r) => { const by = new Map(), cx = Math.floor(p[0] / 20), cy = Math.floor(p[1] / 20);
+      for (let i = cx - 2; i <= cx + 2; i++) for (let j = cy - 2; j <= cy + 2; j++) for (const o of grid.get(i * 1000 + j) || []){ const d = Math.hypot(o.x - p[0], o.y - p[1]);
+        if (d < r && (!by.has(o.s) || d < by.get(o.s).d)) by.set(o.s, { o, d }); }
+      return by; };
+    const d = await convert(`../../assets/line-art/${id}-v1.webp`, id, id.split('-')[0], drawTracePlans[id]);
+    // the pen's points, every 8 px; each pen stroke is cut into runs that one owner stroke covers all the way, and every
+    // point takes its place in the drawing from that owner stroke
+    const pen = d.strokes.map(s => { const ps = along(s.pts.map(p => [p[0], p[1]]), 8).map(p => ({ p, by: near(p, 22) }));
+      let run = null; const runs = [];
+      for (const x of ps){ if (!x.by.size) continue; const cand = run ? [...run.cand].filter(c => x.by.has(c)) : [];
+        if (cand.length) { run.cand = new Set(cand); run.xs.push(x); } else { run = { cand: new Set(x.by.keys()), xs: [x] }; runs.push(run); } }
+      for (const r of runs){ const c = [...r.cand].sort((a, b) => r.xs.reduce((m, x) => m + x.by.get(a).d, 0) - r.xs.reduce((m, x) => m + x.by.get(b).d, 0))[0];
+        r.s = c; for (const x of r.xs){ x.s = c; x.o = x.by.get(c).o; } }
+      return { step: s.step, ps, runs }; });
+    let agree = 0, pairs = 0, dirOk = 0, dirAll = 0, joins = [], lifts = 0;
+    for (let si = 0; si < d.stepNames.length; si++){
+      const mine = pen.filter(s => s.step === si), seq = mine.flatMap(s => s.ps).filter(x => x.o).map(x => x.o.t);
+      for (let i = 0; i < seq.length; i += 2) for (let j = i + 2; j < seq.length; j += 2){ pairs++; if (seq[i] < seq[j]) agree++; }
+      for (const s of mine){
+        for (let i = 1; i < s.ps.length; i++){ const a = s.ps[i-1].o, b = s.ps[i].o; if (a && b && a.s === b.s){ dirAll++; if (b.t >= a.t) dirOk++; } }
+        // no one owner stroke covers the pen's line on both sides of a point (3 points or more each side): the pen went
+        // on where the owner lifted
+        const long = s.runs.filter(r => r.xs.length >= 3); for (let k = 1; k < long.length; k++) joins.push(long[k].xs[0].p);
+      }
+      for (let k = 1; k < mine.length; k++){ const a = mine[k-1].ps.at(-1).o, b = mine[k].ps[0].o; if (a && b && a.s === b.s && Math.abs(a.t - b.t) <= 6) lifts++; }
+    }
+    rows.push({ id, order: agree / (pairs || 1), dir: dirOk / (dirAll || 1), joins: joins.length, lifts, n: d.strokes.length, owner: rec[id].strokes.length });
+    document.getElementById('t').insertAdjacentHTML('beforeend', `<tr><td>${id}</td><td${rows.at(-1).order < .85 ? ' class="bad"' : ''}>${rows.at(-1).order.toFixed(2)}</td><td>${rows.at(-1).dir.toFixed(2)}</td><td${joins.length ? ' class="bad"' : ''}>${joins.length}</td><td>${lifts}</td><td>${d.strokes.length} (${rec[id].strokes.length})</td></tr>`);
+    if (q.has('show')){
+      const cv = document.createElement('canvas'); cv.width = 1000; cv.height = 750; const g = cv.getContext('2d'); g.lineCap = g.lineJoin = 'round';
+      g.lineWidth = 6; g.strokeStyle = '#cde'; for (const s of rec[id].strokes){ g.beginPath(); s.pts.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); }
+      g.lineWidth = 2; g.strokeStyle = '#555'; for (const s of d.strokes){ g.beginPath(); s.pts.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); }
+      g.fillStyle = '#e00'; for (const p of joins){ g.beginPath(); g.arc(p[0], p[1], 12, 0, 7); g.fill(); }
+      g.fillStyle = '#000'; g.font = 'bold 22px system-ui'; g.fillText(id, 10, 26); document.getElementById('pics').append(cv);
+    }
+  }
+  const avg = k => rows.reduce((a, r) => a + r[k], 0) / (rows.length || 1);
+  document.getElementById('t').insertAdjacentHTML('beforeend', `<tr><th>all</th><th>${avg('order').toFixed(3)}</th><th>${avg('dir').toFixed(3)}</th><th>${rows.reduce((a, r) => a + r.joins, 0)}</th><th>${rows.reduce((a, r) => a + r.lifts, 0)}</th><th></th></tr>`);
+  window.score = rows; document.title = 'done';
+</script>
