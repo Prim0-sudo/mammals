@@ -28,11 +28,11 @@ export const tracingPrintables = [
     "level": "hard",
     "title": "Tracing sheets: Hard",
     "paper": "A4",
-    "pageCount": 9,
-    "bytes": 3061849,
+    "pageCount": 10,
+    "bytes": 3311974,
     "path": "assets/printables/tracing/mammals-tracing-hard-a4-v2.pdf",
     "a5PageCount": 5,
-    "a5Bytes": 2540421,
+    "a5Bytes": 2703367,
     "a5Path": "assets/printables/tracing/mammals-tracing-hard-a5-v2.pdf",
     "cover": "assets/line-art/hard-01-rabbit-warren-v1.webp"
   }

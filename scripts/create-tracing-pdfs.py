@@ -43,7 +43,7 @@ for m in re.finditer(r"\{ id: '(\w+)', label: '([^']+)', pictures: \[(.*?)\] \}"
 # Only pictures in READY (their outline file is in) go on the sheets; levels may hold any number.
 if len(levels) != 3: sys.exit('Could not read the Draw & Trace levels from draw-trace-pictures.js')
 if 'const READY' in src:
-    ready = set(re.findall(r"'([\w-]+)'", src[src.index('const READY'):src.index(']);', src.index('const READY'))]))
+    ready = set(re.findall(r"['\"]([\w-]+)['\"]", src[src.index('const READY'):src.index(']);', src.index('const READY'))]))
     levels = [(lid, label, [p for p in pics if p[0] in ready]) for lid, label, pics in levels]
 levels = [lv for lv in levels if lv[2]]  # a level with no ready pictures gets no sheets
 if not levels: print('No Draw & Trace pictures are ready yet: writing an empty printables list.')
