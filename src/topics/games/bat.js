@@ -19,7 +19,7 @@ export const BLINK = 1.5; // seconds of blinking (and no new bumps) after a life
 export const LIVES = 3;
 export const MOTH_POINTS = 10;
 export const MAX_STREAK = 3;
-export const OWL_SPEED = 0.15;
+export const OWL_SPEED = 0.15; // Hard's owl; a level can set its own owlSpeed
 export const MOTH_BACK = 0.8; // seconds before a caught moth is replaced
 // Now and then a beetle (a cockchafer) blunders straight across the wood: rarer, and worth more.
 export const BEETLE_R = 0.035;
@@ -30,11 +30,11 @@ export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (de
 
 // Per level. seen: seconds a lit thing stays visible. mothSpeed: stage heights a second. moths: how
 // many flutter at once. branches: how many reach into the wood. owlEvery: seconds between owls (0 for
-// none). autoEcho: a free echo this often (0 for none). stars: points for one, two and three stars,
+// none); owlSpeed: how fast it glides (Medium's owl is slower and rarer, owner 25 November 2026). autoEcho: a free echo this often (0 for none). stars: points for one, two and three stars,
 // from the play simulation below (the test checks they still match it).
 export const SETTINGS = {
   easy: { night: 60, seen: 2.5, mothSpeed: 0.08, moths: 4, branches: 0, owlEvery: 0, autoEcho: 3, pace: "slow", stars: [200, 500, 850] },
-  medium: { night: 75, seen: 1.8, mothSpeed: 0.13, moths: 4, branches: 3, owlEvery: 0, autoEcho: 0, pace: "quicker", stars: [200, 550, 900] },
+  medium: { night: 75, seen: 1.8, mothSpeed: 0.13, moths: 4, branches: 3, owlEvery: 22, owlSpeed: 0.11, autoEcho: 0, pace: "quicker", stars: [200, 500, 850] },
   hard: { night: 90, seen: 1.2, mothSpeed: 0.18, moths: 5, branches: 3, owlEvery: 16, autoEcho: 0, pace: "fast", stars: [250, 550, 950] },
 };
 
@@ -205,16 +205,16 @@ export function step(run, input = {}, dt = 1 / 60) {
     else { t.x = nx; t.y = ny; }
   }
 
-  // The owl glides across now and then (Hard).
+  // The owl glides across now and then (Medium and Hard).
   if (run.time >= run.nextOwl) {
     const dir = rand() < 0.5 ? 1 : -1;
     const y = 0.2 + rand() * 0.55;
-    run.things.push({ type: "owl", id: ++run.id, x: dir > 0 ? -0.12 : run.view + 0.12, y, base: y, dir, phase: rand() * 6, lit: 0, litBy: -1, hit: false });
+    run.things.push({ type: "owl", id: ++run.id, x: dir > 0 ? -0.12 : run.view + 0.12, y, base: y, dir, speed: cfg.owlSpeed || OWL_SPEED, phase: rand() * 6, lit: 0, litBy: -1, hit: false });
     run.nextOwl = run.time + cfg.owlEvery * (0.8 + rand() * 0.4);
   }
   for (const t of [...run.things]) {
     if (t.type !== "owl") continue;
-    t.x += t.dir * OWL_SPEED * dt;
+    t.x += t.dir * t.speed * dt;
     t.phase += dt * 1.4;
     t.y = t.base + Math.sin(t.phase) * 0.05;
     if ((t.dir > 0 && t.x > run.view + 0.15) || (t.dir < 0 && t.x < -0.15)) run.things.splice(run.things.indexOf(t), 1);
@@ -323,7 +323,7 @@ export function botInput(run, brain) {
     return brain.seen.get(t.id).ok;
   });
   // The owl is judged where it will be in half a second.
-  const gapSoon = (t, x, y) => (t.type === "owl" ? Math.hypot(t.x + t.dir * OWL_SPEED * 0.5 - x, t.y - y) - OWL_R : gap(t, x, y));
+  const gapSoon = (t, x, y) => (t.type === "owl" ? Math.hypot(t.x + t.dir * t.speed * 0.5 - x, t.y - y) - OWL_R : gap(t, x, y));
   const close = known.find((t) => gapSoon(t, bat.x, bat.y) < BAT_R + 0.04);
   if (close) {
     // Too close already: back straight away from it.

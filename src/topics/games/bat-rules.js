@@ -1,8 +1,8 @@
 // How to play Bat Night Hunt. Numbers come from the game's settings.
-import { SETTINGS, LIVES, MOTH_POINTS, BEETLE_POINTS, MAX_STREAK, ECHO_COOLDOWN } from "./bat.js";
+import { SETTINGS, LIVES, MOTH_POINTS, BEETLE_POINTS, MAX_STREAK, ECHO_COOLDOWN, OWL_SPEED } from "./bat.js";
 
 const s = SETTINGS;
-const danger = (l) => (s[l].branches ? `up to ${s[l].branches} branches${s[l].owlEvery ? " and an owl" : ""}` : "nothing to bump into");
+const danger = (l) => (s[l].branches ? `up to ${s[l].branches} branches${s[l].owlEvery ? (s[l].owlSpeed < OWL_SPEED ? " and a slow owl" : " and an owl") : ""}` : "nothing to bump into");
 
 export const RULES = [
   { title: "How to play", items: [
