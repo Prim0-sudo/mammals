@@ -45,7 +45,15 @@ const planned = [
   ] },
 ];
 
-const READY = new Set([]);
+// Codex outlines approved by the owner, 25 November 2026 (docs/line-art/originals). The beaver lodge is being redrawn.
+const READY = new Set([
+  "easy-01-mouse", "easy-02-whale", "easy-03-cat", "easy-04-pig", "easy-05-rabbit",
+  "easy-06-hedgehog", "easy-07-fox", "easy-08-sheep", "easy-09-bat", "easy-10-seal",
+  "medium-01-squirrel-with-a-nut", "medium-02-rabbit-by-its-burrow", "medium-03-elephant", "medium-04-lion", "medium-05-giraffe",
+  "medium-06-kangaroo-and-joey", "medium-07-otter-floating", "medium-08-zebra", "medium-09-cow-and-calf", "medium-10-dolphin-jumping",
+  "hard-01-rabbit-warren", "hard-02-farm-friends", "hard-03-badger-at-its-sett", "hard-05-stag-in-the-forest", "hard-06-hedgehog-in-leaves",
+  "hard-07-bats-in-the-barn", "hard-08-elephant-family", "hard-09-seal-and-pup", "hard-10-monkeys-in-the-trees",
+]);
 
 export const drawTracePlanned = planned;
 export const drawTraceLevels = planned

@@ -1,0 +1,57 @@
+﻿easy-01-mouse-v1.png — First draft rejected. The near ear, front paw and hind foot have open colourable regions. It shows only three of the six requested whiskers. The tool returned 1448 × 1086 with 12,080 distinct RGB values.
+easy-01-mouse-v1.png — Attempt 2 rejected. The ear remained open, the paw and hind-foot contours were black, and the far whisker fan had four strokes.
+easy-01-mouse-v1.png — Attempt 3 accepted. The redraw closes the ear and paws, restores brown paw contours and shows six whiskers.
+easy-05-rabbit-v1.png — Attempt 1 rejected. Only three feet were visible and the nose read as a smile.
+easy-05-rabbit-v1.png — Attempt 2 accepted. The redraw shows four feet and a defined nose.
+easy-06-hedgehog-v1.png — Attempt 1 rejected. The face, belly, ear and leg contours were black instead of brown.
+easy-06-hedgehog-v1.png — Attempt 2 accepted. The redraw uses brown for the complete animal contour and shows all four feet.
+easy-08-sheep-v1.png — Attempt 1 rejected. A gap in the floppy ear outline left the ear open.
+easy-08-sheep-v1.png — Attempt 2 accepted. The ear is fully closed and all four hooves are distinct.
+easy-10-seal-v1.png — Attempt 1 rejected. The front flipper was open at the shoulder.
+easy-10-seal-v1.png — Attempt 2 accepted. The front flipper outline now closes and the coat is plain.
+medium-01-squirrel-with-a-nut-v1.png — Attempt 1 rejected. The near ear had no closed base.
+medium-01-squirrel-with-a-nut-v1.png — Attempt 2 accepted. Both tufted ears close cleanly against the head.
+medium-03-elephant-v1.png — Attempt 1 rejected. The large ear outline had an open gap.
+medium-03-elephant-v1.png — Attempt 2 rejected. The ear was drawn as a literal map of Africa instead of a natural elephant ear.
+medium-03-elephant-v1.png — Attempt 3 rejected. The natural ear outline remained open.
+medium-03-elephant-v1.png — Attempt 4 accepted. The redraw has a closed natural ear, four feet and two tusks.
+medium-08-zebra-v1.png — Attempt 1 rejected. The stripes were single separator strokes and the near ear was open.
+medium-08-zebra-v1.png — Attempt 2 accepted. Each of the ten stripes is a closed loop and both ears are closed.
+medium-09-cow-and-calf-v1.png — Attempt 1 rejected. The flank patches were brown and both near ears were open.
+medium-09-cow-and-calf-v1.png — Attempt 2 accepted. The patches use black outlines and the four ears are sealed.
+hard-02-farm-friends-v1.png — Attempt 1 rejected. A fence post and rail had open ends behind the cow.
+hard-02-farm-friends-v1.png — Attempt 2 accepted. The fence rails and posts now join and sit clear of the animals.
+hard-03-badger-at-its-sett-v1.png — Attempt 1 rejected. Both face stripe outlines were open at the nose and the trunk and root outlines had unfinished ends.
+hard-03-badger-at-its-sett-v1.png — Attempt 2 rejected. The root, bank, right hole and several animal joins remained open.
+hard-03-badger-at-its-sett-v1.png — Attempt 3 rejected. The face stripes were filled and all four paw outlines were black instead of brown.
+hard-03-badger-at-its-sett-v1.png — Attempt 4 rejected. The tree crown used brown instead of green, and the badger faced into the sett.
+hard-03-badger-at-its-sett-v1.png — Attempt 5 accepted. The redraw closes the sett openings and face stripes, restores the green crown and shows the badger walking away.
+hard-04-beaver-lodge-v1.png — Attempt 1 rejected. The tunnel mouth was drawn above the water surface and left open below.
+hard-04-beaver-lodge-v1.png — Attempt 2 accepted. The enclosed tunnel opening is clearly below the waterline.
+hard-05-stag-in-the-forest-v1.png — Attempt 1 rejected. The visible ear had an open base.
+hard-05-stag-in-the-forest-v1.png — Attempt 2 rejected. The ear still lacked a closed base.
+hard-05-stag-in-the-forest-v1.png — Attempt 3 rejected. The ear was closed but the head silhouette had a gap below the antlers.
+hard-05-stag-in-the-forest-v1.png — Attempt 4 accepted. The main silhouette is closed, with four hooves and two distinct branched antlers.
+hard-07-bats-in-the-barn-v1.png — Attempt 1 rejected. The flying bat had an orange wing edge, and its wing tip and wall planks had open joins.
+hard-07-bats-in-the-barn-v1.png — Attempt 2 accepted. The beam, planks and wing regions close cleanly and bat contours are brown.
+hard-08-elephant-family-v1.png — Attempt 1 rejected. Each adult showed only one tusk.
+hard-08-elephant-family-v1.png — Attempt 2 accepted. Each adult has two tusks, the baby has none, and its trunk holds the mother's tail.
+hard-09-seal-and-pup-v1.png — Attempt 1 rejected. The pup had no visible rear flippers.
+hard-09-seal-and-pup-v1.png — Attempt 2 rejected. Both front flippers were open at the shoulder.
+hard-09-seal-and-pup-v1.png — Attempt 3 rejected. Both seals had an extra visible flipper on the belly.
+hard-09-seal-and-pup-v1.png — Attempt 4 accepted. Each seal has two rear flippers and one visible closed front flipper.
+hard-10-monkeys-in-the-trees-v1.png — Attempt 1 rejected. The swinging monkey’s tail looped around the branch but was detached from its body.
+hard-10-monkeys-in-the-trees-v1.png — Attempt 2 rejected. The tail was attached correctly but the trunk and branch ends were open.
+hard-10-monkeys-in-the-trees-v1.png — Attempt 3 accepted. The swinging tail joins the rump and wraps the upper branch, and both branch tips close.
+
+Delivery
+The 30 accepted images were generated individually with the built-in image tool and resized to opaque 1024 x 768 RGB PNGs. Near-white background pixels were set to white. Soft stroke edges and minor palette variation remain for conversion.
+The warren includes three adult rabbits and one baby, following the four roles listed in the brief.
+
+
+25 November 2026 redraws
+hard-02-farm-friends-v1.png — Redrawn as one grounded farmyard with a barn and fence behind the cow and sheep, the pig in front, and four visible cloven hooves on each animal.
+hard-04-beaver-lodge-v1.png — Redrawn as a pond-edge cutaway. A dry chamber joins a continuous passage to the submerged entrance, and the beaver swims towards it.
+Both replacements were drawn as rounded paths and rasterised to opaque 1024 × 768 PNGs using the exact palette. The two matching thumbnails were replaced in contact.png.
+
+hard-04-beaver-lodge-v1.png ? Redrawn as a pond side view with a beaver gnawing a stick on the bank opposite a low lodge. The straight waterline and four ripples replace the cutaway and tunnel. Rasterised 39 rounded strokes in the exact palette and replaced the matching contact sheet tile.
