@@ -8,9 +8,9 @@ import { ColouringView } from "./colouring-view.js";
 // Plants engine, so `host` gives them the same small surface: els, state, paused, audio, effects
 // and refreshBackButton. Back steps from a picture or craft to its list, then to the folder.
 export const ARTS_SECTIONS = [
-  { id: "arts", title: "Arts & Sheets", line: "Colouring pages and worksheets to print", image: "zebra" },
-  { id: "trace", title: "Draw & Trace", line: "Watch, trace, or draw your own", image: "elephant" },
-  { id: "crafts", title: "Crafts", line: "Make mammals at home or in class", image: "lion" },
+  { id: "arts", title: "Arts & Sheets", line: "Colouring pages and worksheets to print", image: "zebra", art: "assets/painted/arts/card-arts-sheets.webp" },
+  { id: "trace", title: "Draw & Trace", line: "Watch, trace, or draw your own", image: "elephant", art: "assets/painted/arts/card-draw-trace.webp" },
+  { id: "crafts", title: "Crafts", line: "Make mammals at home or in class", image: "lion", art: "assets/painted/arts/card-crafts.webp" },
 ];
 const VIEWS = { arts: ColouringView, trace: DrawTraceView, crafts: CraftsView };
 

@@ -4,7 +4,9 @@
 // so nothing breaks while art is out.
 // 23 November 2026: the owner chose landing concept A, Burrow Bank (docs/landing-art/).
 const LANDING = ["sky", "distant", "middle", "tunnels", "bank", "bank-lip", "foreground", "cloud-1", "cloud-2", "cloud-3"];
-export const READY = new Set(LANDING.map((n) => `landing/${n}`));
+// 25 November 2026: the owner approved the six painted game cards (docs/menu-art/).
+const GAME_CARDS = ["checkup", "homes", "nursery", "otter", "dash", "bat"];
+export const READY = new Set([...LANDING.map((n) => `landing/${n}`), ...GAME_CARDS.map((g) => `games/card-${g}`)]);
 
 let where = (id) => `assets/painted/${id}.webp`;
 export const painted = (id) => (READY.has(id) ? where(id) : null);

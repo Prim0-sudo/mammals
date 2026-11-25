@@ -195,3 +195,12 @@ Evidence is in `test-results/browser.txt`, `test-results/flip-layouts.json`, and
 
 Keep the new game local until the user requests a specific external action. A later push and a verified deployment must be recorded as separate results.
 
+
+## Menu thumbnails wired in (25 November 2026)
+
+Codex painted 15 thumbnails from `docs/menu-art/codex-thumbnails.md` (originals, prompts and notes in `docs/menu-art/originals/`); the owner approved them.
+- Game cards: `assets/painted/games/card-<id>.webp`, listed in READY in `src/topics/painted-art.js`. The Otter Dive banner on Home uses card-otter.
+- Home tiles: `menu/home-activities.webp` and `menu/home-games.webp` (Activities no longer reuses the sort tile; Mammal Games no longer uses the cheetah photo).
+- Arts & Crafts cards: `assets/painted/arts/card-*.webp` via `art:` in ARTS_SECTIONS.
+- Result stars: `assets/menu/result-star-full-v1.webp` and `-empty-v1.webp`, the paths game-engine.js already asked for (they were 404 before).
+- The wicker basket and lid (pick-basket-open/lid) are not used: Picture Pick only has the reel style. They are kept in originals for a basket picker later.

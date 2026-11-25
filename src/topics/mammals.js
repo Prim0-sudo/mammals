@@ -152,13 +152,13 @@ export const topic = {
   menu: {
     title: "Choose a game",
     // The arcade game is the Home banner (blueprint v7.0): Otter Dive, chosen 23 November 2026.
-    featured: { target: "otter", title: "Otter Dive", subtitle: "Dive for fish, and come up for air in time.", image: word("otter"), imageAlt: "An otter" },
+    featured: { target: "otter", title: "Otter Dive", subtitle: "Dive for fish, and come up for air in time.", image: "assets/painted/games/card-otter.webp", imageAlt: "An otter diving after a fish" },
     tiles: [
       { id: "learn", label: "Meet the Words", image: menuArt("learn") },
-      { id: "activities", label: "Activities", image: menuArt("sort") },
+      { id: "activities", label: "Activities", image: menuArt("home-activities") },
       { id: "knowledge", label: "Knowledge & Safety", image: menuArt("knowledge") },
       { id: "media", label: "Media", image: menuArt("video") },
-      { id: "games", label: "Mammal Games", image: word("cheetah") },
+      { id: "games", label: "Mammal Games", image: menuArt("home-games") },
       { id: "phonics", label: "Phonics & Sight Words", image: menuArt("phonics") },
       { id: "arts", label: "Arts & Crafts", image: menuArt("create") },
       { id: "more", label: "More Topics", image: `${base}generated/club-badge.webp` },
