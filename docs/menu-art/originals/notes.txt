@@ -1,0 +1,6 @@
+Mammals menu thumbnail re-renders
+
+card-bat — Re-rendered once to remove a pale fringe on dark navy, clarify the three echo rings and give the pipistrelle shorter ears.
+result-star-empty — Re-rendered twice to soften the finish and bring the outline closer to result-star-full. The selected stars have a slight contour difference when overlaid.
+
+ImageGen returned 1254 × 1254 PNGs. The selected images were resized to the requested 1024 × 1024 with their alpha channel preserved.
