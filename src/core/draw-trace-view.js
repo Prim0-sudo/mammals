@@ -28,6 +28,9 @@ function rainbowStroke(ctx) {
 }
 const STAR = 'M17 2L22 12L33 14L25 22L27 33L17 28L7 33L9 22L1 14L12 12Z';
 const OWN = 'own', MINE = 'mine';
+// small snail and hare at the two ends of the pencil speed slider
+const SNAIL = '<svg viewBox="0 0 32 24" width="30" height="22"><path d="M3 20h22c3 0 5-2 5-4l-3 1" fill="none" stroke="#244e3b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="12" r="7.5" fill="#f0b429" stroke="#244e3b" stroke-width="2.2"/><path d="M15 12m-3 0a3 3 0 1 0 3-3" fill="none" stroke="#244e3b" stroke-width="1.8" stroke-linecap="round"/><path d="M26 17l1-8M29 17l2-7" stroke="#244e3b" stroke-width="1.8" stroke-linecap="round"/></svg>';
+const HARE = '<svg viewBox="0 0 32 24" width="30" height="22"><ellipse cx="14" cy="15" rx="9" ry="6" fill="#d9b68c" stroke="#244e3b" stroke-width="2.2"/><circle cx="24" cy="11" r="4.2" fill="#d9b68c" stroke="#244e3b" stroke-width="2.2"/><path d="M23 7l-2-6M26 7l1-6" stroke="#244e3b" stroke-width="2.4" stroke-linecap="round"/><path d="M5 14l-3-1M8 21l-2 2M18 21l3 2" stroke="#244e3b" stroke-width="2" stroke-linecap="round"/></svg>';
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const clear = node => node.replaceChildren();
@@ -161,7 +164,13 @@ class PencilBoard {
     this.demoTl = null; this.mineTl = null; this.fade = null; this.nudge = null; this.pop = null; this.waiting = false;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)');
     game.els.title.hidden = true; game.els.title.textContent = label; game.els.round.textContent = label;
-    this.root.innerHTML = `<div class="trace-play" data-phase="loading">${top}
+    // the pencil speed slider sits beside the step line on both boards (owner, 25 Nov: a child may miss a fast demo);
+    // it is the Teacher "Speed" option, so the two stay in step
+    const speeds = drawOptions.speed.choices;
+    this.root.innerHTML = `<div class="trace-play" data-phase="loading"><div class="trace-top">${top}
+      <label class="trace-speed"><span class="trace-speed-icon" aria-hidden="true">${SNAIL}</span>
+        <input type="range" min="0" max="${speeds.length - 1}" step="1" data-trace-speed aria-label="Pencil speed"/>
+        <span class="trace-speed-icon" aria-hidden="true">${HARE}</span></label></div>
       <div class="trace-stage"><div class="trace-board">
         <svg data-trace-board viewBox="0 0 ${W} ${H}" role="img" aria-label="Drawing board: ${escape(label)}">
           <defs>
@@ -188,6 +197,8 @@ class PencilBoard {
     this.svg = find('[data-trace-board]'); this.dock = find('[data-trace-dock]'); this.finishRow = find('[data-trace-finish]');
     this.layers = Object.fromEntries(['guide', 'kid', 'demo', 'tip'].map(name => [name, find(`[data-layer="${name}"]`)]));
     this.buttons = Object.fromEntries([...this.root.querySelectorAll('[data-trace-act]')].map(button => [button.dataset.traceAct, button]));
+    this.speed = find('[data-trace-speed]');
+    this.speed.addEventListener('input', () => { const choice = speeds[+this.speed.value]; if (choice) saveSettings({ speed: choice[0] }); });
 
     this.onClick = event => {
       const button = event.target.closest('[data-trace-act]');
@@ -248,6 +259,9 @@ class PencilBoard {
     const { pen, guide, speed } = this.settings, layers = [this.layers.kid, this.layers.demo];
     this.svg.dataset.pen = pen; this.layers.guide.dataset.style = guide;
     this.demoTl?.timeScale(speed); this.mineTl?.timeScale(speed);
+    const stop = drawOptions.speed.choices.findIndex(([value]) => value === speed);
+    this.speed.value = String(Math.max(0, stop));
+    this.speed.setAttribute('aria-valuetext', drawOptions.speed.choices[Math.max(0, stop)][1]);
     const image = this.svg.querySelector('#tracePenMask image');
     layers.forEach(layer => layer.removeAttribute('mask'));
     penGrain(pen).then(url => {

@@ -27,7 +27,27 @@
   if (q.has('big')) document.body.classList.add('big');   // one big panel per screen
   const ids = want ? want.split(',') : Object.keys(drawTracePlans);
   const grid = document.getElementById('grid');
-  for (const id of ids){
+  // &pen: one small panel per step, every pen stroke in its own colour, numbered at its start in drawing order
+  // (earlier steps faint), so a stroke that wanders from one shape into the next shows at once
+  if (q.has('pen')) for (const id of ids){
+    const level = id.split('-')[0], d = await convert(`../../assets/line-art/${id}-v1.webp`, id, level, drawTracePlans[id]);
+    const head = document.createElement('h3'); head.textContent = id; head.style.gridColumn = '1 / -1'; grid.append(head);
+    d.stepNames.forEach((title, si) => {
+      const panel = document.createElement('div'); panel.className = 'panel'; panel.innerHTML = `<h3>${si + 1}. ${title}</h3>`;
+      const cv = document.createElement('canvas'); cv.width = 500; cv.height = 375; panel.append(cv); grid.append(panel);
+      const g = cv.getContext('2d'); g.scale(.5, .5); g.lineCap = g.lineJoin = 'round';
+      let n = 0;
+      for (const s of d.strokes){
+        if (s.step > si) continue;
+        const mine = s.step === si; g.lineWidth = mine ? 7 : 4; g.strokeStyle = mine ? COLOURS[n % COLOURS.length] : '#ddd';
+        g.beginPath(); s.pts.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke();
+        if (mine){ const [x, y] = s.pts[0]; g.fillStyle = '#000'; g.beginPath(); g.arc(x, y, 13, 0, 7); g.fill();
+          g.fillStyle = '#fff'; g.font = 'bold 18px system-ui'; g.textAlign = 'center'; g.fillText(++n, x, y + 6); }
+      }
+      panel.insertAdjacentHTML('beforeend', `<ol><li>${n} stroke(s)</li></ol>`);
+    });
+  }
+  if (!q.has('pen')) for (const id of ids){
     const plan = drawTracePlans[id], level = id.split('-')[0];
     const panel = document.createElement('div'); panel.className = 'panel';
     panel.innerHTML = `<h3>${id}</h3>`;

@@ -28,6 +28,12 @@
 .trace-play { flex:1 1 0; min-height:0; width:100%; display:flex; flex-direction:column; gap:8px; }
 .trace-step { flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 10px; min-height:36px; margin:0; color:#244e3b; font-size:clamp(1.05rem,2.3vw,1.4rem); font-weight:800; line-height:1.25; text-align:center; }
 .trace-step:focus { outline:none; }
+/* the step line and the pencil speed slider share one row; the slider drops below on a narrow screen */
+.trace-top { flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 26px; }
+.trace-speed { flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 10px; border:2px solid #d3dfc4; border-radius:999px; background:#fbfaf3; cursor:pointer; }
+.trace-speed input { width:clamp(96px,14vw,150px); margin:0; accent-color:#2f7d3e; cursor:pointer; }
+.trace-speed input:focus-visible { outline:3px solid #2f7d3e; outline-offset:3px; border-radius:4px; }
+.trace-speed-icon { display:flex; }
 .trace-ink { display:inline-flex; gap:5px; }
 .trace-ink:empty { display:none; }
 .trace-ink i { width:16px; height:16px; border-radius:50%; box-shadow:0 0 0 2px #fff, 0 0 0 3px #b9b497; }
@@ -63,6 +69,8 @@
 .trace-stars .is-on path { fill:#f7c531; stroke:#c98d0a; }
 @media (max-width:560px) {
   .trace-play { gap:6px; }
+  .trace-top { gap:2px 12px; }
+  .trace-speed { min-height:38px; }
   .trace-dock { gap:6px; }
   .trace-dock > button { min-height:56px; padding:6px; }
   .trace-finish { gap:8px; }

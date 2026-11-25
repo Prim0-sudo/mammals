@@ -13,7 +13,7 @@ export const drawOptions = {
   pen: { label: 'Pen look', choices: [['pencil', 'Pencil'], ['crayon', 'Crayon'], ['marker', 'Marker'], ['watercolour', 'Watercolour'], ['chalk', 'Chalk'], ['rainbow', 'Rainbow']] },
   steps: { label: 'Steps', choices: [['all', 'All in one go'], ['pause', 'Step by step']] },
   guide: { label: 'Path look', choices: [['road', 'Wide road'], ['dots', 'Dotted'], ['ghost', 'Faded']] },
-  speed: { label: 'Speed', choices: [[.5, 'Slow'], [1, 'Normal'], [2, 'Fast'], [4, 'Very fast']] },
+  speed: { label: 'Speed', choices: [[.25, 'Very slow'], [.5, 'Slow'], [1, 'Normal'], [2, 'Fast'], [4, 'Very fast']] },
   timing: { label: 'Timing', choices: [['drawn', 'As I drew it'], ['even', 'Even and smooth']] }
 };
 const DEFAULTS = { pen: 'pencil', steps: 'all', guide: 'road', speed: 1, timing: 'drawn' };

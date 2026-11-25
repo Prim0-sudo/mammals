@@ -375,12 +375,205 @@ function cutInTwo(lines){
   return [lines.slice(0, c), lines.slice(c)];
 }
 
-// within a step, a line that starts where the last one ended is drawn without lifting the pen
-const penDown = st => st.reduce((out, l) => { const last = out[out.length - 1], pen = last && last.pts[last.pts.length - 1];
-  if (last && last.rank === l.rank && Math.hypot(l.pts[0][0] - pen[0], l.pts[0][1] - pen[1]) < 5) out[out.length - 1] = { ...last, pts: last.pts.concat(l.pts.slice(1)) };
-  else out.push(l); return out; }, []);
+// Turns one step's lines into pen strokes the way a person draws (owner, 25 Nov 2026: the demo was "scared to pick
+// up the pen", running one long line from a head into an ear and on into a wing). The lines are cut wherever they
+// meet or cross, which gives a little map of nodes and edges; every closed shape in it (a head, an ear, a wing panel)
+// is a face of that map. The biggest shape is drawn first as one whole loop, then the shapes beside it, each adding
+// only the part of its outline not drawn yet (an ear is one arch on the head); then the open lines (a tail, legs,
+// whiskers), each carried on through a junction only where it runs straight on. The pen lifts between strokes.
+// `before` are lines drawn in earlier steps nearby: they close a shape (a body under a head drawn first) but are not redrawn.
+function restroke(lines, before = [], ink = null){
+  const SNAP = 9;
+  const L = [...lines.map(l => ({ ...l, ctx: false })), ...before.map(l => ({ ...l, ctx: true }))].filter(l => l.pts.length > 1)
+    .map(l => ({ rgb: l.rgb, rank: l.rank, ctx: l.ctx, pts: l.pts.map(p => [p[0], p[1]]) }));
+  if (!L.some(l => !l.ctx)) return [];
+  // a piece the plan gave to another step can leave a gap at a joint (a beam stopping short of the roof's middle):
+  // close it again over solid ink
+  if (ink) snapEnds(L, ink);
+  const isClosed = pts => Math.hypot(pts[0][0] - pts[pts.length - 1][0], pts[0][1] - pts[pts.length - 1][1]) < 1.5;
+  const cuts = L.map(() => []);
+  // an end that stops on another line (a leg on a body) cuts that line there
+  L.forEach((li, i) => { if (isClosed(li.pts)) return; for (const end of [li.pts[0], li.pts[li.pts.length - 1]]) L.forEach((lj, j) => {
+    let run = 0;
+    for (let k = 1; k < lj.pts.length; k++){
+      const a = lj.pts[k-1], b = lj.pts[k], dx = b[0] - a[0], dy = b[1] - a[1], q = dx*dx + dy*dy, seg = Math.sqrt(q);
+      const t = q ? Math.max(0, Math.min(1, ((end[0] - a[0]) * dx + (end[1] - a[1]) * dy) / q)) : 0;
+      if (Math.hypot(a[0] + t*dx - end[0], a[1] + t*dy - end[1]) <= SNAP){
+        // on its own line, only far along from that end (a hook or a loop closing on itself)
+        const own = j === i && Math.min(run + t * seg, lengthOf(lj.pts) - run - t * seg) < 20;
+        if (!own) cuts[j].push(k - 1 + t);
+      }
+      run += seg;
+    }
+  }); });
+  // lines that cross cut each other
+  for (let i = 0; i < L.length; i++) for (let j = i; j < L.length; j++){
+    const A = L[i].pts, B = L[j].pts;
+    for (let k = 1; k < A.length; k++) for (let m = (i === j ? k + 2 : 1); m < B.length; m++){
+      const a = A[k-1], b = A[k], c = B[m-1], d = B[m];
+      const den = (b[0] - a[0]) * (d[1] - c[1]) - (b[1] - a[1]) * (d[0] - c[0]); if (!den) continue;
+      const t = ((c[0] - a[0]) * (d[1] - c[1]) - (c[1] - a[1]) * (d[0] - c[0])) / den, u = ((c[0] - a[0]) * (b[1] - a[1]) - (c[1] - a[1]) * (b[0] - a[0])) / den;
+      if (t > 0 && t < 1 && u > 0 && u < 1){ cuts[i].push(k - 1 + t); cuts[j].push(m - 1 + u); }
+    }
+  }
+  // the pieces between cuts become the edges, their ends the nodes
+  const at = (pts, s) => { const k = Math.min(pts.length - 2, Math.floor(s)), t = s - k, a = pts[k], b = pts[k + 1]; return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; };
+  const pieces = [];
+  L.forEach((l, i) => {
+    const n = l.pts.length - 1, cs = [...new Set(cuts[i].map(s => +s.toFixed(4)))].filter(s => s > 0 && s < n).sort((a, b) => a - b);
+    if (!cs.length){ pieces.push({ ...l, loop: isClosed(l.pts) }); return; }
+    const bounds = [0, ...cs, n];
+    let parts = [];
+    for (let b = 1; b < bounds.length; b++){
+      const s0 = bounds[b-1], s1 = bounds[b], pts = [at(l.pts, s0)];
+      for (let k = Math.floor(s0) + 1; k < s1; k++) pts.push(l.pts[k]);
+      pts.push(at(l.pts, s1)); parts.push(pts);
+    }
+    if (isClosed(l.pts) && parts.length > 1){ const last = parts.pop(); parts[0] = last.concat(parts[0].slice(1)); }   // a ring's seam is no node
+    for (const pts of parts) if (lengthOf(pts) >= 1.5) pieces.push({ rgb: l.rgb, rank: l.rank, ctx: l.ctx, pts });
+  });
+  const ends = [];
+  pieces.forEach((p, e) => { if (!p.loop){ ends.push([e, 0, p.pts[0]], [e, 1, p.pts[p.pts.length - 1]]); } });
+  const up = ends.map((_, i) => i), find = i => (up[i] === i ? i : (up[i] = find(up[i])));
+  for (let i = 0; i < ends.length; i++) for (let j = i + 1; j < ends.length; j++)
+    if (Math.hypot(ends[i][2][0] - ends[j][2][0], ends[i][2][1] - ends[j][2][1]) <= SNAP) up[find(i)] = find(j);
+  const nodeOf = new Map(), nodes = [];
+  ends.forEach((en, i) => { const r = find(i); if (!nodeOf.has(r)){ nodeOf.set(r, nodes.length); nodes.push({ x: 0, y: 0, n: 0, out: [] }); } const nd = nodes[nodeOf.get(r)]; nd.x += en[2][0]; nd.y += en[2][1]; nd.n++; });
+  nodes.forEach(nd => { nd.x /= nd.n; nd.y /= nd.n; });
+  const edges = [], loops = [];
+  for (const p of pieces) if (p.loop && !p.ctx) loops.push(p);
+  ends.forEach((en, i) => { const p = pieces[en[0]], v = nodeOf.get(find(i)); (p.nodes || (p.nodes = []))[en[1]] = v; });
+  for (const p of pieces){
+    if (p.loop) continue;
+    const pts = p.pts.slice(); pts[0] = [nodes[p.nodes[0]].x, nodes[p.nodes[0]].y]; pts[pts.length - 1] = [nodes[p.nodes[1]].x, nodes[p.nodes[1]].y];
+    if (p.nodes[0] === p.nodes[1] && lengthOf(pts) < 4 * SNAP) continue;   // a speck of a loop at a junction
+    edges.push({ rgb: p.rgb, rank: p.rank, ctx: p.ctx, pts, a: p.nodes[0], b: p.nodes[1], len: lengthOf(pts) });
+  }
+  // half-edge h = 2e (a to b) or 2e + 1 (b to a), leaving its first node at angle ang[h]
+  const hp = h => (h & 1 ? edges[h >> 1].pts.slice().reverse() : edges[h >> 1].pts);
+  const from = h => (h & 1 ? edges[h >> 1].b : edges[h >> 1].a), to = h => from(h ^ 1);
+  const ang = edges.flatMap((e, ei) => [0, 1].map(s => { const pts = hp(ei * 2 + s), o = pts[0]; let q = pts[pts.length - 1], run = 0;
+    for (let k = 1; k < pts.length; k++){ run += Math.hypot(pts[k][0] - pts[k-1][0], pts[k][1] - pts[k-1][1]); if (run >= 10){ q = pts[k]; break; } }
+    return Math.atan2(q[1] - o[1], q[0] - o[0]); }));
+  edges.forEach((e, ei) => { nodes[e.a].out.push(ei * 2); nodes[e.b].out.push(ei * 2 + 1); });
+  nodes.forEach(nd => nd.out.sort((x, y) => ang[x] - ang[y]));
+  const next = h => { const out = nodes[to(h)].out, k = out.indexOf(h ^ 1); return out[(k - 1 + out.length) % out.length]; };
+  const area = hs => { let s = 0; for (const h of hs){ const pts = hp(h); for (let k = 1; k < pts.length; k++) s += pts[k-1][0] * pts[k][1] - pts[k][0] * pts[k-1][1]; } return s / 2; };
+  // faces, and which of them are closed shapes: in each connected piece of the map the biggest face is the outside
+  const seen = new Uint8Array(edges.length * 2), faces = [];
+  for (let h0 = 0; h0 < edges.length * 2; h0++){
+    if (seen[h0]) continue; const hs = []; let h = h0;
+    while (!seen[h] && hs.length <= edges.length * 2){ seen[h] = 1; hs.push(h); h = next(h); }
+    faces.push({ hs, area: area(hs) });
+  }
+  const cu = nodes.map((_, i) => i), cf = i => (cu[i] === i ? i : (cu[i] = cf(cu[i])));
+  edges.forEach(e => { cu[cf(e.a)] = cf(e.b); });
+  const outside = new Map();
+  for (const f of faces){ const c = cf(from(f.hs[0])), o = outside.get(c); if (!o || Math.abs(f.area) > Math.abs(o.area)) outside.set(c, f); }
+  const shapes = faces.filter(f => { const o = outside.get(cf(from(f.hs[0]))); return f !== o && Math.sign(f.area) === -Math.sign(o.area) && Math.abs(f.area) > 40; })
+    .map(f => { const mine = new Set(f.hs); return { hs: f.hs.filter(h => !mine.has(h ^ 1)), area: Math.abs(f.area) }; })   // a line poking into a shape is not its outline
+    .filter(f => f.hs.length);
+  // a plain outline cut up inside (a roof with its trusses, a fence) is drawn round the outside first, then the inside
+  const hull = ps => { ps = ps.slice().sort((p, q) => p[0] - q[0] || p[1] - q[1]); const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lo = [], hi = []; for (const p of ps){ while (lo.length > 1 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+    for (const p of ps.reverse()){ while (hi.length > 1 && cr(hi[hi.length - 2], hi[hi.length - 1], p) <= 0) hi.pop(); hi.push(p); }
+    const h = lo.slice(0, -1).concat(hi.slice(0, -1)); let A = 0; h.forEach((p, i) => { const q = h[(i + 1) % h.length]; A += p[0] * q[1] - q[0] * p[1]; }); return Math.abs(A) / 2; };
+  for (const [c, o] of outside){
+    const inside = shapes.filter(f => cf(from(f.hs[0])) === c); if (inside.length < 2) continue;
+    const mine = new Set(o.hs), hs = o.hs.filter(h => !mine.has(h ^ 1)); if (!hs.length) continue;
+    const A = Math.abs(o.area), H = hull(hs.flatMap(h => hp(h)));
+    if (H && A / H >= .85 && Math.max(...inside.map(f => f.area)) < A * .6) shapes.push({ hs, area: A * 2, outline: true });
+  }
+  for (const p of loops) shapes.push({ loop: p, area: Math.abs(p.pts.reduce((s, q, k, a) => (k ? s + a[k-1][0] * q[1] - q[0] * a[k-1][1] : 0), 0) / 2) });
+  // strokes
+  const drawn = Uint8Array.from(edges, e => (e.ctx ? 1 : 0)), out = []; let pen = null;
+  const near = p => (pen ? Math.hypot(p[0] - pen[0], p[1] - pen[1]) : 0);
+  const emit = (pts, rgb, rank, flip = true) => {
+    // from the end nearest the pen; the first line of a step from its top end (the back from the head down)
+    if (flip && (pen ? near(pts[pts.length - 1]) < near(pts[0]) : pts[pts.length - 1][1] < pts[0][1])) pts = pts.slice().reverse();
+    out.push({ rgb, rank, pts }); pen = pts[pts.length - 1];
+  };
+  const chainOut = hs => {   // half-edges in order, one stroke per colour run
+    let cur = null;
+    for (const h of hs){ const e = edges[h >> 1], pts = hp(h); drawn[h >> 1] = 1;
+      if (cur && cur.rank === e.rank) cur.pts = cur.pts.concat(pts.slice(1)); else { if (cur) emit(cur.pts, cur.rgb, cur.rank, false); cur = { rgb: e.rgb, rank: e.rank, pts: pts.slice() }; } }
+    if (cur) emit(cur.pts, cur.rgb, cur.rank, false);
+  };
+  const drawShape = s => {
+    if (s.loop){ const k = s.loop.pts.reduce((b, p, i, a) => (p[1] < a[b][1] ? i : b), 0), pts = s.loop.pts.slice(k).concat(s.loop.pts.slice(1, k + 1)); emit(pts, s.loop.rgb, s.loop.rank, false); return; }
+    const fresh = s.hs.map(h => !drawn[h >> 1]);
+    if (!fresh.some(Boolean)) return;
+    if (fresh.every(Boolean)){   // a whole new shape: round in one go, from its top
+      const k = s.hs.reduce((b, h, i) => (nodes[from(h)].y < nodes[from(s.hs[b])].y ? i : b), 0);
+      chainOut(s.hs.slice(k).concat(s.hs.slice(0, k))); return;
+    }
+    // only the new part of its outline, one run at a time (an ear's arch on the head)
+    const n = s.hs.length, start = fresh.findIndex((f, i) => f && !fresh[(i - 1 + n) % n]);
+    let run = [];
+    const flush = () => { if (!run.length) return; const fwd = hp(run[0])[0], back = hp(run[run.length - 1]); const end = back[back.length - 1];
+      if (pen && near(end) < near(fwd)) run = run.map(h => h ^ 1).reverse(); chainOut(run); run = []; };
+    for (let c = 0; c < n; c++){ const i = (start + c) % n; if (fresh[i]) run.push(s.hs[i]); else flush(); }
+    flush();
+  };
+  // how much new line a shape adds, and the step's whole length: a big shape is drawn first, a small one (a tail's
+  // tuft, a toenail) takes its turn with the open lines, after the long back it hangs from
+  const freshLen = s => (s.loop ? lengthOf(s.loop.pts) : [...new Set(s.hs.map(h => h >> 1))].reduce((a, e) => a + (drawn[e] ? 0 : edges[e].len), 0));
+  const stepLen = edges.reduce((a, e) => a + (e.ctx ? 0 : e.len), 0) + loops.reduce((a, p) => a + lengthOf(p.pts), 0);
+  // a hub (a body with wings and feet on it) is a big shape too, even when its own outline is short
+  const ties = s => { if (s.loop) return 0; const own = new Set(s.hs.map(h => h >> 1)), at = new Set();
+    for (const h of s.hs) for (const o of nodes[from(h)].out) if (!own.has(o >> 1) && !edges[o >> 1].ctx) at.add(o >> 1); return at.size; };
+  const big = shapes.filter(s => freshLen(s) >= stepLen * .3 || (freshLen(s) >= stepLen * .12 && ties(s) >= 3)), small = shapes.filter(s => !big.includes(s));
+  const touches = s => (s.loop ? false : s.hs.some(h => nodes[from(h)].out.some(o => drawn[o >> 1])));
+  while (big.length){   // the biggest shape, then the shapes that touch what is drawn, biggest first
+    const touching = big.filter(touches), pool = touching.length ? touching : big;
+    const s = pool.reduce((b, c) => (c.area > b.area ? c : b));
+    big.splice(big.indexOf(s), 1); drawShape(s);
+  }
+  // open lines: from the longest, carried on through a node only where the line runs straight on
+  const turn = (hIn, hOut) => { const a = ang[hIn ^ 1] + Math.PI, b = ang[hOut]; let d = Math.abs(a - b) % (2 * Math.PI); return d > Math.PI ? 2 * Math.PI - d : d; };
+  // a small shape keeps its lines from the open lines, except those on the outside of the drawing: the top of a head
+  // between its two ears is the head's outline first, and the ear adds only its arch
+  const rim = new Uint8Array(edges.length); for (const o of outside.values()) for (const h of o.hs) rim[h >> 1] = 1;
+  const kept = new Uint8Array(edges.length); for (const s of small) if (!s.loop) for (const h of s.hs) if (!rim[h >> 1]) kept[h >> 1] = 1;
+  const taken = i => drawn[i] || kept[i];
+  const items = small.map(s => ({ shape: s }));
+  for (;;){
+    let seed = -1; edges.forEach((e, i) => { if (!taken(i) && (seed < 0 || e.len > edges[seed].len)) seed = i; });
+    if (seed < 0) break;
+    drawn[seed] = 1; const hs = [seed * 2];
+    for (const side of [1, 0]){
+      for (;;){
+        const last = side ? hs[hs.length - 1] : hs[0] ^ 1, v = to(last), outs = nodes[v].out.filter(o => o !== (last ^ 1));
+        const free = outs.filter(o => !taken(o >> 1));
+        let pick = null;
+        if (outs.length === 1 && free.length === 1) pick = free[0];
+        else { const best = free.map(o => [o, turn(last, o)]).sort((x, y) => x[1] - y[1])[0]; if (best && best[1] < .9) pick = best[0]; }
+        if (pick == null || edges[pick >> 1].rank !== edges[seed].rank) break;
+        drawn[pick >> 1] = 1;
+        if (side) hs.push(pick); else hs.unshift(pick ^ 1);
+      }
+    }
+    items.push({ hs });
+  }
+  const itemLen = it => (it.shape ? freshLen(it.shape) : it.hs.reduce((a, h) => a + edges[h >> 1].len, 0));
+  const itemPts = it => (it.shape ? (it.shape.loop ? it.shape.loop.pts : it.shape.hs.map(h => hp(h)[0])) : [hp(it.hs[0])[0], hp(it.hs[it.hs.length - 1]).slice(-1)[0]]);
+  const longest = Math.max(0, ...items.map(itemLen));
+  for (const group of [items.filter(it => itemLen(it) >= longest * .4), items.filter(it => itemLen(it) < longest * .4)]){
+    while (group.length){   // the nearest next, or the top one when the pen has not started
+      let bi = 0, bd = Infinity;
+      group.forEach((it, i) => { const d = Math.min(...itemPts(it).map(p => (pen ? near(p) : p[1]))); if (d < bd){ bd = d; bi = i; } });
+      const it = group.splice(bi, 1)[0];
+      if (it.shape) drawShape(it.shape);
+      else { const pts = it.hs.flatMap((h, k) => (k ? hp(h).slice(1) : hp(h))); emit(pts, edges[it.hs[0] >> 1].rgb, edges[it.hs[0] >> 1].rank, true); }
+    }
+  }
+  return out;
+}
 
-function arrange(lines, target = 6){
+// earlier lines that come near a step's own (within 12 px of its box)
+const nearby = (st, earlier) => { if (!st.length) return []; const b = boxOf(st.flatMap(l => l.pts)); return earlier.filter(l => boxGap(boxOf(l.pts), b) <= 12); };
+
+function arrange(lines, target = 6, ink = null){
   const all = lines.map(l => { const rank = rankOf(l.rgb); return { pts: l.pts, rank, rgb: PALETTE[rank].rgb, len: l.len || lengthOf(l.pts), box: boxOf(l.pts) }; });
   // the ground, a branch or a log's long edge runs under everything, so it never ties things together
   const wide = l => l.box[2] - l.box[0] > W * .55;
@@ -439,7 +632,7 @@ function arrange(lines, target = 6){
     merge();
     if (Math.max(...steps.map(sizeOf)) >= worst * .97){ steps = before; break; }
   }
-  steps = steps.map(penDown);
+  steps = steps.map((st, i) => restroke(st, nearby(st, steps.slice(0, i).flat()), ink));
   const seen = new Set();
   return steps.map(lines => {
     const ranks = new Set(lines.map(l => l.rank)), rgb = lines[0].rgb;
@@ -492,7 +685,7 @@ function resample(pts, gap = 5){
   }
   return out;
 }
-function byPlan(lines, plan){
+function byPlan(lines, plan, ink){
   const places = plan.flatMap((st, si) => st.find.map(f => Array.isArray(f) ? (typeof f[0] === 'string' ? { c: f[0], box: f.slice(1), si } : { box: f, si }) : { ...f, si }));
   const boxes = places.filter(pl => pl.box);
   const steps = plan.map(() => []);
@@ -526,7 +719,7 @@ function byPlan(lines, plan){
     }
     for (const r of runs){ const piece = simplify(pts.slice(r.a, r.b + 1), .6); if (piece.length > 1) steps[r.si].push({ rgb, rank, pts: piece, len: lengthOf(piece) }); }
   }
-  return plan.map((st, si) => ({ part: 'plan', title: st.title, rgb: (steps[si][0] || {}).rgb || [40, 40, 40], lines: penDown(orderLines(steps[si])) }))
+  return plan.map((st, si) => ({ part: 'plan', title: st.title, rgb: (steps[si][0] || {}).rgb || [40, 40, 40], lines: restroke(steps[si], nearby(steps[si], steps.slice(0, si).flat()), ink) }))
     .filter(st => st.lines.length);
 }
 
@@ -567,7 +760,7 @@ async function convert(src, name = 'Line art', level, plan){
   }
   if (!lines.length) throw new Error('No lines found in that picture.');
   snapEnds(lines, ink);
-  return toDrawing(plan ? byPlan(lines, plan) : arrange(lines, STEP_TARGET[level]), name);
+  return toDrawing(plan ? byPlan(lines, plan, ink) : arrange(lines, STEP_TARGET[level], ink), name);
 }
 async function fromFile(file){
   const url = URL.createObjectURL(file);
