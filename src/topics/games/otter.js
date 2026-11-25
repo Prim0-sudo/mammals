@@ -30,9 +30,9 @@ export const SIM_VIEW = 1.8; // the stage shape the star simulation plays on (de
 // between fishing lines (0 for none). stars: points for one, two and three stars, from the play
 // simulation below (the test checks they still match it).
 export const SETTINGS = {
-  easy: { speed: 0.3, breath: 12, time: 60, fishEvery: 1.9, obstacleEvery: 4.6, line: 0, muddy: false, river: "slow", obstacles: "a few", stars: [200, 500, 900] },
-  medium: { speed: 0.4, breath: 9, time: 75, fishEvery: 1.8, obstacleEvery: 2.9, line: 0, muddy: false, river: "faster", obstacles: "more", stars: [250, 550, 950] },
-  hard: { speed: 0.5, breath: 7, time: 90, fishEvery: 1.7, obstacleEvery: 2.7, line: 15, muddy: true, river: "fast", obstacles: "many", stars: [200, 500, 800] },
+  easy: { speed: 0.3, breath: 12, time: 60, fishEvery: 1.9, obstacleEvery: 4.6, line: 0, muddy: false, river: "slow", obstacles: "a few", stars: [250, 600, 1050] },
+  medium: { speed: 0.4, breath: 9, time: 75, fishEvery: 1.8, obstacleEvery: 2.9, line: 0, muddy: false, river: "faster", obstacles: "more", stars: [300, 700, 1200] },
+  hard: { speed: 0.5, breath: 7, time: 90, fishEvery: 1.7, obstacleEvery: 2.7, line: 15, muddy: true, river: "fast", obstacles: "many", stars: [250, 550, 900] },
 };
 
 export const LITTER_KINDS = ["can", "bottle", "bag"];
@@ -45,10 +45,22 @@ export const FOODS = {
   eel: { name: "eel", plural: "eels", points: 20, r: 0.05, bob: 0.03, drift: 0.95, weight: 2 },
   frog: { name: "frog", plural: "frogs", points: 15, r: 0.045, bob: 0.022, drift: 0.75, weight: 2 },
   crayfish: { name: "crayfish", plural: "crayfish", points: 15, r: 0.045, bob: 0, drift: 0.9, weight: 2, bed: true },
+  // The mussel comes on its own timer (BOOST), never in place of a shoal: it lies on the bed and
+  // gives the otter a burst of speed.
+  mussel: { name: "mussel", plural: "mussels", points: 15, r: 0.045, bob: 0, drift: 0.9, bed: true, boost: true },
 };
 export const FOOD_CHANCE = 0.25; // the share of spawns that bring one of the other foods instead of a shoal
 export const CRAYFISH_Y = BED - 0.035; // a crayfish walks on the bed, just in reach at the otter's deepest
+// Air bubbles (owner asked, 25 November 2026): now and then a big bubble of air wobbles up from the
+// riverbed. Swim into it and your air is full again, without going up, so the dive combo lives on.
+// every: seconds between bubbles per level; rise: how fast it floats up; it pops near the surface.
+export const AIR = { every: { easy: 15, medium: 13, hard: 11 }, r: 0.05, rise: 0.045, pop: SURFACE + 0.09 };
+// The mussel's speed burst: for `time` seconds the otter swims `swim` times as fast, the river rushes
+// `river` times as fast (more fish go by), and snags and litter are pushed aside without losing a life.
+export const BOOST = { time: 6, swim: 1.7, river: 1.5, every: 20, first: 14 };
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+export const boosted = (run) => run.otter.boost > 0;
+export const riverSpeed = (run) => run.cfg.speed * (boosted(run) ? BOOST.river : 1);
 
 // A fresh round. rand drives every spawn, so a seed replays the same river.
 export function createRun(level, { seed = 1, view = SIM_VIEW } = {}) {
@@ -56,10 +68,11 @@ export function createRun(level, { seed = 1, view = SIM_VIEW } = {}) {
   const rand = seeded(seed);
   return {
     level, cfg, view, rand, time: 0, dist: 0, over: false, end: null,
-    points: 0, fish: 0, caught: {}, bestCombo: 1, combo: 1, diveFish: 0, lives: LIVES, bumps: 0, breaths: 0,
-    otter: { y: TOP, target: TOP, vy: 0, air: 1, under: false, lift: false, blink: 0 },
+    points: 0, fish: 0, caught: {}, bestCombo: 1, combo: 1, diveFish: 0, lives: LIVES, bumps: 0, breaths: 0, airs: 0, boosts: 0, shoves: 0,
+    otter: { y: TOP, target: TOP, vy: 0, air: 1, under: false, lift: false, blink: 0, boost: 0 },
     things: [],
     nextFish: 0.8, nextObstacle: 2.2 + rand() * 1.5, nextLine: cfg.line ? 6 + rand() * 4 : Infinity,
+    nextAir: AIR.every[level] * (0.6 + rand() * 0.3), nextBoost: BOOST.first + rand() * 6,
     lastFishAt: -9, id: 0,
   };
 }
@@ -90,6 +103,18 @@ function spawnFood(run) {
   const y = f.bed ? CRAYFISH_Y : SURFACE + 0.14 + rand() * (DEEP - SURFACE - 0.22);
   run.things.push({ id: ++run.id, type: "fish", kind, x: spawnX(run), y, base: y, r: f.r, drift: f.drift, phase: rand() * 6.28, caught: false });
   run.lastFishAt = run.time;
+}
+
+// A bubble of air starts low in the water and wobbles up until it pops near the surface.
+function spawnAir(run) {
+  const y = DEEP - 0.04 - run.rand() * 0.18;
+  run.things.push({ id: ++run.id, type: "air", x: spawnX(run), y, base: y, r: AIR.r, drift: 0.9, phase: run.rand() * 6.28, taken: false });
+}
+
+// A mussel lies on the riverbed, like a crayfish.
+function spawnMussel(run) {
+  const f = FOODS.mussel;
+  run.things.push({ id: ++run.id, type: "fish", kind: "mussel", x: spawnX(run), y: CRAYFISH_Y, base: CRAYFISH_Y, r: f.r, drift: f.drift, phase: run.rand() * 6.28, caught: false });
 }
 
 // A snag is a branch standing up from the riverbed (a slanted line from the bed to its tip); litter
@@ -133,15 +158,21 @@ export function step(run, input = {}, dt = 1 / 60) {
   const { cfg } = run;
   const o = run.otter;
   run.time += dt;
-  run.dist += cfg.speed * dt;
+  const speed = riverSpeed(run);
+  run.dist += speed * dt;
   if (o.blink > 0) o.blink = Math.max(0, o.blink - dt);
+  if (o.boost > 0) {
+    o.boost = Math.max(0, o.boost - dt);
+    if (!o.boost) events.push({ type: "boost-end" });
+  }
+  const fast = o.boost > 0 ? BOOST.swim : 1;
 
   // Steering: keys move the aim, a pointer sets it. A lifted otter goes up whatever you press.
   if (input.target != null) o.target = input.target;
-  if (input.dir) o.target += input.dir * STEER * dt;
+  if (input.dir) o.target += input.dir * STEER * fast * dt;
   o.target = clamp(o.target, TOP, DEEP);
   const aim = o.lift ? TOP : o.target;
-  const rate = o.lift ? LIFT : SWIM;
+  const rate = o.lift ? LIFT : SWIM * fast;
   const before = o.y;
   o.y = clamp(o.y + clamp(aim - o.y, -rate * dt, rate * dt), TOP, DEEP);
   o.vy = (o.y - before) / dt;
@@ -185,11 +216,19 @@ export function step(run, input = {}, dt = 1 / 60) {
     if (!run.things.some((t) => t.type === "line")) spawnLine(run);
     run.nextLine = run.time + cfg.line * (0.85 + run.rand() * 0.3);
   }
+  if (run.time >= run.nextAir) {
+    spawnAir(run);
+    run.nextAir = run.time + AIR.every[run.level] * (0.8 + run.rand() * 0.4);
+  }
+  if (run.time >= run.nextBoost) {
+    spawnMussel(run);
+    run.nextBoost = run.time + BOOST.every * (0.8 + run.rand() * 0.4);
+  }
 
   // The river carries everything left; fish and litter bob, the hook dips.
   const ox = otterX(run);
   for (const t of run.things) {
-    const dx = cfg.speed * t.drift * dt;
+    const dx = speed * t.drift * dt;
     t.x -= dx;
     if (t.x2 != null) t.x2 -= dx;
     if (t.type === "fish" || t.type === "litter" || t.type === "line") {
@@ -198,15 +237,27 @@ export function step(run, input = {}, dt = 1 / 60) {
       if (t.type === "line") t.hook = t.y;
       if (t.type === "litter") t.spin += dt * 0.8;
     }
-    if (t.type === "fish") {
+    if (t.type === "air") {
+      t.phase += dt * 3;
+      t.base -= AIR.rise * dt;
+      t.y = t.base;
+      if (!t.taken && !run.over && touches(t, ox, o.y)) takeAir(run, t, events);
+      else if (t.y < AIR.pop) t.taken = true;
+    } else if (t.type === "fish") {
       if (!t.caught && touches(t, ox, o.y)) catchFish(run, t, events);
     } else if (!t.hit && o.blink <= 0 && !run.over && touches(t, ox, o.y)) {
       t.hit = true;
-      run.bumps++;
-      loseLife(run, events, t.type, t);
+      if (o.boost > 0) {
+        // Speeding along, the otter pushes it aside: no life lost, the combo goes on.
+        run.shoves++;
+        events.push({ type: "shove", what: t.type, x: t.x, y: t.y });
+      } else {
+        run.bumps++;
+        loseLife(run, events, t.type, t);
+      }
     }
   }
-  run.things = run.things.filter((t) => Math.max(t.x, t.x2 ?? t.x) > -0.3 && !(t.type === "fish" && t.caught));
+  run.things = run.things.filter((t) => Math.max(t.x, t.x2 ?? t.x) > -0.3 && !(t.type === "fish" && t.caught) && !(t.type === "air" && t.taken));
 
   if (!run.over && run.time >= cfg.time) {
     run.over = true;
@@ -227,6 +278,18 @@ function catchFish(run, fish, events) {
   events.push({ type: "fish", kind, points, combo: run.combo, x: fish.x, y: fish.y });
   run.bestCombo = Math.max(run.bestCombo, run.combo);
   run.combo = Math.min(MAX_COMBO, run.combo + 1);
+  if (FOODS[kind].boost) {
+    run.otter.boost = BOOST.time;
+    run.boosts++;
+    events.push({ type: "boost", x: fish.x, y: fish.y });
+  }
+}
+
+function takeAir(run, bubble, events) {
+  bubble.taken = true;
+  run.otter.air = 1;
+  run.airs++;
+  events.push({ type: "air", x: bubble.x, y: bubble.y });
 }
 
 function loseLife(run, events, why, thing = null) {
@@ -261,7 +324,14 @@ export function botInput(run, brain) {
   // A fishing line right overhead: wait under the hook for it to pass, if there is air for it.
   const line = run.things.find((t) => t.type === "line" && t.x - ox > -0.12 && t.x - ox < 0.3 && brain.seen.get(t.id));
   let target = o.target;
+  const speed = riverSpeed(run), swim = SWIM * (boosted(run) ? BOOST.swim : 1);
+  const air = o.air < 0.6 && run.things.find((t) => {
+    if (t.type !== "air" || t.taken || t.x < ox - 0.02) return false;
+    const when = (t.x - ox) / (speed * t.drift);
+    return when < 2.5 && Math.abs(t.y - o.y) / swim < when + 0.1 && o.air * cfg.breath > when + 0.4;
+  });
   if (line && o.air * cfg.breath > 0.6) target = line.hook + 0.11;
+  else if (air) target = air.y;
   else if (brain.up || o.air * cfg.breath < toTop + 1.6 + brain.rand() * 1.2) {
     brain.up = o.air < 0.97;
     target = TOP;
@@ -269,9 +339,9 @@ export function botInput(run, brain) {
     let best = Infinity;
     for (const t of run.things) {
       if (t.type !== "fish" || t.caught || t.x < ox - 0.02) continue;
-      const when = (t.x - ox) / (cfg.speed * t.drift);
+      const when = (t.x - ox) / (speed * t.drift);
       if (when > 3.2) continue;
-      const reach = Math.abs(t.y - o.y) / SWIM;
+      const reach = Math.abs(t.y - o.y) / swim;
       if (reach > when + 0.15) continue;
       if (o.air * cfg.breath < when + (t.y - TOP) / SWIM + 1.2) continue;
       if (when < best) { best = when; target = t.y; }
@@ -280,9 +350,9 @@ export function botInput(run, brain) {
   }
   // Hazards in the next second or so push the aim away (unless this is one of its slips).
   for (const t of run.things) {
-    if (t.type === "fish" || t.hit) continue;
+    if (t.type === "fish" || t.type === "air" || t.hit) continue;
     const near = Math.min(t.x, t.x2 ?? t.x) - ox, far = Math.max(t.x, t.x2 ?? t.x) - ox;
-    const when = (near - 0.1) / (cfg.speed * t.drift);
+    const when = (near - 0.1) / (speed * t.drift);
     if (far < -0.1 || when > 1.5) continue;
     if (!brain.seen.has(t.id)) brain.seen.set(t.id, brain.rand() >= brain.slip);
     if (!brain.seen.get(t.id)) continue;

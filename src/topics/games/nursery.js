@@ -52,12 +52,16 @@ function shuffled(list, rand) {
 }
 
 // A pure, seeded round: the babies in the meadow (in order) and the mothers along the bottom (in order).
-// No baby could fairly go to two mothers on the board.
-export function buildRound(level, rand = Math.random) {
+// No baby could fairly go to two mothers on the board. recent: the babies of the last round, which only
+// come back once every other pair is used (owner, 25 November 2026: rounds felt the same), so with 11
+// pairs Easy and Medium rounds are all new and a Hard round brings back just one.
+export function buildRound(level, rand = Math.random, recent = []) {
   const cfg = SETTINGS[level];
+  const seen = new Set(recent);
   for (let attempt = 0; attempt < 500; attempt++) {
     const chosen = [];
-    for (const p of shuffled(PAIRS, rand)) {
+    const order = [...shuffled(PAIRS.filter((p) => !seen.has(p.baby)), rand), ...shuffled(PAIRS.filter((p) => seen.has(p.baby)), rand)];
+    for (const p of order) {
       if (chosen.length === cfg.pairs) break;
       const next = [...chosen, p];
       const mothers = next.map((x) => x.mother);

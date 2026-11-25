@@ -3,7 +3,7 @@
 // and this view only reads input, steps the river and draws it. Word pictures stand in for the art.
 import { TopicGameView, esc } from "../topic-games-kit.js";
 import {
-  SETTINGS, SURFACE, BED, TOP, DEEP, WHISKERS, LIVES, MAX_COMBO, FOODS,
+  SETTINGS, SURFACE, BED, TOP, DEEP, WHISKERS, LIVES, MAX_COMBO, FOODS, AIR, BOOST,
   createRun, step, stars, otterX,
 } from "../../topics/games/otter.js";
 import { loadSheet, sheetReady, cycleFrame, drawCell } from "./sprites.js";
@@ -18,7 +18,6 @@ const OTTER_CUT = [[0, 0], [1, 0], [1, 0.61], [0.11, 0.61], [0.11, 0.72], [0, 0.
 const CROP = {
   otter: [0.02, 0.2, 0.94, 0.52],
   fish: [0.01, 0.24, 0.98, 0.52], // the whole fish, nose to tail
-  holt: [0, 0.04, 1, 0.92],
 };
 
 // The otter's swim frames (owner approved, 24 November 2026): straight, arched, straight, arched the
@@ -40,6 +39,9 @@ const FLOAT = { side: 0.1, water: 190 / 512 }; // the stick float, its red tip a
 // The snag picture runs from its base (bottom left) up to its tip (top right), in pixels of the square.
 const SNAG = { base: [140, 478], tip: [436, 12] };
 const CRAYFISH_FEET = 381 / 512; // where the crayfish's legs stand in its picture
+// The empty holt (games/homes/holt.webp, 1024 square, no otter in it): side in stage heights, where
+// its own water line and its door are in the picture, and how far in from the right edge it stands.
+const HOLT = { side: 0.4, water: 0.71, door: [0.57, 0.55], inset: 0.16 };
 
 const aWord = (name) => `${/^[aeiou]/.test(name) ? "An" : "A"} ${name}`;
 // "23 fish, 2 eels and a crayfish": what the otter caught, fish first.
@@ -99,7 +101,7 @@ export class View extends TopicGameView {
     this.img = {
       otter: loadImage(this.art("otter")),
       fish: loadImage(this.art("fish")),
-      holt: loadImage(this.art("holt")),
+      holt: loadImage("assets/topics/mammals/games/homes/holt.webp"),
       swim: loadSheet("otter-swim"),
       banks: BANKS.map((b) => loadImage(`${SCENE}${b.name}.webp`)),
       bed: loadImage(`${SCENE}${BED_STRIP.name}.webp`),
@@ -265,6 +267,20 @@ export class View extends TopicGameView {
       this.game.audio.tone(560 + e.combo * 110, 0.1);
       this.say(`${aWord(name)}! ${e.points} points.${e.combo < MAX_COMBO ? "" : " Top combo!"}`);
       if (this.cfg.muddy) this.pulse = 0.35;
+      if (e.kind === "mussel") this.say("A mussel! Zoom!");
+    } else if (e.type === "air") {
+      this.toast("Air!", "dive", e.x, e.y - 0.08);
+      this.game.audio.tone(880, 0.12);
+      this.say("A bubble of air! Your air is full.");
+      for (let i = 0; i < 6; i++) this.bubbles.push({ x: e.x + (Math.random() - 0.5) * 0.06, y: e.y, vx: -0.05, vy: -0.2 - Math.random() * 0.15, life: 1.2, r: 2 + Math.random() * 3 });
+    } else if (e.type === "boost") {
+      this.toast("Zoom!", "dive", otterX(this.run), clamp(o.y - 0.14, SURFACE + 0.04, 0.8));
+      this.game.audio.tone(990, 0.16);
+    } else if (e.type === "boost-end") {
+      this.say("The speed burst is over.");
+    } else if (e.type === "shove") {
+      this.game.audio.tone(420, 0.08);
+      this.toast("Whoosh!", "good", e.x, clamp(e.y - 0.08, SURFACE + 0.04, 0.85));
     } else if (e.type === "surface") {
       this.splash(0.5);
       if (e.fish > 1) this.toast(`${e.fish} fish on one dive!`, "dive", otterX(this.run), SURFACE - 0.06);
@@ -348,20 +364,22 @@ export class View extends TopicGameView {
     this.say(why === "lives" ? "Time to rest. Back to the holt." : "Time is up! Home to the holt.");
     this.sayWord("holt");
     const view = this.view;
-    this.home = { x: view + 0.4, y: SURFACE - 0.03, alpha: 1 };
+    this.home = { x: view + HOLT.side, y: SURFACE, alpha: 1 };
     const o = this.run.otter;
     this.swimmer = { x: otterX(this.run), y: o.y, rot: 0, alpha: 1 };
     const done = () => this.results(why);
+    // The holt stands at the far right; the otter swims up to its door.
+    const target = view - HOLT.inset;
+    const door = { x: target + (HOLT.door[0] - 0.5) * HOLT.side, y: SURFACE - (HOLT.water - HOLT.door[1]) * HOLT.side };
     if (this.reduced) {
-      this.home.x = view - 0.42;
+      this.home.x = target;
       this.swimmer.alpha = 0;
       this.after(700, done);
       return;
     }
-    const target = view - 0.42;
     this.to(this.home, { x: target, duration: 1.1, ease: "power2.out" });
     this.to(this.swimmer, {
-      motionPath: { path: [{ x: this.swimmer.x, y: this.swimmer.y }, { x: (this.swimmer.x + target) / 2, y: SURFACE + 0.02 }, { x: target - 0.02, y: SURFACE - 0.05 }], curviness: 1.2 },
+      motionPath: { path: [{ x: this.swimmer.x, y: this.swimmer.y }, { x: (this.swimmer.x + door.x) / 2, y: SURFACE + 0.02 }, { x: door.x, y: door.y }], curviness: 1.2 },
       rot: -0.15, duration: 1.8, delay: 0.3, ease: "power1.inOut",
     });
     this.to(this.swimmer, { alpha: 0, duration: 0.35, delay: 2, onComplete: done });
@@ -427,7 +445,8 @@ export class View extends TopicGameView {
         alpha = t.type === "fish" ? (d < WHISKERS ? 1 : 0.1) : t.type === "line" ? 0.6 : 0.45;
       }
       ctx.globalAlpha = alpha * (t.hit ? 0.45 : 1);
-      if (t.type === "fish") this.drawFish(t);
+      if (t.type === "air") this.drawAir(t);
+      else if (t.type === "fish") this.drawFish(t);
       else if (t.type === "snag") this.drawSnag(t);
       else if (t.type === "litter") this.drawLitter(t);
       else this.drawLine(t);
@@ -447,6 +466,7 @@ export class View extends TopicGameView {
     }
     ctx.globalAlpha = 1;
     if (this.home) this.drawHolt();
+    if (this.run.otter.boost > 0 && !this.swimmer) this.drawZoom();
     this.drawOtter();
     this.surface(scroll, surf);
     // Letterbox bands on very wide screens
@@ -625,8 +645,82 @@ export class View extends TopicGameView {
     }
     ctx.stroke();
   }
+  // A big wobbling bubble of air, with a bright rim, a window highlight and a few small bubbles.
+  drawAir(t) {
+    const { ctx, gh } = this;
+    const x = this.px(t.x), y = this.py(t.y), r = t.r * gh * 1.15;
+    const wob = this.reduced ? 0 : Math.sin(t.phase) * 0.07;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(1 + wob, 1 - wob);
+    const g = ctx.createRadialGradient(-r * 0.3, -r * 0.35, r * 0.1, 0, 0, r);
+    g.addColorStop(0, "rgba(255,255,255,.55)");
+    g.addColorStop(0.55, "rgba(200,240,255,.18)");
+    g.addColorStop(0.9, "rgba(170,225,250,.35)");
+    g.addColorStop(1, "rgba(255,255,255,.85)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, 6.29);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,.9)";
+    ctx.lineWidth = Math.max(1.5, r * 0.08);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,.9)";
+    ctx.beginPath();
+    ctx.ellipse(-r * 0.38, -r * 0.42, r * 0.2, r * 0.11, -0.6, 0, 6.29);
+    ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle = "rgba(255,255,255,.75)";
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < 3; i++) {
+      const a = t.phase * 0.7 + i * 2.1;
+      ctx.beginPath();
+      ctx.arc(x + Math.cos(a) * r * 1.4, y + r * (0.9 + i * 0.35) + Math.sin(a) * r * 0.2, r * (0.13 - i * 0.03), 0, 6.29);
+      ctx.stroke();
+    }
+  }
+  // A freshwater mussel on the riverbed: a dark blue-black shell with growth lines and a soft glow,
+  // so it reads as the special catch.
+  drawMussel(t) {
+    const { ctx, gh } = this;
+    const x = this.px(t.x), w = 0.075 * gh, h = w * 0.46;
+    const y = this.py(BED) - h * 0.5 + 0.004 * gh;
+    ctx.save();
+    const glow = this.reduced ? 0.5 : 0.5 + Math.sin(t.phase * 2) * 0.2;
+    const halo = ctx.createRadialGradient(x, y, 0, x, y, w * 0.95);
+    halo.addColorStop(0, `rgba(255,236,150,${0.55 * glow})`);
+    halo.addColorStop(1, "rgba(255,236,150,0)");
+    ctx.fillStyle = halo;
+    ctx.fillRect(x - w, y - w, w * 2, w * 2);
+    ctx.translate(x, y);
+    ctx.rotate(-0.08);
+    const shell = ctx.createLinearGradient(0, -h, 0, h);
+    shell.addColorStop(0, "#4a5f7a");
+    shell.addColorStop(0.45, "#1f2a3a");
+    shell.addColorStop(1, "#11161f");
+    ctx.fillStyle = shell;
+    ctx.beginPath();
+    ctx.moveTo(-w / 2, h * 0.1);
+    ctx.bezierCurveTo(-w * 0.45, -h * 0.95, w * 0.35, -h * 1.05, w / 2, -h * 0.05);
+    ctx.bezierCurveTo(w * 0.42, h * 0.75, -w * 0.4, h * 0.85, -w / 2, h * 0.1);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(160,190,215,.45)";
+    ctx.lineWidth = Math.max(1, w * 0.025);
+    for (let i = 1; i <= 3; i++) {
+      const k = i / 4;
+      ctx.beginPath();
+      ctx.ellipse(-w * 0.3, h * 0.05, w * (0.18 + k * 0.6), h * (0.2 + k * 0.62), -0.08, -2.6, -0.2);
+      ctx.stroke();
+    }
+    ctx.fillStyle = "rgba(255,255,255,.35)";
+    ctx.beginPath();
+    ctx.ellipse(w * 0.05, -h * 0.5, w * 0.16, h * 0.12, -0.15, 0, 6.29);
+    ctx.fill();
+    ctx.restore();
+  }
   drawFish(t) {
     const { ctx, gh } = this;
+    if (t.kind === "mussel") return this.drawMussel(t);
     const food = t.kind && t.kind !== "fish" ? this.img.foods[t.kind] : null;
     if (ready(food)) {
       const side = SIDE[t.kind] * gh, x = this.px(t.x);
@@ -775,12 +869,43 @@ export class View extends TopicGameView {
     ctx.restore();
     if (this.pulse) this.pulse = Math.max(0, this.pulse - 0.02);
   }
+  // The mussel's speed burst: a warm glow round the otter and streaks of water rushing past behind it
+  // (just the glow with reduced motion). It fades in the last second.
+  drawZoom() {
+    const { ctx, gh } = this;
+    const o = this.run.otter;
+    const x = this.px(otterX(this.run)), y = this.py(o.y);
+    const fade = Math.min(1, o.boost);
+    ctx.save();
+    const halo = ctx.createRadialGradient(x, y, 0, x, y, 0.16 * gh);
+    halo.addColorStop(0, `rgba(255,236,150,${0.4 * fade})`);
+    halo.addColorStop(1, "rgba(255,236,150,0)");
+    ctx.fillStyle = halo;
+    ctx.fillRect(x - 0.16 * gh, y - 0.16 * gh, 0.32 * gh, 0.32 * gh);
+    if (!this.reduced) {
+      ctx.strokeStyle = `rgba(255,255,255,${0.7 * fade})`;
+      ctx.lineCap = "round";
+      const t = this.time || 0;
+      for (let i = 0; i < 6; i++) {
+        const dy = ((i * 0.37) % 1 - 0.5) * 0.11 * gh;
+        const run = ((t * 2.4 + i * 0.29) % 1);
+        const x0 = x - 0.08 * gh - run * 0.3 * gh, len = (0.05 + (i % 3) * 0.025) * gh;
+        ctx.lineWidth = Math.max(1.5, 0.006 * gh);
+        ctx.globalAlpha = 1 - run;
+        ctx.beginPath();
+        ctx.moveTo(x0, y + dy);
+        ctx.lineTo(x0 - len, y + dy);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
   drawHolt() {
     const { ctx, gh } = this;
     const img = this.img.holt;
-    const w = 0.42 * gh;
+    const w = HOLT.side * gh;
     const x = this.px(this.home.x), y = this.py(this.home.y);
-    if (ready(img)) this.crop(img, CROP.holt, x - w / 2, y - w * 0.62, w, false);
+    if (ready(img)) ctx.drawImage(img, x - w / 2, y - HOLT.water * w, w, w);
   }
   drawOtter() {
     const { ctx, gh } = this;

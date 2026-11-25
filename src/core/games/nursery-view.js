@@ -3,6 +3,8 @@
 // arc and gives a small nuzzle; a wrong one says who she is and the baby goes back.
 import { TopicGameView, esc } from "../topic-games-kit.js";
 import { SETTINGS, buildRound, nameOf, motherOf, rightLine, wrongLine, PICK_FIRST, START_PICTURES, START_CARDS } from "../../topics/games/nursery.js";
+
+let lastBabies = []; // the babies of the last round played, at any level
 import { roundStars } from "../../topics/topic-games.js";
 
 const word = (n) => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"][n] || String(n);
@@ -35,7 +37,9 @@ export class View extends TopicGameView {
   play() {
     this.setStage("play");
     const cfg = (this.cfg = SETTINGS[this.level]);
-    this.round = buildRound(this.level);
+    // The next round favours the pairs this one left out (kept while the page is open).
+    this.round = buildRound(this.level, Math.random, lastBabies);
+    lastBabies = this.round.babies;
     this.s = { picked: null, done: new Set(), slips: 0, busy: false, finished: false };
     const n = this.round.babies.length;
     const babies = this.round.babies.map((id, i) => {

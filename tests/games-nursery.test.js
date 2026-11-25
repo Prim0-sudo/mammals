@@ -67,3 +67,16 @@ test("Nursery Round-up: the rules take their numbers from SETTINGS", () => {
   assert.doesNotMatch(text, /only its name card/);
   assert.deepEqual(RULES.map((s) => s.title), ["How to play", "Controls", "Levels", "Stars"]);
 });
+
+test("Nursery Round-up: the next round brings new pairs first", () => {
+  for (const level of ["easy", "medium", "hard"]) {
+    for (const seed of [1, 2, 3, 42, 9001]) {
+      const rand = seeded(seed);
+      const a = buildRound(level, rand);
+      const b = buildRound(level, rand, a.babies);
+      const again = b.babies.filter((baby) => a.babies.includes(baby)).length;
+      const most = Math.max(0, SETTINGS[level].pairs * 2 - PAIRS.length);
+      assert.ok(again <= most + 1, `${level} seed ${seed}: ${again} back`);
+    }
+  }
+});
