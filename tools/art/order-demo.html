@@ -1,0 +1,84 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pen order demo</title>
+<!-- Dev check (25 Nov 2026): the mouse drawn from the converter's own lines, re-cut and re-joined by hand into the owner's
+     recorded order (outline in two sweeps from the nose, loops off it, details outward from the nose), to confirm the
+     order before the rules in line-art.js are rebuilt. -->
+<style>
+  body { margin: 0; font: 15px system-ui, sans-serif; background: #f3f1e8; color: #244e3b; text-align: center; }
+  header { display: flex; gap: 12px; justify-content: center; align-items: center; padding: 8px; }
+  #label { font-weight: 800; font-size: 18px; min-width: 340px; }
+  button { font: inherit; min-height: 40px; padding: 4px 14px; border: 2px solid #2f7d3e; border-radius: 10px; background: #2f7d3e; color: #fff; font-weight: 700; }
+  canvas { width: min(96vw, calc((100vh - 70px) * 4 / 3)); aspect-ratio: 4 / 3; background: #fffdf6; border: 2px solid #d8cfae; border-radius: 12px; }
+</style>
+<header><span id="label">Getting ready…</span><button id="again">Play again</button></header>
+<canvas id="board" width="1000" height="750"></canvas>
+<script type="module">
+  const { convert } = await import(`../../src/core/line-art.js?v=${Date.now()}`);
+  const { drawTracePlans } = await import(`../../src/topics/draw-trace-plans.js?v=${Date.now()}`);
+  const id = 'easy-01-mouse';
+  const d = await convert(`../../assets/line-art/${id}-v1.webp`, id, 'easy', drawTracePlans[id]);
+  const L = d.strokes.map(s => s.pts.map(p => [p[0], p[1]]));
+  // helpers: a slice of line i between point indexes (inclusive), reversed, joined
+  const at = (i, x, y, from = 0) => L[i].findIndex((p, k) => k >= from && Math.round(p[0]) === x && Math.round(p[1]) === y);
+  const cut = (i, a, b) => L[i].slice(a, b + 1);
+  const rev = pts => pts.slice().reverse();
+  const join = (...parts) => parts.reduce((all, p) => all.concat(all.length ? p.slice(1) : p), []);
+  const chest = at(1, 592, 378, 1), h1 = at(1, 519, 433), h2 = at(1, 519, 433, h1 + 1);
+  const ORDER = [
+    ['Outline: nose, over the head, down the back', join(L[2], rev(L[8]), cut(4, 0, 4))],
+    ['Outline: foot, up the belly, back to the nose', join(L[7], L[3], rev(cut(1, 0, 2)), cut(1, chest, L[1].length - 1))],
+    ['Ear', L[0]],
+    ['Tail, from the body', rev(cut(4, 4, L[4].length - 1))],
+    ['Back foot', L[5]],
+    ['Front foot', cut(6, 1, L[6].length - 1)],
+    ['Ground line between the feet', cut(6, 0, 1)],
+    ['Front hand', join(cut(1, 2, h1), cut(1, h2, chest), cut(1, 0, 2))],
+    ['Back hand', cut(1, h1, h2)],
+    ['Nose', L[13]],
+    ['Whisker, out from the nose', L[14]], ['Whisker, out from the nose', rev(L[15])], ['Whisker, out from the nose', L[16]],
+    ['Whisker, out from the nose', rev(L[10])], ['Whisker, out from the nose', L[11]], ['Whisker, out from the nose', rev(L[12])],
+    ['Eye', L[9]],
+  ];
+  const cv = document.getElementById('board'), g = cv.getContext('2d'), label = document.getElementById('label');
+  const img = new Image(); img.src = `../../assets/line-art/${id}-v1.webp`; await img.decode();
+  const S = Math.min(928 / img.naturalWidth, 678 / img.naturalHeight), w = img.naturalWidth * S, h = img.naturalHeight * S;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches, SPEED = 320;   // board px per second
+  let run = 0;
+  const line = (pts, upto, colour, width) => {
+    g.strokeStyle = colour; g.lineWidth = width; g.lineCap = g.lineJoin = 'round'; g.beginPath();
+    let left = upto; g.moveTo(...pts[0]);
+    for (let k = 1; k < pts.length && left > 0; k++) {
+      const [ax, ay] = pts[k - 1], [bx, by] = pts[k], len = Math.hypot(bx - ax, by - ay), f = Math.min(1, left / len);
+      g.lineTo(ax + (bx - ax) * f, ay + (by - ay) * f); left -= len;
+      if (f < 1) { g.stroke(); return [ax + (bx - ax) * f, ay + (by - ay) * f]; }
+    }
+    g.stroke(); return pts[pts.length - 1];
+  };
+  const length = pts => pts.reduce((s, p, k) => k ? s + Math.hypot(p[0] - pts[k - 1][0], p[1] - pts[k - 1][1]) : 0, 0);
+  function frame(done, current, upto) {
+    g.clearRect(0, 0, 1000, 750); g.globalAlpha = .25; g.drawImage(img, (1000 - w) / 2, (750 - h) / 2, w, h); g.globalAlpha = 1;
+    ORDER.slice(0, done).forEach(([, pts]) => line(pts, Infinity, '#2b2b28', 7));
+    ORDER.slice(0, done + (current ? 1 : 0)).forEach(([, pts], n) => {
+      const [x, y] = pts[0]; g.fillStyle = '#c4472f'; g.beginPath(); g.arc(x, y, 13, 0, 7); g.fill();
+      g.fillStyle = '#fff'; g.font = 'bold 15px system-ui'; g.textAlign = 'center'; g.fillText(n + 1, x, y + 5); });
+    if (current) { const tip = line(current, upto, '#c4472f', 8); g.fillStyle = '#f0b429'; g.beginPath(); g.arc(...tip, 9, 0, 7); g.fill(); }
+  }
+  async function play() {
+    const me = ++run;
+    for (let i = 0; i < ORDER.length; i++) {
+      const [name, pts] = ORDER[i], total = length(pts);
+      label.textContent = `${i + 1} of ${ORDER.length}: ${name}`;
+      if (!reduced) {
+        const start = performance.now();
+        await new Promise(next => { const tick = now => { if (run !== me) return;
+          const upto = (now - start) / 1000 * SPEED; frame(i, pts, upto); upto < total ? requestAnimationFrame(tick) : next(); }; requestAnimationFrame(tick); });
+        await new Promise(r => setTimeout(r, 350)); if (run !== me) return;
+      }
+    }
+    frame(ORDER.length); label.textContent = 'Done: 17 strokes, in your order';
+  }
+  document.getElementById('again').onclick = play;
+  play();
+</script>
