@@ -29,9 +29,9 @@ Mammals is being rebuilt to the Insects benchmark (blueprint v7.0); the gap tabl
 - **Word art:** all 268 words have pictures; nothing waits.
 - **Checks (24 Nov):** npm test 73/73 including narration, check and build pass. The menu cards lost their light corner lines on hover (a7246cb).
 
-## Landing: finished, do not touch
+## Landing: leave it for now, full redo at the very end
 
-Owner, 23 Nov (night): after mirroring the mouse hump and resizing the mouse and fox, "we arent touching the landing page again". This replaces the earlier plan to redo it. Leave it as it is.
+Owner, 23 Nov (night): "we arent touching the landing page again". **Owner, 28 Nov:** the landing "looks sub par". Once the rest of the app is done, redo the landing art and animation completely. One idea is a top-down view of the African savanna with sprite-like animals that are easier to animate; the owner is open to other ideas, so bring options (concept sketches) first. Until then, leave it as it is.
 
 What it is:
 - Burrow Bank layers in assets/painted/landing (sky, distant, middle, tunnels, bank, bank-lip, foreground, 3 clouds).
@@ -72,7 +72,7 @@ Finish item 2, Topic Games:
 
 ## What's left (build order from docs/UPGRADE-PLAN.md section 6)
 
-1. **Landing: finished** (see the top). The owner does not want it touched again.
+1. **Landing:** leave it until item 11 (see the top).
 2. **Topic Games:** six games, in progress (see the top). The Home banner is Otter Dive.
 3. **Teaching scenes:** 15 `ks-<id>-v1.webp` scenes, listed in VOCABULARY-PLAN section 10, for 14 questions plus the staying-safe card. Ask Art.
 4. **Part pointers:** 28 arrows on the Bodies pictures, measured on the final art.
@@ -82,6 +82,7 @@ Finish item 2, Topic Games:
 8. **Teacher scope:** rebalance the levels and lessons now that all the words are in. Check that the Sort It "Mammal or not?" sort can now be played with the Other Animals words.
 9. **Narration:** ask the owner to pick one Kokoro voice, then run `node tools/voice/build.mjs`. The narration test un-skips once the clips are in.
 10. **Final pass:** the five edu checkers, two at a time, with every flag confirmed at real sizes. Then push.
+11. **Landing redo (owner, 28 Nov), last, after everything else:** new landing art and animation from scratch. Idea: a top-down African savanna with sprite-like animals that animate easily, or other ideas. Show the owner a few concepts before making anything.
 
 **Owner decisions pending:** the Kokoro voice, and the game art contact sheets.
 
