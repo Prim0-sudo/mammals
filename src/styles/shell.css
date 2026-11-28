@@ -657,6 +657,14 @@ a { text-decoration: none; color: inherit; }
   #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) { flex-direction: column; gap: 18px; }
   #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .sort-clue--scene { flex: 0 1 auto; width: min(100%, 620px); max-height: 52%; }
   #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .answers { width: min(100%, 620px); max-width: none; flex: 0 0 auto; }
+  /* Mammals answers carry pictures, so they are taller than the column: keep the question and the scene whole and let the panel scroll (28 Nov 2026) */
+  #app .game-panel[data-game="knowledge"]:has(.sort-clue--scene) > .game-heading { flex-shrink: 0; }
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) { justify-content: flex-start; height: auto; flex: 0 0 auto; }
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .sort-clue--scene { flex: 0 0 auto; max-height: none; width: min(100%, 620px, 55vh); align-self: center; }
+}
+@media (max-aspect-ratio: 1/1) and (min-width: 600px) {
+  /* Upright tablets: the three picture answers sit side by side under the scene, so nothing needs scrolling */
+  #app .game-panel[data-game="knowledge"] #content:has(.sort-clue--scene) .answers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 }
 
 /* Content check, 19 November 2026: Hide middle picture must win over the display:grid above */

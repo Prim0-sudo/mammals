@@ -68,13 +68,17 @@ const objectives = [
 ];
 const objectiveGroups = { traits: ["mammals", "body", "movement", "survival"], young: ["life-cycle"], homes: ["food", "homes", "habitats"], sentences: [], care: ["watching"] };
 
+// Teaching scenes (owner approved 28 Nov 2026): one per question, named by the question id.
+const scene = (id) => `assets/teaching-scenes/ks-${id}-v1.webp`;
+const KNOWLEDGE_SCENES = new Set(["wild-big", "mother-near", "hedgehog-touch", "seal-pup-alone", "cows-field", "jellyfish-beach", "bee-near", "baby-alone", "quiet", "feed-wild", "hands", "warren-what", "plant-eaters", "hedgehog-winter"]);
+
 const knowledgeQuestions = knowledgeBank.map(({ id, group, word: w, prompt, choices, explanation, safe }) => ({
   id,
   prompt,
   groupId: group,
   safe,
   visualItemId: w && has(w) ? w : null,
-  sceneImage: null,
+  sceneImage: KNOWLEDGE_SCENES.has(id) ? scene(id) : null,
   choices: choices.map((label, i) => ({ id: `${id}-${i}`, label })),
   correctChoiceId: `${id}-0`,
   explanation,
@@ -146,7 +150,7 @@ export const topic = {
     description,
     image: visual.startsWith("menu:") ? menuArt(visual.slice(5)) : word(visual),
   })),
-  knowledgeSafetyImage: word("sniff"),
+  knowledgeSafetyImage: scene("staying-safe"),
   pickAllImage: menuArt("wheel"),
   // Home menu (blueprint v6.1): featured game banner, then eight tiles; Activities is a folder.
   menu: {
