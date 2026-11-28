@@ -142,7 +142,16 @@ export const topic = {
   categoryIntroductions: { countAsWords: false, includeInModes: [] },
   items: vocabulary,
   // Arrows for body-part pictures wait for the final art (their positions are measured on it).
-  partPointers: {},
+  // [tip x %, tip y %, direction the arrow points in degrees, 0 = right, 90 = down] on the square
+  // picture, measured on the final art (28 Nov 2026). Fur, skin and paw fill their pictures, so they have none.
+  partPointers: {
+    wool: [35, 62, 315], spines: [42, 38, 45], stripes: [56, 32, 0], spots: [36, 46, 45], backbone: [60, 31, 90],
+    lungs: [24, 42, 45], eye: [57, 40, 135], ear: [21, 22, 0], nose: [57, 48, 180], snout: [72, 56, 180],
+    bill: [80, 67, 270], whiskers: [76, 62, 225], mouth: [77, 59, 270], tooth: [56, 70, 270], tongue: [73, 42, 90],
+    claw: [65, 82, 270], hoof: [74, 87, 180], "webbed-feet": [55, 76, 180], tail: [54, 16, 180], mane: [28, 30, 45],
+    hump: [41, 16, 0], horn: [20, 13, 270], antlers: [79, 26, 180], tusk: [57, 81, 270], trunk: [77, 32, 180],
+    pouch: [46, 66, 180], flipper: [30, 79, 270], fin: [63, 32, 180], blowhole: [54, 32, 135],
+  },
   knowledgeQuestions,
   modes: modeRows.map(([id, label, description, visual]) => ({
     id,
